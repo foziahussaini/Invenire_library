@@ -1,9 +1,11 @@
 // add the assets imgs here
 import { logoUrl } from "../js/assets.js";
+import { defaultProfile } from "../js/assets.js";
 
 // all about logo image here
 const logo = document.querySelector(".logo");
 
+///============================LOGO APPEND AND CLICK EVENT===============================================
 if (logo) {
     const image = document.createElement("img");
     image.src = logoUrl;
@@ -16,8 +18,19 @@ if (logo) {
 })
 }
 
+///==================================profile image append====================================================
+const profile = document.querySelector(".profile");
+
+if(profile){
+    const prof = document.createElement("img");
+    prof.src = defaultProfile;
+    prof.alt = "profile";
+
+    profile.appendChild(prof);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-// sidebar menu items click event
+///=========================SIDEBAR MENU ITEMS CLICK EVENT===================================================
 const menuItems = document.querySelectorAll(".menu-item");
 
 menuItems.forEach(item => {
@@ -25,6 +38,7 @@ menuItems.forEach(item => {
         menuItems.forEach(i => i.classList.remove("active"));
         item.classList.add("active");
 
+        const text = item.textContent.trim(); 
         // using map as a route if item has a saperate page navigate there if is at a same page scoll down and adding ID
         const routes = {
         "Dashboard": "../pages/admin_dashboard.html",
@@ -51,5 +65,24 @@ menuItems.forEach(item => {
     }
     })
 })
+
+///==============================HEADER PART=====================================================
+// searchBar
+const searchBar  = document.querySelector(".search-input");
+const searchResult = document.querySelector(".searchResult");
+
+searchBar.addEventListener("pressKey", (){
+    searchResult.createElement = "li"
+
+    li.searchText
+
+    if (searchText === authorName){
+        list all the author name
+    }else if(searchresult ==="books name"){
+        show the book list 
+    }
+})
+    
+  
 
 })

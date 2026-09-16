@@ -6,7 +6,7 @@
 
 .dashboard-container{
     display: flex;
-    height: 100vh;
+    height: 100% auto;
 }
 
 /* sidebar layout */
@@ -95,6 +95,7 @@
     flex-direction: column;
 }
 
+/* ==================================HEADER====================================== */
 .admin-header{
     width: 100%;
     height: var(--main-header-height);
@@ -102,8 +103,70 @@
     display: flex;
     align-items: center;
     text-align: center;
-    justify-content: center;
-    gap: 1rem;
+    justify-content: space-around;
     font-size: var(--header-font-size);
     color: var(--main-text-color);
+}
+
+.admin-header .search-bar{
+    width: 580px;
+    max-width: 580px;
+    height: 40px;
+    border-radius: var(--input-border-radius);
+
+    >input{
+        width: 100%;
+        height: 100%;
+        padding-left: 3rem;
+        /* padding: var(--text-padding); */
+        border: var(--default-border);
+        border-radius: var(--input-border-radius);
+        background-color: transparent;
+        color: var(--input-text-color);
+        font-size: var(--main-font-size);
+    }
+}
+
+.admin-header .search-bar i {
+    position: absolute;
+    cursor: pointer;
+    top: 2.2rem;
+    color: var(--btn-background-color);
+    margin-left: 0.6rem;
+    width: 30px;
+    z-index: 20;
+}
+
+.admin-header .search-bar input:focus{
+    outline: none;
+    border-color: var(--hover-text-color);
+}
+
+.admin-header .date-time{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.2rem;
+    font-size: var(--min-font-size);
+    font-weight: bold;
+    margin-right: -5rem;
+}
+
+.admin-header .profile{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: -2rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--default-border);
+
+    >img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
