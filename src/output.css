@@ -8,6 +8,9 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
     --spacing: 0.25rem;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -162,26 +165,53 @@
   }
 }
 @layer utilities {
-  .mb-4 {
-    margin-bottom: calc(var(--spacing) * 4);
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
   }
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
   }
+  .block {
+    display: block;
+  }
   .table {
     display: table;
   }
-  .h-20 {
-    height: calc(var(--spacing) * 20);
+  .h-0 {
+    height: 0px;
+  }
+  .h-0\.5 {
+    height: calc(var(--spacing) * 0.5);
   }
   .h-32 {
     height: calc(var(--spacing) * 32);
   }
-  .w-20 {
-    width: calc(var(--spacing) * 20);
+  .h-px {
+    height: 1px;
   }
   .w-32 {
     width: calc(var(--spacing) * 32);
+  }
+  .w-full {
+    width: 100%;
+  }
+  .flex-grow {
+    flex-grow: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -193,14 +223,22 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .pb-2 {
-    padding-bottom: calc(var(--spacing) * 2);
+  .border-0 {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
   }
-  .pb-4 {
-    padding-bottom: calc(var(--spacing) * 4);
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
   }
-  .pb-6 {
-    padding-bottom: calc(var(--spacing) * 6);
+  .bg-gray-300 {
+    background-color: var(--color-gray-300);
+  }
+  .bg-gray-400 {
+    background-color: var(--color-gray-400);
+  }
+  .bg-gray-500 {
+    background-color: var(--color-gray-500);
   }
   .underline {
     text-decoration-line: underline;

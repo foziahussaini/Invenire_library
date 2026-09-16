@@ -11,7 +11,7 @@
     --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #E6F0FA );
 
     --main-text-color: #1E2A44;
-    --hover-text-color: #719fd4;
+    --hover-text-color: #335ce3;
 
     --btn-background-color: #0056b3;
     --btn-hover-background-color: #2E6FB7;
@@ -34,6 +34,7 @@
     --default-box-shadow: 0px 8px 16px var(--shadow-color);
 
     /* ----------------size variables -----------------------*/
+    --main-header-height: 90px;
     --main-font-size: 16px;
     --header-font-size: 24px;
     --btn-font-size: 18px;
