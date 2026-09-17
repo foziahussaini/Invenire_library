@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="../css-style/home.css">
     <link rel="stylesheet" href="../css-style/adminDashboard.css">
     <link href="/src/output.css" rel="stylesheet">
+    <script type="module" src="../js/dashboard.js"></script>
+    <script type="module" src="../js/config.js"></script>
+    <script type="module" src="../js/search.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script defer type="module" src="../js/dashboard.js"></script>
-    <script defer src="../js/dashboard.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
@@ -64,10 +65,12 @@
         <div class="main-content">
             <!-- HEADER PART -->
             <header class="admin-header">
-                <span class="search-bar">
+                <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search books,members,author...." class="search-input">
-                </span>
+                    <input type="text" placeholder="Search books,members,author...." class="search-input" autocomplete="off">
+                    <!-- a dropdown container shows the search result -->
+                    <div class="searchResult" id="search-dropDown"></div>
+                </div>
                 <div class="date-time">
                     <div class="time">Saturday</div>
                     <div class="weekend">21/July/2026</div>
@@ -75,8 +78,17 @@
                 <div class="profile"></div>
             </header>
             <!-- Your main page content goes here -->
+
             <main>
-                <div class="searchResult"></div>
+                          <div class="form-group">
+    <label>Upload Book PDF:</label>
+    <input type="file" id="book-pdf" accept=".pdf">
+</div>
+
+<div class="form-group">
+    <label>Upload Book Audio (Optional):</label>
+    <input type="file" id="book-audio" accept="audio/*">
+</div>
             </main>
         </div>
 

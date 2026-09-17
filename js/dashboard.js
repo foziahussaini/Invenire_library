@@ -1,6 +1,6 @@
 // add the assets imgs here
-import { logoUrl } from "../js/assets.js";
-import { defaultProfile } from "../js/assets.js";
+import { logoUrl } from "./assets.js";
+import { defaultProfile } from "./assets.js";
 
 // all about logo image here
 const logo = document.querySelector(".logo");
@@ -30,7 +30,7 @@ if(profile){
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-///=========================SIDEBAR MENU ITEMS CLICK EVENT===================================================
+///=========================DOM CONTENT LOADED (SIDEBAR MENU ITEMS CLICK EVENT)===================================================
 const menuItems = document.querySelectorAll(".menu-item");
 
 menuItems.forEach(item => {
@@ -63,26 +63,8 @@ menuItems.forEach(item => {
             window.location.href = target;
         }
     }
-    })
-})
+    });
+});
 
 ///==============================HEADER PART=====================================================
-// searchBar
-const searchBar  = document.querySelector(".search-input");
-const searchResult = document.querySelector(".searchResult");
-
-searchBar.addEventListener("pressKey", (){
-    searchResult.createElement = "li"
-
-    li.searchText
-
-    if (searchText === authorName){
-        list all the author name
-    }else if(searchresult ==="books name"){
-        show the book list 
-    }
-})
-    
-  
-
-})
+});
