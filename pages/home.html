@@ -5,7 +5,445 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invenire Library</title>
     <link rel="stylesheet" href="../css-style/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 </head>
 <body>
+    <header class="site-header">
+        <nav class="navbar">
+
+            <!-- Logo -->
+            <a href="home.html" class="logo-link" aria-label="Invenire Library Home">
+                <img
+                    src="/images/logo/logo.png"
+                    alt="Invenire Library"
+                    class="logo"
+                >
+            </a>
+
+            <!-- Main Navigation -->
+            <div class="nav-links">
+
+                <a href="home.html"
+                class="nav-item active"
+                aria-label="Home"
+                title="Home">
+                    <i data-lucide="house"></i>
+                </a>
+
+                <a href="search.html"
+                class="nav-item"
+                aria-label="Search"
+                title="Search">
+                    <i data-lucide="search"></i>
+                </a>
+
+                <a href="library.html"
+                class="nav-item"
+                aria-label="Library"
+                title="Library">
+                    <i data-lucide="library"></i>
+                </a>
+
+            </div>
+
+            <!-- Login -->
+            <div class="nav-auth">
+                <a href="login.html"
+                class="login-btn"
+                aria-label="Login"
+                title="Login">
+                    <i data-lucide="log-in"></i>
+                    <span>Login</span>
+                </a>
+            </div>
+
+        </nav>
+    </header>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+
+                <div class="hero-overlay"></div>
+
+                <div class="hero-content">
+
+                    <h1 class="hero-title">
+                        INVENIRE
+                    </h1>
+
+                    <h2 class="hero-subtitle">
+                        Read. Explore. Discover Yourself.
+                    </h2>
+
+                    <p class="hero-description">
+                        Sometimes, finding yourself begins with getting lost in a book.
+                    </p>
+
+                    <a href="search.html" class="hero-btn">
+                        Explore Books
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </section>
+        </main>
+
+                        <!-- Top Picks Section -->
+            <section class="book-section top-picks">
+
+                <div class="section-header">
+                    <h2>Top Picks for You</h2>
+                    <p>Books selected based on your interests.</p>
+                </div>
+                <div class="books-grid" id="top-picks-container">
+
+                    <!-- Sample Book Card -->
+                    <article class="book-card">
+
+                        <!-- Book Cover -->
+                        <div class="book-cover">
+                            <img
+                                src="https://tse4.mm.bing.net/th/id/OIP.8PV_Z-59n4FKqR9_epwrqwHaLJ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                                alt="Book cover"
+                            >
+                        </div>
+
+                        <!-- Book Information -->
+                        <div class="book-info">
+
+                            <h3 class="book-title">
+                                Crime And Punishments 
+                            </h3>
+
+                            <p class="book-author">
+                                Author Name
+                            </p>
+
+                            <p class="book-description">
+                                This is a short description of the book.
+                                More book information will come from Firebase later.
+                            </p>
+
+                            <!-- Book Actions -->
+                            <div class="book-actions">
+                                <button
+                                    type="button"
+                                    class="book-btn read-btn"
+                                    data-pdf-url="../pdfs/crime-and-punishments.pdf">
+                                    <i data-lucide="book-open"></i>
+                                    Read
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn library-btn">
+                                    <i data-lucide="library"></i>
+                                    Add to Library
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn download-btn"
+                                    data-pdf-url="../pdfs/crime-and-punishments.pdf">
+                                    <i data-lucide="download"></i>
+                                    Download PDF
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn audiobook-btn"
+                                    data-audio-url="YOUR_AUDIO_URL.mp3"
+                                    disabled>
+                                    <i data-lucide="headphones"></i>
+                                    Audio Book
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+            </section>
+
+
+
+            <!-- Recommend for You Section -->
+            <section class="book-section recommend-section">
+
+                <div class="section-header">
+                    <h2>Recommend for You</h2>
+                    <p>Discover books that match your reading interests.</p>
+                </div>
+
+                <div class="books-grid" id="recommend-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+                        <!-- =========================================================
+                INSPIRED BY YOUR SEARCH HISTORY
+            ========================================================= -->
+
+            <section class="book-section search-history-section">
+
+                <div class="section-header">
+                    <h2>Inspired by Your Search History</h2>
+                    <p>Discover books based on what you've searched for.</p>
+                </div>
+
+                <div class="books-grid" id="search-history-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                YOUR NEXT READ
+            ========================================================= -->
+
+            <section class="book-section next-read-section">
+
+                <div class="section-header">
+                    <h2>Your Next Read</h2>
+                    <p>Books waiting for you to start reading.</p>
+                </div>
+
+                <div class="books-grid" id="next-read-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                WE THINK YOU'LL ENJOY
+            ========================================================= -->
+
+            <section class="book-section enjoy-section">
+
+                <div class="section-header">
+                    <h2>We Think You'll Enjoy</h2>
+                    <p>More books selected around your reading interests.</p>
+                </div>
+
+                <div class="books-grid" id="enjoy-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+
+                        <!-- =========================================================
+                TRY SOMETHING NEW
+            ========================================================= -->
+
+            <section class="book-section try-new-section">
+
+                <div class="section-header">
+                    <h2>Try Something New</h2>
+                    <p>Explore something different based on what you already enjoy.</p>
+                </div>
+
+                <div class="books-grid" id="try-new-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                CALL TO ACTION
+            ========================================================= -->
+
+            <section class="home-cta">
+
+                <div class="cta-content">
+
+                    <h2>Find Your Next Story</h2>
+
+                    <p>
+                        Explore our library and discover a book that might become
+                        your next favorite.
+                    </p>
+
+                    <a href="search.html" class="cta-btn">
+                        Explore Books
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                PDF READER MODAL
+            ========================================================= -->
+
+            <div class="pdf-modal" id="pdf-modal">
+
+                <div class="pdf-reader">
+
+                    <!-- Reader Header -->
+                    <div class="pdf-reader-header">
+
+                        <h3>Reading</h3>
+
+                        <div class="pdf-reader-actions">
+
+                           <button
+                                type="button"
+                                class="pdf-minimize-btn"
+                                id="pdf-minimize-btn"
+                                aria-label="Minimize"
+                                title="Minimize">
+                                −
+                            </button>
+
+                            <button
+                                type="button"
+                                class="pdf-fullscreen-btn"
+                                id="pdf-fullscreen-btn"
+                                aria-label="Fullscreen"
+                                title="Fullscreen">
+                                ⛶
+                            </button>
+
+                            <button
+                                type="button"
+                                class="pdf-close-btn"
+                                id="pdf-close-btn"
+                                aria-label="Close"
+                                title="Close">
+                                ×
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PDF -->
+                    <div class="pdf-viewer">
+
+                        <iframe
+                            id="pdf-frame"
+                            src=""
+                            title="PDF Reader">
+                        </iframe>
+
+
+                         <!-- =========================================================
+                            RESIZE HANDLES
+                        ========================================================= -->
+
+                        <div class="pdf-resize-handle pdf-resize-top"></div>
+                        <div class="pdf-resize-handle pdf-resize-bottom"></div>
+
+                        <div class="pdf-resize-handle pdf-resize-left"></div>
+                        <div class="pdf-resize-handle pdf-resize-right"></div>
+
+                        <div class="pdf-resize-handle pdf-resize-top-left"></div>
+                        <div class="pdf-resize-handle pdf-resize-top-right"></div>
+
+                        <div class="pdf-resize-handle pdf-resize-bottom-left"></div>
+                        <div class="pdf-resize-handle pdf-resize-bottom-right"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================================
+                FOOTER
+            ========================================================= -->
+
+            <footer class="site-footer">
+
+                <div class="footer-container">
+
+                    <!-- Brand -->
+                    <div class="footer-brand">
+
+                        <img
+                            src="../images/logo/logo.png"
+                            alt="Invenire Library"
+                            class="footer-logo"
+                        >
+
+                        <h3>Invenire Library</h3>
+
+                        <p>
+                            Read. Explore. Discover Yourself.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Quick Links -->
+                    <div class="footer-links">
+
+                        <h4>Quick Links</h4>
+
+                        <a href="home.html">Home</a>
+                        <a href="search.html">Search</a>
+                        <a href="library.html">Library</a>
+
+                    </div>
+
+
+                    <!-- Contact -->
+                    <div class="footer-contact">
+
+                        <h4>Contact</h4>
+
+                        <p>
+                            Have a question or suggestion?
+                        </p>
+
+                        <a href="#contact">Contact Us</a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Bottom -->
+                <div class="footer-bottom">
+
+                    <p>
+                        © 2026 Invenire Library. All rights reserved.
+                    </p>
+
+                </div>
+
+            </footer>
+
+   
+            <script src="../src/home.js"></script>
 </body>
 </html>
