@@ -1,5 +1,5 @@
-import { db } from "./config.js"; 
-import { collection, getDocs } from "https://gstatic.com"; 
+import { db } from "./firebase-config.js"; 
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
 
 ///============================ SEARCH COMPONENTS & CLOSE ICON INITIALIZATION ========================
 const searchInput = document.querySelector(".search-input");

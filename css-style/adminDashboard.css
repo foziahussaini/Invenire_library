@@ -11,8 +11,8 @@
 
 /* sidebar layout */
 .sidebar{
-    width: 220px;
-    max-width: 220px;
+    width: 200px;
+    max-width: 200px;
     height: 100%;
     background: var(--header-background-color);
     display: block;
@@ -107,11 +107,11 @@
     font-size: var(--header-font-size);
     color: var(--main-text-color);
 }
-/* ======================search bar part======================== */
+/* ===============================SEARCH BAR PART========================================= */
 .admin-header .search-bar { /* its the searchbar container */
     position: relative;
-    width: 580px;
-    max-width: 580px;
+    width: 640px;
+    max-width: 640px;
     height: 40px;
     border-radius: var(--input-border-radius);
     display: inline-flex;
@@ -200,7 +200,7 @@
 
 .search-item:hover {
     background-color: var(--btn-hover-background-color);
-    color: var(--hover-text-color)
+    color: var(--btn-text-color)
 }
 
 .search-item i {
@@ -211,7 +211,7 @@
 }
 
 .search-item:hover i {
-    color: var(--btn-hover-background-color);
+    color: var(--main-background-color);
 }
 
 .search-item.no-match,
@@ -221,8 +221,8 @@
     background-color: transparent;
 }
 
-/* 7. HEADER METRICS CONTROL */
-.admin-header .date-time {
+/* ===============================CALENDER========================================= */
+.admin-header .calender {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -231,10 +231,11 @@
     font-size: var(--min-font-size);
     font-weight: bold;
     margin-right: -5rem;
-    flex-shrink: 0; /* FIX 2: Prevents text layout from compressing together weirdly */
+    flex-shrink: 0;
 }
 
-.admin-header .profile {
+/* ===============================PROFILE PART========================================= */ 
+.admin-header .profile-container {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -244,11 +245,80 @@
     justify-content: center;
     align-items: center;
     border: var(--default-border);
-    flex-shrink: 0; /* FIX 3: Prevents your avatar profile circle from squishing into an oval layout */
+    flex-shrink: 0;
 }
 
-.admin-header .profile > img {
+.admin-header .profile-container .profile > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
+.profile-dropDown {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px; 
+    height: 100vh;
+    background-color: var(--dropdown-background-color);
+    box-shadow: var(--default-box-shadow);
+    padding: var(--card-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    z-index: 2000; 
+    overflow-y: auto; 
+}
+
+.close-btn {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    font-size: var(--min-font-size);
+    font-weight: bold;
+    color: var(--btn-background-color);
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.dropdown-user-card {
+    display: flex;
+    gap: 0.8rem;
+    flex-direction: column;
+    border: var(--default-border);
+    border-radius: var(--input-border-radius);
+    padding: var(--card-padding);
+    background: transparent;
+}
+
+.user-card-thumb{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    align-self: center;
+    border: var(--default-border);
+}
+
+.user-name { margin-top: 1rem; font-size: var(--main-font-size); color: var(--main-text-color); font-weight: bold;}
+.user-email {  font-size: var(--min-font-size); color: var(--input-text-color); }
+.user-id { display: block; font-size: var(--min-font-size); color: var(--input-text-color); margin-bottom: 12px; }
+
+.settings-btn {
+    margin-top: 2rem;
+    width: 100%;
+    height: 40px;
+    background: var(--btn-background-color);
+    color: var(--btn-text-color);
+    border-radius: var(--btn-border-radius);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--btn-font-size);
+}
+.settings-btn:hover {
+    background: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+}
+

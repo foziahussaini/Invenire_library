@@ -1,9 +1,8 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-import { getFirestore } from "https://console.firebase.google.com/project/invenire-library-60658/firestore/databases/-default-/data";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyCJkv14-pb3coKLOqqcn4gQRiaJ5QA6Jic",
     authDomain: "invenire-library-60658.firebaseapp.com",
@@ -18,8 +17,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-  console.log(app);
-  console.log(analytics);
+export const db = getFirestore(app);
 
-  export const db = getFirestore(app);
+console.log(app);
+console.log(analytics);
 console.log("Database initialized successfully:", db);

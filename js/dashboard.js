@@ -1,6 +1,5 @@
 // add the assets imgs here
 import { logoUrl } from "./assets.js";
-import { defaultProfile } from "./assets.js";
 
 // all about logo image here
 const logo = document.querySelector(".logo");
@@ -16,17 +15,6 @@ if (logo) {
     image.addEventListener("click", () => {
     window.location.href = "../pages/home.html";  
 })
-}
-
-///==================================profile image append====================================================
-const profile = document.querySelector(".profile");
-
-if(profile){
-    const prof = document.createElement("img");
-    prof.src = defaultProfile;
-    prof.alt = "profile";
-
-    profile.appendChild(prof);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,5 +54,28 @@ menuItems.forEach(item => {
     });
 });
 
-///==============================HEADER PART=====================================================
+///==============================HEADER PART (dynamic real time and date)=====================================================
+const calenderContainer = document.querySelector(".calender");
+const time = document.querySelector(".time");
+const date = document.querySelector(".date");
+
+function calender(){
+    const now = new Date();
+    
+time.textContent = now.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+});
+
+date.textContent = now.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+});
+}
+
+calender();
+setInterval(calender, 1000);
+
 });
