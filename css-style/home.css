@@ -18,6 +18,7 @@
     --btn-text-color: #FFFFFF;
     --btn-text-hover-color: #ded9d9;
     
+    --card-background-color: #ffffff;
     --input-background-color: #ffffff;
     --input-text-color: #0B3A67;
     --input-border-color: #0B3A67;
@@ -32,6 +33,7 @@
     --default-border: 0.8px solid var(--input-border-color);
     --shadow-color: #0B3A67;
     --default-box-shadow: 0px 8px 16px var(--shadow-color);
+    --card-box-shadow: 1px 1px 6px #8FB4E3;
 
     /* ----------------size variables -----------------------*/
     --main-header-height: 90px;
@@ -54,6 +56,8 @@ body{
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     font-size: var(--main-font-size);
+    overflow-x: hidden;
+    width: 100%;
 }
 
 header{

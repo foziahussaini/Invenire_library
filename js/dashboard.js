@@ -78,4 +78,27 @@ date.textContent = now.toLocaleDateString('en-US', {
 calender();
 setInterval(calender, 1000);
 
+/// ================================MAIN BODY LIVE HEADLINE==================================
+const headline = document.querySelector(".headline")
+
+function updateNews(){
+    const memberCount = 500; 
+    const timeSetting = "today"; 
+
+    headline.textContent = `${memberCount} Active members ${timeSetting}.`;
+}
+updateNews();
+
+// monthlly state
+function changeToMonthly() {
+    timeSetting = "this month";
+    updateNews();
+}
+
+// weekly state
+function changeToWeekly() {
+    timeSetting = "this week";
+    updateNews(); 
+}
+
 });
