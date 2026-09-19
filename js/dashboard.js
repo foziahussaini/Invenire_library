@@ -16,7 +16,6 @@ if (logo) {
     window.location.href = "../pages/home.html";  
 })
 }
-
 document.addEventListener("DOMContentLoaded", () => {
 ///=========================DOM CONTENT LOADED (SIDEBAR MENU ITEMS CLICK EVENT)===================================================
 const menuItems = document.querySelectorAll(".menu-item");
@@ -78,27 +77,20 @@ date.textContent = now.toLocaleDateString('en-US', {
 calender();
 setInterval(calender, 1000);
 
-/// ================================MAIN BODY LIVE HEADLINE==================================
-const headline = document.querySelector(".headline")
+/// ================================FOOTER==================================
+const footerText = document.querySelector(".footer-text");
+const footerNav = document.querySelector(".footer-nav");
 
-function updateNews(){
-    const memberCount = 500; 
-    const timeSetting = "today"; 
+footerText.innerHTML = "© 2026, Made by Invenire Team.";
 
-    headline.textContent = `${memberCount} Active members ${timeSetting}.`;
-}
-updateNews();
+const links = ["home", "aboutUs", "contactUs"];
 
-// monthlly state
-function changeToMonthly() {
-    timeSetting = "this month";
-    updateNews();
-}
+links.forEach(text =>{
+    const listItem = document.createElement("li");
+    listItem.className = "footer-list";
+    listItem.textContent = text;
 
-// weekly state
-function changeToWeekly() {
-    timeSetting = "this week";
-    updateNews(); 
-}
+    footerNav.appendChild(listItem);
+})
 
 });
