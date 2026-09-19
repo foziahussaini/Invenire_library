@@ -2,18 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x: none;
 }
 
 .dashboard-container{
-    display: flex;
+    width: 100%;
     height: 100% auto;
+    min-height: 100vh;
 }
 
 /* sidebar layout */
 .sidebar{
+    position: fixed;
     width: 200px;
     max-width: 200px;
-    height: 100%;
+    height: 100vh;
     background: var(--header-background-color);
     display: block;
     top: 0;
@@ -21,6 +24,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
 }
 
 .sidebar .logo{
@@ -88,11 +92,16 @@
     color: var(--btn-text-hover-color);
 }
 
-/* main content layout */
+/* ==================================MAIN CONTENT LAYOUT====================================== */
 .main-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    background-color: var(--main-background-color);
+    min-height: 100vh;
 }
 
 /* ==================================HEADER====================================== */
@@ -178,7 +187,8 @@
     box-shadow: var(--default-box-shadow);
     z-index: 1000; 
     max-height: 80vh;
-    overflow-y: auto;
+    overflow: none;
+    box-sizing: border-box;
     display: none;
 }
 
@@ -214,20 +224,90 @@
     color: var(--main-background-color);
 }
 
-.search-item.no-match,
-.search-item.no-match:hover {
-    color: var(--main-text-color);
+/* animated text for no result */
+.no-match{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    font-size: var(--header-font-size);
     cursor: default;
-    background-color: transparent;
+    color: var(--main-text-color);
+    padding: 3rem;
+    gap: 0.9rem;
+    transition: background-color 0.15s ease;
+    animation: pulseColor 3s ease-in-out infinite;
+
+    > i{
+        font-size: 4rem;
+    }
+}
+
+@keyframes pulseColor {
+  0% {
+    transform: scale(1);
+    color: var(--btn-background-color);
+  }
+  50% {
+    transform: scale(1.08);
+    font-size: larger;
+    color: var(--hover-text-color)
+  }
+  100% {
+    transform: scale(1);
+    color: var(--btn-background-color)
+  }
+}
+
+/* animated sticker */
+.sad-sticker {
+    width: 80px;
+    height: 80px;
+    background-color: var(--hover-text-color);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: var(--default-box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--main-text-color);
+    margin-bottom: 1.5rem;
+}
+
+.sad-sticker .eyes {
+    display: flex;
+    gap: 1.3rem;
+    margin-bottom: 6px;
+}
+
+.sad-sticker .eyes::before,
+.sad-sticker .eyes::after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    background-color: var(--main-text-color); 
+    border-radius: 50%;
+}
+
+.sad-sticker .mouth {
+    width: 30px;
+    height: 13px;
+    margin-top: 0.4rem;
+    border: 3px solid var(--main-text-color);
+    border-bottom: 0; 
+    border-radius: 20px 20px 0 0;
 }
 
 /* ===============================CALENDER========================================= */
 .admin-header .calender {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 0.2rem;
+    gap: 0.8rem;
+    padding: var(--text-padding);
     font-size: var(--min-font-size);
     font-weight: bold;
     margin-right: -5rem;
@@ -322,3 +402,205 @@
     color: var(--btn-text-hover-color);
 }
 
+/* ===============================MAIN BODY PART=========================================  */
+/* ==============HEADLINE PART=============== */ 
+.headline-content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: var(--text-padding);
+}
+.headline{
+    color: var(--main-text-color);
+    font-weight: 500;
+    font-size: var(--header-font-size);
+    margin-left: 1rem;
+    width: 80%;
+}
+
+.checkout-btn{
+    width: 180px;
+    height: 40px;
+    background: var(--btn-background-color);
+    color: var(--btn-text-color);
+    border-radius: var(--btn-border-radius);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--btn-font-size);
+}
+
+.checkout-btn:hover{
+    background: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+}
+
+/* =================all the cards displaying grid layout ==================================*/
+.form-group{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: auto auto auto; 
+    gap: 1rem;
+    width: 100%;
+    padding: var(--card-padding);
+}
+
+.card{
+    background-color: var(--card-background-color);
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--card-box-shadow);
+    padding: var(--card-padding);
+    width: 240px;
+    height: 200px;
+    perspective: 1000px;
+    transition: background 0.3s ease; 
+}
+
+.card:hover{
+    background: var(--card-hover-background-color);
+    animation: microVibrate 1s linear;
+
+}
+
+@keyframes microVibrate {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-2px); }
+    100% { transform: translate(1px); }
+}
+
+.card:nth-child(-n+4){
+   grid-column: span 2;
+}
+
+/* =============================CARD 1====================================  */
+.card1, .card2, .card3, .card4{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    color: var(--main-text-color);
+    gap: 0.5rem;
+}
+
+.head-icons{display: flex; justify-content: space-between; align-items: center;}
+.head-icons .percentage{
+    font-size: 12px; 
+    font-weight: 600;
+    margin-top: 0.3rem;
+    border-radius: var(--btn-border-radius);
+    padding: 4px 6px;
+    background-color: var(--card-head-smooth-background-color);
+}
+
+.card1 .head-icons .icon,
+.card2 .head-icons .icon,
+.card3 .head-icons .icon,
+.card4 .head-icons .icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-top: 0.4rem;
+    border-radius: 50%;
+    background: transparent;
+    background-color: var(--icon-background-color);
+    padding: 2px;
+    box-shadow: var(--icon-box-shadow);
+    
+    > i{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 28px;
+        height: 28px;
+        color: var(--premium-icon-color);
+    }
+}
+
+.card1 p, .card2 p, .card3 p, .card4 p{
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.card1 .analysis-line,
+.card2 .analysis-line,
+.card3 .analysis-line,
+.card4 .analysis-line{
+    width: 100%;
+    display: flex;
+    height: 55px;
+
+    > i{
+        width: auto;
+        font-size: 2rem;
+    }
+}
+
+/* ======================CONTROL THE CHART LINE COLOR =============== */
+.card1:has(.trend-down),
+.card2:has(.trend-down),
+.card3:has(.trend-down),
+.card4:has(.trend-down) {--current-analysis-color: #f87171;}
+
+.card1:has(.trend-up),
+.card2:has(.trend-up),
+.card3:has(.trend-up),
+.card4:has(.trend-up){--current-analysis-color: #34d399;}
+
+.card1:has(.trend-neutral),
+.card2:has(.trend-neutral),
+.card3:has(.trend-neutral),
+.card4:has(.trend-neutral){--current-analysis-color: #0056b3;}
+
+/* ======================CONTROL THE CHART LINE STYLE =============== */
+.card1 .analysis-line svg path,
+.card2 .analysis-line svg path,
+.card3 .analysis-line svg path,
+.card4 .analysis-line svg path {
+    stroke: var(--current-analysis-color);
+    transition: stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card1:hover .analysis-line svg path,
+.card2:hover .analysis-line svg path,
+.card3:hover .analysis-line svg path,
+.card4:hover .analysis-line svg path{ stroke: var(--premium-icon-color);}
+
+.card1:hover .percentage,
+.card2:hover .percentage,
+.card3:hover .percentage,
+.card4:hover .percentage{
+    border: 0.9px solid var(--hover-text-color);
+    background-color: transparent;
+    box-shadow: var(--card-box-shadow);
+  }
+
+.card5, .card7{
+    grid-column: span 5;
+    grid-row: span 2;
+    width: 650px;
+    height: 300px;
+}
+
+.card6{
+    width: 370px;
+    height: 610px;
+    grid-column: span 3;
+    grid-row: span 4;
+}
+
+/* =============================FOOTER PART=========================================  */
+.dashboard-footer{
+    width: 100%;
+    height: var(--main-header-height);
+    background: var(--footer-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--header-font-size);
+    color: var(--footer-text-color);
+}

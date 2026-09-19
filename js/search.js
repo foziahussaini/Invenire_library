@@ -79,13 +79,19 @@ if (searchInput && searchResultDropDown) {
                 }
             });
 
+            searchResultDropDown.innerHTML = ""; 
             // Show or hide dropdown box layout depending on search results match status
             if (hasResults) {
                 searchResultDropDown.style.display = "block";
             } else {
                 const noResultRow = document.createElement("div");
-                noResultRow.className = "search-item no-match";
-                noResultRow.innerHTML = `<i class="fas fa-info-circle"></i> <span>No result found</span>`;
+                noResultRow.className = "no-match";
+                noResultRow.innerHTML = `
+                <div class="sad-sticker">
+                    <div class="eyes"></div>
+                    <div class="mouth"></div>
+                </div>
+                <span>No result found</span>`;
                 searchResultDropDown.appendChild(noResultRow);
                 searchResultDropDown.style.display = "block";
             }
@@ -102,5 +108,18 @@ if (searchInput && searchResultDropDown) {
         closeIcon.style.display = "none";
         searchResultDropDown.style.display = "none"; 
         searchInput.focus();
+    });
+
+    window.addEventListener("click", (event) => {
+        // If the user clicks outside the input bar and outside the open result container box...
+        if (!searchInput.contains(event.target) && !searchResultDropDown.contains(event.target)) {
+            searchResultDropDown.style.display = "none";
+        }
+    });
+
+    searchInput.addEventListener("click", () => {
+        if (searchInput.value.trim() !== "") {
+            searchResultDropDown.style.display = "block";
+        }
     });
 }

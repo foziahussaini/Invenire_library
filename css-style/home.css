@@ -8,30 +8,38 @@
 :root{
 /* ----------------all the base colors---------------------*/
     --main-background-color: #F1F5FA;
-    --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #E6F0FA );
+    --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #266bac, #dcedfe );
 
-    --main-text-color: #1E2A44;
-    --hover-text-color: #335ce3;
+    --main-text-color: #1b2844;
+    --hover-text-color: #D4A017;
 
     --btn-background-color: #0056b3;
     --btn-hover-background-color: #2E6FB7;
     --btn-text-color: #FFFFFF;
     --btn-text-hover-color: #ded9d9;
     
+    --card-background-color: #ffffff;
+    --card-hover-background-color: linear-gradient(135deg, #266bac64 10%, #75c8f1e0 50%);
+    --card-head-smooth-background-color: #266bac76;
+    
     --input-background-color: #ffffff;
     --input-text-color: #0B3A67;
     --input-border-color: #0B3A67;
     
     --dropdown-background-color: #E6F0FA;
-    --premium-icon-color: #D4A017;
+    --premium-icon-color: #F7A500;
     --fav-icon-color: #ff0000;
 
-    --footer-background-color: #0B3A67;
-    --footer-text-color: #ffffff;
+    --footer-background-color: linear-gradient(120deg, #dcedfe 10%, #266bac 50%, #8FB4E3);
+    --footer-text-color: #102141;
 
     --default-border: 0.8px solid var(--input-border-color);
     --shadow-color: #0B3A67;
     --default-box-shadow: 0px 8px 16px var(--shadow-color);
+    --card-box-shadow: 1px 1px 6px #8FB4E3;
+
+    --icon-background-color: #266bac;
+    --icon-box-shadow: 0px 1px 4px var(--premium-icon-color);
 
     /* ----------------size variables -----------------------*/
     --main-header-height: 90px;
@@ -54,6 +62,8 @@ body{
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     font-size: var(--main-font-size);
+    overflow-x: hidden;
+    width: 100%;
 }
 
 header{
