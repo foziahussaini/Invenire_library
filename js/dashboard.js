@@ -16,7 +16,6 @@ if (logo) {
     window.location.href = "../pages/home.html";  
 })
 }
-
 document.addEventListener("DOMContentLoaded", () => {
 ///=========================DOM CONTENT LOADED (SIDEBAR MENU ITEMS CLICK EVENT)===================================================
 const menuItems = document.querySelectorAll(".menu-item");
@@ -77,5 +76,21 @@ date.textContent = now.toLocaleDateString('en-US', {
 
 calender();
 setInterval(calender, 1000);
+
+/// ================================FOOTER==================================
+const footerText = document.querySelector(".footer-text");
+const footerNav = document.querySelector(".footer-nav");
+
+footerText.innerHTML = "© 2026, Made by Invenire Team.";
+
+const links = ["home", "aboutUs", "contactUs"];
+
+links.forEach(text =>{
+    const listItem = document.createElement("li");
+    listItem.className = "footer-list";
+    listItem.textContent = text;
+
+    footerNav.appendChild(listItem);
+})
 
 });
