@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Books Management</title>
+    <!-- Font Awesome Link for icons (matches your dashboard setup) -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="../../css/books.css">
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <!-- 1. PAGE HEADER HEADER -->
+        <header class="page-header">
+            <div class="header-title">
+                <h2><i class="fas fa-book"></i> Library Catalog</h2>
+                <p>View, manage, and inspect matching registered books</p>
+            </div>
+            <!-- Back navigation button helper -->
+            <button onclick="window.location.href='../admin_dashboard.html'" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </button>
+        </header>
+
+        <!-- 2. MAIN HOOK HOLDER CONTAINER -->
+        <main class="content-section">
+            <div class="searchResult"></div>
+            <!-- This container wrapper is where your JavaScript will inject document cards -->
+            <div class="books-list-container">
+                <!-- JavaScript will clear this indicator and dynamically append content here -->
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i> Loading book records from Cloud Firestore...
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 3. ATTACH YOUR JAVASCRIPT LOGIC SCRIPT (Note the type="module" declaration) -->
+    <script type="module" src="../../js/subPages/books.js"></script>
+</body>
+</html>

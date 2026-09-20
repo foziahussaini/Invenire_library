@@ -53,3 +53,1039 @@ body{
     color: var(--main-text-color);
     font-size: var(--main-font-size);
 }
+
+/* ==================== HEADER / NAVBAR ==================== */
+
+.site-header {
+    width: 100%;
+    height: 80px;
+    background: var(--header-background-color);
+    color: var(--main-text-color);
+    box-shadow: 0 2px 8px rgba(11, 58, 103, 0.15);
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar {
+    width: 100%;
+    height: 100%;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ==================== LOGO ==================== */
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    display: block;
+}
+
+/* ==================== MAIN NAVIGATION ==================== */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.nav-item {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--main-text-color);
+    text-decoration: none;
+    border-radius: var(--main-border-radius);
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-item svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2;
+}
+
+.nav-item:hover {
+    color: var(--hover-text-color);
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+.nav-item.active {
+    color: var(--btn-background-color);
+}
+
+/* ==================== LOGIN ==================== */
+
+.nav-auth {
+    padding-left: 24px;
+    border-left: var(--default-border);
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+
+    text-decoration: none;
+    border-radius: var(--btn-border-radius);
+
+    font-size: var(--main-font-size);
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.login-btn svg {
+    width: 19px;
+    height: 19px;
+}
+
+.login-btn:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+    transform: translateY(-1px);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 0 14px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav-links {
+        gap: 4px;
+        margin-right: 12px;
+    }
+
+    .nav-item {
+        width: 40px;
+        height: 40px;
+    }
+
+    .login-btn {
+        padding: 9px 12px;
+    }
+
+    .login-btn span {
+        display: none;
+    }
+
+    .nav-auth {
+        padding-left: 12px;
+    }
+}
+
+/* ==================== HOME HERO ==================== */
+
+.hero {
+    width: 100%;
+    height: calc(100vh - 80px);
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-image: url("../images/hero.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+}
+
+/* Dark overlay */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(11, 58, 103, 0.45);
+
+    z-index: 1;
+}
+
+/* Hero content */
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 900px;
+    padding: 30px;
+
+    text-align: center;
+
+    color: var(--btn-text-color);
+}
+
+/* Main Library Name */
+.hero-title {
+    margin: 0;
+
+    font-family: "Cormorant Garamond", Georgia, serif;
+
+    font-size: 100px;
+    line-height: 0.95;
+
+    font-weight: 600;
+    letter-spacing: 12px;
+
+    color: var(--premium-icon-color);
+
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Main message */
+.hero-subtitle {
+    margin: 24px 0 18px;
+
+    font-size: 34px;
+    line-height: 1.2;
+
+    font-weight: 600;
+
+    color: var(--btn-text-color);
+}
+
+/* Description */
+.hero-description {
+    max-width: 650px;
+
+    margin: 0 auto 32px;
+
+    font-size: 19px;
+    line-height: 1.6;
+
+    color: var(--btn-text-hover-color);
+}
+
+/* Explore button */
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: var(--btn-padding);
+
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+
+    text-decoration: none;
+
+    font-size: var(--btn-font-size);
+    font-weight: 600;
+
+    border-radius: var(--btn-border-radius);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.hero-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.hero-btn:hover {
+    background-color: var(--btn-hover-background-color);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
+}
+
+
+/* ==================== BOOK SECTIONS ==================== */
+
+.book-section {
+    width: 100%;
+    padding: 70px 50px;
+    background-color: var(--main-background-color);
+}
+
+.section-header {
+    max-width: 1200px;
+    margin: 0 auto 35px;
+}
+
+.section-header h2 {
+    margin: 0 0 10px;
+
+    font-size: 36px;
+    font-weight: 700;
+
+    color: var(--main-text-color);
+}
+
+.section-header p {
+    margin: 0;
+
+    font-size: 16px;
+
+    color: var(--input-text-color);
+}
+
+.books-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+
+
+/* =========================================================
+   TRY SOMETHING NEW
+========================================================= */
+
+.try-new-section {
+    background-color: var(--main-background-color);
+}
+
+
+/* =========================================================
+   HOME CALL TO ACTION
+========================================================= */
+
+.home-cta {
+    width: 100%;
+    padding: 90px 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--header-background-color);
+
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 750px;
+}
+
+.cta-content h2 {
+    margin: 0 0 16px;
+
+    font-size: 42px;
+    font-weight: 700;
+
+    color: var(--main-text-color);
+}
+
+.cta-content p {
+    margin: 0 auto 30px;
+
+    max-width: 600px;
+
+    font-size: 18px;
+    line-height: 1.6;
+
+    color: var(--main-text-color);
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: var(--btn-padding);
+
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+
+    text-decoration: none;
+
+    font-size: var(--btn-font-size);
+    font-weight: 600;
+
+    border-radius: var(--btn-border-radius);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cta-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cta-btn:hover {
+    background-color: var(--btn-hover-background-color);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
+}
+
+
+
+
+/* =========================================================
+   HOME FOOTER
+========================================================= */
+
+.site-footer {
+    width: 100%;
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 50px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+}
+
+
+/* ==================== FOOTER BRAND ==================== */
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 16px;
+}
+
+.footer-brand h3 {
+    margin: 0 0 10px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: var(--footer-text-color);
+}
+
+.footer-brand p {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ==================== FOOTER LINKS ==================== */
+
+.footer-links,
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    margin: 0 0 18px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: var(--footer-text-color);
+}
+
+.footer-links a,
+.footer-contact a {
+    margin-bottom: 10px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-contact a:hover {
+    color: var(--footer-text-color);
+    transform: translateX(3px);
+}
+
+.footer-contact p {
+    margin: 0 0 12px;
+
+    max-width: 250px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ==================== FOOTER BOTTOM ==================== */
+
+.footer-bottom {
+    width: 100%;
+
+    padding: 20px 50px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.65);
+}
+
+
+
+/* =========================================================
+   BOOK CARD
+========================================================= */
+
+.book-card {
+    width: 100%;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--input-background-color);
+
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+
+    box-shadow: 0 8px 18px rgba(11, 58, 103, 0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 14px 28px rgba(11, 58, 103, 0.2);
+}
+
+
+/* ==================== BOOK COVER ==================== */
+
+.book-cover {
+    width: 100%;
+    height: 300px;
+
+    overflow: hidden;
+
+    background-color: var(--dropdown-background-color);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* ==================== BOOK INFO ==================== */
+
+.book-info {
+    padding: 22px;
+}
+
+.book-title {
+    margin: 0 0 8px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: var(--main-text-color);
+}
+
+.book-author {
+    margin: 0 0 14px;
+
+    font-size: 14px;
+
+    color: var(--input-text-color);
+}
+
+.book-description {
+    margin: 0 0 22px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: var(--main-text-color);
+}
+
+
+/* ==================== BOOK ACTIONS ==================== */
+
+.book-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.book-btn {
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border: none;
+    border-radius: var(--btn-border-radius);
+
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.book-btn svg {
+    width: 17px;
+    height: 17px;
+}
+
+.book-btn:hover:not(:disabled) {
+    background-color: var(--btn-hover-background-color);
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(11, 58, 103, 0.2);
+}
+
+.book-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* ==================== DOWNLOAD ==================== */
+
+.download-btn {
+    background-color: transparent;
+
+    color: var(--btn-background-color);
+
+    border: var(--default-border);
+}
+
+
+/* ==================== AUDIOBOOK ==================== */
+
+.audiobook-btn {
+    background-color: transparent;
+
+    color: var(--btn-background-color);
+
+    border: var(--default-border);
+}
+
+
+/* =========================================================
+   PDF READER MODAL
+========================================================= */
+
+.pdf-modal {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    z-index: 2000;
+}
+
+
+/* ==================== PDF READER ==================== */
+
+.pdf-reader {
+    width: 90%;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--input-background-color);
+
+    border-radius: var(--main-border-radius);
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ==================== READER HEADER ==================== */
+
+.pdf-reader-header {
+    min-height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    background-color: var(--footer-background-color);
+
+    color: var(--footer-text-color);
+}
+
+.pdf-reader-header h3 {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+/* ==================== READER ACTIONS ==================== */
+
+.pdf-reader-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pdf-reader-actions button {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: var(--main-border-radius);
+
+    background-color: transparent;
+
+    color: var(--btn-text-color);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.pdf-reader-actions button:hover {
+    background-color: var(--btn-hover-background-color);
+
+    transform: scale(1.05);
+}
+
+.pdf-reader-actions svg {
+    width: 20px;
+    height: 20px;
+
+    color: #ffffff;
+    stroke: #ffffff;
+}
+
+
+/* ==================== PDF VIEWER ==================== */
+
+.pdf-viewer {
+    flex: 1;
+
+    width: 100%;
+
+    background-color: #525659;
+}
+
+.pdf-viewer iframe {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    border: none;
+}
+
+
+
+/* =========================================================
+   PDF READER STATES
+========================================================= */
+
+
+/* ==================== NORMAL MODE ==================== */
+
+.pdf-modal {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    z-index: 2000;
+}
+
+
+/* ==================== FULLSCREEN MODE ==================== */
+
+.pdf-reader.fullscreen {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    border-radius: 0;
+
+    z-index: 2100;
+}
+
+
+/* ==================== FLOATING WINDOW MODE ==================== */
+
+.pdf-modal.floating {
+    display: block;
+
+    padding: 0;
+
+    background: transparent;
+
+    pointer-events: none;
+}
+
+/* ==================== FLOATING WINDOW ==================== */
+
+.pdf-modal.floating .pdf-reader {
+    position: fixed;
+
+    top: 120px;
+    left: 120px;
+
+    width: 700px;
+    height: 500px;
+
+    min-width: 350px;
+    min-height: 250px;
+
+    pointer-events: auto;
+
+    overflow: hidden;
+
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ==================== DRAG HEADER ==================== */
+
+.pdf-modal.floating .pdf-reader-header {
+    cursor: move;
+    user-select: none;
+}
+
+
+/* ==================== RESIZE HANDLES ==================== */
+
+.pdf-resize-handle {
+    position: absolute;
+    z-index: 2200;
+}
+
+
+/* TOP */
+
+.pdf-resize-top {
+    top: -4px;
+    left: 10px;
+    right: 10px;
+    height: 8px;
+
+    cursor: ns-resize;
+}
+
+
+/* BOTTOM */
+
+.pdf-resize-bottom {
+    bottom: -4px;
+    left: 10px;
+    right: 10px;
+    height: 8px;
+
+    cursor: ns-resize;
+}
+
+
+/* LEFT */
+
+.pdf-resize-left {
+    top: 10px;
+    bottom: 10px;
+    left: -4px;
+    width: 8px;
+
+    cursor: ew-resize;
+}
+
+
+/* RIGHT */
+
+.pdf-resize-right {
+    top: 10px;
+    bottom: 10px;
+    right: -4px;
+    width: 8px;
+
+    cursor: ew-resize;
+}
+
+
+/* TOP LEFT */
+
+.pdf-resize-top-left {
+    top: -5px;
+    left: -5px;
+
+    width: 14px;
+    height: 14px;
+
+    cursor: nwse-resize;
+}
+
+
+/* TOP RIGHT */
+
+.pdf-resize-top-right {
+    top: -5px;
+    right: -5px;
+
+    width: 14px;
+    height: 14px;
+
+    cursor: nesw-resize;
+}
+
+
+/* BOTTOM LEFT */
+
+.pdf-resize-bottom-left {
+    bottom: -5px;
+    left: -5px;
+
+    width: 14px;
+    height: 14px;
+
+    cursor: nesw-resize;
+}
+
+
+/* BOTTOM RIGHT */
+
+.pdf-resize-bottom-right {
+    bottom: -5px;
+    right: -5px;
+
+    width: 14px;
+    height: 14px;
+
+    cursor: nwse-resize;
+}
+
+/* ==================== DRAG CURSOR ==================== */
+
+.pdf-modal.floating .pdf-reader-header {
+    cursor: move;
+    user-select: none;
+}
+
+
+/* ==================== HOME SCROLL CONTROL ==================== */
+
+body.pdf-reader-locked {
+    overflow: hidden;
+}
