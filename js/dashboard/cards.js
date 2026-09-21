@@ -1,4 +1,4 @@
-import { db } from "./firebase-config.js"; 
+import { db } from "../../src/firebase-config.js"; 
 import { collection, getDocs, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
 
 /// ==================================GRID CARDS EVENT AND METHODS==================================
@@ -6,7 +6,6 @@ const cardTotalBooks = document.querySelector(".card1");
 const cardDownloadedBooks = document.querySelector(".card2");
 const onreadMode = document.querySelector(".card3");
 const totalPurchaseBooks = document.querySelector(".card4");
-const trafficHours = document.querySelector(".card5");
 const totalCollection = document.querySelector(".card6");
 const mostPopular = document.querySelector(".card7");
 
@@ -132,7 +131,6 @@ async function updatePurchaseBooksCard(cardElement, currentMemberDocId) {
         console.error("Firestore fetch failed for Card 4 (Member Purchases):", error);
     }
 }
-
 
 ///================================HELPER FUNCTION==================================
 function renderCardContent(element, title, count, detail, lineStyleType, iconClass) {

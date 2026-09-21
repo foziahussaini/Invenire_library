@@ -1,5 +1,4 @@
-// add the assets imgs here
-import { logoUrl } from "./assets.js";
+import { logoUrl } from "../../src/assets.js";
 
 // all about logo image here
 const logo = document.querySelector(".logo");
@@ -13,9 +12,10 @@ if (logo) {
     logo.appendChild(image);
 
     image.addEventListener("click", () => {
-    window.location.href = "../pages/home.html";  
+    window.location.href = "/pages/home.html";  
 })
 }
+
 document.addEventListener("DOMContentLoaded", () => {
 ///=========================DOM CONTENT LOADED (SIDEBAR MENU ITEMS CLICK EVENT)===================================================
 const menuItems = document.querySelectorAll(".menu-item");

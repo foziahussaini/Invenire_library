@@ -1,5 +1,5 @@
-import { defaultProfile } from "./assets.js";
-import { db } from "./firebase-config.js"; 
+import { defaultFemaleProfile, defaultMaleProfile } from "../../src/assets.js";
+import { db } from "../../src/firebase-config.js"; 
 import { collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const profileImg = document.querySelector(".profile");
@@ -8,7 +8,7 @@ const profileContainer = document.querySelector(".profile-container");
 /// ================================== DEFAULT PROFILE IMG =========================================
 if (profileImg) {
     const prof = document.createElement("img");
-    prof.src = defaultProfile;
+    prof.src = defaultFemaleProfile;
     prof.alt = "profile";
     profileImg.appendChild(prof);
 }
@@ -25,11 +25,11 @@ async function loadProfileImage(userId) {
         if (userDoc.exists() && userDoc.data().profile_img) {
             if (imgElement) imgElement.src = userDoc.data().profile_img;
         } else {
-            if (imgElement) imgElement.src = defaultProfile;
+            if (imgElement) imgElement.src = defaultFemaleProfile;
         }
     } catch (error) {
         console.error("Error fetching profile image", error);
-        if (imgElement) imgElement.src = defaultProfile;
+        if (imgElement) imgElement.src = defaultFemaleProfile;
     }
 }
 
@@ -92,7 +92,7 @@ function createUserCard(userData, docId, container) {
 
     // User Avatar inside the card
     const userProfile = document.createElement("img");
-    userProfile.src = userData.profile_img || defaultProfile;
+    userProfile.src = userData.profile_img || defaultFemaleProfile;
     userProfile.className = "user-card-thumb";
     userProfile.alt = "avatar";
     userCard.appendChild(userProfile);
@@ -131,7 +131,7 @@ function defaultUser(container) {
         full_name: "Library Header", 
         email: "Example@gmail.com", 
         user_id: "Invenire4561",
-        profile_img: defaultProfile 
+        profile_img: defaultFemaleProfile 
     };
     createUserCard(fallbackData, "default", container);
 }

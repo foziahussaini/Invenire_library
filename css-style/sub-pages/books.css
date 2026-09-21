@@ -1,0 +1,279 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: none;
+}
+
+.books-container{
+    width: 100%;
+    height: 100% auto;
+    min-height: 100vh;
+}
+
+/* sidebar layout */
+.book-sidebar{
+    position: fixed;
+    width: 200px;
+    max-width: 200px;
+    height: 100vh;
+    background: var(--header-background-color);
+    display: block;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.book-sidebar .logo{
+    width: 100%;
+    height: 90px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    
+    >img{
+        width: 180px;
+        height: 150px;
+    }
+}
+
+.book-sidebar .sidebar-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.4rem 1rem;
+    gap: 1rem;
+}
+
+.book-sidebar .sidebar-menu .menu-item{
+    width: 100%;
+    color: var(--main-text-color);
+    gap: 0.8rem;
+    display: flex;
+    cursor : pointer;
+    font-size: var(--main-font-size);
+
+    >i{
+        font-size: 1.2rem;
+    }
+}
+
+.menu-item:hover{
+    color: var(--hover-text-color);
+}
+
+.menu-item.active{
+    color: var(--hover-text-color);
+    font-weight: bold;
+    border-bottom: 1px solid var(--hover-text-color);
+}
+
+.sidebar-menu .logout{
+    margin-top: 2.8rem;
+    width: 120px;
+    height: 40px;
+    background: var(--btn-background-color);
+    color: var(--btn-text-color);
+    border-radius: var(--btn-border-radius);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--btn-font-size);
+}
+
+.logout:hover{
+    background: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+}
+
+.book-main-content{
+    margin-left: 200px;
+    width: calc(100% - 200px);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: var(--main-background-color);
+    min-height: 100vh;
+}
+
+.book-main-content .admin-header{
+    width: 100%;
+    height: var(--main-header-height);
+    background: var(--header-background-color);
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+    font-size: var(--header-font-size);
+    color: var(--main-text-color);
+}
+
+.admin-header .search-bar { /* its the searchbar container */
+    position: relative;
+    width: 640px;
+    max-width: 640px;
+    height: 40px;
+    border-radius: var(--input-border-radius);
+    display: inline-flex;
+    align-items: center;
+}
+
+.admin-header .search-bar > input {
+    width: 100%;
+    height: 100%;
+    padding-left: 2.9rem;   
+    padding-right: 2rem;  
+    border: var(--default-border);
+    border-radius: var(--input-border-radius);
+    background-color: transparent;
+    color: var(--input-text-color);
+    font-size: var(--main-font-size);
+    transition: border-color 0.2s ease;
+}
+
+.admin-header .search-bar input:focus {
+    outline: none;
+    border-color: var(--hover-text-color);
+}
+
+.admin-header .search-bar .fa-search {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--btn-background-color);
+    z-index: 20;
+    pointer-events: none; 
+}
+
+/* the close icon element */
+.admin-header .search-bar .close-icon {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%); 
+    cursor: pointer;
+    color: var(--btn-background-color);
+    z-index: 20;
+    font-size: 1.1rem;
+    transition: color 0.15s ease;
+}
+
+.admin-header .search-bar .close-icon:hover {
+    color: var(--btn-hover-background-color); 
+}
+
+/* search result dropdown*/
+.admin-header .search-bar .searchResult {
+    position: absolute;
+    flex-direction: column;
+    top: 42px; 
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    background-color: var(--main-background-color);
+    border: var(--default-border);
+    border-top: none;
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--default-box-shadow);
+    z-index: 1000; 
+    max-height: 80vh;
+    overflow: none;
+    box-sizing: border-box;
+    display: none;
+}
+
+.search-item {
+    padding: var(--text-padding);
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    cursor: pointer;
+    font-size: var(--min-font-size);
+    color: var(--main-text-color);
+    border-bottom: var(--default-border);
+    transition: background-color 0.15s ease;
+}
+
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-color)
+}
+
+.search-item i {
+    color: var(--btn-background-color);
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+.search-item:hover i {
+    color: var(--main-background-color);
+}
+
+/* Container Layout Setup */
+.books-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+    padding: 20px 0;
+}
+
+/* Card Styling Structure matching your fields */
+.book-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #eaeaea;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Book Cover Configuration rules */
+.book-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover; /* Prevents raw image link scaling distorts */
+    border-radius: 8px;
+    margin-bottom: 14px;
+    background-color: #f5f5f5;
+}
+
+.book-card h3 {
+    font-size: 1.1rem;
+    margin: 8px 0 4px 0;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.book-card p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin: 4px 0;
+}
+
+/* Simple Loading Message element rules */
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #95a5a6;
+    font-size: 1.1rem;
+}

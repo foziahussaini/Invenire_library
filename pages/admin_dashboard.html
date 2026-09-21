@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin dashboard</title>
-    <link rel="stylesheet" href="../css-style/home.css">
-    <link rel="stylesheet" href="../css-style/adminDashboard.css">
+    <link rel="stylesheet" href="../css-style/main-pages/adminDashboard.css">
+    <link rel="stylesheet" href="../css-style//main-pages/home.css">
     <link href="/src/output.css" rel="stylesheet">
-    <script type="module" src="../js/dashboard.js" defer></script>
-    <script type="module" src="../js/search.js" defer></script>
-    <script type="module" src ="../js/profile.js" defer></script>
-    <script type="module" src="../js/cards.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard.js" defer></script>
+    <script type="module" src="../js/dashboard/search.js" defer></script>
+    <script type="module" src ="../js/dashboard/profile.js" defer></script>
+    <script type="module" src="../js/dashboard/cards.js" defer></script>
+    <script type="module" src="../js/dashboard/books.js" defer></script>
+    <script type="module" src="../js/dashboard/members.js" defer></script>
+    <script type="module" src="../js/dashboard/chart_bar.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
@@ -92,7 +95,7 @@
                 <div class="card card2"></div>
                 <div class="card card3"></div>
                 <div class="card card4"></div>
-                <div class="card card5"></div>
+                <div class="card card5" id="chart-bars"><div class="traffic-chart"></div></div>
                 <div class="card card6"></div>
                 <div class="card card7"></div>
             </div>
