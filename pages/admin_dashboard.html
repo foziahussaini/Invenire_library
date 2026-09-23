@@ -11,9 +11,10 @@
     <script type="module" src="../js/dashboard/search.js" defer></script>
     <script type="module" src ="../js/dashboard/profile.js" defer></script>
     <script type="module" src="../js/dashboard/cards.js" defer></script>
-    <script type="module" src="../js/dashboard/books.js" defer></script>
-    <script type="module" src="../js/dashboard/members.js" defer></script>
+    <script type="module" src="../js/dashboard/books_search.js" defer></script>
+    <script type="module" src="../js/dashboard/members_search.js" defer></script>
     <script type="module" src="../js/dashboard/chart_bar.js" defer></script>
+    <script type="module" src="../js/dashboard/donutChart.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
@@ -26,7 +27,7 @@
             <div class="sidebar-menu">
                 <div class="menu-item">
                     <i class="fa-solid fa-bell menu-icon"></i>
-                    <span class="menu-text">Notifications</span> 
+                    <span class="menu-text">Notifications</span>
                 </div>
                 <div class="menu-item active">
                     <i class="fa-solid fa-th-large menu-icon"></i>
@@ -49,13 +50,10 @@
                     <span class="menu-text">Statistic</span>
                 </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
-                <div class="menu-item" id="#">
-                    <i class="fa-solid fa-question-circle menu-icon"></i>
-                    <span class="menu-text">Help</span>
-                </div>
                 <div class="menu-item">
+                    <a href="./admin_subPages/theme.html">
                     <i class="fa-solid fa-palette menu-icon"></i>
-                    <span class="menu-text">Theme</span>
+                    <span class="menu-text">Theme</span></a>
                 </div>
 
                 <button class="logout">
@@ -98,6 +96,7 @@
                 <div class="card card5" id="chart-bars"><div class="traffic-chart"></div></div>
                 <div class="card card6"></div>
                 <div class="card card7"></div>
+                <div class="card card8"></div>
             </div>
             </main>
             <!-- footer -->

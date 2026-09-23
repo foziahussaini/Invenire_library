@@ -1,5 +1,5 @@
 import { db } from "../../src/firebase-config.js";
-import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { collection, getDocs, query, orderBy} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const trafficChartBar = document.getElementById("chart-bars");
 
@@ -93,7 +93,7 @@ function renderBars(cardElement, chartContainer, dataset, viewType) {
 }
 
 // MAIN INTERACTIVE CARD FUNCTION
-export async function updateTrafficChartBar(cardElement) {
+async function updateTrafficChartBar(cardElement) {
     if (!cardElement) return;
 
     const visualChartZone = cardElement.querySelector(".traffic-chart");

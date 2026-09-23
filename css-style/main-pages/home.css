@@ -22,7 +22,7 @@
     --card-hover-background-color: linear-gradient(135deg, #266bac64 10%, #75c8f1e0 50%);
     --card-head-smooth-background-color: #266bac76;
 
-    --highest-chart-background-color: linear-gradient(135deg, #255ed9 10%,#266bac64 50%, #061f54, #284F7A );
+    --highest-chart-background-color: linear-gradient(135deg, #255ed9 10%,#266baccf 50%, #061f54, #284F7A );
     --lowest-chart-background-color: linear-gradient(135deg, #ca2718c2 10%, #ff00008b 50%);
     --normal-chart-background-color: linear-gradient(135deg, #f7a5008e 10%, #c9761e 50%, #F7A500);
     
@@ -68,6 +68,7 @@ body{
     font-size: var(--main-font-size);
     overflow-x: hidden;
     width: 100%;
+    padding: 0;
 }
 
 /* ==================== HEADER / NAVBAR ==================== */

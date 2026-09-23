@@ -73,7 +73,6 @@ profileContainer.addEventListener("click", async () => {
             const userData = doc.data();
             createUserCard(userData, doc.id, dropdown);
 
-            // Optional: Update main profile navigation icon if user data matches current active session
             if (userData.profile_img && profileImg.querySelector("img")) {
                 profileImg.querySelector("img").src = userData.profile_img; 
             }

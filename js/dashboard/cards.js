@@ -6,8 +6,7 @@ const cardTotalBooks = document.querySelector(".card1");
 const cardDownloadedBooks = document.querySelector(".card2");
 const onreadMode = document.querySelector(".card3");
 const totalPurchaseBooks = document.querySelector(".card4");
-const totalCollection = document.querySelector(".card6");
-const mostPopular = document.querySelector(".card7");
+const ActiveMembers = document.querySelector(".card8");
 
 ///================================FIRST CARD==================================
 async function updateTotalBooksCard(cardElement) {
@@ -168,6 +167,7 @@ function renderCardContent(element, title, count, detail, lineStyleType, iconCla
         </div>
     `;
 }
+
 
 /// ================================MAIN BODY LIVE HEADLINE==================================
 let timeSetting = "today";
