@@ -541,138 +541,6 @@ body{
     box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
 }
 
-
-
-
-/* =========================================================
-   HOME FOOTER
-========================================================= */
-
-.site-footer {
-    width: 100%;
-    background-color: var(--footer-background-color);
-    color: var(--footer-text-color);
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 50px;
-
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 60px;
-}
-
-
-/* ==================== FOOTER BRAND ==================== */
-
-.footer-brand {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.footer-logo {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    margin-bottom: 16px;
-}
-
-.footer-brand h3 {
-    margin: 0 0 10px;
-
-    font-size: 24px;
-    font-weight: 700;
-
-    color: var(--footer-text-color);
-}
-
-.footer-brand p {
-    margin: 0;
-
-    font-size: 15px;
-    line-height: 1.6;
-
-    color: rgba(255, 255, 255, 0.75);
-}
-
-
-/* ==================== FOOTER LINKS ==================== */
-
-.footer-links,
-.footer-contact {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.footer-links h4,
-.footer-contact h4 {
-    margin: 0 0 18px;
-
-    font-size: 18px;
-    font-weight: 700;
-
-    color: var(--footer-text-color);
-}
-
-.footer-links a,
-.footer-contact a {
-    margin-bottom: 10px;
-
-    color: rgba(255, 255, 255, 0.75);
-
-    text-decoration: none;
-
-    font-size: 15px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.footer-links a:hover,
-.footer-contact a:hover {
-    color: var(--footer-text-color);
-    transform: translateX(3px);
-}
-
-.footer-contact p {
-    margin: 0 0 12px;
-
-    max-width: 250px;
-
-    font-size: 15px;
-    line-height: 1.6;
-
-    color: rgba(255, 255, 255, 0.75);
-}
-
-
-/* ==================== FOOTER BOTTOM ==================== */
-
-.footer-bottom {
-    width: 100%;
-
-    padding: 20px 50px;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-
-    text-align: center;
-}
-
-.footer-bottom p {
-    margin: 0;
-
-    font-size: 14px;
-
-    color: rgba(255, 255, 255, 0.65);
-}
-
-
-
 /* =========================================================
    BOOK CARD
 ========================================================= */
@@ -829,9 +697,7 @@ body{
 
 .audiobook-btn {
     background-color: transparent;
-
     color: var(--btn-background-color);
-
     border: var(--default-border);
 }
 
@@ -839,332 +705,237 @@ body{
 /* =========================================================
    PDF READER MODAL
 ========================================================= */
-
 .pdf-modal {
-    position: fixed;
-    inset: 0;
-
     display: none;
-    align-items: center;
-    justify-content: center;
-
-    padding: 30px;
-
-    background: rgba(0, 0, 0, 0.75);
-
-    z-index: 2000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 99999; 
+    opacity: 3;
+    transition: opacity 0.3s ease-out;
 }
 
-
-/* ==================== PDF READER ==================== */
-
-.pdf-reader {
-    width: 90%;
-    height: 90%;
-
+.pdf-modal.active {
     display: flex;
-    flex-direction: column;
-
-    background-color: var(--input-background-color);
-
-    border-radius: var(--main-border-radius);
-
-    overflow: hidden;
-
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
 }
 
+.pdf-modal .pdf-reader {
+    position: relative;
+    display: flex; flex-direction: column;
+    width: 90%;
+    height: 95vh;
+    max-width: 1100px;
+    background: var(--main-background-color);
+    border-radius: var(--btn-border-radius);
+    box-shadow: var(--default-box-shadow);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
 
-/* ==================== READER HEADER ==================== */
+.pdf-modal.active .pdf-reader {
+    transform: scale(1);
+}
 
 .pdf-reader-header {
-    min-height: 60px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 20px;
-
-    background-color: var(--footer-background-color);
-
-    color: var(--footer-text-color);
+    width: 100%;
+    padding: var(--text-padding); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    gap: 2rem;
+    background: var(--header-background-color);
+    border-bottom: 1px solid var(--btn-background-color);
 }
 
 .pdf-reader-header h3 {
-    margin: 0;
-
-    font-size: 18px;
-    font-weight: 600;
+    width: 100%;
+    font-size: var(--header-font-size);
+    font-weight: bold;
+    color: var(--main-text-color);
 }
 
-
-/* ==================== READER ACTIONS ==================== */
-
-.pdf-reader-actions {
+.pdf-reader-actions{
+    width: 180px;
+    height: 50px;
     display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.pdf-reader-actions button {
-    width: 40px;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--btn-border-radius);
+    opacity: 0.4;
+    margin-right: 1rem;
+}
 
-    border: none;
-    border-radius: var(--main-border-radius);
-
-    background-color: transparent;
-
-    color: var(--btn-text-color);
-
+.window-control-btn {
+    background-color: var(--btn-background-color);
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    box-shadow: var( --icon-box-shadow);
+    color: var(--hover-text-color);
+    border-radius: var(--btn-border-radius);
+    padding: 0 0.6rem;
+    font-size: 34px;
+    border: none; 
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease;
 }
 
-.pdf-reader-actions button:hover {
-    background-color: var(--btn-hover-background-color);
-
-    transform: scale(1.05);
+.window-control-btn:hover {
+    transform: scale(1.1);
 }
 
-.pdf-reader-actions svg {
-    width: 20px;
-    height: 20px;
-
-    color: #ffffff;
-    stroke: #ffffff;
-}
-
-
-/* ==================== PDF VIEWER ==================== */
-
-.pdf-viewer {
-    flex: 1;
-
-    width: 100%;
-
-    background-color: #525659;
-}
-
-.pdf-viewer iframe {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    border: none;
-}
-
-
-
-/* =========================================================
-   PDF READER STATES
-========================================================= */
-
-
-/* ==================== NORMAL MODE ==================== */
-
-.pdf-modal {
-    position: fixed;
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
+.modal-body-content {
+    display:flex;
+    flex: 1; 
+    position: relative; 
     justify-content: center;
-
-    padding: 30px;
-
-    background: rgba(0, 0, 0, 0.75);
-
-    z-index: 2000;
+    align-items: center;
+    background-color: var(--main-background-color);
 }
 
-
-/* ==================== FULLSCREEN MODE ==================== */
-
-.pdf-reader.fullscreen {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    border-radius: 0;
-
-    z-index: 2100;
-}
-
-
-/* ==================== FLOATING WINDOW MODE ==================== */
-
-.pdf-modal.floating {
+#pdf-frame{
+    background-color: var(--main-background-color); 
+    width: 150%; 
+    height: 100%; 
+    border: none; 
     display: block;
-
-    padding: 0;
-
-    background: transparent;
-
-    pointer-events: none;
 }
 
-/* ==================== FLOATING WINDOW ==================== */
+#audio-player-wrapper {
+    display: none; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 1rem; text-align: center; 
+    width: 100%; 
+    max-width: 700px; 
+    padding: var(--card-padding); 
+    background: var(--header-background-color); 
+    box-shadow: var(--default-box-shadow); 
+    border-radius: var(--btn-border-radius);
+    animation: slideUpFade 0.4s ease-out forwards;
+}
 
-.pdf-modal.floating .pdf-reader {
+#audio-player-wrapper p {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--main-text-color);
+}
+
+/* Custom design profile theme for the native browser audio element bar */
+#native-audio-player {
+    outline: none;
+    border-radius: 30px;
+}
+
+
+/* ==========================================================================
+   SYSTEM DESIGN MOTION KEYFRAMES
+   ========================================================================== */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pdf-modal.minimized {
+    background: none !important; 
+    backdrop-filter: none !important; 
+    -webkit-backdrop-filter: none !important;
+    pointer-events: none; /* Let clicks pass straight through the empty screen space! */
+    display: flex !important; /* Keeps container alive */
+    justify-content: flex-end; /* Pushes the inner box to the right side */
+    align-items: flex-end; /* Pushes the inner box to the bottom side */
+    padding: 20px; /* Gap buffer distance from the screen edge corner */
+}
+
+.pdf-modal.minimized .pdf-reader {
+    width: 380px !important; 
+    height: auto !important; 
+    max-height: 180px !important;
     position: fixed;
-
-    top: 120px;
-    left: 120px;
-
-    width: 700px;
-    height: 500px;
-
-    min-width: 350px;
-    min-height: 250px;
-
-    pointer-events: auto;
-
-    overflow: hidden;
-
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    right: 20px;
+    bottom: 20px;
+    pointer-events: auto; 
+    box-shadow:var(--default-box-shadow);
+    transform: scale(1) !important;
 }
 
-
-/* ==================== DRAG HEADER ==================== */
-
-.pdf-modal.floating .pdf-reader-header {
-    cursor: move;
-    user-select: none;
+.pdf-modal.minimized #pdf-frame,
+.pdf-modal.minimized #audio-player-wrapper div, /* Hides giant headphone/disc logos */
+.pdf-modal.minimized .pdf-resize-handle {
+    display: none !important;
 }
 
-
-/* ==================== RESIZE HANDLES ==================== */
-
-.pdf-resize-handle {
-    position: absolute;
-    z-index: 2200;
+/* 4. Tweak inner spacing padding when compressed */
+.pdf-modal.minimized #audio-player-wrapper {
+    padding: 0.75rem 1rem !important;
+    box-shadow: none !important;
 }
 
-
-/* TOP */
-
-.pdf-resize-top {
-    top: -4px;
-    left: 10px;
-    right: 10px;
-    height: 8px;
-
-    cursor: ns-resize;
+/* =============================FOOTER PART=========================================  */
+.home-footer{
+    width: 100%;
+    height: 150px;
+    background: var(--footer-background-color);
+    display: flex;
+    align-items: end;
+    padding-bottom: 1rem;
+    justify-content: space-around;
+    color: var(--footer-text-color);
 }
 
-
-/* BOTTOM */
-
-.pdf-resize-bottom {
-    bottom: -4px;
-    left: 10px;
-    right: 10px;
-    height: 8px;
-
-    cursor: ns-resize;
+.footer-text{
+    font-size: var(--main-font-size);
+    display: flex;
+    align-items: center;
+    text-align: end;
 }
 
+.footer-brand{
+    width: 150px;
+    height: 150px;
 
-/* LEFT */
+    >img{
+        width: 150px;
+        height: 150px;
+    }
+}
+.footer-nav {
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--main-text-color);
 
-.pdf-resize-left {
-    top: 10px;
-    bottom: 10px;
-    left: -4px;
-    width: 8px;
+    > .footer-list {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        gap: 1rem;
+        font-weight: 600;
 
-    cursor: ew-resize;
+        > .navLink {
+            color: inherit; 
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            >a{text-decoration: none;}
+        }
+    }
 }
 
-
-/* RIGHT */
-
-.pdf-resize-right {
-    top: 10px;
-    bottom: 10px;
-    right: -4px;
-    width: 8px;
-
-    cursor: ew-resize;
-}
-
-
-/* TOP LEFT */
-
-.pdf-resize-top-left {
-    top: -5px;
-    left: -5px;
-
-    width: 14px;
-    height: 14px;
-
-    cursor: nwse-resize;
-}
-
-
-/* TOP RIGHT */
-
-.pdf-resize-top-right {
-    top: -5px;
-    right: -5px;
-
-    width: 14px;
-    height: 14px;
-
-    cursor: nesw-resize;
-}
-
-
-/* BOTTOM LEFT */
-
-.pdf-resize-bottom-left {
-    bottom: -5px;
-    left: -5px;
-
-    width: 14px;
-    height: 14px;
-
-    cursor: nesw-resize;
-}
-
-
-/* BOTTOM RIGHT */
-
-.pdf-resize-bottom-right {
-    bottom: -5px;
-    right: -5px;
-
-    width: 14px;
-    height: 14px;
-
-    cursor: nwse-resize;
-}
-
-/* ==================== DRAG CURSOR ==================== */
-
-.pdf-modal.floating .pdf-reader-header {
-    cursor: move;
-    user-select: none;
-}
-
-
-/* ==================== HOME SCROLL CONTROL ==================== */
-
-body.pdf-reader-locked {
-    overflow: hidden;
+.footer-list .navLink:hover {
+            color: var(--hover-text-color); 
 }

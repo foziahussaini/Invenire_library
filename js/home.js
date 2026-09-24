@@ -1,449 +1,223 @@
 // =========================================================
-// ADD TO LIBRARY
+// HOOK FOR LAYOUT CONTROLS (DRAG, RESIZE, MINIMIZE, FULLSCREEN)
 // =========================================================
+window.initializeWindowDragAndResize = function () {
 
-const libraryButtons = document.querySelectorAll(".library-btn");
+    const pdfModal = document.getElementById("pdf-modal");
+    const pdfReader = document.querySelector(".pdf-reader");
 
-libraryButtons.forEach(function (button) {
+    const pdfMinimizeButton = document.getElementById("pdf-minimize-btn");
+    const pdfFullscreenButton = document.getElementById("pdf-fullscreen-btn");
 
-    button.addEventListener("click", function () {
+    if (!pdfModal || !pdfReader) return; 
 
-        button.textContent = "Added to Library";
-
-    });
-
-});
-
-
-
-
-// =========================================================
-// DOWNLOAD PDF
-// =========================================================
-
-const downloadButtons = document.querySelectorAll(".download-btn");
-
-downloadButtons.forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-        const pdfUrl = button.dataset.pdfUrl;
-
-        const downloadLink = document.createElement("a");
-
-        downloadLink.href = pdfUrl;
-        downloadLink.download = "";
-
-        document.body.appendChild(downloadLink);
-
-        downloadLink.click();
-
-        document.body.removeChild(downloadLink);
-
-    });
-
-});
-
-
-
-// =========================================================
-// PDF READER
-// =========================================================
-
-const readButtons = document.querySelectorAll(".read-btn");
-
-const pdfModal = document.getElementById("pdf-modal");
-const pdfReader = document.querySelector(".pdf-reader");
-const pdfFrame = document.getElementById("pdf-frame");
-
-const pdfCloseButton = document.getElementById("pdf-close-btn");
-const pdfMinimizeButton = document.getElementById("pdf-minimize-btn");
-const pdfFullscreenButton = document.getElementById("pdf-fullscreen-btn");
-
-
-// =========================================================
-// OPEN PDF
-// =========================================================
-
-readButtons.forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-        const pdfUrl = button.dataset.pdfUrl;
-
-        pdfFrame.src = pdfUrl;
-
-        pdfModal.style.display = "flex";
-
-        document.body.classList.add("pdf-reader-locked");
-
-    });
-
-});
-
-
-// =========================================================
-// MINIMIZE PDF READER
-// =========================================================
-
-pdfMinimizeButton.addEventListener("click", function () {
-
-    pdfModal.style.display = "none";
-
-    document.body.classList.remove("pdf-reader-locked");
-
-});
-
-
-// =========================================================
-// FULLSCREEN / FLOATING WINDOW
-// =========================================================
-
-let floatingWindowState = {
-    width: "",
-    height: "",
-    left: "",
-    top: ""
-};
-
-
-pdfFullscreenButton.addEventListener("click", function () {
-
-    // =====================================================
-    // FLOATING WINDOW → FULLSCREEN
-    // =====================================================
-
-    if (pdfModal.classList.contains("floating")) {
-
-        // Save current floating window size and position
-        floatingWindowState.width = pdfReader.style.width;
-        floatingWindowState.height = pdfReader.style.height;
-        floatingWindowState.left = pdfReader.style.left;
-        floatingWindowState.top = pdfReader.style.top;
-
-        // Remove floating mode
-        pdfModal.classList.remove("floating");
-
-        // Remove inline size and position
-        // so fullscreen CSS can take full control
-        pdfReader.style.width = "";
-        pdfReader.style.height = "";
-        pdfReader.style.left = "";
-        pdfReader.style.top = "";
-
-        // Enable fullscreen mode
-        pdfReader.classList.add("fullscreen");
-
-        // Lock page scrolling
-        document.body.classList.add("pdf-reader-locked");
-
-        return;
+    // Helper to calculate and strip CSS translate locks before manipulation
+    function clearCenterPositionLocks() {
+        if (!pdfReader.style.left || pdfReader.style.transform.includes("translate")) {
+            const rect = pdfReader.getBoundingClientRect();
+            pdfReader.style.left = rect.left + "px";
+            pdfReader.style.top = rect.top + "px";
+            pdfReader.style.transform = "none"; // Erases translate(-50%, -50%) safely
+            pdfReader.style.margin = "0";
+        }
     }
 
-
-    // =====================================================
-    // FULLSCREEN → FLOATING WINDOW
-    // =====================================================
-
-    if (pdfReader.classList.contains("fullscreen")) {
-
-        // Remove fullscreen mode
-        pdfReader.classList.remove("fullscreen");
-
-        // Restore floating mode
-        pdfModal.classList.add("floating");
-
-        // Restore previous floating window size
-        // and position
-        pdfReader.style.width = floatingWindowState.width;
-        pdfReader.style.height = floatingWindowState.height;
-        pdfReader.style.left = floatingWindowState.left;
-        pdfReader.style.top = floatingWindowState.top;
-
-        // Allow page scrolling again
-        document.body.classList.remove("pdf-reader-locked");
-
-        return;
+    // =========================================================
+    // 1. MINIMIZE / TRUE FLOATING CORNER TOGGLE
+    // =========================================================
+    if (pdfMinimizeButton) {
+        pdfMinimizeButton.replaceWith(pdfMinimizeButton.cloneNode(true));
+        
+        document.getElementById("pdf-minimize-btn").addEventListener("click", function (e) {
+            e.stopPropagation();
+            
+            if (!pdfModal.classList.contains("minimized")) {
+                pdfModal.classList.add("minimized");
+                document.body.classList.remove("pdf-reader-locked"); // Unlocks background scrolling
+                
+                document.getElementById("pdf-minimize-btn").textContent = "🗖"; 
+                document.getElementById("pdf-minimize-btn").title = "Maximize / Restore Window Layer";
+            } else {
+                pdfModal.classList.remove("minimized");
+                document.body.classList.add("pdf-reader-locked"); // Re-locks background scrolling
+                
+                document.getElementById("pdf-minimize-btn").textContent = "−"; 
+                document.getElementById("pdf-minimize-btn").title = "Minimize to Background Task";
+            }
+        });
     }
 
+    // =========================================================
+    // 2. FULLSCREEN / FLOATING SWITCH ACTION
+    // =========================================================
+    let floatingWindowState = { width: "90%", height: "95vh", left: "", top: "" };
 
-    // =====================================================
-    // NORMAL READER → FULLSCREEN
-    // =====================================================
+    if (pdfFullscreenButton) {
+        pdfFullscreenButton.replaceWith(pdfFullscreenButton.cloneNode(true));
+        
+        document.getElementById("pdf-fullscreen-btn").addEventListener("click", function (e) {
+            e.stopPropagation();
+            
+            // If the window is currently minimized, maximize it first
+            if (pdfModal.classList.contains("minimized")) {
+                pdfModal.classList.remove("minimized");
+                if (pdfMinimizeButton) pdfMinimizeButton.textContent = "−";
+            }
 
-    pdfReader.classList.add("fullscreen");
+            // FULLSCREEN ➔ FLOATING/RESTORED STATE
+            if (pdfReader.classList.contains("fullscreen")) {
+                pdfReader.classList.remove("fullscreen");
+                pdfModal.classList.add("floating");
 
-    document.body.classList.add("pdf-reader-locked");
+                // Restore previous exact dragging configurations
+                pdfReader.style.width = floatingWindowState.width;
+                pdfReader.style.height = floatingWindowState.height;
+                pdfReader.style.left = floatingWindowState.left;
+                pdfReader.style.top = floatingWindowState.top;
+                pdfReader.style.transform = "none";
+                return;
+            }
 
-});
+            // FLOATING ➔ FULLSCREEN STATE
+            // Cache current manual values before stretching layout sizes
+            clearCenterPositionLocks();
+            floatingWindowState.width = pdfReader.style.width || "90%";
+            floatingWindowState.height = pdfReader.style.height || "95vh";
+            floatingWindowState.left = pdfReader.style.left;
+            floatingWindowState.top = pdfReader.style.top;
 
-// =========================================================
-// CLOSE PDF READER
-// =========================================================
-
-pdfCloseButton.addEventListener("click", function () {
-
-    pdfModal.style.display = "none";
-
-    pdfFrame.src = "";
-
-    pdfReader.classList.remove("fullscreen");
-
-    pdfModal.classList.remove("floating");
-
-    document.body.classList.remove("pdf-reader-locked");
-
-});
-
-
-// =========================================================
-// FLOATING PDF WINDOW
-// DRAG & RESIZE
-// =========================================================
-
-const resizeHandles = document.querySelectorAll(".pdf-resize-handle");
-
-let isDragging = false;
-let isResizing = false;
-
-let currentResizeDirection = "";
-
-let startMouseX = 0;
-let startMouseY = 0;
-
-let startLeft = 0;
-let startTop = 0;
-
-let startRight = 0;
-let startBottom = 0;
-
-let startWidth = 0;
-let startHeight = 0;
-
-
-// =========================================================
-// DRAG WINDOW
-// =========================================================
-
-pdfReader.querySelector(".pdf-reader-header").addEventListener(
-    "mousedown",
-    function (event) {
-
-        if (!pdfModal.classList.contains("floating")) {
-            return;
-        }
-
-        // Do not drag when clicking a button
-        if (event.target.closest("button")) {
-            return;
-        }
-
-        isDragging = true;
-
-        startMouseX = event.clientX;
-        startMouseY = event.clientY;
-
-        const rect = pdfReader.getBoundingClientRect();
-
-        startLeft = rect.left;
-        startTop = rect.top;
-
-        document.body.style.userSelect = "none";
-
+            pdfModal.classList.remove("floating");
+            pdfReader.classList.add("fullscreen");
+            
+            // Apply complete viewport overrides
+            pdfReader.style.width = "100vw";
+            pdfReader.style.height = "100vh";
+            pdfReader.style.left = "0";
+            pdfReader.style.top = "0";
+            pdfReader.style.transform = "none";
+        });
     }
-);
 
+    // =========================================================
+    // 3. WINDOW DRAG MECHANICAL LOGIC ENGINE
+    // =========================================================
+    let isDragging = false;
+    let isResizing = false;
+    let currentResizeDirection = "";
 
-// =========================================================
-// START RESIZE
-// =========================================================
+    let startMouseX = 0, startMouseY = 0;
+    let startLeft = 0, startTop = 0;
+    let startRight = 0, startBottom = 0;
+    let startWidth = 0, startHeight = 0;
 
-resizeHandles.forEach(function (handle) {
+    const header = pdfReader.querySelector(".pdf-reader-header");
+    if (header) {
+        header.replaceWith(header.cloneNode(true));
+        pdfReader.querySelector(".pdf-reader-header").addEventListener("mousedown", function (event) {
+            // Disallow movements if full screen, minimized, or clicking operational controls
+            if (pdfReader.classList.contains("fullscreen") || pdfModal.classList.contains("minimized") || event.target.closest("button")) return;
 
-    handle.addEventListener("mousedown", function (event) {
+            clearCenterPositionLocks();
+            if (!pdfModal.classList.contains("floating")) pdfModal.classList.add("floating");
 
-        if (!pdfModal.classList.contains("floating")) {
-            return;
-        }
+            isDragging = true;
+            startMouseX = event.clientX;
+            startMouseY = event.clientY;
 
-        event.preventDefault();
-        event.stopPropagation();
+            startLeft = parseInt(pdfReader.style.left, 10) || 0;
+            startTop = parseInt(pdfReader.style.top, 10) || 0;
+            
+            document.body.style.userSelect = "none";
+        });
+    }
 
-        isResizing = true;
+    // =========================================================
+    // 4. WINDOW SIZING HANDLE SUITE
+    // =========================================================
+    const resizeHandles = document.querySelectorAll(".pdf-resize-handle");
+    resizeHandles.forEach(function (handle) {
+        handle.replaceWith(handle.cloneNode(true));
+    });
 
-        currentResizeDirection = Array.from(handle.classList)
-            .find(function (className) {
+    document.querySelectorAll(".pdf-resize-handle").forEach(function (handle) {
+        handle.addEventListener("mousedown", function (event) {
+            if (pdfReader.classList.contains("fullscreen") || pdfModal.classList.contains("minimized")) return;
 
-                return (
-                    className.startsWith("pdf-resize-") &&
-                    className !== "pdf-resize-handle"
-                );
+            event.preventDefault();
+            event.stopPropagation();
+            
+            clearCenterPositionLocks();
+            if (!pdfModal.classList.contains("floating")) pdfModal.classList.add("floating");
+            
+            isResizing = true;
 
+            currentResizeDirection = Array.from(handle.classList).find(function (className) {
+                return className.startsWith("pdf-resize-") && className !== "pdf-resize-handle";
             });
 
+            const rect = pdfReader.getBoundingClientRect();
+            startMouseX = event.clientX; startMouseY = event.clientY;
+            startLeft = rect.left; startTop = rect.top;
+            startRight = rect.right; startBottom = rect.bottom;
+            startWidth = rect.width; startHeight = rect.height;
 
-        const rect = pdfReader.getBoundingClientRect();
-
-        startMouseX = event.clientX;
-        startMouseY = event.clientY;
-
-        startLeft = rect.left;
-        startTop = rect.top;
-
-        startRight = rect.right;
-        startBottom = rect.bottom;
-
-        startWidth = rect.width;
-        startHeight = rect.height;
-
-        document.body.style.userSelect = "none";
-
+            document.body.style.userSelect = "none";
+        });
     });
 
-});
-
-
-// =========================================================
-// MOUSE MOVE
-// =========================================================
-
-document.addEventListener("mousemove", function (event) {
-
-
-    // =====================================================
-    // DRAG WINDOW
-    // =====================================================
-
-    if (isDragging) {
-
-        const deltaX = event.clientX - startMouseX;
-        const deltaY = event.clientY - startMouseY;
-
-        pdfReader.style.left = startLeft + deltaX + "px";
-        pdfReader.style.top = startTop + deltaY + "px";
-
-    }
-
-
-    // =====================================================
-    // RESIZE WINDOW
-    // =====================================================
-
-    if (isResizing) {
-
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-
-        const minWidth = 350;
-        const minHeight = 250;
-
-
-        // =================================================
-        // RIGHT SIDE
-        // =================================================
-
-        if (
-            currentResizeDirection === "pdf-resize-right" ||
-            currentResizeDirection === "pdf-resize-top-right" ||
-            currentResizeDirection === "pdf-resize-bottom-right"
-        ) {
-
-            const newWidth = Math.max(
-                minWidth,
-                mouseX - startLeft
-            );
-
-            pdfReader.style.width = newWidth + "px";
-
+    // =========================================================
+    // 5. EVENT COMPUTATION MATRICES (MOUSE MOVE RECONSTRUCTION)
+    // =========================================================
+    const cleanMoveHandler = function (event) {
+        if (isDragging) {
+            const deltaX = event.clientX - startMouseX;
+            const deltaY = event.clientY - startMouseY;
+            pdfReader.style.left = (startLeft + deltaX) + "px";
+            pdfReader.style.top = (startTop + deltaY) + "px";
         }
 
+        if (isResizing) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            const minWidth = 350;
+            const minHeight = 250;
 
-        // =================================================
-        // LEFT SIDE
-        // =================================================
-
-        if (
-            currentResizeDirection === "pdf-resize-left" ||
-            currentResizeDirection === "pdf-resize-top-left" ||
-            currentResizeDirection === "pdf-resize-bottom-left"
-        ) {
-
-            const maxLeft = startRight - minWidth;
-
-            const newLeft = Math.min(
-                mouseX,
-                maxLeft
-            );
-
-            const newWidth = startRight - newLeft;
-
-            pdfReader.style.left = newLeft + "px";
-            pdfReader.style.width = newWidth + "px";
-
+            if (["pdf-resize-right", "pdf-resize-top-right", "pdf-resize-bottom-right"].includes(currentResizeDirection)) {
+                pdfReader.style.width = Math.max(minWidth, mouseX - startLeft) + "px";
+            }
+            if (["pdf-resize-bottom", "pdf-resize-bottom-left", "pdf-resize-bottom-right"].includes(currentResizeDirection)) {
+                pdfReader.style.height = Math.max(minHeight, mouseY - startTop) + "px";
+            }
+            if (["pdf-resize-left", "pdf-resize-top-left", "pdf-resize-bottom-left"].includes(currentResizeDirection)) {
+                const maxLeft = startRight - minWidth;
+                const newLeft = Math.min(maxLeft, mouseX);
+                pdfReader.style.left = newLeft + "px";
+                pdfReader.style.width = (startRight - newLeft) + "px";
+            }
+            if (["pdf-resize-top", "pdf-resize-top-left", "pdf-resize-top-right"].includes(currentResizeDirection)) {
+                const maxTop = startBottom - minHeight;
+                const newTop = Math.min(maxTop, mouseY);
+                pdfReader.style.top = newTop + "px";
+                pdfReader.style.height = (startBottom - newTop) + "px";
+            }
         }
+    };
 
+    const cleanUpHandler = function () {
+        isDragging = false;
+        isResizing = false;
+        document.body.style.userSelect = "";
+    };
 
-        // =================================================
-        // BOTTOM SIDE
-        // =================================================
+    // Prevent recursive event listeners accumulation memory leaks
+    document.removeEventListener("mousemove", window.activeModalMouseMove);
+    document.removeEventListener("mouseup", window.activeModalMouseUp);
 
-        if (
-            currentResizeDirection === "pdf-resize-bottom" ||
-            currentResizeDirection === "pdf-resize-bottom-left" ||
-            currentResizeDirection === "pdf-resize-bottom-right"
-        ) {
+    window.activeModalMouseMove = cleanMoveHandler;
+    window.activeModalMouseUp = cleanUpHandler;
 
-            const newHeight = Math.max(
-                minHeight,
-                mouseY - startTop
-            );
+    document.addEventListener("mousemove", window.activeModalMouseMove);
+    document.addEventListener("mouseup", window.activeModalMouseUp);
+};
 
-            pdfReader.style.height = newHeight + "px";
-
-        }
-
-
-        // =================================================
-        // TOP SIDE
-        // =================================================
-
-        if (
-            currentResizeDirection === "pdf-resize-top" ||
-            currentResizeDirection === "pdf-resize-top-left" ||
-            currentResizeDirection === "pdf-resize-top-right"
-        ) {
-
-            const maxTop = startBottom - minHeight;
-
-            const newTop = Math.min(
-                mouseY,
-                maxTop
-            );
-
-            const newHeight = startBottom - newTop;
-
-            pdfReader.style.top = newTop + "px";
-            pdfReader.style.height = newHeight + "px";
-
-        }
-
-    }
-
-});
-
-
-// =========================================================
-// STOP DRAG / RESIZE
-// =========================================================
-
-document.addEventListener("mouseup", function () {
-
-    isDragging = false;
-
-    isResizing = false;
-
-    currentResizeDirection = "";
-
-    document.body.style.userSelect = "";
-
-});
+document.addEventListener("DOMContentLoaded", () => {window.initializeWindowDragAndResize();});
