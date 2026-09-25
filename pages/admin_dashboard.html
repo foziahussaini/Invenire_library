@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="../css-style//main-pages/home.css">
     <link href="/src/output.css" rel="stylesheet">
     <script type="module" src="../js/dashboard/dashboard.js" defer></script>
-    <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
-    <script type="module" src ="../js/dashboard/acount/profile.js" defer></script>
+    <!-- admin dashboard screen cards  -->
     <script type="module" src="../js/dashboard/dashboard_cards/card1.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/card2.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/card3.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/card4.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/card7.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/card8.js" defer></script>
-    <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
-    <script type="module" src="../js/dashboard/search_bar/members_search.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/checkout.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/chart_bar.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/donutChart.js" defer></script>
+    <!-- admin header part-->
+    <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/members_search.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
+    <script type="module" src ="../js/dashboard/acount/profile.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
@@ -89,6 +92,7 @@
             </header>
             <!-- Your main page content goes here -->
             <main class="justify-center flex flex-col items-center">
+                <!-- active member total count -->
                <div class="headline-content">
                    <h1 class="headline">Active Members</h1> <!-- showing the latest news for active members -->
                    <button class="checkout-btn">+ Checkout</button>

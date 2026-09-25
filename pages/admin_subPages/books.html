@@ -7,11 +7,12 @@
     <!-- Font Awesome Link for icons (matches your dashboard setup) -->
     <link rel="stylesheet" href="../../css-style/main-pages/home.css"> <!-- for the base root linked-->
     <link rel="stylesheet" href="../../css-style/sub-pages/books.css">
-    <script type="module" src="../../js/dashboard/search.js" defer></script>
-    <script type="module" src="../../js/dashboard/books_search.js" defer></script>
-    <script type="module" src="../../js/dashboard/members_search.js" defer></script>
-    <script type="module" src="../../js/dashboard/profile.js" defer></script>
-    <script type="module" src="../../js/dashboard/sub_pages/books_list.js" defer></script>
+    <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
+    <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
+    <script type="module" src="../../js/dashboard/search_bar/members_search.js" defer></script>
+    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
+    <script type="module" src="../../js/dashboard/sub_pages/books/books_list.js" defer></script>
+    <script type="module" src="../../js/dashboard/sub_pages/books/addBooks.js" defer></script>
     <script src="../../js/dashboard/sub_pages/books.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -114,7 +115,7 @@
                     </tbody>
                 </table>
             </div>
-            <!-- add books form card where admin can add book -->
+            <!-- ============add books form card where admin can add book ==============-->
             <div class="book-form-card">
                 <form action="" id="add-book-form" class="add-book-form 
                 grid 
@@ -127,44 +128,50 @@
                     <div class="form-grid left-part ">
                         <div class="form-group">
                             <label for="book Name">Book Name</label>
-                            <input type="text" placeholder="e.g Boofe Koor" required>
+                            <input id="book-name" type="text" placeholder="e.g Boofe Koor" required>
                         </div>
                         <div class="form-group">
                             <label for="author">Author</label>
-                            <input type="text" placeholder="e.g Paulo kiulo" required>
+                            <input type="text" id="author" placeholder="e.g Paulo kiulo" required>
                         </div>
                         <div class="form-group">
                             <label for="edition">Edition</label>
-                            <input type="text" placeholder="e.g 2022 / 1st edition / fiction" required>
+                            <input type="text" id="edition" placeholder="e.g 2022 / 1st edition / fiction" required>
                         </div>
                         <div class="form-group">
-                            <label for="short details">short details</label>
-                            <input type="text" placeholder="e.g about book" required>
+                            <label for="shortDetails">Short details</label>
+                            <textarea id="shortDetails" placeholder="message about book..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="pdf url">book pdf/url</label>
-                            <input type="url" placeholder="e.g example.pdf/ http/example.pdf">
-                        </div>
-                        <div class="form-group">
-                            <label for="audio url">Audio url</label>
-                            <input type="text" placeholder="e.g example.mp3">
+                         <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" placeholder="e.g $36">
                         </div>
                     </div>
                     <div class="form-grid right-part">
-                         <div class="form-group">
-                            <label for="book cover">book cover</label>
-                            <input type="file" name="cover image" id="cover-image" required>
+                        <div class="form-group">
+                            <label for="cover-image">Book cover</label>
+                            <input type="url" name="cover image" id="cover-image"
+                            placeholder="https://example.com/book-cover.jpg" required>
+                            <div class="preview-image-row">
+                                <img id="cover-preview" alt="cover image">
+                                <img class="second-img"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSJ4Doh2rVki_5dwPZat-FwyCPpbFSYC8Qw9ZA66QGKQ&s=10" alt="image">
+                            </div>
+                            </div>
+                        <div class="form-group">
+                            <label for="pdf url">book pdf/url</label>
+                            <input type="url" id="pdf-url" placeholder="e.g example.pdf/ http/example.pdf">
                         </div>
                         <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="text" placeholder="e.g $36">
+                            <label for="audio url">Audio url</label>
+                            <input type="text" id="audio-url" placeholder="e.g example.mp3">
                         </div>
                     </div>
                     <div class="form-grid buttons 
                     sm:col-span-full">
                         <div class="btns">
-                           <button>edit</button>
-                           <button>save</button>
+                            <button type="submit" id="save-book-btn">Save</button>
+                            <!-- <button type="submit" id="cancel-edit-btn">cancel</button> -->
                         </div>
                     </div>
                 </form>
