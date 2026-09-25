@@ -571,58 +571,59 @@ thead .table-header th {
 
 
 /* ====================================ADD BOOKS PART================================= */
-
-.add-books-container{
-    display: grid;
-    grid-template-columns: repeat( minmax(3, 1fr));
-    gap: 24px;
-    padding: 20px;
+.book-form-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    width: 600px auto;
+    max-width: 600px auto;
+    height: 500px auto;
+    max-height: 500px auto;
+   
 }
 
-/* Card Styling Structure matching your fields */
-.book-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    padding: 16px;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid #eaeaea;
-}
-
-.book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Book Cover Configuration rules */
-.book-card img {
+.add-book-form{
     width: 100%;
-    height: 280px;
-    object-fit: cover; /* Prevents raw image link scaling distorts */
-    border-radius: 8px;
-    margin-bottom: 14px;
-    background-color: #f5f5f5;
+    height: auto;
+    margin: 1rem auto;
+    align-items: center;
+    padding: var(--btn-padding);
+    background-color: var(--main-background-color);
+    border-radius: var(--btn-border-radius);
+    box-shadow: var(--card-box-shadow);
 }
 
-.book-card h3 {
-    font-size: 1.1rem;
-    margin: 8px 0 4px 0;
-    color: #2c3e50;
-    font-weight: 600;
+.form-grid{
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    >.form-group{
+        display: flex;
+        flex-direction: column;
+        color: var(--main-text-color);
+    }
 }
 
-.book-card p {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    margin: 4px 0;
+label{margin-left: 0.3rem;}
+
+input{
+    width: 100%;
+    height: 35px;
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--input-border-color);
+    padding: 0.2rem 0.7rem;
+    outline: none;
 }
 
-/* Simple Loading Message element rules */
-.loading-state {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 40px;
-    color: #95a5a6;
-    font-size: 1.1rem;
+#cover-image{
+    height: 300px;
+}
+
+.buttons{
+    grid-template-columns: 2;
 }

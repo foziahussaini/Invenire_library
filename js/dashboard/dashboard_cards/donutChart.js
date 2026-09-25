@@ -1,4 +1,4 @@
-import { db } from "../../src/firebase-config.js";
+import { db } from "../../../src/firebase-config.js";
 // FIXED: This dedicated file imports onSnapshot and collectionGroup explicitly 
 import { collectionGroup, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 

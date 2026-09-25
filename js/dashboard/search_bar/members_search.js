@@ -1,4 +1,4 @@
-import { db } from "../../src/firebase-config.js"; 
+import { db } from "../../../src/firebase-config.js"; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const querySnapshot = await getDocs(collection(db, "members"));
-        memberDisplayContainer.innerHTML = "";
+        // memberDisplayContainer.innerHTML = "";
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
@@ -31,6 +31,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             memberDisplayContainer.appendChild(memberCard);
         });
     } catch (error) {
-        console.error("Error displaying members registry entries:", error);
+        console.log("Error displaying members registry entries:", error);
     }
 });

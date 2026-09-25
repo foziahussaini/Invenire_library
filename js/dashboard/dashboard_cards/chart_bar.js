@@ -1,4 +1,4 @@
-import { db } from "../../src/firebase-config.js";
+import { db } from "../../../src/firebase-config.js";
 import { collection, getDocs, query, orderBy} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const trafficChartBar = document.getElementById("chart-bars");

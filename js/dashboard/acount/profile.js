@@ -1,5 +1,5 @@
-import { defaultFemaleProfile, defaultMaleProfile } from "../../src/assets.js";
-import { db } from "../../src/firebase-config.js"; 
+import { defaultFemaleProfile, defaultMaleProfile } from "../../../src/assets.js";
+import { db } from "../../../src/firebase-config.js"; 
 import { collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const profileImg = document.querySelector(".profile");

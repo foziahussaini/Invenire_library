@@ -118,7 +118,7 @@ function formatDueDate(value) {
 async function allLibraryBooks() {
     try {
         tableBodyContainer.innerHTML = `
-            <div class="loading-state"
+            <div class="loading-state">
                 <span><i class="fas fa-spinner fa-spin"></i></span>
                 Calculating library metrics...
             </div>
@@ -267,7 +267,9 @@ function booksRowContent(booksArray) {
     });
 
     tableBodyContainer.innerHTML = rowTable;
-    setupTableActionListeners();
+    if (typeof setupTableActionListeners === 'function') {
+        setupTableActionListeners();
+    }
 }
 
 // ACTION BUTTON LISTENERS FOR EDIT AND DELETE

@@ -8,6 +8,9 @@
       "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-blue-400: oklch(70.7% 0.165 254.624);
+    --color-blue-800: oklch(42.4% 0.199 265.638);
+    --color-indigo-600: oklch(51.1% 0.262 276.966);
     --color-slate-600: oklch(44.6% 0.043 257.281);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-400: oklch(70.7% 0.022 261.325);
@@ -192,6 +195,18 @@
   .mx-2 {
     margin-inline: calc(var(--spacing) * 2);
   }
+  .mt-1 {
+    margin-top: var(--spacing);
+  }
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .mt-6 {
+    margin-top: calc(var(--spacing) * 6);
+  }
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
+  }
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
   }
@@ -204,20 +219,59 @@
   .grid {
     display: grid;
   }
-  .inline {
-    display: inline;
-  }
   .table {
     display: table;
   }
   .table-row {
     display: table-row;
   }
+  .size-\[3\] {
+    width: 3;
+    height: 3;
+  }
+  .size-\[34\] {
+    width: 34;
+    height: 34;
+  }
+  .size-\[34px\] {
+    width: 34px;
+    height: 34px;
+  }
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
+  .h-12 {
+    height: calc(var(--spacing) * 12);
+  }
   .h-32 {
     height: calc(var(--spacing) * 32);
+  }
+  .h-\[0px\] {
+    height: 0px;
+  }
+  .h-\[1\] {
+    height: 1;
+  }
+  .h-\[10px\] {
+    height: 10px;
+  }
+  .h-\[30px\] {
+    height: 30px;
+  }
+  .h-\[80px\] {
+    height: 80px;
+  }
+  .h-\[150px\] {
+    height: 150px;
+  }
+  .h-\[200px\] {
+    height: 200px;
   }
   .h-px {
     height: 1px;
@@ -228,8 +282,20 @@
   .w-\[1px\] {
     width: 1px;
   }
+  .w-\[200px\] {
+    width: 200px;
+  }
+  .w-\[800px\] {
+    width: 800px;
+  }
   .w-full {
     width: 100%;
+  }
+  .flex-shrink {
+    flex-shrink: 1;
+  }
+  .flex-grow {
+    flex-grow: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -243,14 +309,17 @@
   .flex-col {
     flex-direction: column;
   }
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
   .items-center {
     align-items: center;
   }
   .justify-center {
     justify-content: center;
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
+  }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
   }
   .border {
     border-style: var(--tw-border-style);
@@ -260,17 +329,32 @@
     border-style: var(--tw-border-style);
     border-width: 0px;
   }
+  .bg-blue-800 {
+    background-color: var(--color-blue-800);
+  }
   .bg-gray-300 {
     background-color: var(--color-gray-300);
   }
   .bg-gray-400 {
     background-color: var(--color-gray-400);
   }
+  .bg-indigo-600 {
+    background-color: var(--color-indigo-600);
+  }
   .bg-slate-600 {
     background-color: var(--color-slate-600);
   }
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
+  }
+  .p-6 {
+    padding: calc(var(--spacing) * 6);
+  }
   .text-center {
     text-align: center;
+  }
+  .text-blue-400 {
+    color: var(--color-blue-400);
   }
   .underline {
     text-decoration-line: underline;
@@ -283,6 +367,10 @@
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .ease-in-out {
+    --tw-ease: var(--ease-in-out);
+    transition-timing-function: var(--ease-in-out);
   }
 }
 @property --tw-rotate-x {
@@ -315,6 +403,10 @@
   inherits: false;
   initial-value: solid;
 }
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -325,6 +417,7 @@
       --tw-skew-y: initial;
       --tw-border-style: solid;
       --tw-outline-style: solid;
+      --tw-ease: initial;
     }
   }
 }

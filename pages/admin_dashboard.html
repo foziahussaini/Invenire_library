@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="../css-style//main-pages/home.css">
     <link href="/src/output.css" rel="stylesheet">
     <script type="module" src="../js/dashboard/dashboard.js" defer></script>
-    <script type="module" src="../js/dashboard/search.js" defer></script>
-    <script type="module" src ="../js/dashboard/profile.js" defer></script>
-    <script type="module" src="../js/dashboard/cards.js" defer></script>
-    <script type="module" src="../js/dashboard/books_search.js" defer></script>
-    <script type="module" src="../js/dashboard/members_search.js" defer></script>
-    <script type="module" src="../js/dashboard/chart_bar.js" defer></script>
-    <script type="module" src="../js/dashboard/donutChart.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
+    <script type="module" src ="../js/dashboard/acount/profile.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card1.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card2.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card3.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card4.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card7.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card8.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/members_search.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/chart_bar.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/donutChart.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
@@ -89,13 +94,53 @@
                    <button class="checkout-btn">+ Checkout</button>
                </div>
             <div class="form-group">
-                <div class="card card1"></div>
-                <div class="card card2"></div>
-                <div class="card card3"></div>
-                <div class="card card4"></div>
+                <div class="card card1"> <!-- 1 count total books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-book-bookmark"></i></span>
+                        <span class="percentage">--%</span>
+                    </div>
+                    <p>Total books in library</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <div class="card card2"> <!-- 2 downloaded books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-download"></i></span>
+                        <span class="percentage">--% in Sep</span>
+                    </div>
+                    <p>Downloaded books</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <div class="card card3"> <!-- 3 on reading mode books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-book-reader"></i></span>
+                        <span class="percentage">+--% Active</span>
+                    </div>
+                    <p>Total books in library</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <div class="card card4"> <!-- 4 purchased books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        <span class="percentage">--%</span>
+                    </div>
+                    <p>Total purchased in library</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <!-- most active time traffic chart bar -->
                 <div class="card card5" id="chart-bars"><div class="traffic-chart"></div></div>
+                <!-- donut chart bar for total fee of all purchasing books -->
                 <div class="card card6"></div>
+                <!-- most popular books -->
                 <div class="card card7"></div>
+                <!-- list of active members at library -->
                 <div class="card card8"></div>
             </div>
             </main>

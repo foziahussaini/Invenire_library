@@ -1,4 +1,4 @@
-import { db } from "../../src/firebase-config.js"; 
+import { db } from "../../../src/firebase-config.js"; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
 
 ///============================ SEARCH COMPONENTS & CLOSE ICON INITIALIZATION ========================
