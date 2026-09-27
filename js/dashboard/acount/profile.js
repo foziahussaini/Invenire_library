@@ -1,90 +1,128 @@
 import { defaultFemaleProfile, defaultMaleProfile } from "../../../src/assets.js";
-import { db } from "../../../src/firebase-config.js"; 
-import { collection, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { db } from "../../../src/firebase-config.js";
+// FIXED: Added missing getDocs and collection imports from Firestore
+import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const profileImg = document.querySelector(".profile");
-const profileContainer = document.querySelector(".profile-container");
+// FIXED: Declared and hooked the container correctly based on your HTML structure
+const profileContainer = document.querySelector(".profile-container"); 
 
-/// ================================== DEFAULT PROFILE IMG =========================================
-if (profileImg) {
-    const prof = document.createElement("img");
-    prof.src = defaultFemaleProfile;
-    prof.alt = "profile";
-    profileImg.appendChild(prof);
+function normalizeGender(value) {
+    if (!value) return null;
+    const g = String(value).trim().toLowerCase();
+    if (["male", "m", "man", "boy"].includes(g)) return "male";
+    if (["female", "f", "woman", "girl"].includes(g)) return "female";
+    return null;
 }
 
-/// ================================== REPLACE IMG FROM FIRESTORE =========================================
-async function loadProfileImage(userId) {
+function getDefaultProfileByGender(gender) {
+    return gender === "male" ? defaultMaleProfile : defaultFemaleProfile;
+}
+
+async function loadUserProfileFromFirestore(userId) {
     if (!profileImg) return;
-    const imgElement = profileImg.querySelector("img");
+
+    const img = profileImg.querySelector("img");
+    if (!img) return;
+
+    // 1) first check localStorage gender as priority
+    const localGender = normalizeGender(localStorage.getItem("userGender"));
+    if (localGender) {
+        img.src = getDefaultProfileByGender(localGender);
+    }
+
+    if (!userId) return;
 
     try {
-        const userDocRef = doc(db, "membres", userId); 
+        const userDocRef = doc(db, "membres", userId);
         const userDoc = await getDoc(userDocRef);
 
-        if (userDoc.exists() && userDoc.data().profile_img) {
-            if (imgElement) imgElement.src = userDoc.data().profile_img;
-        } else {
-            if (imgElement) imgElement.src = defaultFemaleProfile;
-        }
-    } catch (error) {
-        console.error("Error fetching profile image", error);
-        if (imgElement) imgElement.src = defaultFemaleProfile;
-    }
-}
-
-
-// ================================== PROFILE DROPDOWN MENU ==================================
-profileContainer.addEventListener("click", async () => {
-    // Close it if it's already open
-    const existingMenu = document.querySelector(".profile-dropDown");
-    if (existingMenu) {
-        existingMenu.remove();
-        return; 
-    }
-
-    // Create dropdown container
-    const dropdown = document.createElement("div");
-    dropdown.className = "profile-dropDown";
-
-    // Close button setup using Font Awesome
-    const closeBtn = document.createElement("span");
-    closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
-    closeBtn.className = "close-btn";
-    closeBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); 
-        dropdown.remove();
-    });
-    dropdown.appendChild(closeBtn);
-
-    // dropdown drawer at the whole body like a sidebar
-    document.body.appendChild(dropdown);
-
-    try {
-        // Fetching data from Firestore
-        const querySnapshot = await getDocs(collection(db, "membres"));
-         
-        if (querySnapshot.empty) {
-            defaultUser(dropdown);
+        if (!userDoc.exists()) {
             return;
         }
 
-        querySnapshot.forEach((doc) => {
-            const userData = doc.data();
-            createUserCard(userData, doc.id, dropdown);
+        const data = userDoc.data();
+
+        // 2) if Firestore profile exists, use it
+        if (data.profile_img) {
+            img.src = data.profile_img;
+            return;
+        }
+
+        // 3) else use gender from Firestore
+        const firestoreGender = normalizeGender(data.gender || data.sex);
+        if (firestoreGender) {
+            img.src = getDefaultProfileByGender(firestoreGender);
+            return;
+        }
+
+        // 4) else fallback to localStorage/default female
+        img.src = getDefaultProfileByGender(localGender || "female");
+
+    } catch (error) {
+        console.error("Failed to load profile image:", error);
+        const fallbackGender = normalizeGender(localStorage.getItem("userGender")) || "female";
+        img.src = getDefaultProfileByGender(fallbackGender);
+    }
+}
+
+// Example usage:
+const loggedUserId = localStorage.getItem("user_id") || "member12"; 
+loadUserProfileFromFirestore(loggedUserId);
+
+// ================================== PROFILE DROPDOWN MENU ==================================
+// FIXED: Verified profileContainer initialization before binding event
+if (profileContainer) {
+    profileContainer.addEventListener("click", async () => {
+        // Close it if it's already open
+        const existingMenu = document.querySelector(".profile-dropDown");
+        if (existingMenu) {
+            existingMenu.remove();
+            return; 
+        }
+
+        // Create dropdown container
+        const dropdown = document.createElement("div");
+        dropdown.className = "profile-dropDown";
+
+        // Close button setup using Font Awesome
+        const closeBtn = document.createElement("span");
+        closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+        closeBtn.className = "close-btn";
+        closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); 
+            dropdown.remove();
+        });
+        dropdown.appendChild(closeBtn);
+
+        // Append to body layout drawer
+        document.body.appendChild(dropdown);
+
+        try {
+            // OPTIMIZATION: Fetch only the specific logged-in user instead of all collection items
+            const userDocRef = doc(db, "membres", loggedUserId);
+            const userDoc = await getDoc(userDocRef);
+             
+            if (!userDoc.exists()) {
+                defaultUser(dropdown);
+                return;
+            }
+
+            const userData = userDoc.data();
+            createUserCard(userData, userDoc.id, dropdown);
 
             if (userData.profile_img && profileImg.querySelector("img")) {
                 profileImg.querySelector("img").src = userData.profile_img; 
             }
-        });
 
-    } catch (error) {
-        console.error("Firestore failed", error);
-        defaultUser(dropdown);
-    }
-});
+        } catch (error) {
+            console.error("Firestore failed", error);
+            defaultUser(dropdown);
+        }
+    });
+}
 
-// Helper function 
+// Helper function to render DOM cards
 function createUserCard(userData, docId, container) {
     const userCard = document.createElement("div");
     userCard.className = "dropdown-user-card";
@@ -114,7 +152,7 @@ function createUserCard(userData, docId, container) {
     settingsBtn.className = "settings-btn";
     settingsBtn.addEventListener("click", (e) => {
         e.stopPropagation(); 
-        window.location.href = "../pages/admin_subPages/settings.html";
+        window.location.href = "../../../pages/admin_subPages/settings.html";
     });
 
     userCard.appendChild(userName);
@@ -124,7 +162,7 @@ function createUserCard(userData, docId, container) {
     container.appendChild(userCard);
 }
 
-// default profile if database contains no documents
+// default profile fallback configurations
 function defaultUser(container) {
     const fallbackData = { 
         full_name: "Library Header", 

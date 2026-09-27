@@ -2,7 +2,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body{
     overflow-x: none;
+    width: 100% auto;
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+    font-size: var(--main-font-size);
 }
 
 .dashboard-container{
@@ -56,10 +63,16 @@
     display: flex;
     cursor : pointer;
     font-size: var(--main-font-size);
+}
 
-    >i{
+.sidebar-menu .menu-item .menu-text{
+    text-decoration: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.sidebar-menu .menu-item .menu-icon{
         font-size: 1.2rem;
-    }
 }
 
 .menu-item:hover{
@@ -70,6 +83,12 @@
     color: var(--hover-text-color);
     font-weight: bold;
     border-bottom: 1px solid var(--hover-text-color);
+}
+
+.menu-item.active .menu-icon,
+.menu-item.active .menu-text{
+    color: var(--hover-text-color);
+    font-weight: bold;
 }
 
 .logout{
@@ -1131,37 +1150,13 @@
     height: var(--main-header-height);
     background: var(--footer-background-color);
     display: flex;
-    align-items: end;
-    padding-bottom: 1rem;
-    justify-content: space-around;
+    justify-content:center;
+
+    >.footer-text{
+    margin-top: 1rem;
+    font-weight: 500;
+    font-size: var(--header-font-size);
     color: var(--footer-text-color);
 }
-
-.footer-text{
-    font-size: var(--main-font-size);
-    text-align: end;
-    margin-left: 1rem;
 }
-
-.footer-nav {
-    width: 280px;
-    display: flex;
-    justify-content: space-between;
-    color: var(--main-text-color);
-    list-style: none; /* Strip standard bullet points */
-
-    > .footer-list {
-        font-weight: 600;
-
-        > .navLink {
-            color: inherit; 
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        > .navLink:hover {
-            color: var(--hover-text-color); 
-        }
-    }
-}
-
+ 

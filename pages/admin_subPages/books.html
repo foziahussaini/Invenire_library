@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminBooks Management</title>
+    <link href="/src/output.css" rel="stylesheet">
     <!-- Font Awesome Link for icons (matches your dashboard setup) -->
     <link rel="stylesheet" href="../../css-style/main-pages/home.css"> <!-- for the base root linked-->
     <link rel="stylesheet" href="../../css-style/sub-pages/books.css">
+    <!-- responsive css paths -->
+    <link rel="stylesheet" href="../../responsive/dashboard/sidebar_profile_responsive.css"> 
+    <link rel="stylesheet" href="../../responsive/dashboard/book-responsive.css">
     <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/members_search.js" defer></script>
-    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
     <script type="module" src="../../js/dashboard/sub_pages/books/books_list.js" defer></script>
     <script type="module" src="../../js/dashboard/sub_pages/books/addBooks.js" defer></script>
+    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
     <script src="../../js/dashboard/sub_pages/books.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -21,45 +25,59 @@
 <body>
     <!-- main container include main body sidebar and header -->
     <div class="books-container">
+        <!-- ================SIDEBAR SECTION==================== -->
         <aside class="book-sidebar"> 
             <div class="logo">
                 <img src="/images/logo/logo.png" alt="Invenire Library" class="logo">
             </div>
             <hr class="h-px bg-gray-300 border-0">
             <div class="sidebar-menu">
-                <div class="menu-item" data-route="Notifications">
-                    <a href="./notification.html" class="menu-text">
-                        <i class="fa-solid fa-bell menu-icon"></i>Notifications</a>
+                <div class="menu-item">
+<!-- ===================used two different <a> on every item cause responsive style not crash======================= -->
+                    <a class="menu-icon" href="../home.html">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                    <a href="../home.html" class="menu-text">Home</a>
                 </div>
                 <div class="menu-item" data-route="Dashboard">
-                    <a href="../admin_dashboard.html">
-                    <i class="fa-solid fa-th-large menu-icon"></i>
-                    <span class="menu-text">Dashboard</span></a>
+                    <a class="menu-icon" href="../admin_dashboard.html">
+                        <i class="fa-solid fa-th-large"></i>
+                    </a>
+                    <a href="../admin_dashboard.html"><span class="menu-text">Dashboard</span></a>
                 </div>
                 <div class="menu-item active" data-route="Books">
-                    <a href="./books.html">
-                    <i class="fa-solid fa-book menu-icon"></i>
-                    <span class="menu-text">Books</span></a>
+                    <a class="menu-icon" href="./books.html">
+                        <i class="fa-solid fa-book"></i>
+                    </a>
+                    <a href="./books.html"><span class="menu-text">Books</span></a>
                 </div>
                 <div class="menu-item" data-route="Members">
+                    <a class="menu-icon" href="./members.html">
+                        <i class="fa-solid fa-users"></i>
+                    </a>
                     <a href="./members.html">
-                    <i class="fa-solid fa-users menu-icon"></i>
                     <span class="menu-text">Members</span></a>
                 </div>
                 <div class="menu-item" data-route="Settings">
+                    <a class="menu-icon" href="./settings.html">
+                        <i class="fa-solid fa-cog "></i>
+                    </a>
                     <a href="./settings.html">
-                    <i class="fa-solid fa-cog menu-icon"></i>
                     <span class="menu-text">Settings</span></a>
                 </div>
                 <div class="menu-item" data-route="Statistic">
+                    <a class="menu-icon" href="./reports.html">
+                        <i class="fa-solid fa-chart-bar "></i>
+                    </a>
                     <a href="./reports.html">
-                    <i class="fa-solid fa-chart-bar menu-icon"></i>
                     <span class="menu-text">Statistic</span></a>
                 </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
                 <div class="menu-item" data-route="Theme">
-                    <a href="./theme.html">
-                    <i class="fa-solid fa-palette menu-icon"></i>
+                    <a class="menu-icon" href="./theme.html">
+                        <i class="fa-solid fa-palette"></i>
+                    </a>
+                    <a class="menu-text" href="./theme.html"></i>
                     <span class="menu-text">Theme</span></a>
                 </div>
 
@@ -69,9 +87,10 @@
                 </button>
             </div>
         </aside>
-
+        <!-- ================MAIN SECTION==================== -->
         <!-- main content of body plus header start from here -->
         <div class="book-main-content">
+            <!-- ================HEADER SECTION==================== -->
             <header class="admin-header">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
@@ -81,17 +100,23 @@
                 </div>
                 <div class="calender">
                     <div class="time">12:45</div>
-                    <div class="h-4 w-[1px] bg-slate-600 mx-2"></div>
+                    <!-- layout added as tailwind css here -->
+                    <div class="divider-line h-4 w-[0.4px] bg-slate-600 mx-2 xs:w-8 xs:h-[0.4px] sm:w-10 sm:h-[0.4px] md:w-16 md:h-[1px] lg:h-4 lg:w-[1px]"></div>
                     <div class="date">21/July/2026</div>
                 </div>
                 <div class="profile-container">
-                    <div class="profile"></div>
+                    <div class="profile">
+                        <img src="../../images/profile/male.jpg" alt="">
+                    </div>
                 </div>
             </header>
             <br>
-            <div class="headline w-full h-12 flex justify-center mt-2 items-center gap-4 p-4">
-                <span class="bg-blue-800"><i class="fas fa-landmark w-[200px] h-[30px] text-blue-400 size-[34px]"></i></span>
-                <h1 class="">Library desk</h1>
+            <!-- ================HEADLINE TITLE SECTION==================== -->
+            <div class="headline w-full-auto h-12 mt-2 items-center p-4">
+                <div class="title flex justify-between mx-8">
+                    <span><i class="fas fa-landmark w-[200px] h-[30px] text-blue-400 size-[34px]"></i></span>
+                    <P class="">alL bOOKS IN lIBRARY</P>
+                </div>
             </div>
             <!-- Main Table Container Structure -->
             <div class="main-books-list">
@@ -105,7 +130,11 @@
                            <th class="text-center">Downloads</th>
                            <th class="text-center">Purchases</th>
                            <th class="text-center">On Read</th>
+                           <th class="price">Price</th>
                            <th class="text-center">Actions</th>
+                           <th class="text-center">All&nbsp;&nbsp;
+                             <input type="checkbox" id="select-all" aria-label="Select all books">
+                           </th>
                         </tr>
                     </thead>
         
@@ -113,6 +142,13 @@
                     <tbody id="books-table-body" class="books-table-body">
                         <!-- JavaScript will insert <tr> rows here dynamically -->
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <button type="submit" id="delete-all-btn" class="delete-all-btn">Delete All</button>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <!-- ============add books form card where admin can add book ==============-->
@@ -125,6 +161,7 @@
                 lg:grid-cols-2
                 gap-6
                 ">
+                <!-- tailwind grid 1 -->
                     <div class="form-grid left-part ">
                         <div class="form-group">
                             <label for="book Name">Book Name</label>
@@ -147,6 +184,7 @@
                             <input type="text" id="price" placeholder="e.g $36">
                         </div>
                     </div>
+                <!-- tailwind grid 2 -->
                     <div class="form-grid right-part">
                         <div class="form-group">
                             <label for="cover-image">Book cover</label>
@@ -167,15 +205,19 @@
                             <input type="text" id="audio-url" placeholder="e.g example.mp3">
                         </div>
                     </div>
-                    <div class="form-grid buttons 
-                    sm:col-span-full">
+                <!-- tailwind grid 3 -->
+                    <div class="form-grid buttons sm:col-span-full">
                         <div class="btns">
                             <button type="submit" id="save-book-btn">Save</button>
-                            <!-- <button type="submit" id="cancel-edit-btn">cancel</button> -->
+                            <!-- cancel btn will be added by appendChild method of js -->
                         </div>
                     </div>
                 </form>
             </div>
+            <!-- footer -->
+            <footer class="book-footer flex justify-center">
+                 <p class="footer-text">© 2026, Made by Invenire Team.</p>
+            </footer>
         </div>
     </div>
 
@@ -184,25 +226,4 @@
 </body>
 </html>
 
- <!-- <div class="admin-wrapper">
-        <header class="page-header">
-            <div class="header-title">
-                <h2><i class="fas fa-book"></i> Library Catalog</h2>
-                <p>View, manage, and inspect matching registered books</p>
-            </div>
-            <button onclick="window.location.href='../admin_dashboard.html'" class="btn-back">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </button>
-        </header>
-        <main class="content-section">
-            <div class="searchResult"></div>
-
-            <div class="books-list-container">
-        
-                <div class="loading-state">
-                    <i class="fas fa-spinner fa-spin"></i> Loading book records from Cloud Firestore...
-                </div>
-            </div>
-        </main>
-    </div> -->
     

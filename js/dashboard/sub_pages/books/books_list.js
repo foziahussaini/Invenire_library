@@ -1,5 +1,5 @@
 import { db } from "../../../../src/firebase-config.js"
-import { collection, getDocs, doc, deleteDoc} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { collection, getDocs, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 let tableBodyContainer = null;
 let allBooksData = [];
@@ -24,7 +24,7 @@ function showTableStatus(message, status = "") {
 
   tableBodyContainer.innerHTML = `
     <tr class="table-status-row">
-      <td colspan="7" class="table-status ${status}">
+      <td colspan="9" class="table-status ${status}">
         ${message}
       </td>
     </tr>
@@ -33,6 +33,7 @@ function showTableStatus(message, status = "") {
 
 // =====================================================
 // FORMAT DUE DATE
+// (unchanged)
 // =====================================================
 
 function formatDueDate(value) {
@@ -165,7 +166,9 @@ async function allLibraryBooks() {
         edition: data.edition || "1st Edition",
         downloads: 0,
         purchases: 0,
-        readMode: 0
+        readMode: 0,
+        // include price from the book-list document (fallback to an empty string or dash)
+        price: data.price ?? "—"
       };
 
       booksByDocumentId.set(bookDocument.id, record);
@@ -295,6 +298,10 @@ function booksRowContent(booksArray) {
           ${book.readMode}
         </td>
 
+        <td class="state-count price">
+          ${book.price}
+        </td>
+
         <td class="action-buttons text-center">
           <button
             type="button"
@@ -312,6 +319,11 @@ function booksRowContent(booksArray) {
             <i class="fa-solid fa-trash-can"></i>
           </button>
         </td>
+
+        <!-- NEW: select checkbox column (keeps layout/classes intact) -->
+        <td class="text-center select-cell">
+          <input type="checkbox" class="row-select" data-id="${book.id}" aria-label="Select book">
+        </td>
       </tr>
     `;
   });
@@ -323,39 +335,33 @@ function booksRowContent(booksArray) {
 // =====================================================
 // ACTION LISTENERS
 // =====================================================
+
 function setupTableActionListeners() {
-  // EDIT ACTION HANDLER
+  // EDIT ACTION HANDLER (unchanged)
   document.querySelectorAll(".edit-btn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
-      // find the table row that contains this button (works even if the click target is an icon inside the button)
       const row = event.target.closest(".table-row");
       if (!row) return;
 
       const bookId = row.dataset.id;
       if (!bookId) return;
 
-      // store the id for cross-page navigation and for the form loader
       localStorage.setItem("editingBookId", bookId);
 
-      // update the hash so users can navigate back and other pages can react
       try {
         window.location.hash = "#add-book-form";
       } catch (err) {
         // ignore
       }
 
-      // attempt to scroll the form into view if it's present on this page
       const maybeForm =
         document.querySelector("#add-book-form") ||
         document.querySelector(".book-form-card") ||
         document.querySelector(".add-books-container");
 
       if (maybeForm) {
-        // small delay helps when hash change or other handlers run
         setTimeout(() => {
           maybeForm.scrollIntoView({ behavior: "smooth", block: "start" });
-
-          // notify any listeners on this page so the form can immediately load the selected book
           window.dispatchEvent(
             new CustomEvent("invenire:edit-book", {
               detail: { bookId }
@@ -363,20 +369,16 @@ function setupTableActionListeners() {
           );
         }, 150);
       } else {
-        // form is not on this page — still dispatch (harmless) and keep the localStorage key for the form page to pick up on load
         window.dispatchEvent(
           new CustomEvent("invenire:edit-book", {
             detail: { bookId }
           })
         );
-
-        // If you want to navigate to a page that contains the form instead, uncomment and update the path below:
-        // window.location.href = "/pages/admin_subPages/books.html#add-book-form";
       }
     });
   });
 
-  // DELETE ACTION HANDLER
+  // DELETE ACTION HANDLER (unchanged single-delete)
   document.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", async (event) => {
       const row = event.target.closest(".table-row");
@@ -405,4 +407,67 @@ function setupTableActionListeners() {
       }
     });
   });
+
+  // SELECT-ALL checkbox in header
+  const selectAllCheckbox = document.querySelector("#select-all");
+  if (selectAllCheckbox) {
+    // ensure it's unchecked when rows are freshly rendered
+    selectAllCheckbox.checked = false;
+
+    selectAllCheckbox.addEventListener("change", (e) => {
+      const checked = e.target.checked;
+      document.querySelectorAll(".row-select").forEach((cb) => {
+        cb.checked = checked;
+      });
+    });
+  }
+
+  // Keep header checkbox state in sync when user toggles individual rows
+  document.querySelectorAll(".row-select").forEach((cb) => {
+    cb.addEventListener("change", () => {
+      const all = Array.from(document.querySelectorAll(".row-select"));
+      const checkedCount = all.filter((c) => c.checked).length;
+      const header = document.querySelector("#select-all");
+      if (!header) return;
+      header.checked = checkedCount > 0 && checkedCount === all.length;
+      header.indeterminate = checkedCount > 0 && checkedCount < all.length;
+    });
+  });
+
+  // ====================DELETE ALL button (multi-delete)========================
+  const deleteAllBtn = document.querySelector(".delete-all-btn");
+  if (deleteAllBtn) {
+    deleteAllBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const selectedCheckboxes = Array.from(
+        document.querySelectorAll(".row-select:checked")
+      );
+      if (selectedCheckboxes.length === 0) {
+        alert("No books selected to delete.");
+        return;
+      }
+
+      const confirmDelete = confirm(
+        `Are you sure you want to permanently delete ${selectedCheckboxes.length} selected book(s)?`
+      );
+      if (!confirmDelete) return;
+
+      const idsToDelete = selectedCheckboxes.map((cb) => cb.dataset.id).filter(Boolean);
+
+      try {
+        await Promise.all(idsToDelete.map((id) => deleteDoc(doc(db, "book-list", id))));
+
+        // remove from local list and re-render
+        const idSet = new Set(idsToDelete);
+        allBooksData = allBooksData.filter((book) => !idSet.has(book.id));
+        booksRowContent(allBooksData);
+
+        console.log("Deleted books:", idsToDelete);
+      } catch (error) {
+        console.error("deletion failed:", error);
+        alert("Could not delete. Please try again.");
+      }
+    });
+  }
 }

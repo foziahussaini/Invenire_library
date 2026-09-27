@@ -61,7 +61,7 @@
     --text-padding: 10px;
 }
 
-body{
+.home-body{
     font-family: Arial, sans-serif;
     background-color: var(--main-background-color);
     color: var(--main-text-color);

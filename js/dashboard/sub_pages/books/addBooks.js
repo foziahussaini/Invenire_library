@@ -43,7 +43,6 @@ function getBookInputs(bookForm) {
 }
 
 // ============================================ADD VALIDATION CSS===============================================
-
 function addValidationStyles() {
     if (document.querySelector("#book-form-validation-styles")) return;
 
@@ -61,31 +60,13 @@ function addValidationStyles() {
             box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.15);
         }
 
-        .book-validation-message {
-            display: block;
-            margin-top: 5px;
-            color: #dc2626;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
+        .book-validation-message,
         .cover-preview-error {
             display: block;
             margin-top: 5px;
             color: #dc2626;
             font-size: 13px;
             font-weight: 600;
-        }
-
-        #cover-preview {
-            display: none;
-            width: 120px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 10px;
-            border: 1px solid #e5e7eb;
-            background: #f9fafb;
         }
     `;
     document.head.appendChild(style);
@@ -394,6 +375,7 @@ async function saveBookToFirestore(bookData) {
         book_name: bookData.book_name,
         author: bookData.author,
         edition: bookData.edition,
+        // use single key short_details
         short_details: bookData.short_details,
         pdf_url: bookData.pdf_url,
         audio_url: bookData.audio_url,
@@ -416,6 +398,7 @@ async function updateExistingBookInFirestore(bookId, bookData) {
         book_name: bookData.book_name,
         author: bookData.author,
         edition: bookData.edition,
+        // update single key short_details
         short_details: bookData.short_details,
         pdf_url: bookData.pdf_url,
         audio_url: bookData.audio_url,
@@ -426,7 +409,6 @@ async function updateExistingBookInFirestore(bookId, bookData) {
 
     await updateDoc(docRef, updatePayload);
 }
-
 // ===============================================CLEAR FOR==================================================
 function clearBookForm(bookInputs) {
     const bookForm = document.querySelector("#add-book-form");
@@ -563,11 +545,6 @@ function setupFormSubmit(bookForm, bookInputs) {
     });
 }
 
-// =====================================================
-// EDIT MODE: load doc on form when editingBookId is present
-// =====================================================
-// Load a single book doc and populate the form immediately.
-// Re-uses the same population logic as setupEditModeOnLoad.
 async function loadBookIntoForm(bookId) {
     if (!bookId) return;
 

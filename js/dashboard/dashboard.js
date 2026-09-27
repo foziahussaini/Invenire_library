@@ -15,43 +15,64 @@ if (logo) {
     window.location.href = "/pages/home.html";  
 })
 }
-
 document.addEventListener("DOMContentLoaded", () => {
-///=========================DOM CONTENT LOADED (SIDEBAR MENU ITEMS CLICK EVENT)===================================================
-const menuItems = document.querySelectorAll(".menu-item");
+    // ========================= DOM CONTENT LOADED (SIDEBAR MENU ITEMS CLICK EVENT) ===================================================
+    const menuItems = document.querySelectorAll(".menu-item");
 
-menuItems.forEach(item => {
-    item.addEventListener("click", () => {
-        menuItems.forEach(i => i.classList.remove("active"));
-        item.classList.add("active");
-
-        const text = item.textContent.trim(); 
-        const routes = {
+    const routes = {
         "Dashboard": "../pages/admin_dashboard.html",
-        "Notifications": "../pages/admin_subPages/notification.html",
+        "Home": "../pages/home.html",
         "Members": "../pages/admin_subPages/members.html",
         "Books": "../pages/admin_subPages/books.html",
         "Settings": "../pages/admin_subPages/settings.html",
         "Reports": "../pages/admin_subPages/reports.html",
         "Theme": "../pages/admin_subPages/theme.html",
-        "Help": "#help-section"
     };
 
-    const target = routes[text];
+    // matches the current page URL
+    function currentActivePage() {
+        const currentPath = window.location.pathname;
 
-    if (target) {
-        if (target.startsWith("#")) {
-            const element = document.querySelector(target);
-            if (element) {
-                element.scrollIntoView({ behavior: "smooth", block: "start" });
+        menuItems.forEach(item => {
+            const text = item.textContent.trim();
+            const targetRoute = routes[text];
+
+            if (targetRoute && !targetRoute.startsWith("#")) {
+                const cleanRoute = targetRoute.replace(/\.\.\//g, ""); 
+                
+                if (currentPath.includes(cleanRoute)) {
+                    menuItems.forEach(i => i.classList.remove("active"));
+                    item.classList.add("active");
+                }
             }
-        } else {
-            window.location.href = target;
-        }
+        });
     }
-    });
-});
+    currentActivePage();
 
+    // Listen to 'pageshow' to catch the browser Back/Forward navigation caching
+    window.addEventListener("pageshow", currentActivePage);
+
+    //Click Event 
+    menuItems.forEach(item => {
+        item.addEventListener("click", () => {
+            menuItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+
+            const text = item.textContent.trim(); 
+            const target = routes[text];
+
+            if (target) {
+                if (target.startsWith("#")) {
+                    const element = document.querySelector(target);
+                    if (element) {
+                        element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                } else {
+                    window.location.href = target;
+                }
+            }
+        });
+    });
 ///==============================HEADER PART (dynamic real time and date)=====================================================
 const calenderContainer = document.querySelector(".calender");
 const time = document.querySelector(".time");
@@ -75,29 +96,5 @@ date.textContent = now.toLocaleDateString('en-US', {
 
 calender();
 setInterval(calender, 1000);
-
-/// ================================FOOTER==================================
-const footerText = document.querySelector(".footer-text");
-const footerNav = document.querySelector(".footer-nav");
-
-footerText.innerHTML = "© 2026, Made by Invenire Team.";
-
-const linksMap = {
-    "home": "../pages/home.html",
-    "Invenire Digital Library": "../../pages/home.html"
-};
-
-Object.keys(linksMap).forEach(text => {
-    const listItem = document.createElement("li");
-    listItem.className = "footer-list";
-
-    const navLink = document.createElement("a");
-    navLink.href = linksMap[text];
-    navLink.textContent = text;
-    navLink.className = "navLink";
-
-    listItem.appendChild(navLink);
-    footerNav.appendChild(listItem);
-});
 
 });

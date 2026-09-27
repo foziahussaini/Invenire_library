@@ -14,4 +14,27 @@ document.addEventListener("DOMContentLoaded", () => {
             item.classList.remove("active");
         }
     });
+
+    
+const time = document.querySelector(".time");
+const date = document.querySelector(".date");
+
+function calender(){
+    const now = new Date();
+    
+time.textContent = now.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+});
+
+date.textContent = now.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+});
+}
+
+calender();
+setInterval(calender, 1000);
 });

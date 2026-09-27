@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../css-style/main-pages/adminDashboard.css">
     <link rel="stylesheet" href="../css-style//main-pages/home.css">
     <link href="/src/output.css" rel="stylesheet">
+    <!-- responsive css paths -->
+    <link rel="stylesheet" href="../responsive/dashboard/sidebar_profile_responsive.css"> 
     <script type="module" src="../js/dashboard/dashboard.js" defer></script>
     <!-- admin dashboard screen cards  -->
     <script type="module" src="../js/dashboard/dashboard_cards/card1.js" defer></script>
@@ -34,33 +36,51 @@
             <hr class="h-px bg-gray-300 border-0">
             <div class="sidebar-menu">
                 <div class="menu-item">
-                    <i class="fa-solid fa-bell menu-icon"></i>
-                    <span class="menu-text">Notifications</span>
+<!-- ===================used two different <a> on every item cause responsive style not crash======================= -->
+                <a class="menu-icon" href="../pages/home.html">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+                    <a href="../pages/home.html" class="menu-text">Home</a>
                 </div>
-                <div class="menu-item active">
-                    <i class="fa-solid fa-th-large menu-icon"></i>
-                    <span class="menu-text">Dashboard</span>
+                <div class="menu-item" data-route="Dashboard">
+                    <a class="menu-icon" href="../pages/admin_dashboard.html">
+                        <i class="fa-solid fa-th-large"></i>
+                    </a>
+                    <a href="../pages/admin_dashboard.html"><span class="menu-text">Dashboard</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-book menu-icon"></i>
-                    <span class="menu-text">Books</span>
+                <div class="menu-item active" data-route="Books">
+                    <a class="menu-icon" href="/pages/admin_subPages/books.html">
+                        <i class="fa-solid fa-book menu-icon"></i>
+                    </a>
+                    <a href="/pages/admin_subPages/books.html"><span class="menu-text">Books</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-users menu-icon"></i>
-                    <span class="menu-text">Members</span>
+                <div class="menu-item" data-route="Members">
+                    <a class="menu-icon" href="./admin_subPages/members.html">
+                        <i class="fa-solid fa-users"></i>
+                    </a>
+                    <a href="./admin_subPages/members.html">
+                    <span class="menu-text">Members</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-cog menu-icon"></i>
-                    <span class="menu-text">Settings</span>
+                <div class="menu-item" data-route="Settings">
+                    <a class="menu-icon" href="./admin_subPages/settings.html">
+                        <i class="fa-solid fa-cog "></i>
+                    </a>
+                    <a href="./admin_subPages/settings.html">
+                    <span class="menu-text">Settings</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-chart-bar menu-icon"></i>
-                    <span class="menu-text">Statistic</span>
+                <div class="menu-item" data-route="Statistic">
+                    <a class="menu-icon" href="./admin_subPages/reports.html">
+                        <i class="fa-solid fa-chart-bar "></i>
+                    </a>
+                    <a href="./admin_subPages/reports.html">
+                    <span class="menu-text">Statistic</span></a>
                 </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
-                <div class="menu-item">
-                    <a href="./admin_subPages/theme.html">
-                    <i class="fa-solid fa-palette menu-icon"></i>
+                <div class="menu-item" data-route="Theme">
+                    <a class="menu-icon" href="./admin_subPages/theme.html">
+                        <i class="fa-solid fa-palette"></i>
+                    </a>
+                    <a class="menu-text" href="./admin_subPages/theme.html"></i>
                     <span class="menu-text">Theme</span></a>
                 </div>
 
@@ -83,11 +103,14 @@
                 </div>
                 <div class="calender">
                     <div class="time">12:45</div>
-                    <div class="h-4 w-[1px] bg-slate-600 mx-2"></div>
+                    <!-- layout added as tailwind css here -->
+                    <div class="divider-line h-4 w-[0.4px] bg-slate-600 mx-2 xs:w-8 xs:h-[0.4px] sm:w-10 sm:h-[0.4px] md:w-16 md:h-[1px] lg:h-4 lg:w-[1px]"></div>
                     <div class="date">21/July/2026</div>
                 </div>
                 <div class="profile-container">
-                    <div class="profile"></div>
+                    <div class="profile">
+                        <img src="../images/profile/female.jpg" alt="">
+                    </div>
                 </div>
             </header>
             <!-- Your main page content goes here -->
@@ -150,8 +173,7 @@
             </main>
             <!-- footer -->
             <footer class="dashboard-footer">
-            <p class="footer-text"></p>
-            <div class="footer-nav"></div>
+            <p class="footer-text">© 2026, Made by Invenire Team.</p>
         </footer>
         </div>
     </div>

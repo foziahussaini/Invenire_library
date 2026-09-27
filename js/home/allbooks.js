@@ -8,7 +8,7 @@ const fallbackBooks = [
         id: "fallback-1",
         book_name: "The Alchemist",
         author: "Paulo Coelho",
-        shortDetails: "A magical story about Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure.",
+        short_details: "A magical story about Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure.",
         cover_image: "https://gstatic.com",
         pdf_url: "../pdfs/crime-and-punishments.pdf", // Changed from '#' to a real path example
         audio_url: "" 
@@ -17,7 +17,7 @@ const fallbackBooks = [
         id: "fallback-2",
         book_name: "Her Eyes",
         author: "Elef Shavak",
-        shortDetails: "کتاب صوتی چشم هایش رمانی از بزرگ علوی است که برای نخستین بار در سال ۱۳۵۷ خورشیدی منتشر شد. بزرگ علوی در این رمان قطعات پراکنده یک ماجرا را کنار هم گذاشته و از آن طرحی کلی آفریده است که برحدس و گمان تکیه دارد این شیوه بیشتر در ادبیات پلیسی معمول است. برخی معتقدند این رمان و شخصت استاد ماکان، با الهام از زندگانی کمال‌الملک نگاشته شده است و گروهی دیگر آن را شرح حالی از زندگی تقی ارانی می‌دانند. این کتاب از آثار معدود زبان فارسی است که در مرکز آن یک زن با تمام عواطف و ارتعاشات روانی و ذهنی قرار گرفته است.",
+        short_details: "کتاب صوتی چشم هایش رمانی از بزرگ علوی است که برای نخستین بار در سال ۱۳۵۷ خورشیدی منتشر شد. بزرگ علوی در این رمان قطعات پراکنده یک ماجرا را کنار هم گذاشته و از آن طرحی کلی آفریده است که برحدس و گمان تکیه دارد این شیوه بیشتر در ادبیات پلیسی معمول است. برخی معتقدند این رمان و شخصت استاد ماکان، با الهام از زندگانی کمال‌الملک نگاشته شده است و گروهی دیگر آن را شرح حالی از زندگی تقی ارانی می‌دانند. این کتاب از آثار معدود زبان فارسی است که در مرکز آن یک زن با تمام عواطف و ارتعاشات روانی و ذهنی قرار گرفته است.",
         cover_image:"https://shstatics.shopipersia.com/wp-content/uploads/2020/07/s-l500-1-31.jpg",
         pdf_url: "../pdfs/hfuz_چشم_هایش_(بزرگ_علوی).pdf", // Changed from '#' to a real path example
         audio_url: "/audioPlayer/her-eyes.mp3" 
@@ -26,7 +26,7 @@ const fallbackBooks = [
         id: "fallback-3",
         book_name: "Crime and Punishment (Audiobook)",
         author: "Fyodor Dostoevsky",
-        shortDetails: "An audio adaptation tracking the mental anguish and moral dilemmas of Rodion Raskolnikov, a poor ex-student in Saint Petersburg.",
+        short_details: "An audio adaptation tracking the mental anguish and moral dilemmas of Rodion Raskolnikov, a poor ex-student in Saint Petersburg.",
         cover_image: "../pdfs/crime-and-punishments.pdf",
         pdf_url: "",
         audio_url: "#" 
@@ -59,7 +59,7 @@ async function loadBooksToGrid() {
                         id: docSnap.id,
                         book_name: book.book_name || "Untitled Book",
                         author: book.author || "Unknown Author",
-                        shortDetails: book.shortDetails || "No description available for this catalog entry.",
+                        short_details: book.short_details || "No description available for this catalog entry.",
                         cover_image: book.cover_image || "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js",
                         pdf_url: book.pdf_url || "",
                         audio_url: book.audio_url || ""
@@ -146,7 +146,7 @@ function renderGridCards(booksList) {
                     <p class="book-author">by ${book.author}</p>
                     
                     <div class="description-wrapper">
-                        <p class="book-description collapsed">${book.shortDetails}</p>
+                        <p class="book-description collapsed">${book.short_details}</p>
                         <button type="button" class="toggle-desc-btn">
                             <span class="btn-text">Read More</span>
                             <i class="fa-solid fa-chevron-down toggle-icon"></i>
