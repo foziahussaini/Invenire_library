@@ -12,5 +12,178 @@
     <header>
         <img src="/images/logo/logo.png" alt="Logo" class="logo w-32 h-32 ml-4">
     </header>
+<body>
+    <main class="auth-container">
+        <section class="auth-card">
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p>
+                    Create your Invenire Library account.
+                </p>
+            </div>
+            <form id="signupForm">
+                <!-- Full Name -->
+                <div class="input-group">
+                    <label for="fullName">
+                        Full Name
+                    </label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        placeholder="Enter your full name"
+                    >
+                    <small
+                        id="fullNameError"
+                        class="error-message"
+                    ></small>
+                </div>
+                <!-- Location -->
+
+                <div class="input-group">
+                    <label for="location">
+                        Location
+                    </label>
+                    <input
+                        type="text"
+                        id="location"
+                        name="location"
+                        placeholder="Enter your location"
+                    >
+                    <small
+                        id="locationError"
+                        class="error-message"
+                    ></small>
+                </div>
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="signupEmail">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                    >
+                    <small
+                        id="emailError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+                <!-- Gender -->
+
+                <div class="input-group">
+
+                    <label for="gender">
+                        Gender
+                    </label>
+
+                    <select
+                        id="gender"
+                        name="gender"
+                    >
+
+                        <option value="">
+                            Select your gender
+                        </option>
+
+                        <option value="male">
+                            Male
+                        </option>
+
+                        <option value="female">
+                            Female
+                        </option>
+
+                    </select>
+
+                    <small
+                        id="genderError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-group">
+
+                    <label for="signupPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        name="password"
+                        placeholder="Create a password"
+                    >
+
+                    <small
+                        id="passwordError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="input-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                    >
+
+                    <small
+                        id="confirmPasswordError"
+                        class="error-message"
+                    ></small>
+
+                </div>
+
+
+                <!-- General error -->
+
+                <p
+                    id="signupError"
+                    class="form-error"
+                ></p>
+
+
+                <!-- Button -->
+
+                <button
+                    type="submit"
+                    class="auth-btn"
+                >
+                    Sign Up
+                </button>
+
+            </form>
+
+
+            <p class="auth-switch">
+                Already have an account?
+                <a href="login.html">
+                    Sign In
+                </a>
+            </p>
+        </section>
+    </main>
+    <script src="../js/auth.js"></script>
 </body>
 </html>

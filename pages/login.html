@@ -12,5 +12,71 @@
     <header>
         <img src="/images/logo/logo.png" alt="Logo" class="logo w-32 h-32 ml-4">
     </header>
+
+    <main class="auth-container">
+        <section class="auth-card">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>
+                    Sign in to your Invenire Library account.
+                </p>
+            </div>
+
+            <form id="loginForm">
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="loginEmail">
+                        Email
+                    </label>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                    >
+                    <small
+                        id="loginEmailError"
+                        class="error-message"
+                    ></small>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group">
+                    <label for="loginPassword">
+                        Password
+                    </label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        name="password"
+                        placeholder="Enter your password"
+                    >
+                    <small
+                        id="loginPasswordError"
+                        class="error-message"
+                    ></small>
+                </div>
+                <!-- Login error -->
+                <p
+                    id="loginError"
+                    class="form-error"
+                ></p>
+                <button
+                    type="submit"
+                    class="auth-btn"
+                >
+                    Sign In
+                </button>
+            </form>
+            <p class="auth-switch">
+                Don't have an account?
+                <a href="signup.html">
+                    Create Account
+                </a>
+            </p>
+        </section>
+    </main>
+    <script src="../js/auth.js"></script>
+    </header>
 </body>
 </html>
