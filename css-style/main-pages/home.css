@@ -152,7 +152,9 @@
 
 /* ==================== LOGIN ==================== */
 
-.nav-auth {
+.registration-btns {
+    display: flex;
+    gap: 1rem;
     padding-left: 24px;
     border-left: var(--default-border);
 }

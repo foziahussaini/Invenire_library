@@ -1,82 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invenire Library</title>
-    <link rel="stylesheet" href="../css-style/home.css">
+    <link rel="stylesheet" href="../css-style/main-pages/home.css">
+    <link rel="stylesheet" href="../css-style/main-pages/login.css">
     <link href="./output.css" rel="stylesheet">
+    <!-- Added FontAwesome CDN so your icons will work -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- ========current file js link ================== -->
+    <script defer src="../js/auth-files/login.js"></script>
+    <!-- ========user authenthication js link ================== -->
+    <script type="module" src="../js/auth-files/auth.js" defer></script>
+    <!-- =================for google font============== -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Yaldevi:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- ==========tailwind and font swesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
-<body>
-    <header>
-        <img src="/images/logo/logo.png" alt="Logo" class="logo w-32 h-32 ml-4">
-    </header>
+<body class="login-body">
+    <div class="login-container">
+        <section class="login-card">
+            <!-- =============header part============ -->
+            <div class="login-header">
+                <div class="login-logo">
+                    <a href="./home.html"><img src="/images/logo/logo.png" alt="Logo"></a>
+                </div>
+                <div class="nav-part">
+                    <!-- 1st: Theme Dropdown -->
+                    <div class="theme-dropdown">
+                        <button type="button" class="dropdown-header" id="themeDropdownBtn">
+                            <i class="fa-solid fa-palette"></i>
+                        </button>
+                        <ul class="dropdown-menu" id="themeDropdownMenu">
+                            <li data-value="light">☀️ Light</li>
+                            <li data-value="dark">🌙 Dark</li>
+                            <li data-value="neon">⚡ Neon</li>
+                            <li data-value="retro">🕹️ Retro</li>
+                        </ul>
+                    </div>
 
-    <main class="auth-container">
-        <section class="auth-card">
-            <div class="auth-header">
-                <h1>Welcome Back</h1>
-                <p>
-                    Sign in to your Invenire Library account.
-                </p>
+                    <!-- 2nd: Language Dropdown -->
+                    <div class="lang-dropdown">
+                        <button type="button" class="dropdown-header" id="langDropdownBtn">
+                            <i class="fa-solid fa-earth-americas"></i>
+                        </button>
+                        <ul class="dropdown-menu" id="langDropdownMenu">
+                            <li data-value="En">English</li>
+                            <li data-value="Da">Dari</li>
+                            <li data-value="Pa">Pashto</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-
-            <form id="loginForm">
-                <!-- Email -->
-                <div class="input-group">
-                    <label for="loginEmail">
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        name="email"
-                        placeholder="Enter your email"
-                    >
-                    <small
-                        id="loginEmailError"
-                        class="error-message"
-                    ></small>
+            <!-- ==============form start from here================ -->
+            <div class="form-container">
+                <h1 class="form-header">Welcome back Book Friends</h1>
+                <form id="login-form" class="login-form">
+                <div class="form-row form-row1">
+                    <!-- Email -->
+                    <div class="input-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="login-email" name="email" placeholder="Enter your email">
+                        <small id="emailError" class="error-message"></small>
+                    </div>
+                </div>
+                <div class="form-row form-row2">
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="login-password" name="password" placeholder="Create a password">
+                        <small id="passwordError" class="error-message"></small>
+                    </div>
                 </div>
 
-                <!-- Password -->
-                <div class="input-group">
-                    <label for="loginPassword">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="loginPassword"
-                        name="password"
-                        placeholder="Enter your password"
-                    >
-                    <small
-                        id="loginPasswordError"
-                        class="error-message"
-                    ></small>
+                <!-- General error -->
+                <p id="loginError" class="form-error"></p>
+
+                <!-- Button -->
+                <div class="login-btns">
+                    <div class="already-account">
+                        <p class="already-account-text">Don't have an account yet</p>
+                        <a href="/pages/signup.html">SignIn</a>
+                    </div>
+                    <button type="submit" class="login">LogIn</button>
                 </div>
-                <!-- Login error -->
-                <p
-                    id="loginError"
-                    class="form-error"
-                ></p>
-                <button
-                    type="submit"
-                    class="auth-btn"
-                >
-                    Sign In
-                </button>
-            </form>
-            <p class="auth-switch">
-                Don't have an account?
-                <a href="signup.html">
-                    Create Account
-                </a>
-            </p>
-        </section>
-    </main>
-    <script src="../js/auth.js"></script>
-    </header>
+                </form>
+                <div class="side-banner">
+                    <div class="banner"><img src="../images/banner/login.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

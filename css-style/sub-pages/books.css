@@ -22,8 +22,8 @@ body{
 /* sidebar layout */
 .book-sidebar{
     position: fixed;
-    width: 190px;
-    max-width: 190px;
+    width: 160px;
+    max-width: 160px;
     height: 100vh;
     background: var(--header-background-color);
     display: block;
@@ -43,7 +43,7 @@ body{
     align-items: center;
     
     >img{
-        width: 180px;
+        width: 160px;
         height: 150px;
     }
 }
@@ -93,7 +93,7 @@ body{
 }
 
 .sidebar-menu .logout{
-    margin-top: 4.5rem;
+    margin-top: 4rem;
     width: 120px;
     height: 40px;
     background: var(--btn-background-color);
@@ -114,8 +114,8 @@ body{
 
 /* ===========================MAIN CONTENT====================== */
 .book-main-content{
-    margin-left: 190px;
-    width: calc(100% - 190px);
+    margin-left: 160px;
+    width: calc(100% - 160px);
     flex-grow: 1;
     display: flex;
     flex-direction: column;

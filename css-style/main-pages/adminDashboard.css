@@ -21,8 +21,8 @@ body{
 /* sidebar layout */
 .sidebar{
     position: fixed;
-    width: 200px;
-    max-width: 200px;
+    width: 160px;
+    max-width: 160px;
     height: 100vh;
     background: var(--header-background-color);
     display: block;
@@ -113,8 +113,8 @@ body{
 
 /* ==================================MAIN CONTENT LAYOUT====================================== */
 .main-content {
-    margin-left: 200px;
-    width: calc(100% - 200px);
+    margin-left: 160px;
+    width: calc(100% - 160px);
     flex-grow: 1;
     display: flex;
     flex-direction: column;

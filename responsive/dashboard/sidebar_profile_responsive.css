@@ -11,14 +11,14 @@
     .book-sidebar,
     .sidebar /*sidebar is same for all subpages*/{
        position: fixed;
-       width: 170px;
-       max-width: 170px;
+       width: 1760px;
+       max-width: 160px;
     }
     .book-sidebar .logo,
     .sidebar .logo{
         height: 85px;
         img{
-            width: 170px;
+            width: 160px;
             height: 140px;
         }
     }
@@ -45,8 +45,8 @@
     .member-main-content,
     .setting-main-content,
     .main-content{
-       margin-left: 170px;
-       width: calc(100% - 170px);
+       margin-left: 160px;
+       width: calc(100% - 160px);
     }
     /* header part */
     .admin-header .search-bar { 
@@ -87,8 +87,8 @@
     .book-sidebar,
     .sidebar{
        position: fixed;
-       width: 160px;
-       max-width: 160px;
+       width: 150px;
+       max-width: 150px;
     }
 
     .book-sidebar .sidebar-menu .menu-item,
@@ -104,13 +104,13 @@
     .member-main-content,
     .setting-main-content,
     .main-content{
-       margin-left: 160px;
-       width: calc(100% - 160px);
+       margin-left: 150px;
+       width: calc(100% - 150px);
     }
 
     .sidebar-menu .logout{
         margin-top: 5.8rem;
-    width: 110px;
+        width: 100px;
     height: 40px;
     font-size: var(--main-font-size);
     }
@@ -158,13 +158,13 @@
     .book-sidebar,
     .sidebar{
        position: fixed;
-       width: 140px;
-       max-width: 140px;
+       width: 130px;
+       max-width: 130px;
     }
      .book-sidebar .logo,
      .sidebar .logo{
         img{
-            width: 140px;
+            width: 130px;
             height: 120px;
         }
     }
@@ -184,8 +184,8 @@
     .member-main-content,
     .setting-main-content,
     .main-content{
-       margin-left: 140px;
-       width: calc(100% - 140px);
+       margin-left: 130px;
+       width: calc(100% - 130px);
     }
 
     .sidebar-menu .logout{
@@ -260,8 +260,8 @@
     .book-sidebar,
     .sidebar{
        position: fixed;
-       width: 120px;
-       max-width: 120px;
+       width: 110px;
+       max-width: 110px;
     }
 
     .book-sidebar .sidebar-menu .menu-item,
@@ -284,8 +284,8 @@
     .member-main-content,
     .setting-main-content,
     .main-content{
-       margin-left: 120px;
-       width: calc(100% - 120px);
+       margin-left: 110px;
+       width: calc(100% - 110px);
     }
     /* header part */
     .book-main-content .admin-header,
@@ -361,15 +361,15 @@
     .book-sidebar,
     .sidebar{
        position: fixed;
-       width: 75px;
-       max-width: 75px;
+       width: 65px;
+       max-width: 65px;
     }
 
     .book-sidebar .logo,
     .sidebar .logo{
         height: 70px;
         img{
-            width: 70px;
+            width: 65px;
             height: 60px;
         }
     }
@@ -404,8 +404,8 @@
     .member-main-content,
     .setting-main-content,
     .main-content{
-    margin-left: 75px;
-    width: calc(100% - 75px);
+    margin-left: 65px;
+    width: calc(100% - 65px);
     }
 
     /* header part */
@@ -485,9 +485,9 @@
     /* sidebar menu */
     .book-sidebar .logo,
     .sidebar .logo{
-        height: 60px;
+        height: 55px;
         img{
-            width: 60px;
+            width: 55px;
             height: 52px;
         }
     }
@@ -504,7 +504,7 @@
     .report-main-content .admin-header,
     .member-main-content .admin-header,
     .setting-main-content .admin-header{
-        height: 60px;
+        height: 58px;
     }
 
     .admin-header .search-bar .searchResult{
@@ -545,17 +545,17 @@
     /* sidebar menu */
    .book-sidebar .logo,
    .sidebar .logo{
-        height: 55px;
+        height: 50px;
         img{
-            width: 55px;
+            width: 50px;
             height: 45px;
         }
     }
     .book-sidebar,
     .sidebar{
        position: fixed;
-       width: 60px;
-       max-width: 60px;
+       width: 55px;
+       max-width: 55px;
     }
 
     .sidebar-menu .menu-item .menu-icon{
@@ -572,8 +572,8 @@
     .member-main-content,
     .setting-main-content,
     .main-content{
-       margin-left: 60px;
-       width: calc(100% - 60px);
+       margin-left: 55px;
+       width: calc(100% - 55px);
     }
 
     .sidebar-menu .logout{
