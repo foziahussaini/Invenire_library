@@ -50,7 +50,10 @@ downloadButtons.forEach(function (button) {
 // PDF READER
 // =========================================================
 
+let isLoggedIn = true;
+let currentPdfUrl = ""; 
 const readButtons = document.querySelectorAll(".read-btn");
+const bookDetailsModal = document.getElementById("book-details-modal");
 
 const pdfModal = document.getElementById("pdf-modal");
 const pdfReader = document.querySelector(".pdf-reader");
@@ -60,25 +63,51 @@ const pdfCloseButton = document.getElementById("pdf-close-btn");
 const pdfMinimizeButton = document.getElementById("pdf-minimize-btn");
 const pdfFullscreenButton = document.getElementById("pdf-fullscreen-btn");
 
+const signupOverlay = document.getElementById("signup-overlay");
+const signupOverlayClose = document.getElementById("signup-overlay-close");
+const skipReadingButton = document.getElementById("skip-reading-btn");
+
+
+
+const bookDetailsClose = document.getElementById("book-details-close");
+
+bookDetailsClose.addEventListener("click", function () {
+    bookDetailsModal.classList.remove("show");
+});
+
+
+const bookDetailsContinueButton = document.getElementById("book-details-continue-btn");
+
+bookDetailsContinueButton.addEventListener("click", function () {
+
+    if (isLoggedIn) {
+
+        bookDetailsModal.classList.remove("show");
+        pdfFrame.src = currentPdfUrl;
+        pdfModal.style.display = "flex";
+
+    } else {
+
+        bookDetailsModal.classList.remove("show");
+
+        signupOverlay.classList.add("show");
+
+    }
+
+});
+
 
 // =========================================================
 // OPEN PDF
 // =========================================================
 
 readButtons.forEach(function (button) {
-
     button.addEventListener("click", function () {
 
-        const pdfUrl = button.dataset.pdfUrl;
-
-        pdfFrame.src = pdfUrl;
-
-        pdfModal.style.display = "flex";
-
-        document.body.classList.add("pdf-reader-locked");
+        currentPdfUrl = button.dataset.pdfUrl; 
+        bookDetailsModal.classList.add("show");
 
     });
-
 });
 
 
@@ -426,6 +455,55 @@ document.addEventListener("mousemove", function (event) {
             pdfReader.style.height = newHeight + "px";
 
         }
+
+    }
+
+});
+
+
+
+// =========================================================
+// CLOSE OVERLAY
+// =========================================================
+
+function closeSignupOverlay() {
+
+    signupOverlay.classList.remove("show");
+
+}
+
+
+// =========================================================
+// SKIP
+// =========================================================
+
+skipReadingButton.addEventListener("click", function () {
+
+    closeSignupOverlay();
+
+});
+
+
+// =========================================================
+// CLOSE BUTTON
+// =========================================================
+
+signupOverlayClose.addEventListener("click", function () {
+
+    closeSignupOverlay();
+
+});
+
+
+// =========================================================
+// CLOSE WHEN CLICKING OUTSIDE THE BOX
+// =========================================================
+
+signupOverlay.addEventListener("click", function (event) {
+
+    if (event.target === signupOverlay) {
+
+        closeSignupOverlay();
 
     }
 

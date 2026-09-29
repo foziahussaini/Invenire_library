@@ -61,7 +61,12 @@
                     <i data-lucide="log-in"></i>
                     <span>Login</span>
                 </a>
+                <a href="signup.html" class="signup-btn">
+                    <i data-lucide="user-plus"></i>
+                    Sign Up
+                </a>
             </div>
+
 
         </nav>
     </header>
@@ -97,6 +102,34 @@
                         Explore Books
                         <i data-lucide="arrow-right"></i>
                     </a>
+
+                </div>
+
+            </section>
+
+            <!-- =========================================================
+                ABOUT
+            ========================================================= -->
+
+            <section class="about-section" id="about">
+
+                <div class="about-content">
+
+                    <p class="section-label">
+                        About Invenire
+                    </p>
+
+                    <h2>
+                        Discover More Than Books<br> find yourself
+                    </h2>
+
+                    <p>
+                        Invenire is a digital library created to help readers
+                        explore books, discover new ideas, and find stories
+                        that connect with who they are. Whether you are looking
+                        for knowledge, inspiration, or your next favorite book,
+                        Invenire gives you a place to read, explore, and discover.
+                    </p>
 
                 </div>
 
@@ -166,9 +199,7 @@
 
                                 <button
                                     type="button"
-                                    class="book-btn audiobook-btn"
-                                    data-audio-url="YOUR_AUDIO_URL.mp3"
-                                    disabled>
+                                    class="book-btn audiobook-btn">
                                     <i data-lucide="headphones"></i>
                                     Audio Book
                                 </button>
@@ -194,6 +225,32 @@
 
                 <div class="books-grid" id="recommend-container">
                     <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+            <!-- =========================================================
+                QUOTATION POSTER
+            ========================================================= -->
+
+            <section class="quotation-section">
+
+                <div class="quotation-overlay">
+
+                    <div class="quotation-content">
+
+                        <i data-lucide="quote" class="quotation-icon"></i>
+
+                        <blockquote>
+                            Every book opens a door to a world waiting to be discovered.
+                        </blockquote>
+
+                        <p class="quotation-brand">
+                            — Invenire
+                        </p>
+
+                    </div>
+
                 </div>
 
             </section>
@@ -301,6 +358,70 @@
                 PDF READER MODAL
             ========================================================= -->
 
+            <div class="book-details-modal" id="book-details-modal">
+
+                <div class="book-details-card">
+
+                    <button
+                        type="button"
+                        class="book-details-close"
+                        id="book-details-close">
+                        ×
+                    </button>
+
+                    <div class="book-details-content">
+
+                        <div class="book-details-cover">
+                            <img
+                                src="https://tse4.mm.bing.net/th/id/OIP.8PV_Z-59n4FKqR9_epwrqwHaLJ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                                alt="Crime and Punishment book cover">
+                        </div>
+
+                        <div class="book-details-info">
+
+                            <h2>Crime and Punishment</h2>
+
+                            <p class="book-details-author">
+                                Author Name
+                            </p>
+
+                            <p class="book-details-description">
+                                This is a short description of the book.
+                                More information about this book will come from Firebase later.
+                            </p>
+
+                            <div
+                                class="book-details-actions"
+                               
+                            >
+
+                                <button
+                                    type="button"
+                                    class="book-btn library-btn">
+                                    <i data-lucide="library"></i>
+                                    Add to Library
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn reader-next-btn"
+                                    id="book-details-continue-btn">
+                                    Continue Reading
+                                    <i data-lucide="arrow-right"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            
+            
+            
             <div class="pdf-modal" id="pdf-modal">
 
                 <div class="pdf-reader">
@@ -341,6 +462,8 @@
 
                         </div>
 
+
+                        
                     </div>
 
 
@@ -369,6 +492,57 @@
 
                         <div class="pdf-resize-handle pdf-resize-bottom-left"></div>
                         <div class="pdf-resize-handle pdf-resize-bottom-right"></div>
+
+                    </div>
+
+                </div>
+                
+                    
+
+
+            </div>
+
+
+                        <!-- =========================================================
+                SIGN UP OVERLAY
+            ========================================================= -->
+
+            <div class="signup-overlay" id="signup-overlay">
+
+                <div class="signup-box">
+
+                    <button
+                        type="button"
+                        class="signup-overlay-close"
+                        id="signup-overlay-close"
+                        aria-label="Close">
+                        ×
+                    </button>
+
+                    <div class="signup-icon">
+                        <i data-lucide="lock"></i>
+                    </div>
+
+                    <h3>Sign Up to Continue</h3>
+
+                    <p>
+                        You need to sign up to continue reading this book.
+                    </p>
+
+                    <div class="signup-actions">
+
+                        <a
+                            href="signup.html"
+                            class="signup-btn">
+                            Sign Up
+                        </a>
+
+                        <button
+                            type="button"
+                            class="skip-btn"
+                            id="skip-reading-btn">
+                            Skip
+                        </button>
 
                     </div>
 
