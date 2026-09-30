@@ -921,21 +921,8 @@ body{
 /* ==================== DOWNLOAD ==================== */
 
 .download-btn {
-    background-color: var(--btn-background-color);
+    background-color: transparent;
 
     color: var(--default-border);
 
 }
-
-
-/* ==================== AUDIOBOOK ==================== */
-
-.audiobook-btn {
-    background-color: transparent;
-
-    color: var(--btn-background-color);
-
-    border: var(--default-border);
-}
-
-
