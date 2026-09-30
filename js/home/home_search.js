@@ -1,137 +1,145 @@
 import { db } from "../../src/firebase-config.js"; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
 
-// ==================== 1. HARDCODED STATIC ARRAY FALLBACK DATA ====================
+// ==================== 1. HARDCODED STATIC ARRAY FALLBACK FOR SEARCHING ====================
 const fallbackBooks = [
     {
         id: "fallback-1",
         book_name: "The Alchemist",
-        author: "Paulo Coelho",
-        short_details: "A magical story about Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure.",
-        cover_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3QlePKNRgjnfKQ4zUh41M9x9RuykDDkrMQAS6ntOr_g&s=10",
-        pdf_url: "../pdfs/crime-and-punishments.pdf",
-        audio_url: "" 
+        author: "Paulo Coelho"
     },
     {
         id: "fallback-2",
         book_name: "Her Eyes",
-        author: "Bozorg Alavi",
-        short_details: "کتاب چشم هایش رمانی از بزرگ علوی است که برای نخستین بار در سال ۱۳۳۱ خورشیدی منتشر شد. بزرگ علوی در این رمان قطعات پراکنده یک ماجرا را کنار هم گذاشته و از آن طرحی کلی آفریده است. این کتاب از آثار معدود زبان فارسی است که در مرکز آن یک زن با تمام عواطف و ارتعاشات روانی و ذهنی قرار گرفته است.",
-        cover_image: "https://shstatics.shopipersia.com/wp-content/uploads/2020/07/s-l500-1-31.jpg",
-        pdf_url: "../pdfs/hfuz_چشم_هایش_(بزرگ_علوی).pdf",
-        audio_url: "/audioPlayer/her-eyes.mp3" 
+        author: "Bozorg Alavi"
     },
     {
         id: "fallback-3",
         book_name: "Crime and Punishment (Audiobook)",
-        author: "Fyodor Dostoevsky",
-        short_details: "An audio adaptation tracking the mental anguish and moral dilemmas of Rodion Raskolnikov, a poor ex-student in Saint Petersburg.",
-        cover_image: "https://bing.net",
-        pdf_url: "",
-        audio_url: "#" 
+        author: "Fyodor Dostoevsky"
     }
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadRecentBooks();
-});
+///============================ SEARCH COMPONENTS & CLOSE ICON INITIALIZATION ========================
+const searchInput = document.querySelector(".search-input");
+const searchBarContainer = document.querySelector(".search-bar");
+const searchResultDropDown = document.querySelector(".searchResult"); // Shows as a dropdown menu
 
-// ==================== 2. FETCH & RENDER RECENT BOOKS FUNCTION ====================
-async function loadRecentBooks() {
-    const container = document.getElementById("recent-books");
-    if (!container) return;
+// Creating close icon dynamically
+const closeIcon = document.createElement("i");
 
-    try {
-        // Querying your live Firestore database directly
-        const querySnapshot = await getDocs(collection(db, "book-list"));
-        container.innerHTML = "";
-
-        if (querySnapshot.empty) {
-            console.warn("Firestore collection is empty. Invoking hardcoded array fallback instead.");
-            renderBooksList(fallbackBooks, container);
-            return;
-        }
-
-        // Format raw Firestore document parameters safely into standard objects
-        const dynamicBooks = [];
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            dynamicBooks.push({
-                id: doc.id,
-                book_name: data.book_name || "Untitled Book",
-                short_details: data.short_details || data.description || "No description provided.",
-                cover_image: data.cover_image || data.image || "https://bing.net"
-            });
-        });
-
-        renderBooksList(dynamicBooks, container);
-
-    } catch (error) {
-        console.error("Network or database connection issue detected. Loading local fallback records:", error);
-        // Direct intercept fallback rendering trigger upon network drops
-        renderBooksList(fallbackBooks, container);
-    }
+if (searchBarContainer) {
+    closeIcon.className = "fas fa-times close-icon";
+    closeIcon.style.display = "none";
+    searchBarContainer.appendChild(closeIcon);
 }
 
-// ==================== 3. REUSABLE RENDERING ENGINE ====================
-function renderBooksList(booksArray, targetContainer) {
-    targetContainer.innerHTML = "";
+let debounceTimeout;
 
-    booksArray.forEach((book) => {
-        const bookId = book.id;
-        const title = book.book_name;
-        const fullDescription = book.short_details;
-        const coverImage = book.cover_image;
+///============================ FIREBASE DYNAMIC LIVE BOOK SEARCH FUNCTIONALITY ==========================
+if (searchInput && searchResultDropDown) {
+    searchInput.addEventListener("input", async (e) => {
+        const searchText = e.target.value.toLowerCase().trim();
+        clearTimeout(debounceTimeout);
 
-        const textLimit = 100;
-        const isLongText = fullDescription.length > textLimit;
-        
-        const shortDescription = isLongText 
-            ? fullDescription.substring(0, textLimit) + "..." 
-            : fullDescription;
-        
-        const article = document.createElement("article");
-        article.className = "book-cards card1";
-
-        // FIXED: Using your modified <div class="book-name"> structure seamlessly
-        article.innerHTML = `
-            <div class="book-cover">
-                <img src="${coverImage}" alt="${title} cover">
-            </div>
-            <div class="book-name">${title}</div>
-            <bookdescription>
-                <span class="desc-text">${shortDescription}</span>
-                ${isLongText ? `<button type="button" class="toggle-desc-btn">Read More</button>` : ''}
-            </bookdescription>
-            <button class="book-detail-btn">View Details</button>
-        `;
-
-        // Handle text content sizing controllers
-        if (isLongText) {
-            const toggleBtn = article.querySelector(".toggle-desc-btn");
-            const descTextSpan = article.querySelector(".desc-text");
-            let isOpen = false;
-
-            toggleBtn.addEventListener("click", (e) => {
-                e.stopPropagation(); 
-                isOpen = !isOpen;
-
-                if (isOpen) {
-                    descTextSpan.textContent = fullDescription;
-                    toggleBtn.textContent = "Show Less";
-                } else {
-                    descTextSpan.textContent = shortDescription;
-                    toggleBtn.textContent = "Read More";
-                }
-            });
+        // Control drop visibility when field clears out
+        if (searchText === "") {
+            closeIcon.style.display = "none";
+            searchResultDropDown.style.display = "none"; 
+            searchResultDropDown.innerHTML = "";
+            return;
         }
+        
+        closeIcon.style.display = "block";
 
-        // Action details redirection navigation trigger
-        const detailsButton = article.querySelector(".book-detail-btn");
-        detailsButton.addEventListener("click", () => {
-            window.location.href = `about_book.html?id=${bookId}&title=${encodeURIComponent(title)}`;
-        });
+        // Applying debounce timeout to prevent multiple rapid Firebase network hits
+        debounceTimeout = setTimeout(async () => {
+            try {
+                let currentBooksList = [];
 
-        targetContainer.appendChild(article);
+                try {
+                    // Try to fetch live book data from Firestore database
+                    const booksSnapshot = await getDocs(collection(db, "book-list"));
+                    booksSnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        currentBooksList.push({
+                            id: doc.id,
+                            book_name: data.book_name || "Untitled Book",
+                            author: data.author || "Unknown Author"
+                        });
+                    });
+                } catch (netError) {
+                    console.warn("Network issue detected during live search. Invoking local array fallback:", netError);
+                    // Use fallback local list if network fails or goes offline
+                    currentBooksList = fallbackBooks;
+                }
+
+                // Filter down the array matching results to user input text strings
+                let hasResults = false;
+                searchResultDropDown.innerHTML = ""; 
+
+                currentBooksList.forEach((book) => {
+                    const bookName = book.book_name;
+                    const authorName = book.author;
+
+                    if (bookName.toLowerCase().includes(searchText) || authorName.toLowerCase().includes(searchText)) {
+                        hasResults = true;
+                        
+                        const itemList = document.createElement("div"); 
+                        itemList.className = "search-item";
+                        itemList.innerHTML = `<i class="fas fa-book"></i> <span><strong>${bookName}</strong> by ${authorName}</span>`;
+                        
+                        // FIXED: Click redirection targets about_book.html passing unique identity properties
+                        itemList.addEventListener("click", () => {
+                            window.location.href = `about_book.html?id=${book.id}&title=${encodeURIComponent(bookName)}`;
+                        });
+                        searchResultDropDown.appendChild(itemList);
+                    }
+                });
+
+                // Display structured fallback response if no match filters out successfully
+                if (hasResults) {
+                    searchResultDropDown.style.display = "block";
+                } else {
+                    searchResultDropDown.innerHTML = "";
+                    const noResultRow = document.createElement("div");
+                    noResultRow.className = "no-match";
+                    noResultRow.innerHTML = `
+                    <div class="sad-sticker">
+                        <div class="eyes"></div>
+                        <div class="mouth"></div>
+                    </div>
+                    <span>No result found</span>`;
+                    searchResultDropDown.appendChild(noResultRow);
+                    searchResultDropDown.style.display = "block";
+                }
+
+            } catch (error) {
+                console.error("Critical execution error: ", error);
+            }
+        }, 300);
+    });
+
+    // Close cross icon click functionality setup
+    closeIcon.addEventListener("click", () => {
+        searchInput.value = "";
+        searchResultDropDown.innerHTML = "";
+        closeIcon.style.display = "none";
+        searchResultDropDown.style.display = "none"; 
+        searchInput.focus();
+    });
+
+    // Close dropdown instantly if user clicks out of search components framework area boundaries
+    window.addEventListener("click", (event) => {
+        if (!searchInput.contains(event.target) && !searchResultDropDown.contains(event.target)) {
+            searchResultDropDown.style.display = "none";
+        }
+    });
+
+    // If input contains string details reopening focus panel reveals the drop options instantly
+    searchInput.addEventListener("click", () => {
+        if (searchInput.value.trim() !== "") {
+            searchResultDropDown.style.display = "block";
+        }
     });
 }
