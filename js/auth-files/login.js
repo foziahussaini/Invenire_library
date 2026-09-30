@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // === 1. CORE LAYOUT SELECTORS ===
+    
     const langBtn = document.getElementById('langDropdownBtn');
     const langMenu = document.getElementById('langDropdownMenu');
     const selectedLangText = document.getElementById('selected-lang');

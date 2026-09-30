@@ -1,0 +1,179 @@
+document.addEventListener('DOMContentLoaded', () => {
+// =================================DROPDOWN FOR THEME AND LANGUAGE===============================
+    const langBtn = document.getElementById('langDropdownBtn');
+    const langMenu = document.getElementById('langDropdownMenu');
+    const selectedLangText = document.getElementById('selected-lang');
+    const langHiddenInput = document.getElementById('langHiddenInput');
+    
+    const themeBtn = document.getElementById('themeDropdownBtn');
+    const themeMenu = document.getElementById('themeDropdownMenu');
+    const selectedThemeText = document.getElementById('selected-theme');
+    const themeHiddenInput = document.getElementById('themeHiddenInput');
+
+// ========== Helper function to clear all active dropdowns safely ===================
+    function closeAllMenus() {
+        if (langMenu && langBtn) {
+            langMenu.classList.remove('show');
+            langBtn.classList.remove('active');
+        }
+        if (themeMenu && themeBtn) {
+            themeMenu.classList.remove('show');
+            themeBtn.classList.remove('active');
+        }
+    }
+
+    //  =================== THEME DROPDOWN LOGIC ======================
+    if (themeBtn && themeMenu) {
+        themeBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            const isMenuOpen = themeMenu.classList.contains('show');
+            closeAllMenus(); 
+            if (!isMenuOpen) {
+                themeMenu.classList.add('show');
+                themeBtn.classList.add('active');
+            }
+        });
+
+        themeMenu.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const selectedTheme = e.currentTarget.getAttribute('data-value');
+                const visibleText = e.currentTarget.textContent;
+                
+                if (selectedThemeText) selectedThemeText.textContent = visibleText;
+                if (themeHiddenInput) themeHiddenInput.value = selectedTheme;
+                document.documentElement.setAttribute('data-theme', selectedTheme);
+                
+                closeAllMenus();
+            });
+        });
+    }
+
+    // ====================== LANGUAGE DROPDOWN LOGIC ======================
+    if (langBtn && langMenu) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            const isMenuOpen = langMenu.classList.contains('show');
+            closeAllMenus(); 
+            if (!isMenuOpen) {
+                langMenu.classList.add('show');
+                langBtn.classList.add('active');
+            }
+        });
+
+        langMenu.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const selectedLang = e.currentTarget.getAttribute('data-value');
+                const visibleText = e.currentTarget.textContent;
+                
+                if (selectedLangText) selectedLangText.textContent = visibleText;
+                if (langHiddenInput) langHiddenInput.value = selectedLang;
+                
+                closeAllMenus();
+            });
+        });
+    }
+
+    // ====================== EVENT ======================
+    document.addEventListener('click', () => {
+        closeAllMenus();
+    });
+
+
+    // ======================NAVBAR ITEMS ACTIVE AND CLICK EVENT=====================
+    const navLinks = document.querySelectorAll('.nav-list .nav-item');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const targetId = link.getAttribute('href');
+
+            if (targetId.startsWith('#')) {
+                e.preventDefault(); 
+                
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    // Offset math handles your 80px high navbar perfectly
+                    const headerOffset = 80;
+                    const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
+                    const offsetPosition = elementPosition - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Instantly visually swap classes upon click selection
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        });
+    });
+
+//  ==============================SCROLLING TO SELECTED SECTION======================================
+    const sections = document.querySelectorAll('#home, #about, #explore');
+
+    window.addEventListener('scroll', () => {
+        let currentActiveId = "#home"; 
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const headerCushion = 100; 
+            
+            if (window.scrollY >= (sectionTop - headerCushion)) {
+                currentActiveId = `#${section.id}`;
+            }
+        });
+
+        // Loop and sync active classes during scrolling
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentActiveId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    });
+    
+//=========================== hero text animated (SUBTITLE TEXT)============================================
+// Add this directly into your existing DOMContentLoaded event listener block
+const subtitleElement = document.querySelector(".hero-subtitle");
+
+// 1. YOUR CUSTOM PHRASES ARRAY
+const subtitles = [
+    "Read Explore Discover Yourself",
+    "Unlock Stories That Shape Your World",
+    "Your Next Literary Adventure Awaits"
+];
+
+let currentIndex = 0;
+
+function rotateSubtitles() {
+    if (!subtitleElement) return;
+
+    // Phase A: Slide the old text out to the left edge safely
+    subtitleElement.classList.add("slide-to-left");
+
+    // Wait for the exit slide animation to finish completely (600ms matching CSS transition)
+    setTimeout(() => {
+        // Increment index pointer safely through the loop bounds
+        currentIndex = (currentIndex + 1) % subtitles.length;
+        
+        // Swap out the text contents while invisible
+        subtitleElement.textContent = subtitles[currentIndex];
+
+        // Instantly snap the position back to the right boundary invisibly
+        subtitleElement.classList.remove("slide-to-left");
+        subtitleElement.classList.add("slide-from-right");
+
+        // Force browser layout repaint recalculation to ensure position register
+        void subtitleElement.offsetWidth;
+
+        // Phase B: Slide smoothly back into the active central viewport area
+        subtitleElement.classList.remove("slide-from-right");
+    }, 600); 
+}
+
+// Automatically trigger a phrase swap every 5 seconds (5000 milliseconds)
+setInterval(rotateSubtitles, 5000);
+
+});
