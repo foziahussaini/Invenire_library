@@ -4,13 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin dashboard</title>
-    <link rel="stylesheet" href="../css-style/home.css">
-    <link rel="stylesheet" href="../css-style/adminDashboard.css">
+    <link rel="stylesheet" href="../css-style/main-pages/adminDashboard.css">
+    <link rel="stylesheet" href="../css-style//main-pages/home.css">
     <link href="/src/output.css" rel="stylesheet">
-    <script type="module" src="../js/dashboard.js" defer></script>
-    <script type="module" src="../js/search.js" defer></script>
-    <script type="module" src ="../js/profile.js" defer></script>
-    <script type="module" src="../js/cards.js" defer></script>
+    <!-- responsive css paths -->
+    <link rel="stylesheet" href="../responsive/dashboard/sidebar_profile_responsive.css"> 
+    <!-- =============current page js file============== -->
+    <script type="module" src="../js/dashboard/dashboard.js" defer></script>
+    <!-- admin dashboard screen cards  -->
+    <script type="module" src="../js/dashboard/dashboard_cards/card1.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card2.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card3.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card4.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card7.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/card8.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/checkout.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/chart_bar.js" defer></script>
+    <script type="module" src="../js/dashboard/dashboard_cards/donutChart.js" defer></script>
+    <!-- admin header part searchbar-->
+    <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/members_search.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
+    <!-- ====================PROFILE LINK JS -->
+    <script type="module" src ="../js/auth-files/profile.js" defer></script>
+    <!-- ==========tailwind and font swesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
@@ -22,37 +39,52 @@
             <hr class="h-px bg-gray-300 border-0">
             <div class="sidebar-menu">
                 <div class="menu-item">
-                    <i class="fa-solid fa-bell menu-icon"></i>
-                    <span class="menu-text">Notifications</span> 
+<!-- ===================used two different <a> on every item cause responsive style not crash======================= -->
+                <a class="menu-icon" href="../pages/home.html">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+                    <a href="../pages/home.html" class="menu-text">Home</a>
                 </div>
-                <div class="menu-item active">
-                    <i class="fa-solid fa-th-large menu-icon"></i>
-                    <span class="menu-text">Dashboard</span>
+                <div class="menu-item" data-route="Dashboard">
+                    <a class="menu-icon" href="../pages/admin_dashboard.html">
+                        <i class="fa-solid fa-th-large"></i>
+                    </a>
+                    <a href="../pages/admin_dashboard.html"><span class="menu-text">Dashboard</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-book menu-icon"></i>
-                    <span class="menu-text">Books</span>
+                <div class="menu-item active" data-route="Books">
+                    <a class="menu-icon" href="/pages/admin_subPages/books.html">
+                        <i class="fa-solid fa-book menu-icon"></i>
+                    </a>
+                    <a href="/pages/admin_subPages/books.html"><span class="menu-text">Books</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-users menu-icon"></i>
-                    <span class="menu-text">Members</span>
+                <div class="menu-item" data-route="Members">
+                    <a class="menu-icon" href="./admin_subPages/members.html">
+                        <i class="fa-solid fa-users"></i>
+                    </a>
+                    <a href="./admin_subPages/members.html">
+                    <span class="menu-text">Members</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-cog menu-icon"></i>
-                    <span class="menu-text">Settings</span>
+                <div class="menu-item" data-route="Settings">
+                    <a class="menu-icon" href="./admin_subPages/settings.html">
+                        <i class="fa-solid fa-cog "></i>
+                    </a>
+                    <a href="./admin_subPages/settings.html">
+                    <span class="menu-text">Settings</span></a>
                 </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-chart-bar menu-icon"></i>
-                    <span class="menu-text">Statistic</span>
+                <div class="menu-item" data-route="Statistic">
+                    <a class="menu-icon" href="./admin_subPages/reports.html">
+                        <i class="fa-solid fa-chart-bar "></i>
+                    </a>
+                    <a href="./admin_subPages/reports.html">
+                    <span class="menu-text">Statistic</span></a>
                 </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
-                <div class="menu-item" id="#">
-                    <i class="fa-solid fa-question-circle menu-icon"></i>
-                    <span class="menu-text">Help</span>
-                </div>
-                <div class="menu-item">
-                    <i class="fa-solid fa-palette menu-icon"></i>
-                    <span class="menu-text">Theme</span>
+                <div class="menu-item" data-route="Theme">
+                    <a class="menu-icon" href="./admin_subPages/theme.html">
+                        <i class="fa-solid fa-palette"></i>
+                    </a>
+                    <a class="menu-text" href="./admin_subPages/theme.html"></i>
+                    <span class="menu-text">Theme</span></a>
                 </div>
 
                 <button class="logout">
@@ -62,10 +94,10 @@
             </div>
         </aside>
 
-        <!-- main content of body plus header start from here -->
+<!--==========================main content of body plus header start from here============================= -->
         <div class="main-content">
-            <!-- HEADER PART -->
-            <header class="admin-header">
+            <!-- HEADER PART section1 -->
+            <header class="admin-header  section1">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search books,members,author...." class="search-input" autocomplete="off">
@@ -74,33 +106,79 @@
                 </div>
                 <div class="calender">
                     <div class="time">12:45</div>
-                    <div class="h-4 w-[1px] bg-slate-600 mx-2"></div>
+                    <!-- layout added as tailwind css here -->
+                    <div class="divider-line h-4 w-[0.4px] bg-slate-600 mx-2 xs:w-8 xs:h-[0.4px] sm:w-10 sm:h-[0.4px] md:w-16 md:h-[1px] lg:h-4 lg:w-[1px]"></div>
                     <div class="date">21/July/2026</div>
                 </div>
                 <div class="profile-container">
-                    <div class="profile"></div>
+                    <div class="profile">
+                        <img src="../images/profile/female.jpg" alt="">
+                    </div>
                 </div>
             </header>
-            <!-- Your main page content goes here -->
-            <main class="justify-center flex flex-col items-center">
+<!-- ==========================first all the 8 cards for analysis the library===================================== -->
+            <!--  SECTION2 -->
+            <div class="justify-center flex flex-col items-center section2">
+                <!-- active member total count -->
                <div class="headline-content">
                    <h1 class="headline">Active Members</h1> <!-- showing the latest news for active members -->
                    <button class="checkout-btn">+ Checkout</button>
                </div>
-            <div class="form-group">
-                <div class="card card1"></div>
-                <div class="card card2"></div>
-                <div class="card card3"></div>
-                <div class="card card4"></div>
-                <div class="card card5"></div>
+               <!-- cards analysis counting the data of library use grid for 8 total cards -->
+               <div class="form-group">
+                <div class="card card1"> <!-- 1 count total books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-book-bookmark"></i></span>
+                        <span class="percentage">--%</span>
+                    </div>
+                    <p>Total books in library</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <div class="card card2"> <!-- 2 downloaded books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-download"></i></span>
+                        <span class="percentage">--% in Sep</span>
+                    </div>
+                    <p>Downloaded books</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <div class="card card3"> <!-- 3 on reading mode books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-book-reader"></i></span>
+                        <span class="percentage">+--% Active</span>
+                    </div>
+                    <p>Total books in library</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <div class="card card4"> <!-- 4 purchased books-->
+                    <div class="head-icons">
+                        <span class="icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        <span class="percentage">--%</span>
+                    </div>
+                    <p>Total purchased in library</p>
+                    <h3>000</h3>
+                    <div class="analysis-line">
+                    </div>
+                </div>
+                <!-- most active time traffic chart bar -->
+                <div class="card card5" id="chart-bars"><div class="traffic-chart"></div></div>
+                <!-- donut chart bar for total fee of all purchasing books -->
                 <div class="card card6"></div>
+                <!-- most popular books -->
                 <div class="card card7"></div>
+                <!-- list of active members at library -->
+                <div class="card card8"></div>
+               </div>
             </div>
-            </main>
             <!-- footer -->
             <footer class="dashboard-footer">
-            <p class="footer-text"></p>
-            <div class="footer-nav"></div>
+            <p class="footer-text">© 2026, Made by Invenire Team.</p>
         </footer>
         </div>
     </div>

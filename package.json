@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "tailwindcss build --input ./src/input.css --output ./dist/output.css",
+    "watch:css": "tailwindcss build --input ./src/input.css --output ./dist/output.css --watch"
   },
   "dependencies": {
     "tailwindcss": "^4.3.3"

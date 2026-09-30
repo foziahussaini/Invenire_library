@@ -1,4 +1,4 @@
-import { db } from "./firebase-config.js"; 
+import { db } from "../../../src/firebase-config.js"; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
 
 ///============================ SEARCH COMPONENTS & CLOSE ICON INITIALIZATION ========================
@@ -15,12 +15,14 @@ if (searchBarContainer) {
     searchBarContainer.appendChild(closeIcon);
 }
 
+let debounceTimeout;
+
 ///============================ FIREBASE DYNAMIC LIVE SEARCH FUNCTIONALITY ==========================
 if (searchInput && searchResultDropDown) {
     searchInput.addEventListener("input", async (e) => {
         // initialize searchtext which user write as a input value
         const searchText = e.target.value.toLowerCase().trim();
-        searchResultDropDown.innerHTML = ""; 
+        clearTimeout(debounceTimeout);
 
     // cross icon and dropdown visiblity
         if (searchText === "") {
@@ -32,8 +34,10 @@ if (searchInput && searchResultDropDown) {
         closeIcon.style.display = "block";
 
     // using try cathe and also async await for error handler and showing the search result after checking the storage on firebase
-         try {
+        debounceTimeout = setTimeout(async () => {
+    try {
             let hasResults = false;
+            searchResultDropDown.innerHTML = ""; 
 
     // getting data from firestore for BOOK SEARCH
             const booksSnapshot = await getDocs(collection(db, "book-list"));
@@ -79,7 +83,6 @@ if (searchInput && searchResultDropDown) {
                 }
             });
 
-            searchResultDropDown.innerHTML = ""; 
             // Show or hide dropdown box layout depending on search results match status
             if (hasResults) {
                 searchResultDropDown.style.display = "block";
@@ -99,6 +102,7 @@ if (searchInput && searchResultDropDown) {
         } catch (error) {
             console.error("error happen", error);
         }
+        }, 300);
     });
 
     // Close cross icon click event handler configuration

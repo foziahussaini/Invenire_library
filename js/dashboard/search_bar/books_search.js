@@ -1,10 +1,10 @@
-import { db } from "../../js/firebase-config.js";
-import { collection, getDocs } from "https://gstatic.com";
+import { db } from "../../../src/firebase-config.js"; 
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const bookDisplayContainer = document.querySelector(".books-list-container"); 
     
-    // 1. Read the ?search=... parameter from the current URL
+    // Read the ?search=... parameter from the current URL
     const urlParams = new URLSearchParams(window.location.search);
     const searchTarget = urlParams.get("search");
 
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             
-            // 2. If a search parameter exists, ONLY show the matching book. Otherwise, list all books.
+            // If a search parameter exists, ONLY show the matching book. Otherwise, list all books.
             if (searchTarget && data.book_name !== searchTarget) {
                 return; // Skip books that don't match our redirect target
             }
@@ -32,6 +32,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             bookDisplayContainer.appendChild(bookCard);
         });
     } catch (error) {
-        console.error("Error rendering book elements:", error);
+        console.log("Error rendering book elements:", error);
     }
 });
