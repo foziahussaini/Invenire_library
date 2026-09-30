@@ -4,82 +4,21 @@
     box-sizing: border-box;
 }
 
-/* Root Variables for base layout of pages  "light and default theme" */
-:root{
-/* ----------------all the base colors---------------------*/
-    --primary-font-family: 'Yaldevi', sans-serif;;
-    --main-background-color: #F1F5FA;
-    --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #266bac, #dcedfe );
-
-    --main-text-color: #1b2844;
-    --hover-text-color: #D4A017;
-    --sub-script-color: #8FB4E3;
-
-    --btn-background-color: #0056b3;
-    --btn-hover-background-color: #2E6FB7;
-    --btn-text-color: #FFFFFF;
-    --btn-text-hover-color: #ded9d9;
-    
-    --card-background-color: #ffffff;
-    --card-hover-background-color: linear-gradient(135deg, #266bac64 10%, #75c8f1e0 50%);
-    --card-head-smooth-background-color: #266bac76;
-
-    --highest-chart-background-color: linear-gradient(135deg, #255ed9 10%,#266baccf 50%, #061f54, #284F7A );
-    --lowest-chart-background-color: linear-gradient(135deg, #ca2718c2 10%, #ff00008b 50%);
-    --normal-chart-background-color: linear-gradient(135deg, #f7a5008e 10%, #c9761e 50%, #F7A500);
-    
-    --input-background-color: #ffffff;
-    --input-text-color: #0B3A67;
-    --input-border-color: #0B3A67;
-    
-    --dropdown-background-color: #E6F0FA;
-    --premium-icon-color: #F7A500;
-    --fav-icon-color: #ff0000;
-
-    --footer-background-color: linear-gradient(120deg, #dcedfe 10%, #266bac 50%, #8FB4E3);
-    --footer-text-color: #102141;
-
-    --default-border: 0.8px solid var(--input-border-color);
-    --shadow-color: #0B3A67;
-    --default-box-shadow: 0px 8px 16px var(--shadow-color);
-    --card-box-shadow: 1px 1px 6px #8FB4E3;
-
-    --icon-background-color: #266bac;
-    --icon-box-shadow: 0px 1px 4px var(--premium-icon-color);
-
-    /* ----------------size variables -----------------------*/
-    --main-header-height: 85px;
-    --main-font-size: 16px;
-    --header-font-size: 24px;
-    --btn-font-size: 18px;
-    --min-font-size: 14px;
-
-    --btn-border-radius: 0.6rem;
-    --input-border-radius: 0.4rem;
-    --main-border-radius: 0.5rem;
-    
-    --btn-padding: 10px 24px;
-    --card-padding: 10px 20px;
-    --text-padding: 10px;
-}
-
-.home-body{
+body{
     font-family: Arial, sans-serif;
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     font-size: var(--main-font-size);
-    overflow-x: hidden;
-    width: 100%;
-    padding: 0;
 }
 
 /* ==================== HEADER / NAVBAR ==================== */
 
 .site-header {
     width: 100%;
-    height: var(--main-header-height);
+    height: 80px;
     background: var(--header-background-color);
     color: var(--main-text-color);
+    box-shadow: 0 2px 8px rgba(11, 58, 103, 0.15);
     position: relative;
     z-index: 1000;
 }
@@ -87,27 +26,74 @@
 .navbar {
     width: 100%;
     height: 100%;
-    padding: 0 20px;
+    padding: 0 24px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 /* ==================== LOGO ==================== */
-.navbar .logo{
-    width: 100%;
-    height: 170px;
-    justify-content: center;
+
+.logo-link {
     display: flex;
     align-items: center;
-    
-    >img{
-        display: flex;
-        width: 140px;
-        height: 130px;
-        z-index: 100;
-    }
+    text-decoration: none;
 }
+
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    display: block;
+    
+}
+/*================= nav left ==============*/ 
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-tool-btn {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: var(--main-border-radius);
+    background-color: transparent;
+    color: var(--main-text-color);
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-tool-btn svg {
+    width: 21px;
+    height: 21px;
+    stroke-width: 2;
+}
+
+.nav-tool-btn:hover {
+    color: var(--hover-text-color);
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
 /* ==================== MAIN NAVIGATION ==================== */
 
 .nav-links {
@@ -154,13 +140,14 @@
 
 /* ==================== LOGIN ==================== */
 
-.registration-btns {
+.nav-auth {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 10px;
+
     padding-left: 24px;
     border-left: var(--default-border);
 }
-
 .login-btn {
     display: flex;
     align-items: center;
@@ -194,6 +181,38 @@
     transform: translateY(-1px);
 }
 
+.signup-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+
+    text-decoration: none;
+    border-radius: var(--btn-border-radius);
+
+    font-size: var(--main-font-size);
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.signup-btn svg {
+    width: 19px;
+    height: 19px;
+}
+
+.signup-btn:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+    transform: translateY(-1px);
+}
 /* ==================== RESPONSIVE ==================== */
 
 @media (max-width: 600px) {
@@ -242,7 +261,7 @@
     align-items: center;
     justify-content: center;
 
-    background-image: url("/images/hero.jpeg");
+    background-image: url("../images/hero.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -386,76 +405,12 @@
 .books-grid {
     max-width: 1200px;
     margin: 0 auto;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
 }
 
-.book-cover{
-    width: fit-content;
-    overflow: hidden;
-}
-
-/* ==========================================================================
-   COLLAPSIBLE TEXT LAYOUT SYSTEM
-   ========================================================================== */
-
-.description-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 8px 0;
-}
-
-/* Base description rules */
-.book-description {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--main-text-color);
-    margin: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-}
-
-/* Closed state constraints (Max height locked to exactly 3 lines of text) */
-.book-description.collapsed {
-    max-height: 4.5em; 
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-}
-
-/* Opened state constraints */
-.book-description.expanded {
-    max-height: 500px; /* Allows full text to extend comfortably */
-    display: block;
-}
-
-/* Custom Collapse/Expand Toggle Button layout */
-.toggle-desc-btn {
-    background: none;
-    border: none;
-    color: var(--link-color, #3b82f6); /* Change to match your link accent color variables */
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 0;
-    margin-top: 4px;
-    width: fit-content;
-    align-self: flex-start;
-}
-
-.toggle-desc-btn:hover {
-    text-decoration: underline;
-}
-
-/* Clean micro interaction animation movement properties for the arrow icon */
-.toggle-icon {
-    font-size: 0.75rem;
-    transition: transform 0.3s ease-in-out;
-}
 
 
 /* =========================================================
@@ -545,6 +500,276 @@
     box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
 }
 
+
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
+
+.about-section {
+    padding: 75px 8%;
+
+    background: linear-gradient(
+        135deg,
+        #E6F0FA,
+        #F1F5FA
+    );
+
+    border-top: 1px solid #C7D8EA;
+    border-bottom: 1px solid #C7D8EA;
+
+    text-align: center;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section-label {
+    margin-bottom: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: var(--premium-color);
+}
+
+.about-content h2 {
+    margin: 0 0 20px;
+
+    font-size: 34px;
+    color: var(--main-text-color);
+}
+
+.about-content p:last-child {
+    margin: 0;
+
+    font-size: 16px;
+    line-height: 1.8;
+
+    color: var(--input-text-color);
+}
+/* =========================================================
+   QUOTATION POSTER
+========================================================= */
+
+.quotation-section {
+    position: relative;
+
+    min-height: 380px;
+
+    margin: 70px 6%;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            rgba(30, 42, 68, 0.72),
+            rgba(30, 42, 68, 0.72)
+        ),
+        url("../images/library-quotation.jpeg");
+
+    background-size: cover;
+    background-position: center;
+
+    box-shadow:
+        0 18px 45px rgba(30, 42, 68, 0.18);
+
+    border: 1px solid rgba(212, 160, 23, 0.35);
+}
+
+.quotation-overlay {
+    min-height: 380px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 30px;
+
+    text-align: center;
+}
+
+.quotation-content {
+    max-width: 850px;
+
+    color: #ffffff;
+}
+
+.quotation-icon {
+    width: 42px;
+    height: 42px;
+
+    margin-bottom: 20px;
+
+    color: var(--premium-color);
+
+    opacity: 0.95;
+}
+
+.quotation-content blockquote {
+    margin: 0;
+
+    font-size: clamp(28px, 4vw, 46px);
+
+    line-height: 1.35;
+
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.35);
+}
+
+.quotation-brand {
+    margin-top: 25px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--premium-color);
+}
+
+
+/* =========================================================
+   HOME FOOTER
+========================================================= */
+
+.site-footer {
+    width: 100%;
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 50px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+}
+
+
+/* ==================== FOOTER BRAND ==================== */
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 16px;
+}
+
+.footer-brand h3 {
+    margin: 0 0 10px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: var(--footer-text-color);
+}
+
+.footer-brand p {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ==================== FOOTER LINKS ==================== */
+
+.footer-links,
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    margin: 0 0 18px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: var(--footer-text-color);
+}
+
+.footer-links a,
+.footer-contact a {
+    margin-bottom: 10px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-contact a:hover {
+    color: var(--footer-text-color);
+    transform: translateX(3px);
+}
+
+.footer-contact p {
+    margin: 0 0 12px;
+
+    max-width: 250px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ==================== FOOTER BOTTOM ==================== */
+
+.footer-bottom {
+    width: 100%;
+
+    padding: 20px 50px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.65);
+}
+
+
+
 /* =========================================================
    BOOK CARD
 ========================================================= */
@@ -632,9 +857,16 @@
 /* ==================== BOOK ACTIONS ==================== */
 
 .book-actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 10px;
+    width: 100%;
+}
+
+.book-actions .book-btn {
+    width: 100%;
+    min-height: 42px;
+    box-sizing: border-box;
 }
 
 .book-btn {
@@ -691,255 +923,6 @@
 .download-btn {
     background-color: transparent;
 
-    color: var(--btn-background-color);
+    color: var(--default-border);
 
-    border: var(--default-border);
-}
-
-
-/* ==================== AUDIOBOOK ==================== */
-
-.audiobook-btn {
-    background-color: transparent;
-    color: var(--btn-background-color);
-    border: var(--default-border);
-}
-
-
-/* =========================================================
-   PDF READER MODAL
-========================================================= */
-.pdf-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(8px); 
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 99999; 
-    opacity: 3;
-    transition: opacity 0.3s ease-out;
-}
-
-.pdf-modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-}
-
-.pdf-modal .pdf-reader {
-    position: relative;
-    display: flex; flex-direction: column;
-    width: 90%;
-    height: 95vh;
-    max-width: 1100px;
-    background: var(--main-background-color);
-    border-radius: var(--btn-border-radius);
-    box-shadow: var(--default-box-shadow);
-    overflow: hidden;
-    transform: scale(0.95);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
-}
-
-.pdf-modal.active .pdf-reader {
-    transform: scale(1);
-}
-
-.pdf-reader-header {
-    width: 100%;
-    padding: var(--text-padding); 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    gap: 2rem;
-    background: var(--header-background-color);
-    border-bottom: 1px solid var(--btn-background-color);
-}
-
-.pdf-reader-header h3 {
-    width: 100%;
-    font-size: var(--header-font-size);
-    font-weight: bold;
-    color: var(--main-text-color);
-}
-
-.pdf-reader-actions{
-    width: 180px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    border-radius: var(--btn-border-radius);
-    opacity: 0.4;
-    margin-right: 1rem;
-}
-
-.window-control-btn {
-    background-color: var(--btn-background-color);
-    display: flex;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    box-shadow: var( --icon-box-shadow);
-    color: var(--hover-text-color);
-    border-radius: var(--btn-border-radius);
-    padding: 0 0.6rem;
-    font-size: 34px;
-    border: none; 
-    cursor: pointer;
-}
-
-.window-control-btn:hover {
-    transform: scale(1.1);
-}
-
-.modal-body-content {
-    display:flex;
-    flex: 1; 
-    position: relative; 
-    justify-content: center;
-    align-items: center;
-    background-color: var(--main-background-color);
-}
-
-#pdf-frame{
-    background-color: var(--main-background-color); 
-    width: 150%; 
-    height: 100%; 
-    border: none; 
-    display: block;
-}
-
-#audio-player-wrapper {
-    display: none; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 1rem; text-align: center; 
-    width: 100%; 
-    max-width: 700px; 
-    padding: var(--card-padding); 
-    background: var(--header-background-color); 
-    box-shadow: var(--default-box-shadow); 
-    border-radius: var(--btn-border-radius);
-    animation: slideUpFade 0.4s ease-out forwards;
-}
-
-#audio-player-wrapper p {
-    font-family: system-ui, -apple-system, sans-serif;
-    color: var(--main-text-color);
-}
-
-/* Custom design profile theme for the native browser audio element bar */
-#native-audio-player {
-    outline: none;
-    border-radius: 30px;
-}
-
-
-/* ==========================================================================
-   SYSTEM DESIGN MOTION KEYFRAMES
-   ========================================================================== */
-@keyframes slideUpFade {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.pdf-modal.minimized {
-    background: none !important; 
-    backdrop-filter: none !important; 
-    -webkit-backdrop-filter: none !important;
-    pointer-events: none; /* Let clicks pass straight through the empty screen space! */
-    display: flex !important; /* Keeps container alive */
-    justify-content: flex-end; /* Pushes the inner box to the right side */
-    align-items: flex-end; /* Pushes the inner box to the bottom side */
-    padding: 20px; /* Gap buffer distance from the screen edge corner */
-}
-
-.pdf-modal.minimized .pdf-reader {
-    width: 380px !important; 
-    height: auto !important; 
-    max-height: 180px !important;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    pointer-events: auto; 
-    box-shadow:var(--default-box-shadow);
-    transform: scale(1) !important;
-}
-
-.pdf-modal.minimized #pdf-frame,
-.pdf-modal.minimized #audio-player-wrapper div, /* Hides giant headphone/disc logos */
-.pdf-modal.minimized .pdf-resize-handle {
-    display: none !important;
-}
-
-/* 4. Tweak inner spacing padding when compressed */
-.pdf-modal.minimized #audio-player-wrapper {
-    padding: 0.75rem 1rem !important;
-    box-shadow: none !important;
-}
-
-/* =============================FOOTER PART=========================================  */
-.home-footer{
-    width: 100%;
-    height: 150px;
-    background: var(--footer-background-color);
-    display: flex;
-    align-items: end;
-    padding-bottom: 1rem;
-    justify-content: space-around;
-    color: var(--footer-text-color);
-}
-
-.footer-text{
-    font-size: var(--main-font-size);
-    display: flex;
-    align-items: center;
-    text-align: end;
-}
-
-.footer-brand{
-    width: 150px;
-    height: 150px;
-
-    >img{
-        width: 150px;
-        height: 150px;
-    }
-}
-.footer-nav {
-    width: 280px;
-    display: flex;
-    justify-content: space-between;
-    color: var(--main-text-color);
-
-    > .footer-list {
-        display: flex;
-        flex-direction: column;
-        list-style: none;
-        gap: 1rem;
-        font-weight: 600;
-
-        > .navLink {
-            color: inherit; 
-            text-decoration: none;
-            transition: color 0.2s ease;
-
-            >a{text-decoration: none;}
-        }
-    }
-}
-
-.footer-list .navLink:hover {
-            color: var(--hover-text-color); 
 }
