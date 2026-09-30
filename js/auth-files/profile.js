@@ -4,15 +4,20 @@ import {
     collection, 
     query, 
     where, 
-    getDocs 
+    getDocs,
+    doc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 // --- DOM Target Elements ---
 const profileImg = document.querySelector(".profile");
 const profileContainer = document.querySelector(".profile-container"); 
 
-// Helper to determine the session ID fallback
-const loggedUserId = localStorage.getItem("user_id") || "member12"; 
+// Read the unified session schema generated at login state lifecycle
+const userSession = JSON.parse(localStorage.getItem("userSession")) || null;
+const loggedUserEmail = userSession ? userSession.email : "";
+const loggedUserRole = userSession ? userSession.role : "member"; // Default fallback to member
+const loggedDocId = userSession ? userSession.uid : ""; // Stores admin document name 'adminheader123' or member keys
 
 function normalizeGender(value) {
     if (!value) return null;
@@ -26,79 +31,94 @@ function getDefaultProfileByGender(gender) {
     return gender === "male" ? defaultMaleProfile : defaultFemaleProfile;
 }
 
-// Helper to fetch user data using the custom field attribute identifier
-async function fetchUserDataByFieldId(customId) {
-    try {
-        // Target collection fixed to matching name: "members"
-        const membersRef = collection(db, "members"); 
-        const userQuery = query(membersRef, where("user_id", "==", customId));
-        const querySnapshot = await getDocs(userQuery);
+// === UNIFIED DYNAMIC PROFILE FETCH ENGINE ===
+async function fetchCurrentUserData() {
+    if (!userSession || !loggedUserEmail) return null;
 
-        if (!querySnapshot.empty) {
-            // Return data from the first document match found
-            return querySnapshot.docs[0].data();
+    try {
+        // 1. If user is an Admin, fetch directly using Document ID
+        if (loggedUserRole === "admin") {
+            const adminDocRef = doc(db, "config", loggedDocId);
+            const adminSnap = await getDoc(adminDocRef);
+            if (adminSnap.exists()) {
+                return adminSnap.data();
+            }
+            
+            // Fallback: Query by field email if document structure varies
+            const configRef = collection(db, "config");
+            const adminQuery = query(configRef, where("admin_email", "==", loggedUserEmail));
+            const querySnapshot = await getDocs(adminQuery);
+            if (!querySnapshot.empty) {
+                return querySnapshot.docs[0].data();
+            }
+        } 
+        // 2. If user is a Member, fetch using field criteria matches
+        else {
+            const membersRef = collection(db, "members");
+            const memberQuery = query(membersRef, where("email", "==", loggedUserEmail));
+            const querySnapshot = await getDocs(memberQuery);
+            if (!querySnapshot.empty) {
+                return querySnapshot.docs[0].data();
+            }
         }
     } catch (error) {
-        console.error("Firestore database lookup failure:", error);
+        console.error("Firestore database profile lookup failure:", error);
     }
     return null;
 }
 
-// === 1. TOP HEADER INITIALIZER RUNNER ===
-async function loadUserProfileFromFirestore(userId) {
+// === INITIALIZER DISPLAY ENGINE RUNNER ===
+async function loadUserProfileFromFirestore() {
     if (!profileImg) return;
 
     const img = profileImg.querySelector("img");
     if (!img) return;
 
-    // 1) First check local storage for instant layout rendering
+    // First check local storage cache parameters for instant visual layout rendering
     const localGender = normalizeGender(localStorage.getItem("userGender"));
     if (localGender) {
         img.src = getDefaultProfileByGender(localGender);
     }
 
-    if (!userId) return;
-
-    const data = await fetchUserDataByFieldId(userId);
+    const data = await fetchCurrentUserData();
 
     if (data) {
-        // 2) If Firestore profile network url exists, apply it (Key corrected to match "profile-Img")
+        // Apply Firestore profile network image if it exists
         if (data["profile-Img"]) {
             img.src = data["profile-Img"];
             return;
         }
 
-        // 3) Else structural fallback to database gender property values
-        const firestoreGender = normalizeGender(data.gender || data.sex);
+        // Structural fallback to database gender values if image field is blank
+        const firestoreGender = normalizeGender(data.gender || data.sex || data.admin_gender);
         if (firestoreGender) {
             img.src = getDefaultProfileByGender(firestoreGender);
             return;
         }
     }
 
-    // 4) Complete fallback security rule logic
+    // Ultimate fallback security choice
     img.src = getDefaultProfileByGender(localGender || "female");
 }
 
-// Run initializer immediately upon dashboard loading
-loadUserProfileFromFirestore(loggedUserId);
+// Run immediately upon window page loading sequence
+loadUserProfileFromFirestore();
 
 
-// === 2. PROFILE INTERACTIVE DROPDOWN MENU ===
+// === PROFILE INTERACTIVE DROPDOWN MODAL DRAWER ===
 if (profileContainer) {
     profileContainer.addEventListener("click", async () => {
-        // Toggle view window state out if clicked while open
+        // Toggle view container box out if clicked again while open
         const existingMenu = document.querySelector(".profile-dropDown");
         if (existingMenu) {
             existingMenu.remove();
             return; 
         }
 
-        // Create modal drawer structural block elements
         const dropdown = document.createElement("div");
         dropdown.className = "profile-dropDown";
 
-        // Navigation dismiss close node builder
+        // Navigation dismiss close node builder button
         const closeBtn = document.createElement("span");
         closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
         closeBtn.className = "close-btn";
@@ -109,13 +129,13 @@ if (profileContainer) {
         dropdown.appendChild(closeBtn);
         document.body.appendChild(dropdown);
 
-        // Populate card content properties
-        const userData = await fetchUserDataByFieldId(loggedUserId);
+        // Fetch properties data based on current active profile type
+        const userData = await fetchCurrentUserData();
 
         if (userData) {
             createUserCard(userData, dropdown);
 
-            // Dynamically refresh the page header thumb image state synchronicity
+            // Synchronize the header thumbnail immediately
             if (userData["profile-Img"] && profileImg.querySelector("img")) {
                 profileImg.querySelector("img").src = userData["profile-Img"]; 
             }
@@ -125,12 +145,11 @@ if (profileContainer) {
     });
 }
 
-// === 3. DROPDOWN COMPONENT LAYOUT RENDERING ENGINE ===
+// === DROPDOWN CARD LAYOUT COMPONENTS RENDERING SYSTEM ===
 function createUserCard(userData, container) {
     const userCard = document.createElement("div");
     userCard.className = "dropdown-user-card";
 
-    // profile thumbnail key mapped dynamically to: "profile-Img"
     const userProfile = document.createElement("img");
     userProfile.src = userData["profile-Img"] || defaultFemaleProfile;
     userProfile.className = "user-card-thumb";
@@ -138,15 +157,16 @@ function createUserCard(userData, container) {
     userCard.appendChild(userProfile);
 
     const userName = document.createElement("h4");
-    userName.textContent = userData.full_name || "Guest";
+    userName.textContent = userData.full_name || "Guest User";
     userName.className = "user-name";
 
     const email = document.createElement("p");
-    email.textContent = userData.email || "example@gmail.com";
+    // Standardizes mapping between admin_email and regular user email fields
+    email.textContent = userData.admin_email || userData.email || "example@gmail.com";
     email.className = "user-email";
 
     const memberID = document.createElement("span");
-    memberID.textContent = userData.user_id || "Unregistered ID";
+    memberID.textContent = userData.user_id || loggedDocId || "Invenire System Account";
     memberID.className = "user-id";
 
     const settingsBtn = document.createElement("button");
@@ -166,9 +186,8 @@ function createUserCard(userData, container) {
 
 function defaultUser(container) {
     const fallbackData = { 
-        full_name: "Library Member", 
+        full_name: "Library System Header", 
         email: "example@gmail.com", 
-        user_id: "Invenire4561",
         "profile-Img": defaultFemaleProfile 
     };
     createUserCard(fallbackData, container);

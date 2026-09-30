@@ -97,4 +97,6 @@ date.textContent = now.toLocaleDateString('en-US', {
 calender();
 setInterval(calender, 1000);
 
+
+
 });

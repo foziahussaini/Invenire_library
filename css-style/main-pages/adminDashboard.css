@@ -421,8 +421,7 @@ body{
     color: var(--btn-text-hover-color);
 }
 
-/* ===============================MAIN BODY PART=========================================  */
-/* ==============HEADLINE PART=============== */ 
+/* ===============================SECTION1 HEADLINE CHECKOUT MAIN BODY PART=========================================  */
 .headline-content{
     width: 100%;
     display: flex;
@@ -456,7 +455,7 @@ body{
     color: var(--btn-text-hover-color);
 }
 
-/* =================all the cards displaying grid layout ==================================*/
+/* ============================SECTION2 all the cards displaying grid layout ==================================*/
 .form-group{
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -1144,6 +1143,10 @@ body{
     color: var(--input-text-color);
 }
 
+/* =============================SECTION3 A BANNER PART=========================================  */
+.section3{
+
+}
 /* =============================FOOTER PART=========================================  */
 .dashboard-footer{
     width: 100%;

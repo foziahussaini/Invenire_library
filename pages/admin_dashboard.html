@@ -9,6 +9,7 @@
     <link href="/src/output.css" rel="stylesheet">
     <!-- responsive css paths -->
     <link rel="stylesheet" href="../responsive/dashboard/sidebar_profile_responsive.css"> 
+    <!-- =============current page js file============== -->
     <script type="module" src="../js/dashboard/dashboard.js" defer></script>
     <!-- admin dashboard screen cards  -->
     <script type="module" src="../js/dashboard/dashboard_cards/card1.js" defer></script>
@@ -20,10 +21,11 @@
     <script type="module" src="../js/dashboard/dashboard_cards/checkout.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/chart_bar.js" defer></script>
     <script type="module" src="../js/dashboard/dashboard_cards/donutChart.js" defer></script>
-    <!-- admin header part-->
+    <!-- admin header part searchbar-->
     <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
     <script type="module" src="../js/dashboard/search_bar/members_search.js" defer></script>
     <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
+    <!-- ====================PROFILE LINK JS -->
     <script type="module" src ="../js/auth-files/profile.js" defer></script>
     <!-- ==========tailwind and font swesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -92,10 +94,10 @@
             </div>
         </aside>
 
-        <!-- main content of body plus header start from here -->
+<!--==========================main content of body plus header start from here============================= -->
         <div class="main-content">
-            <!-- HEADER PART -->
-            <header class="admin-header">
+            <!-- HEADER PART section1 -->
+            <header class="admin-header  section1">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search books,members,author...." class="search-input" autocomplete="off">
@@ -114,14 +116,16 @@
                     </div>
                 </div>
             </header>
-            <!-- Your main page content goes here -->
-            <main class="justify-center flex flex-col items-center">
+<!-- ==========================first all the 8 cards for analysis the library===================================== -->
+            <!--  SECTION2 -->
+            <div class="justify-center flex flex-col items-center section2">
                 <!-- active member total count -->
                <div class="headline-content">
                    <h1 class="headline">Active Members</h1> <!-- showing the latest news for active members -->
                    <button class="checkout-btn">+ Checkout</button>
                </div>
-            <div class="form-group">
+               <!-- cards analysis counting the data of library use grid for 8 total cards -->
+               <div class="form-group">
                 <div class="card card1"> <!-- 1 count total books-->
                     <div class="head-icons">
                         <span class="icon"><i class="fa-solid fa-book-bookmark"></i></span>
@@ -170,8 +174,8 @@
                 <div class="card card7"></div>
                 <!-- list of active members at library -->
                 <div class="card card8"></div>
+               </div>
             </div>
-            </main>
             <!-- footer -->
             <footer class="dashboard-footer">
             <p class="footer-text">© 2026, Made by Invenire Team.</p>

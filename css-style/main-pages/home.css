@@ -7,11 +7,13 @@
 /* Root Variables for base layout of pages  "light and default theme" */
 :root{
 /* ----------------all the base colors---------------------*/
+    --primary-font-family: 'Yaldevi', sans-serif;;
     --main-background-color: #F1F5FA;
     --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #266bac, #dcedfe );
 
     --main-text-color: #1b2844;
     --hover-text-color: #D4A017;
+    --sub-script-color: #8FB4E3;
 
     --btn-background-color: #0056b3;
     --btn-hover-background-color: #2E6FB7;
