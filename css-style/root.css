@@ -1,9 +1,17 @@
-/* Root Variables for base layout of pages  "light and default theme" */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root{
 /* ----------------all the base colors---------------------*/
     --primary-font-family: 'Yaldevi', sans-serif;;
-    --main-background-color: #F1F5FA;
+    --main-background-color: #d5e4f7a2;
     --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #266bac, #dcedfe );
+    --subheader-background: linear-gradient(145deg, #cc9170 , #8FB4E3,
+     #8FB4E3, #c49f8a, #8FB4E3,
+    #f7a500af);
 
     --main-text-color: #1b2844;
     --hover-text-color: #D4A017;
@@ -14,13 +22,18 @@
     --btn-text-color: #FFFFFF;
     --btn-text-hover-color: #ded9d9;
     
-    --card-background-color: #ffffff;
+    --card-background-color: #F0F2F5;
     --card-hover-background-color: linear-gradient(135deg, #266bac64 10%, #75c8f1e0 50%);
     --card-head-smooth-background-color: #266bac76;
 
     --highest-chart-background-color: linear-gradient(135deg, #255ed9 10%,#266baccf 50%, #061f54, #284F7A );
     --lowest-chart-background-color: linear-gradient(135deg, #ca2718c2 10%, #ff00008b 50%);
     --normal-chart-background-color: linear-gradient(135deg, #f7a5008e 10%, #c9761e 50%, #F7A500);
+    --hero-animated-text-color: linear-gradient(135deg, #ac26a8cf  , #266baccf 10%,
+    #F7A500,
+    #0073f78e,
+    #ff00008b,
+    #0073f78e);
     
     --input-background-color: #ffffff;
     --input-text-color: #0B3A67;
@@ -44,7 +57,7 @@
     /* ----------------size variables -----------------------*/
     --main-header-height: 85px;
     --main-font-size: 16px;
-    --header-font-size: 24px;
+    --header-font-size: 20px;
     --btn-font-size: 18px;
     --min-font-size: 14px;
 
