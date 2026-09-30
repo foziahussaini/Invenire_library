@@ -1,0 +1,400 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.signup-body{
+    overflow-x: none;
+    width: 100% auto;
+    height: 100vh;
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container {
+    width: 850px;
+    max-width: 850px;
+    max-height: auto;
+}
+
+.signup-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--card-box-shadow);
+    position: relative; 
+    overflow: hidden;
+    background: transparent; 
+}
+
+/* Background image*/
+.signup-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXpzWLlTaUzoMHQ0jHTodMVd91nH4itbMxvFW-cBx1kg&s=10");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.08; 
+    z-index: 0; 
+}
+
+/* Ensures all inner items (inputs, labels, buttons) stay on top of the image */
+.signup-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.signup-card h1 {
+    font-family: 'Yaldevi', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;    
+    color: var(--main-text-color);   
+    letter-spacing: 0.01em;
+    padding: 1rem;
+    margin: 0;
+}
+
+.signup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; 
+    background: var(--header-background-color);
+    border-radius: var(--main-border-radius) var(--main-border-radius) 0 0;
+    height: 70px;
+    position: relative;
+    z-index: 10; 
+}
+
+.signup-logo {
+    display: flex;
+    align-items: center; 
+    height: 100%; 
+
+    & img {
+        max-width: 180px; 
+        height: auto;     
+        max-height: 100%; 
+        object-fit: contain; 
+    }
+}
+
+
+.nav-part{
+    width: 100% auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: var(--header-font-size);
+    color: var(--btn-background-color);
+}
+
+.theme-dropdown,
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: sans-serif;
+    z-index: 9000;
+}
+
+.theme-dropdown .dropdown-header,
+.lang-dropdown .dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--btn-padding, 8px);
+    cursor: pointer;
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    transition: color 0.2s;
+}
+
+.theme-dropdown .dropdown-header:hover,
+.lang-dropdown .dropdown-header:hover {
+    color: var(--btn-hover-background-color);
+}
+
+.theme-dropdown .dropdown-header:focus,
+.lang-dropdown .dropdown-header:focus {
+    outline: none;
+}
+
+.theme-dropdown .dropdown-menu,
+.lang-dropdown .dropdown-menu {
+    position: absolute;
+    top: 2.8rem;
+    right: 0; 
+    min-width: 100px; 
+    background-color: var(--card-background-color);
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--default-box-shadow);
+    list-style: none;
+    padding: 3px 0;
+    margin: 0;
+    display: none;
+    z-index: 1000;
+}
+
+.theme-dropdown .dropdown-menu.show,
+.lang-dropdown .dropdown-menu.show {
+    display: block;
+}
+
+/* High Comfort Custom Option Items */
+.theme-dropdown .dropdown-menu li,
+.lang-dropdown .dropdown-menu li {
+    padding: 6px 0 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--main-text-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.theme-dropdown .dropdown-menu li:hover,
+.lang-dropdown .dropdown-menu li:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-color);
+}
+
+
+.dropdown-menu li:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--dropdown-background-color);
+}
+
+/* ==========================sign up form================================= */
+.form-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.side-banner{
+    width: auto;
+    height: 200px;
+    margin-top: -0.6rem;
+
+}
+.signup-form{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: var(--card-padding);
+    color: var(--main-text-color);
+    margin-bottom: 10px;
+}
+
+.form-header{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.form-row4,
+.form-row5{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    color: var(--main-text-color);
+}
+
+label{
+    margin-left: 0.3rem;    
+    font-size: var(--min-font-size);
+    font-weight: 600;
+}
+
+.gender-dropdown {
+    background-color: var(--card-background-color);
+    position: relative;
+    width: 100%;
+}
+
+.input-group input,
+.gender-dropdown .dropdown-header,
+.gender-dropdown .dropdown-menu{
+    width: 100%;
+    height: 36px;
+    background: var(--card-background-color);
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--input-border-color);
+    padding: 0.4rem 0.8rem;
+    color: var(--main-text-color);
+    font-size: var(--min-font-size);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: var(--btn-background-color);
+    color: var(--input-text-color);
+    outline: none;
+}
+
+.input-group input::placeholder {
+    color: var(--input-text-color);
+    font-size: 11px;
+}
+
+.form-row4 .gender,
+.form-row4 .location,
+.form-row5 .input-group{
+    width: 400px;
+}
+.gender-dropdown .dropdown-menu{
+    width: 100%;
+    height: auto;
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--input-border-color);
+    padding: 0.4rem 0.8rem;
+    color: var(--main-text-color);
+    font-size: var(--min-font-size);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+
+/* Style the dropdown button frame */
+.gender-dropdown .form-input-dropdown {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: transparent;
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.gender-dropdown .form-dropdown-menu {
+    display: none;       
+    position: absolute;   
+    top: calc(100% + 4px); 
+    left: 0;
+    width: 100%;        
+    background-color: var(--card-background-color);
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--card-box-shadow);
+    list-style: none;
+    padding: 6px 0;
+    margin: 0;
+    z-index: 999;       
+}
+
+.gender-dropdown .form-dropdown-menu.show {
+    display: block;      
+}
+
+.gender-dropdown .form-dropdown-menu li {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--main-text-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.gender-dropdown .form-dropdown-menu li:hover {
+    background-color: var(--btn-hover-background-color, #3b82f6);
+    color: var(--btn-text-hover-color);
+}
+
+.signup-btns{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+
+.signup {
+    margin-top: 1rem;
+    border: none;
+    color: var(--btn-text-color);
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
+    background-color: var(--btn-background-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.signup:hover {
+    color: var(--btn-text-hover-color);
+    background: var(--btn-hover-background-color);
+    transform: translateY(-1px);
+}
+
+.already-account{
+    display: flex;
+    gap: 3px;
+    color: var(--input-text-color);
+    font-size: var(--min-font-size);
+    text-decoration: dashed;
+
+    & a {
+        text-decoration: dashed;
+        font-weight: 600;
+        color: var(--btn-background-color);
+        transition: 0.3s all ease-in-out;
+    }
+
+    > a:hover{
+        color: var(--btn-hover-background-color);
+        transform: translateY(-1px);
+    }
+}
+
+/* =============error msg validation */
+
+.error-message ,
+.form-error{
+    color: var(--fav-icon-color);
+    font-size: 0.5rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+    margin-left: 0.8rem;
+    display: none; 
+    animation: fadeInError 0.2s ease-in-out;
+}
+
+.form-error{
+    color: var(--fav-icon-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+    margin-left: 0.8rem;
+    display: none; 
+    animation: fadeInError 0.2s ease-in-out;
+}
+
+

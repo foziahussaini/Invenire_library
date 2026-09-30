@@ -1,0 +1,800 @@
+/* ======================================xLARGE SIZE 1200PX============================== */
+@media (max-width: 1200px) {
+    .admin-header .calender {
+        margin-right:-3rem;
+    }
+}
+
+/* ======================================LARGE SIZE 1130PX============================== */
+@media (max-width: 1130px) {
+    /* side bar menu */
+    .book-sidebar,
+    .sidebar /*sidebar is same for all subpages*/{
+       position: fixed;
+       width: 1760px;
+       max-width: 160px;
+    }
+    .book-sidebar .logo,
+    .sidebar .logo{
+        height: 85px;
+        img{
+            width: 160px;
+            height: 140px;
+        }
+    }
+    
+    .book-sidebar .sidebar-menu,
+    .sidebar .sidebar-menu{
+        padding: 1.2rem 1.2rem;
+    }
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item{
+        gap: 0.6rem;
+        font-size: var(--min-font-size);
+    }
+
+    .sidebar-menu .logout{
+    width: 120px;
+    height: 40px;
+    font-size: var(--main-font-size);
+    }
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+       margin-left: 160px;
+       width: calc(100% - 160px);
+    }
+    /* header part */
+    .admin-header .search-bar { 
+    width: 570px;
+    max-width: 570px ;
+    margin-left: 1.8rem;
+    }
+
+    .admin-header .search-bar .fa-search,
+    .admin-header .search-bar .close-icon  {
+    font-size: 1.06rem;
+    }
+
+    /* search result dropdown*/
+    .admin-header .search-bar .searchResult{
+        height: 70vh;
+    }
+
+    .no-match{
+        margin-top: 4rem;
+    }
+    .admin-header .profile-container{
+        width: 45px;
+        height: 45px;
+    }
+    .admin-header .calender {
+     margin-right:-2rem;
+}
+
+.admin-header .profile-container{
+     margin-right: 1rem;
+}
+}
+
+/* ======================================LARGE SIZE 1024PX============================== */
+@media (max-width: 1024px) {
+    /* side bar menu */
+    .book-sidebar,
+    .sidebar{
+       position: fixed;
+       width: 150px;
+       max-width: 150px;
+    }
+
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item{
+       gap: 0.8rem;
+    }
+
+    .sidebar-menu .menu-item .menu-icon{font-size: 1rem;}
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+       margin-left: 150px;
+       width: calc(100% - 150px);
+    }
+
+    .sidebar-menu .logout{
+        margin-top: 5.8rem;
+        width: 100px;
+    height: 40px;
+    font-size: var(--main-font-size);
+    }
+
+    /* header part */
+    .admin-header .profile-container{
+        margin-right: 1rem;
+        width: 42px;
+        height: 42px;
+    }
+    .admin-header .calender {
+        margin-right:-1rem;
+        flex-direction: column;
+        gap:0.1rem;
+        align-items: start;
+        font-size: 12px;
+
+        >.divider-line{
+            display: none;
+        }
+    }
+
+    /* search result dropdown*/
+    .admin-header .search-bar .searchResult{
+        height: 65vh;
+    }
+    .search-item {
+        font-size: 12px;
+
+        > i{
+            font-size: 14px;
+        }
+    }
+}
+/* ======================================LARGE SIZE 1023PX (only for divider line use 1023px size )============================== */
+@media (max-width: 1023px) {
+    .admin-header .calender .divider-line{
+        display: flex;
+    }
+}
+
+/* ====================================== SIZE 991PX====================================== */
+@media (max-width: 991px) {
+    /* side bar menu */
+    .book-sidebar,
+    .sidebar{
+       position: fixed;
+       width: 130px;
+       max-width: 130px;
+    }
+     .book-sidebar .logo,
+     .sidebar .logo{
+        img{
+            width: 130px;
+            height: 120px;
+        }
+    }
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item{
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .sidebar-menu .menu-item .menu-text{
+    gap: 0.8rem;
+}
+    .sidebar-menu .menu-item .menu-icon{display: none;}
+    /* main container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+       margin-left: 130px;
+       width: calc(100% - 130px);
+    }
+
+    .sidebar-menu .logout{
+        margin-top: 6rem;
+        width: 90px;
+        height: 40px;
+        font-size: var(--min-font-size);
+    }
+
+    /* header part */
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        gap: 2rem;
+    }
+
+    .admin-header .search-bar .fa-search,
+    .admin-header .search-bar .close-icon  {
+    font-size: 0.9rem;
+    }
+    .admin-header .search-bar > input {
+        font-size: 13px;
+    }
+     /* search result dropdown*/
+    .admin-header .search-bar .searchResult{
+        height: 56vh;
+    }
+    .search-item {
+        font-size: 12px;
+        gap: 0.5rem;
+
+        > i{
+            font-size: 14px;
+        }
+    }
+    .no-match{
+        font-size: var(--main-font-size);
+        gap: 0.6rem;
+    }
+    .sad-sticker{
+        width: 70px;
+        height: 70px;
+    }
+    .admin-header .profile-container{
+        margin-right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    .admin-header .calender {
+        flex-direction: column;
+        gap:0.1rem;
+        align-items: start;
+        font-size: 10px;
+}
+}
+
+/* ====================================== SIZE 768PX============================== */
+@media (max-width: 768px) {
+    /* side bar menu */
+    .book-sidebar .logo,
+    .sidebar .logo{
+        height: 75px;
+        img{
+            width: 120px;
+            height: 90px;
+        }
+    }
+    .book-sidebar,
+    .sidebar{
+       position: fixed;
+       width: 110px;
+       max-width: 110px;
+    }
+
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item{
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+    .sidebar-menu .logout{
+        margin-top: 7rem;
+        width: 75px;
+        height: 40px;
+        font-size: 10px;
+    }
+
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+       margin-left: 110px;
+       width: calc(100% - 110px);
+    }
+    /* header part */
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        height: 75px;
+        gap: 1.6rem;
+    }
+
+    .admin-header .search-bar { 
+    width: 500px;
+    max-width: 500px ;
+    height: 34px;
+    margin-left: 1.8rem;
+    }
+     /* search result dropdown*/
+    .admin-header .search-bar .searchResult{
+        top: 36px;
+        height: 50vh;
+    }
+    .search-item {
+        font-size: 10px;
+        gap: 0.3rem;
+
+        > i{
+            font-size: 11px;
+        }
+    }
+    .no-match{
+        font-size: var(--min-font-size);
+        margin-top: 2rem;
+        gap: 0.6rem;
+    }
+    .sad-sticker{
+        margin-bottom: 1.6rem;
+        width: 70px;
+        height: 70px;
+    }
+
+    @keyframes pulseColor {
+        0% {
+            transform: scale(0.6);
+        }
+        50% {
+            transform: scale(0.7);
+            font-size: medium;
+        }
+        100% {
+            transform: scale(0.6);
+        }
+    }
+
+    .admin-header .profile-container{
+        margin-right: 1rem;
+        width: 38px;
+        height: 38px;
+    }
+
+    .admin-header .calender {
+        flex-direction: column;
+        gap:0.1rem;
+        align-items: start;
+        font-size: 8px;
+    }
+}
+
+ /* ====================================== SIZE 640PX============================== */
+@media (max-width: 640px) {
+    /* side bar menu */
+    .book-sidebar,
+    .sidebar{
+       position: fixed;
+       width: 65px;
+       max-width: 65px;
+    }
+
+    .book-sidebar .logo,
+    .sidebar .logo{
+        height: 70px;
+        img{
+            width: 65px;
+            height: 60px;
+        }
+    }
+
+    .sidebar-menu .menu-item .menu-text{
+        display: none;
+    }
+
+    .sidebar-menu .menu-item .menu-icon{
+        display: flex;
+        padding-left: 0.2rem;
+        padding-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .sidebar-menu .logout{
+        margin-top: 1.4rem;
+        width: 45px;
+        height: 25px;
+        font-size: 8px;
+        align-self: center;
+
+        >i {
+            display: none;
+        }
+    }
+
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+    margin-left: 65px;
+    width: calc(100% - 65px);
+    }
+
+    /* header part */
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        height: 70px;
+    }
+    .admin-header .search-bar { 
+    width: 450px;
+    max-width: 450px ;
+    height: 29px;
+    margin-left: 1.8rem;
+    }
+
+    .admin-header .search-bar > input {
+        font-size: 12px;
+        padding-left: 2.4rem;
+    }
+
+     /* search result dropdown*/
+    .admin-header .search-bar .searchResult{
+        margin-top: -5px;
+        height: 45vh;
+    }
+    .search-item {
+        font-size: 9px;
+        gap: 0.1rem;
+
+        > i{
+            font-size: 10px;
+        }
+    }
+    
+    .admin-header .search-bar .fa-search{
+    font-size: 0.7rem;
+    margin-left: 0.1rem;
+    }
+
+    .admin-header .search-bar .close-icon{
+        font-size: 0.7rem;
+        margin-right: 0.1rem;
+    } 
+
+    .no-match{
+        font-size: var(--min-font-size);
+        margin-top: 1.8rem;
+        gap: 0.4rem;
+    }
+    .sad-sticker{
+        margin-bottom: 1.9rem;
+        width: 55px;
+        height: 55px;
+    }
+
+    .sad-sticker .eyes{
+        gap: 1rem;
+        margin-bottom: 4px;
+    }
+    .sad-sticker .eyes::before,
+    .sad-sticker .eyes::after {
+        width: 6px;
+        height: 6px;
+   }
+
+   .admin-header .calender .divider-line{
+    display: none;
+   }
+
+}
+
+/* ====================================== SIZE 580PX============================== */
+@media (max-width: 580px) {
+    /* sidebar menu */
+    .book-sidebar .logo,
+    .sidebar .logo{
+        height: 55px;
+        img{
+            width: 55px;
+            height: 52px;
+        }
+    }
+    .sidebar-menu .menu-item .menu-icon{
+        display: flex;
+        padding-left: 0.2rem;
+        padding-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+    /* search result dropdown*/
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        height: 58px;
+    }
+
+    .admin-header .search-bar .searchResult{
+        height: 38vh;
+    }
+
+    .no-match{
+        font-size: var(--min-font-size);
+        margin-top: 1.6rem;
+        font-size: 8px;
+        padding: 1rem;
+        gap: 0.2rem;
+    }
+    .sad-sticker{
+        margin-bottom: 1.6rem;
+        width: 45px;
+        height: 45px;
+    }
+
+    .sad-sticker .eyes{
+        gap: 0.5rem;
+        margin-bottom: 3px;
+    }
+    .sad-sticker .eyes::before,
+    .sad-sticker .eyes::after {
+        width: 4px;
+        height: 4px;
+   }
+   .sad-sticker .mouth {
+    width: 20px;
+    height: 8px;
+   }
+}
+/* ====================================== SIZE 458PX============================== */
+
+
+@media (max-width: 458px) {
+    /* sidebar menu */
+   .book-sidebar .logo,
+   .sidebar .logo{
+        height: 50px;
+        img{
+            width: 50px;
+            height: 45px;
+        }
+    }
+    .book-sidebar,
+    .sidebar{
+       position: fixed;
+       width: 55px;
+       max-width: 55px;
+    }
+
+    .sidebar-menu .menu-item .menu-icon{
+        display: flex;
+        padding-left: 0;
+        padding-bottom: 0.8rem;
+        font-size: 1rem;
+    }
+
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+       margin-left: 55px;
+       width: calc(100% - 55px);
+    }
+
+    .sidebar-menu .logout{
+        margin-top: 1.8rem;
+        width: 40px;
+        height: 20px;
+        font-size: 7px;
+        align-self: center;
+        border-radius: 0.3rem;
+
+        >i {
+            display: none;
+        }
+    }
+
+    /* header part */
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        height: 55px;
+    }
+    .admin-header .search-bar { 
+    width: 380px;
+    max-width: 380px ;
+    height: 24px;
+    margin-left: 1.4rem;
+    }
+
+    .admin-header .search-bar > input {
+        font-size: 10px;
+        padding-left: 1.8rem;
+    }
+    
+    .admin-header .search-bar .fa-search{
+    font-size: 0.5rem;
+    margin-left: -0.4;
+    }
+
+    .admin-header .search-bar .close-icon{
+        font-size: 0.5rem;
+        margin-right: -0.4rem;
+    } 
+
+     .search-item {
+        font-size: 7.2px;
+        gap: 0;
+
+        > i{
+            font-size: 7px;
+        }
+    }
+
+    .admin-header .search-bar .searchResult{
+        height: 28vh;
+        margin-top: -11px;
+    }
+
+     .no-match{
+        font-size: 10px;
+        margin-top: 1.4rem;
+        font-size: 6px;
+        padding: 0.7rem;
+        gap: 0.1rem;
+    }
+    .sad-sticker{
+        margin-bottom: 1.4rem;
+        width: 38px;
+        height: 38px;
+    }
+
+    .sad-sticker .eyes{
+        gap: 0.4rem;
+        margin-bottom: 1px;
+    }
+    .sad-sticker .eyes::before,
+    .sad-sticker .eyes::after {
+        width: 3px;
+        height: 3px;
+   }
+   .sad-sticker .mouth {
+    width: 17px;
+    height: 6px;
+    border: 1px solid;
+   }
+
+    .book-main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header,
+    .main-content .admin-header{
+        gap: 1rem;
+    }
+    .admin-header .profile-container{
+        margin-right: 1.8rem;
+        width: 32px;
+        height: 32px;
+    }
+    .admin-header .calender{
+        font-size: 8px;
+        font-weight: 500;
+        margin-right: -0.4rem;
+    }
+    .admin-header .calender .divider-line{
+        display: none;
+    }
+}
+
+/* ====================================== SIZE 380PX============================== */
+@media (max-width: 380px) {
+    /* side bar menu */
+    .book-sidebar,
+    .sidebar{
+       position: fixed;
+       width: 40px;
+       max-width: 40px;
+    }
+    .book-sidebar .logo,
+    .sidebar .logo{
+        height: 36px;
+        img{
+            width: 50px;
+            height: 35px;
+        }
+    }
+    .book-sidebar .sidebar-menu,
+    .sidebar .sidebar-menu{
+        padding: 0.7rem;
+    }
+    .sidebar-menu .menu-item .menu-icon{
+        display: flex;
+        padding-bottom: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .sidebar-menu .logout{
+        margin-top: 2rem;
+        width: 28px;
+        height: 14px;
+        font-size: 5px;
+        align-self: center;
+        border-radius: 0.4rem;
+
+        >i {
+            display: none;
+        }
+    }
+
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content,
+    .main-content{
+       margin-left: 40px;
+       width: calc(100% - 40px);
+    }
+    /* header part */
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .report-main-content .admin-header,
+    .theme-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        height: 36px;
+    }
+    .admin-header .search-bar { 
+    width: 300px;
+    max-width: 300px ;
+    height: 20px;
+    margin-left: 1rem;
+    }
+
+    .admin-header .search-bar > input {
+        font-size: 7px;
+        padding-left: 1.4rem;
+    }
+    .admin-header .search-bar .fa-search{
+    font-size: 0.4rem;
+    margin-left: -0.2rem;
+    }
+
+    .admin-header .search-bar .close-icon{
+        font-size: 0.4rem;
+        margin-right: -0.2rem;
+    } 
+
+    .admin-header .search-bar .searchResult{
+        height: 26vh;
+        margin-top: -1rem;
+    }
+
+    .search-item{
+        font-size: 6px;
+
+        >i{
+            font-size: 6px;
+        }
+    }
+    .book-main-content .admin-header,
+    .main-content .admin-header,
+    .theme-main-content .admin-header,
+    .report-main-content .admin-header,
+    .member-main-content .admin-header,
+    .setting-main-content .admin-header{
+        gap: 0.4rem;
+    }
+    .admin-header .profile-container{
+        margin-right: 1.8rem;
+        width: 26px;
+        height: 26px;
+    }
+    .admin-header .calender{
+        font-size: 5px;
+        margin-right: 0;
+    }
+    .admin-header .calender .divider-line{
+        display: none;
+    }
+}

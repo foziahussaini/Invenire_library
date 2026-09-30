@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminBooks Management</title>
+    <!-- css style link -->
+    <link href="/src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css-style/main-pages/home.css"> <!-- for the base root linked-->
+    <link rel="stylesheet" href="../../css-style/sub-pages/member.css">
+    <!-- ===========responsive layout -->
+    <link rel="stylesheet" href="../../responsive/dashboard/sidebar_profile_responsive.css">
+    
+    <!-- ==========search bar js link-->
+    <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
+    <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
+    <script type="module" src="../../js/dashboard/search_bar/members_search.js" defer></script>
+    
+    <!-- ==============user profile js logic -->
+    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
+    
+    <!-- ==============current js logic link -->
+    <script type="module" src="../../js/dashboard/sub_pages/member.js" defer></script>
+    
+    <!-- tailwind and font awesome -->
+    <script src="https://jsdelivr.net"></script>
+    <link rel="stylesheet" href="https://cloudflare.com" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- main container include main body sidebar and header -->
+    <div class="member-container">
+        <aside class="sidebar"> 
+            <div class="logo">
+                <img src="../../images/logo/logo.png" alt="Logo">
+            </div>
+            <hr class="h-px bg-gray-300 border-0">
+            <div class="sidebar-menu">
+                <div class="menu-item">
+        <!-- ===================used two different <a> on every item cause responsive style not crash======================= -->
+                    <a class="menu-icon" href="../home.html">
+                        <i class="fa-solid fa-home"></i>
+                    </a>
+                    <a href="../home.html" class="menu-text">Home</a>
+                </div>
+                <div class="menu-item" data-route="Dashboard">
+                    <a class="menu-icon" href="../admin_dashboard.html">
+                        <i class="fa-solid fa-th-large"></i>
+                    </a>
+                    <a href="../admin_dashboard.html"><span class="menu-text">Dashboard</span></a>
+                </div>
+                <div class="menu-item" data-route="Books">
+                    <a class="menu-icon" href="books.html">
+                        <i class="fa-solid fa-book menu-icon"></i>
+                    </a>
+                    <a href="books.html"><span class="menu-text">Books</span></a>
+                </div>
+                <div class="menu-item" active data-route="Members">
+                    <a class="menu-icon" href="members.html">
+                        <i class="fa-solid fa-users"></i>
+                    </a>
+                    <a href="members.html">
+                    <span class="menu-text">Members</span></a>
+                </div>
+                <div class="menu-item" data-route="Settings">
+                    <a class="menu-icon" href="settings.html">
+                        <i class="fa-solid fa-cog "></i>
+                    </a>
+                    <a href="settings.html">
+                    <span class="menu-text">Settings</span></a>
+                </div>
+                <div class="menu-item" data-route="Statistic">
+                    <a class="menu-icon" href="reports.html">
+                        <i class="fa-solid fa-chart-bar "></i>
+                    </a>
+                    <a href="reports.html">
+                    <span class="menu-text">Statistic</span></a>
+                </div>
+                <hr class="w-full h-px bg-gray-400 border-0">
+                <div class="menu-item" data-route="Theme">
+                    <a class="menu-icon" href="theme.html">
+                        <i class="fa-solid fa-palette"></i>
+                    </a>
+                    <a class="menu-text" href="theme.html">
+                        <span class="menu-text">Theme</span>
+                    </a>
+                </div>
+
+                <button class="logout">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- main content of body plus header start from here -->
+        <div class="member-main-content">
+            <!-- HEADER PART  section1-->
+            <header class="admin-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search books,members,author...." class="search-input" autocomplete="off">
+                    <!-- a dropdown container shows the search result -->
+                    <div class="searchResult" id="search-dropDown"></div>
+                </div>
+                <div class="calender">
+                    <div class="time">12:45</div>
+                    <!-- layout added as tailwind css here -->
+                    <div class="divider-line h-4 w-[0.4px] bg-slate-600 mx-2 xs:w-8 xs:h-[0.4px] sm:w-10 sm:h-[0.4px] md:w-16 md:h-[1px] lg:h-4 lg:w-[1px]"></div>
+                    <div class="date">21/July/2026</div>
+                </div>
+                <div class="profile-container">
+                    <div class="profile">
+                        <img src="../../images/profile/female.jpg" alt="Admin Profile">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Your main page content goes here  section2-->
+            <div class="member-list-container">
+                <div class="member-list">
+                    <table class="member-list-table">
+                        <!-- Table Header Section -->
+                        <thead>
+                            <tr class="list-header">
+                               <th>memberName</th>
+                               <th>email</th>
+                               <th>active days</th>
+                               <th class="text-center">Downloads</th>
+                               <th class="text-center">Purchases</th>
+                               <th class="text-center">On Read</th>
+                               <th>view details</th>
+                            </tr>
+                        </thead>
+            
+                        <!-- Target container where JavaScript will inject table body rows -->
+                        <tbody class="member-table-body">
+                            <!-- Baseline Mock Data Item (Cleared on Firestore initialization success) -->
+                            <tr class="member-row" style="cursor: pointer;">
+                                <td><strong>Fozia Hussaini</strong></td>
+                                <td>fozia45@gmail.com</td>
+                                <td>4 Days</td>
+                                <td class="text-center">4</td>
+                                <td class="text-center">3</td>
+                                <td class="text-center">6</td>
+                                <td><button class="details-btn">Details</button></td>
+                            </tr>
+
+<!-- ========================loading state using spin indicator========================= -->
+                            <tr>
+                                <td colspan="7" style="padding: 0; border: none;">
+                                    <div class="loading-state">
+                                        <i class="fa-solid fa-spinner fa-spin" style="font-size: 4rem; color: #4f46e5;"></i>
+                                        <span>Loading...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- members feedback cards layout panel  section3-->
+            <div class="feedback-container">
+                <h3>Members Feedback and Report</h3>
+               <div class="feedback-cards">
+                <!-- Hardcoded Baseline Item Cards -->
+                <div class="feedback fcard-1">
+                    <div class="member-name">Fozia Hussaini</div>
+                    <div class="member-email">example@gmail.com</div>
+                    <div class="member-msg">"This library layout workspace looks absolutely amazing!"</div>
+                    <div class="feedback-rate">★★★★★</div>
+                    <div class="fedback-date">24/Sep/2026</div>
+                </div>
+                <div class="feedback fcard-2">
+                    <div class="member-name">Ali</div>
+                    <div class="member-email">ali21@gmail.com</div>
+                    <div class="member-msg">"Smooth experience finding my favorite books."</div>
+                    <div class="feedback-rate">★★★★☆</div>
+                    <div class="fedback-date">21/Jul/2026</div>
+                </div>
+            </div>
+            </div>
+
+            <!-- members activity details container  section4-->
+            <div class="member-details-container">
+                <h3>Every activities of every members will be listed here</h3>
+                <!-- USER CARD 1 -->
+                <div class="detail1" target="memberDetails">
+                    <div class="detail-header">
+                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
+                        <small class="member-id">ID: member12</small>
+                    </div>
+                    <div class="member-info">
+                        <p><strong>Name:</strong> <span class="m-name">Fozia</span></p>
+                        <p><strong>Email:</strong> <span class="m-email">example@gmail.com</span></p>
+                    </div>
+                    <div class="books-sections">
+                        <p><strong>Purchased Books:</strong> <span class="purchased-books">Her Eyes, The Alchemist</span></p>
+                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">Atomic Habits</span></p>
+                        <p><strong>On Read Mode:</strong> <span class="on-read">Dune</span></p>
+                        <p><strong>My Library:</strong> <span class="my-library">Hamlet</span></p>
+                    </div>
+                    <div class="analytics-metrics">
+                        <p><strong>Active Days:</strong> <span class="active-days">4 Days</span></p>
+                        <p><strong>Profile Edits:</strong> <span class="profile-edits">0</span></p>
+                        <p><strong>Website Shares:</strong> <span class="site-shares">0</span></p>
+                    </div>
+                </div>
+
+                <!-- USER CARD 2 -->
+                <div class="detail2">
+                    <div class="detail-header">
+                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
+                        <small class="member-id">ID: --</small>
+                    </div>
+                    <div class="member-info">
+                        <p><strong>Name:</strong> <span class="m-name">--</span></p>
+                        <p><strong>Email:</strong> <span class="m-email">--</span></p>
+                    </div>
+                    <div class="books-sections">
+                        <p><strong>Purchased Books:</strong> <span class="purchased-books">--</span></p>
+                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">--</span></p>
+                        <p><strong>On Read Mode:</strong> <span class="on-read">--</span></p>
+                        <p><strong>My Library:</strong> <span class="my-library">--</span></p>
+                    </div>
+                    <div class="analytics-metrics">
+                        <p><strong>Active Days:</strong> <span class="active-days">--</span></p>
+                        <p><strong>Profile Edits:</strong> <span class="profile-edits">--</span></p>
+                        <p><strong>Website Shares:</strong> <span class="site-shares">--</span></p>
+                    </div>
+                </div>
+
+                <!-- USER CARD 3 -->
+                <div class="detail3">
+                    <div class="detail-header">
+                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
+                        <small class="member-id">ID: --</small>
+                    </div>
+                    <div class="member-info">
+                        <p><strong>Name:</strong> <span class="m-name">--</span></p>
+                        <p><strong>Email:</strong> <span class="m-email">--</span></p>
+                    </div>
+                    <div class="books-sections">
+                        <p><strong>Purchased Books:</strong> <span class="purchased-books">--</span></p>
+                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">--</span></p>
+                        <p><strong>On Read Mode:</strong> <span class="on-read">--</span></p>
+                        <p><strong>My Library:</strong> <span class="my-library">--</span></p>
+                    </div>
+                    <div class="analytics-metrics">
+                        <p><strong>Active Days:</strong> <span class="active-days">--</span></p>
+                        <p><strong>Profile Edits:</strong> <span class="profile-edits">--</span></p>
+                        <p><strong>Website Shares:</strong> <span class="site-shares">--</span></p>
+                    </div>
+                </div>
+
+                <!-- USER CARD 4 -->
+                <div class="detail4">
+                    <div class="detail-header">
+                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
+                        <small class="member-id">ID: --</small>
+                    </div>
+                    <div class="member-info">
+                        <p><strong>Name:</strong> <span class="m-name">--</span></p>
+                        <p><strong>Email:</strong> <span class="m-email">--</span></p>
+                    </div>
+                    <div class="books-sections">
+                        <p><strong>Purchased Books:</strong> <span class="purchased-books">--</span></p>
+                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">--</span></p>
+                        <p><strong>On Read Mode:</strong> <span class="on-read">--</span></p>
+                        <p><strong>My Library:</strong> <span class="my-library">--</span></p>
+                    </div>
+                    <div class="analytics-metrics">
+                        <p><strong>Active Days:</strong> <span class="active-days">--</span></p>
+                        <p><strong>Profile Edits:</strong> <span class="profile-edits">--</span></p>
+                        <p><strong>Website Shares:</strong> <span class="site-shares">--</span></p>
+                    </div>
+                </div>
+
+            </div>
+             
+            <!-- footer       section5 -->
+            <footer class="member-footer">
+                <p class="footer-text">© 2026, Made by Invenire Team.</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
