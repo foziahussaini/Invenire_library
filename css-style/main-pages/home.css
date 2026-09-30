@@ -4,66 +4,7 @@
     box-sizing: border-box;
 }
 
-/* Root Variables for base layout of pages  "light and default theme" */
-:root{
-/* ----------------all the base colors---------------------*/
-    --primary-font-family: 'Yaldevi', sans-serif;;
-    --main-background-color: #F1F5FA;
-    --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #266bac, #dcedfe );
-
-    --main-text-color: #1b2844;
-    --hover-text-color: #D4A017;
-    --sub-script-color: #8FB4E3;
-
-    --btn-background-color: #0056b3;
-    --btn-hover-background-color: #2E6FB7;
-    --btn-text-color: #FFFFFF;
-    --btn-text-hover-color: #ded9d9;
-    
-    --card-background-color: #ffffff;
-    --card-hover-background-color: linear-gradient(135deg, #266bac64 10%, #75c8f1e0 50%);
-    --card-head-smooth-background-color: #266bac76;
-
-    --highest-chart-background-color: linear-gradient(135deg, #255ed9 10%,#266baccf 50%, #061f54, #284F7A );
-    --lowest-chart-background-color: linear-gradient(135deg, #ca2718c2 10%, #ff00008b 50%);
-    --normal-chart-background-color: linear-gradient(135deg, #f7a5008e 10%, #c9761e 50%, #F7A500);
-    
-    --input-background-color: #ffffff;
-    --input-text-color: #0B3A67;
-    --input-border-color: #0B3A67;
-    
-    --dropdown-background-color: #E6F0FA;
-    --premium-icon-color: #F7A500;
-    --fav-icon-color: #ff0000;
-
-    --footer-background-color: linear-gradient(120deg, #dcedfe 10%, #266bac 50%, #8FB4E3);
-    --footer-text-color: #102141;
-
-    --default-border: 0.8px solid var(--input-border-color);
-    --shadow-color: #0B3A67;
-    --default-box-shadow: 0px 8px 16px var(--shadow-color);
-    --card-box-shadow: 1px 1px 6px #8FB4E3;
-
-    --icon-background-color: #266bac;
-    --icon-box-shadow: 0px 1px 4px var(--premium-icon-color);
-
-    /* ----------------size variables -----------------------*/
-    --main-header-height: 85px;
-    --main-font-size: 16px;
-    --header-font-size: 24px;
-    --btn-font-size: 18px;
-    --min-font-size: 14px;
-
-    --btn-border-radius: 0.6rem;
-    --input-border-radius: 0.4rem;
-    --main-border-radius: 0.5rem;
-    
-    --btn-padding: 10px 24px;
-    --card-padding: 10px 20px;
-    --text-padding: 10px;
-}
-
-.home-body{
+body{
     font-family: Arial, sans-serif;
     background-color: var(--main-background-color);
     color: var(--main-text-color);
@@ -74,7 +15,6 @@
 }
 
 /* ==================== HEADER / NAVBAR ==================== */
-
 .site-header {
     width: 100%;
     height: var(--main-header-height);
@@ -93,23 +33,20 @@
     justify-content: space-between;
 }
 
-/* ==================== LOGO ==================== */
-.navbar .logo{
-    width: 100%;
-    height: 170px;
-    justify-content: center;
+.logo-link {
     display: flex;
     align-items: center;
-    
-    >img{
-        display: flex;
-        width: 140px;
-        height: 130px;
-        z-index: 100;
-    }
+    text-decoration: none;
 }
-/* ==================== MAIN NAVIGATION ==================== */
 
+.logo {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Main navigation */
 .nav-links {
     display: flex;
     align-items: center;
@@ -121,19 +58,13 @@
 .nav-item {
     width: 44px;
     height: 44px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: var(--main-text-color);
     text-decoration: none;
     border-radius: var(--main-border-radius);
-
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        transform 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .nav-item svg {
@@ -152,9 +83,8 @@
     color: var(--btn-background-color);
 }
 
-/* ==================== LOGIN ==================== */
-
-.registration-btns {
+/* login btn and signup btn */
+.nav-auth {
     display: flex;
     gap: 1rem;
     padding-left: 24px;
@@ -162,6 +92,31 @@
 }
 
 .login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+    text-decoration: none;
+    border-radius: var(--btn-border-radius);
+    font-size: var(--main-font-size);
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.login-btn svg {
+    width: 19px;
+    height: 19px;
+}
+
+.login-btn:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+    transform: translateY(-1px);
+}
+
+.signup-btn {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -183,175 +138,107 @@
         transform 0.2s ease;
 }
 
-.login-btn svg {
+.signup-btn svg {
     width: 19px;
     height: 19px;
 }
 
-.login-btn:hover {
+.signup-btn:hover {
     background-color: var(--btn-hover-background-color);
     color: var(--btn-text-hover-color);
     transform: translateY(-1px);
 }
 
-/* ==================== RESPONSIVE ==================== */
-
+/* Responsive */
 @media (max-width: 600px) {
-
-    .navbar {
-        padding: 0 14px;
-    }
-
-    .logo {
-        width: 50px;
-        height: 50px;
-    }
-
-    .nav-links {
-        gap: 4px;
-        margin-right: 12px;
-    }
-
-    .nav-item {
-        width: 40px;
-        height: 40px;
-    }
-
-    .login-btn {
-        padding: 9px 12px;
-    }
-
-    .login-btn span {
-        display: none;
-    }
-
-    .nav-auth {
-        padding-left: 12px;
-    }
+    .navbar { padding: 0 14px; }
+    .logo { width: 50px; height: 50px; }
+    .nav-links { gap: 4px; margin-right: 12px; }
+    .nav-item { width: 40px; height: 40px; }
+    .login-btn { padding: 9px 12px; }
+    .login-btn span { display: none; }
+    .nav-auth { padding-left: 12px; }
 }
 
-/* ==================== HOME HERO ==================== */
-
+/* ==================== HERO ==================== */
 .hero {
     width: 100%;
     height: calc(100vh - 80px);
-
     position: relative;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-image: url("/images/hero.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     overflow: hidden;
 }
 
-/* Dark overlay */
 .hero-overlay {
     position: absolute;
     inset: 0;
-
     background: rgba(11, 58, 103, 0.45);
-
     z-index: 1;
 }
 
-/* Hero content */
 .hero-content {
     position: relative;
     z-index: 2;
-
     max-width: 900px;
     padding: 30px;
-
     text-align: center;
-
     color: var(--btn-text-color);
 }
 
-/* Main Library Name */
 .hero-title {
     margin: 0;
-
     font-family: "Cormorant Garamond", Georgia, serif;
-
     font-size: 100px;
     line-height: 0.95;
-
     font-weight: 600;
     letter-spacing: 12px;
-
     color: var(--premium-icon-color);
-
     text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Main message */
 .hero-subtitle {
     margin: 24px 0 18px;
-
     font-size: 34px;
     line-height: 1.2;
-
     font-weight: 600;
-
     color: var(--btn-text-color);
 }
 
-/* Description */
 .hero-description {
     max-width: 650px;
-
     margin: 0 auto 32px;
-
     font-size: 19px;
     line-height: 1.6;
-
     color: var(--btn-text-hover-color);
 }
 
-/* Explore button */
 .hero-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     padding: var(--btn-padding);
-
     background-color: var(--btn-background-color);
     color: var(--btn-text-color);
-
     text-decoration: none;
-
     font-size: var(--btn-font-size);
     font-weight: 600;
-
     border-radius: var(--btn-border-radius);
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.hero-btn svg {
-    width: 20px;
-    height: 20px;
-}
-
+.hero-btn svg { width: 20px; height: 20px; }
 .hero-btn:hover {
     background-color: var(--btn-hover-background-color);
-
     transform: translateY(-2px);
-
     box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
 }
-
 
 /* ==================== BOOK SECTIONS ==================== */
 
@@ -386,76 +273,12 @@
 .books-grid {
     max-width: 1200px;
     margin: 0 auto;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
 }
 
-.book-cover{
-    width: fit-content;
-    overflow: hidden;
-}
-
-/* ==========================================================================
-   COLLAPSIBLE TEXT LAYOUT SYSTEM
-   ========================================================================== */
-
-.description-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 8px 0;
-}
-
-/* Base description rules */
-.book-description {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--main-text-color);
-    margin: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-}
-
-/* Closed state constraints (Max height locked to exactly 3 lines of text) */
-.book-description.collapsed {
-    max-height: 4.5em; 
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-}
-
-/* Opened state constraints */
-.book-description.expanded {
-    max-height: 500px; /* Allows full text to extend comfortably */
-    display: block;
-}
-
-/* Custom Collapse/Expand Toggle Button layout */
-.toggle-desc-btn {
-    background: none;
-    border: none;
-    color: var(--link-color, #3b82f6); /* Change to match your link accent color variables */
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 0;
-    margin-top: 4px;
-    width: fit-content;
-    align-self: flex-start;
-}
-
-.toggle-desc-btn:hover {
-    text-decoration: underline;
-}
-
-/* Clean micro interaction animation movement properties for the arrow icon */
-.toggle-icon {
-    font-size: 0.75rem;
-    transition: transform 0.3s ease-in-out;
-}
 
 
 /* =========================================================
@@ -545,181 +368,98 @@
     box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
 }
 
-/* =========================================================
-   BOOK CARD
-========================================================= */
+/* book card====================== */
 
+/* Book card */
 .book-card {
     width: 100%;
     overflow: hidden;
-
     display: flex;
     flex-direction: column;
-
     background-color: var(--input-background-color);
-
     border: var(--default-border);
     border-radius: var(--main-border-radius);
-
     box-shadow: 0 8px 18px rgba(11, 58, 103, 0.12);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .book-card:hover {
     transform: translateY(-5px);
-
     box-shadow: 0 14px 28px rgba(11, 58, 103, 0.2);
 }
-
-
-/* ==================== BOOK COVER ==================== */
 
 .book-cover {
     width: 100%;
     height: 300px;
-
     overflow: hidden;
-
     background-color: var(--dropdown-background-color);
 }
 
 .book-cover img {
     width: 100%;
     height: 100%;
-
     display: block;
-
     object-fit: cover;
 }
 
+.book-info { padding: 22px; }
 
-/* ==================== BOOK INFO ==================== */
+.book-title { margin: 0 0 8px; font-size: 22px; font-weight: 700; color: var(--main-text-color); }
 
-.book-info {
-    padding: 22px;
-}
+.book-author { margin: 0 0 14px; font-size: 14px; color: var(--input-text-color); }
 
-.book-title {
-    margin: 0 0 8px;
+.book-description { margin: 0 0 22px; font-size: 15px; line-height: 1.6; color: var(--main-text-color); }
 
-    font-size: 22px;
-    font-weight: 700;
-
-    color: var(--main-text-color);
-}
-
-.book-author {
-    margin: 0 0 14px;
-
-    font-size: 14px;
-
-    color: var(--input-text-color);
-}
-
-.book-description {
-    margin: 0 0 22px;
-
-    font-size: 15px;
-    line-height: 1.6;
-
-    color: var(--main-text-color);
-}
-
-
-/* ==================== BOOK ACTIONS ==================== */
-
-.book-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+.book-actions { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 22px 22px 22px; }
 
 .book-btn {
     min-height: 40px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     gap: 7px;
-
     padding: 8px 13px;
-
     border: none;
     border-radius: var(--btn-border-radius);
-
     background-color: var(--btn-background-color);
     color: var(--btn-text-color);
-
     text-decoration: none;
-
     font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.book-btn svg {
-    width: 17px;
-    height: 17px;
-}
+.book-btn svg { width: 17px; height: 17px; }
 
 .book-btn:hover:not(:disabled) {
     background-color: var(--btn-hover-background-color);
-
     transform: translateY(-1px);
-
     box-shadow: 0 4px 10px rgba(11, 58, 103, 0.2);
 }
 
-.book-btn:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-}
-
-
-/* ==================== DOWNLOAD ==================== */
+.book-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .download-btn {
-    background-color: transparent;
-
-    color: var(--btn-background-color);
-
+    background-color: var(--btn-background-color);
+    color: var(--default-border);
     border: var(--default-border);
 }
+.audiobook-btn { 
+    background-color: transparent; 
+    color: var(--btn-background-color); 
+    border: var(--default-border); }
 
 
-/* ==================== AUDIOBOOK ==================== */
-
-.audiobook-btn {
-    background-color: transparent;
-    color: var(--btn-background-color);
-    border: var(--default-border);
-}
-
-
-/* =========================================================
-   PDF READER MODAL
-========================================================= */
 .pdf-modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    backdrop-filter: blur(8px); 
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    z-index: 99999; 
-    opacity: 3;
+    z-index: 99999;
+    opacity: 0;
     transition: opacity 0.3s ease-out;
 }
 
@@ -741,19 +481,17 @@
     box-shadow: var(--default-box-shadow);
     overflow: hidden;
     transform: scale(0.95);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.pdf-modal.active .pdf-reader {
-    transform: scale(1);
-}
+.pdf-modal.active .pdf-reader { transform: scale(1); }
 
 .pdf-reader-header {
     width: 100%;
-    padding: var(--text-padding); 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    padding: var(--text-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 2rem;
     background: var(--header-background-color);
     border-bottom: 1px solid var(--btn-background-color);
@@ -783,47 +521,46 @@
     display: flex;
     align-items: center;
     transition: all 0.2s ease-in-out;
-    box-shadow: var( --icon-box-shadow);
+    box-shadow: var(--icon-box-shadow);
     color: var(--hover-text-color);
     border-radius: var(--btn-border-radius);
     padding: 0 0.6rem;
     font-size: 34px;
-    border: none; 
+    border: none;
     cursor: pointer;
 }
 
-.window-control-btn:hover {
-    transform: scale(1.1);
-}
+.window-control-btn:hover { transform: scale(1.1); }
 
 .modal-body-content {
     display:flex;
-    flex: 1; 
-    position: relative; 
+    flex: 1;
+    position: relative;
     justify-content: center;
     align-items: center;
     background-color: var(--main-background-color);
 }
 
-#pdf-frame{
-    background-color: var(--main-background-color); 
-    width: 150%; 
-    height: 100%; 
-    border: none; 
+#pdf-frame {
+    background-color: var(--main-background-color);
+    width: 100%;
+    height: 100%;
+    border: none;
     display: block;
 }
 
 #audio-player-wrapper {
-    display: none; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 1rem; text-align: center; 
-    width: 100%; 
-    max-width: 700px; 
-    padding: var(--card-padding); 
-    background: var(--header-background-color); 
-    box-shadow: var(--default-box-shadow); 
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+    width: 100%;
+    max-width: 700px;
+    padding: var(--card-padding);
+    background: var(--header-background-color);
+    box-shadow: var(--default-box-shadow);
     border-radius: var(--btn-border-radius);
     animation: slideUpFade 0.4s ease-out forwards;
 }
@@ -833,113 +570,171 @@
     color: var(--main-text-color);
 }
 
-/* Custom design profile theme for the native browser audio element bar */
-#native-audio-player {
-    outline: none;
-    border-radius: 30px;
-}
+#native-audio-player { outline: none; border-radius: 30px; }
 
-
-/* ==========================================================================
-   SYSTEM DESIGN MOTION KEYFRAMES
-   ========================================================================== */
 @keyframes slideUpFade {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+/* Minimized modal behavior */
 .pdf-modal.minimized {
-    background: none !important; 
-    backdrop-filter: none !important; 
+    background: none !important;
+    backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    pointer-events: none; /* Let clicks pass straight through the empty screen space! */
-    display: flex !important; /* Keeps container alive */
-    justify-content: flex-end; /* Pushes the inner box to the right side */
-    align-items: flex-end; /* Pushes the inner box to the bottom side */
-    padding: 20px; /* Gap buffer distance from the screen edge corner */
+    pointer-events: none;
+    display: flex !important;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
 }
 
 .pdf-modal.minimized .pdf-reader {
-    width: 380px !important; 
-    height: auto !important; 
+    width: 380px !important;
+    height: auto !important;
     max-height: 180px !important;
     position: fixed;
     right: 20px;
     bottom: 20px;
-    pointer-events: auto; 
-    box-shadow:var(--default-box-shadow);
+    pointer-events: auto;
+    box-shadow: var(--default-box-shadow);
     transform: scale(1) !important;
 }
 
 .pdf-modal.minimized #pdf-frame,
-.pdf-modal.minimized #audio-player-wrapper div, /* Hides giant headphone/disc logos */
-.pdf-modal.minimized .pdf-resize-handle {
-    display: none !important;
-}
+.pdf-modal.minimized #audio-player-wrapper div,
+.pdf-modal.minimized .pdf-resize-handle { display: none !important; }
 
-/* 4. Tweak inner spacing padding when compressed */
 .pdf-modal.minimized #audio-player-wrapper {
     padding: 0.75rem 1rem !important;
     box-shadow: none !important;
 }
 
-/* =============================FOOTER PART=========================================  */
-.home-footer{
+
+/* =========================================================
+   HOME FOOTER
+========================================================= */
+
+.site-footer {
     width: 100%;
-    height: 150px;
-    background: var(--footer-background-color);
-    display: flex;
-    align-items: end;
-    padding-bottom: 1rem;
-    justify-content: space-around;
+    background-color: var(--footer-background-color);
     color: var(--footer-text-color);
 }
 
-.footer-text{
-    font-size: var(--main-font-size);
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 50px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+}
+
+
+/* ==================== FOOTER BRAND ==================== */
+
+.footer-brand {
     display: flex;
-    align-items: center;
-    text-align: end;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.footer-brand{
-    width: 150px;
-    height: 150px;
-
-    >img{
-        width: 150px;
-        height: 150px;
-    }
+.footer-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 16px;
 }
-.footer-nav {
-    width: 280px;
+
+.footer-brand h3 {
+    margin: 0 0 10px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: var(--footer-text-color);
+}
+
+.footer-brand p {
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ==================== FOOTER LINKS ==================== */
+
+.footer-links,
+.footer-contact {
     display: flex;
-    justify-content: space-between;
-    color: var(--main-text-color);
-
-    > .footer-list {
-        display: flex;
-        flex-direction: column;
-        list-style: none;
-        gap: 1rem;
-        font-weight: 600;
-
-        > .navLink {
-            color: inherit; 
-            text-decoration: none;
-            transition: color 0.2s ease;
-
-            >a{text-decoration: none;}
-        }
-    }
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.footer-list .navLink:hover {
-            color: var(--hover-text-color); 
+.footer-links h4,
+.footer-contact h4 {
+    margin: 0 0 18px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: var(--footer-text-color);
 }
+
+.footer-links a,
+.footer-contact a {
+    margin-bottom: 10px;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-contact a:hover {
+    color: var(--footer-text-color);
+    transform: translateX(3px);
+}
+
+.footer-contact p {
+    margin: 0 0 12px;
+
+    max-width: 250px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* ==================== FOOTER BOTTOM ==================== */
+
+.footer-bottom {
+    width: 100%;
+
+    padding: 20px 50px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.65);
+}
+

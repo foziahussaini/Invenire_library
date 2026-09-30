@@ -4,231 +4,623 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invenire Library</title>
-    <link href="/src/output.css" rel="stylesheet">
+    <!-- root file for base layout -->
+     <link rel="stylesheet" href="../css-style/root.css">
     <link rel="stylesheet" href="../css-style/main-pages/home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script type="module" src="../../js/home/allbooks.js" defer></script>
+    <!-- current page js file -->
     <script defer src="../js/home.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
 </head>
-
-<body class="home-body">
+<body>
     <header class="site-header">
         <nav class="navbar">
+
             <!-- Logo -->
             <a href="home.html" class="logo-link" aria-label="Invenire Library Home">
-                <img src="/images/logo/logo.png" alt="Invenire Library" class="logo">
+                <img
+                    src="/images/logo/logo.png"
+                    alt="Invenire Library"
+                    class="logo"
+                >
             </a>
-            <!-- search bar section -->
-            <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search books,members,author...." class="search-input" autocomplete="off">
-                    <!-- a dropdown container shows the search result -->
-                    <div class="searchResult" id="search-dropDown"></div>
-            </div>
+
             <!-- Main Navigation -->
             <div class="nav-links">
-                <a href="home.html" class="nav-item active" aria-label="Home" title="Home"><i data-lucide="house"></i></a>
 
-                <a href="search.html" class="nav-item" aria-label="Search" title="Search"><i data-lucide="search"></i></a>
+                <a href="home.html"
+                class="nav-item active"
+                aria-label="Home"
+                title="Home">
+                    <i data-lucide="house"></i>
+                </a>
 
-                <a href="library.html" class="nav-item" aria-label="Library" title="Library"> <i data-lucide="library"></i></a>
+                <a href="search.html"
+                class="nav-item"
+                aria-label="Search"
+                title="Search">
+                    <i data-lucide="search"></i>
+                </a>
+
+                <a href="library.html"
+                class="nav-item"
+                aria-label="Library"
+                title="Library">
+                    <i data-lucide="library"></i>
+                </a>
+
             </div>
 
             <!-- Login -->
-            <div class="registration-btns">
-                <div class="signup-register">
-                    <a href="./signup.html" class="login-btn" aria-label="Login" title="Login"><span>signUp</span></a>
-                </div>
-                <div class="login-register">
-                <a href="./login.html" class="login-btn" aria-label="Login" title="Login"><span>LogIn</span></a>
-                </div>
+            <div class="nav-auth">
+                <a href="login.html"
+                class="login-btn"
+                aria-label="Login"
+                title="Login">
+                    <i data-lucide="log-in"></i>
+                    <span>Login</span>
+                </a>
+                <a href="signup.html" class="signup-btn">
+                    <i data-lucide="user-plus"></i>
+                    Sign Up
+                </a>
             </div>
+
+
         </nav>
     </header>
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
     </script>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="hero-title">INVENIRE</h1>
-                <h2 class="hero-subtitle">Read. Explore. Discover Yourself.</h2>
-                <p class="hero-description">Sometimes, finding yourself begins with getting lost in a book.</p>
-                <a href="search.html" class="hero-btn"> Explore Books<i data-lucide="arrow-right"></i></a>
-            </div>
-        </section>
-    </main>
-    <!-- Top Picks Section -->
-    <section class="book-section top-picks">
-        <div class="section-header">
-            <h2>Top Picks for You</h2>
-            <p>Books selected based on your interests.</p>
-        </div>
-        <div class="books-grid" id="top-picks-container">
-            <!-- Sample Book Card -->
-            <article class="book-card">
-                <!-- Book Cover -->
-                <div class="book-cover">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOwTIo_GnvdEq_lMnBK1ybA_c94WvNduiRPaZRJY2PRg&s=10"
-                        alt="Book cover">
-                </div>
 
-                <!-- Book Information -->
-                <div class="book-info">
-                    <h3 class="book-title">Crime And Punishments</h3>
-                    <p class="book-author">Author Name</p>
-                    <p class="book-description">
-                        The story follows Rodion Raskolnikov, a brilliant but destitute former law student. Drowning in
-                        debt and isolation, Raskolnikov formulates a dangerous theory: he believes humanity is divided
-                        into "ordinary" people who must obey the law, and "extraordinary" people (like Napoleon) who
-                        have the right to transgress moral boundaries to achieve a higher purpose
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+
+                <div class="hero-overlay"></div>
+
+                <div class="hero-content">
+
+                    <h1 class="hero-title">
+                        INVENIRE
+                    </h1>
+
+                    <h2 class="hero-subtitle">
+                        Read. Explore. Discover Yourself.
+                    </h2>
+
+                    <p class="hero-description">
+                        Sometimes, finding yourself begins with getting lost in a book.
                     </p>
-                    <!-- Book Actions -->
-                    <div class="book-actions">
-                        <button type="button" class="book-btn read-btn" data-pdf-url="../pdfs/crime-and-punishments.pdf">
-                            <i data-lucide="book-open"></i>Read</button>
 
-                        <button type="button" class="book-btn library-btn">
-                            <i data-lucide="library"></i>Add to Library</button>
+                    <a href="search.html" class="hero-btn">
+                        Explore Books
+                        <i data-lucide="arrow-right"></i>
+                    </a>
 
-                        <button type="button" class="book-btn download-btn"
-                            data-pdf-url="../pdfs/crime-and-punishments.pdf">
-                            <i data-lucide="download"></i>Download PDF
-                        </button>
-                    </div>
                 </div>
-            </article>
-        </div>
-    </section>
-    <!-- Recommend for You Section -->
-    <section class="book-section recommend-section">
-        <div class="section-header">
-            <h2>Recommend for You</h2>
-            <p>Discover books that match your reading interests.</p>
-        </div>
-        <div class="books-grid" id="recommend-container">
-            <!-- Books will be loaded from Firebase -->
-        </div>
-    </section>
-    <!-- ============================================ INSPIRED BY YOUR SEARCH HISTOR======================================== -->
-    <section class="book-section search-history-section">
-        <div class="section-header">
-            <h2>Inspired by Your Search History</h2>
-            <p>Discover books based on what you've searched for.</p>
-        </div>
-        <div class="books-grid" id="search-history-container">
-            <!-- Books will be loaded from Firebase -->
-        </div>
-    </section>
-    <!-- ===============================================YOUR NEXT READ===================================== -->
-    <section class="book-section next-read-section">
-        <div class="section-header">
-            <h2>Your Next Read</h2>
-            <p>Books waiting for you to start reading.</p>
-        </div>
-        <div class="books-grid" id="next-read-container">
-            <!-- Books will be loaded from Firebase -->
-        </div>
-    </section>
-    <!-- =============================================WE THINK YOU'LL ENJOY==================================== -->
-    <section class="book-section enjoy-section">
-        <div class="section-header">
-            <h2>We Think You'll Enjoy</h2>
-            <p>More books selected around your reading interests.</p>
-        </div>
-        <div class="books-grid" id="enjoy-container">
-            <!-- Books will be loaded from Firebase -->
-        </div>
-    </section>
-    <!-- =========================================================
+
+            </section>
+
+            <!-- =========================================================
+                ABOUT
+            ========================================================= -->
+
+            <section class="about-section" id="about">
+
+                <div class="about-content">
+
+                    <p class="section-label">
+                        About Invenire
+                    </p>
+
+                    <h2>
+                        Discover More Than Books<br> find yourself
+                    </h2>
+
+                    <p>
+                        Invenire is a digital library created to help readers
+                        explore books, discover new ideas, and find stories
+                        that connect with who they are. Whether you are looking
+                        for knowledge, inspiration, or your next favorite book,
+                        Invenire gives you a place to read, explore, and discover.
+                    </p>
+
+                </div>
+
+            </section>
+        </main>
+
+                        <!-- Top Picks Section -->
+            <section class="book-section top-picks">
+
+                <div class="section-header">
+                    <h2>Top Picks for You</h2>
+                    <p>Books selected based on your interests.</p>
+                </div>
+                <div class="books-grid" id="top-picks-container">
+
+                    <!-- Sample Book Card -->
+                    <article class="book-card">
+
+                        <!-- Book Cover -->
+                        <div class="book-cover">
+                            <img
+                                src="https://tse4.mm.bing.net/th/id/OIP.8PV_Z-59n4FKqR9_epwrqwHaLJ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                                alt="Book cover"
+                            >
+                        </div>
+
+                        <!-- Book Information -->
+                        <div class="book-info">
+
+                            <h3 class="book-title">
+                                Crime And Punishments 
+                            </h3>
+
+                            <p class="book-author">
+                                Author Name
+                            </p>
+
+                            <p class="book-description">
+                                This is a short description of the book.
+                                More book information will come from Firebase later.
+                            </p>
+
+                            <!-- Book Actions -->
+                            <div class="book-actions">
+                                <button
+                                    type="button"
+                                    class="book-btn read-btn"
+                                    data-pdf-url="../pdfs/crime-and-punishments.pdf">
+                                    <i data-lucide="book-open"></i>
+                                    Read
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn library-btn">
+                                    <i data-lucide="library"></i>
+                                    Add to Library
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn download-btn"
+                                    data-pdf-url="../pdfs/crime-and-punishments.pdf">
+                                    <i data-lucide="download"></i>
+                                    Download PDF
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn audiobook-btn">
+                                    <i data-lucide="headphones"></i>
+                                    Audio Book
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+            </section>
+
+
+
+            <!-- Recommend for You Section -->
+            <section class="book-section recommend-section">
+
+                <div class="section-header">
+                    <h2>Recommend for You</h2>
+                    <p>Discover books that match your reading interests.</p>
+                </div>
+
+                <div class="books-grid" id="recommend-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+            <!-- =========================================================
+                QUOTATION POSTER
+            ========================================================= -->
+
+            <section class="quotation-section">
+
+                <div class="quotation-overlay">
+
+                    <div class="quotation-content">
+
+                        <i data-lucide="quote" class="quotation-icon"></i>
+
+                        <blockquote>
+                            Every book opens a door to a world waiting to be discovered.
+                        </blockquote>
+
+                        <p class="quotation-brand">
+                            — Invenire
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+                        <!-- =========================================================
+                INSPIRED BY YOUR SEARCH HISTORY
+            ========================================================= -->
+
+            <section class="book-section search-history-section">
+
+                <div class="section-header">
+                    <h2>Inspired by Your Search History</h2>
+                    <p>Discover books based on what you've searched for.</p>
+                </div>
+
+                <div class="books-grid" id="search-history-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                YOUR NEXT READ
+            ========================================================= -->
+
+            <section class="book-section next-read-section">
+
+                <div class="section-header">
+                    <h2>Your Next Read</h2>
+                    <p>Books waiting for you to start reading.</p>
+                </div>
+
+                <div class="books-grid" id="next-read-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                WE THINK YOU'LL ENJOY
+            ========================================================= -->
+
+            <section class="book-section enjoy-section">
+
+                <div class="section-header">
+                    <h2>We Think You'll Enjoy</h2>
+                    <p>More books selected around your reading interests.</p>
+                </div>
+
+                <div class="books-grid" id="enjoy-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+
+                        <!-- =========================================================
                 TRY SOMETHING NEW
             ========================================================= -->
-    <section class="book-section try-new-section">
-        <div class="section-header">
-            <h2>Try Something New</h2>
-            <p>Explore something different based on what you already enjoy.</p>
-        </div>
-        <div class="books-grid" id="try-new-container">
-            <!-- Books will be loaded from Firebase -->
-        </div>
-    </section>
-    <!-- =========================================================
+
+            <section class="book-section try-new-section">
+
+                <div class="section-header">
+                    <h2>Try Something New</h2>
+                    <p>Explore something different based on what you already enjoy.</p>
+                </div>
+
+                <div class="books-grid" id="try-new-container">
+                    <!-- Books will be loaded from Firebase -->
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
                 CALL TO ACTION
             ========================================================= -->
-    <section class="home-cta">
-        <div class="cta-content">
-            <h2>Find Your Next Story</h2>
-            <p>
-                Explore our library and discover a book that might become
-                your next favorite.
-            </p>
-            <a href="search.html" class="cta-btn">Explore Books<i data-lucide="arrow-right"></i> </a>
-        </div>
-    </section>
-    <!-- =================================================PDF READER MODAL SECTION========================================================= -->
-<div class="pdf-modal floating" id="pdf-modal">
-    <div class="pdf-reader">
-        
-        <!-- 1. WINDOW RESIZE CORNER TRACKING HANDLES -->
-        <div class="pdf-resize-handle pdf-resize-top" style="position:absolute; top:0; left:0; width:100%; height:6px; cursor:n-resize; z-index:10;"></div>
-        <div class="pdf-resize-handle pdf-resize-bottom" style="position:absolute; bottom:0; left:0; width:100%; height:6px; cursor:s-resize; z-index:10;"></div>
-        <div class="pdf-resize-handle pdf-resize-left" style="position:absolute; top:0; left:0; width:6px; height:100%; cursor:w-resize; z-index:10;"></div>
-        <div class="pdf-resize-handle pdf-resize-right" style="position:absolute; top:0; right:0; width:6px; height:100%; cursor:e-resize; z-index:10;"></div>
-        <div class="pdf-resize-handle pdf-resize-top-right" style="position:absolute; top:0; right:0; width:12px; height:12px; cursor:ne-resize; z-index:11;"></div>
-        <div class="pdf-resize-handle pdf-resize-top-left" style="position:absolute; top:0; left:0; width:12px; height:12px; cursor:nw-resize; z-index:11;"></div>
-        <div class="pdf-resize-handle pdf-resize-bottom-right" style="position:absolute; bottom:0; right:0; width:12px; height:12px; cursor:se-resize; z-index:11;"></div>
-        <div class="pdf-resize-handle pdf-resize-bottom-left" style="position:absolute; bottom:0; left:0; width:12px; height:12px; cursor:sw-resize; z-index:11;"></div>
 
-        <!-- 2. CONTROL WINDOW HEADER ROW -->
-        <div class="pdf-reader-header">
-            <h3 id="modal-header-title">Reading Room</h3>
+            <section class="home-cta">
+
+                <div class="cta-content">
+
+                    <h2>Find Your Next Story</h2>
+
+                    <p>
+                        Explore our library and discover a book that might become
+                        your next favorite.
+                    </p>
+
+                    <a href="search.html" class="cta-btn">
+                        Explore Books
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                PDF READER MODAL
+            ========================================================= -->
+
+            <div class="book-details-modal" id="book-details-modal">
+
+                <div class="book-details-card">
+
+                    <button
+                        type="button"
+                        class="book-details-close"
+                        id="book-details-close">
+                        ×
+                    </button>
+
+                    <div class="book-details-content">
+
+                        <div class="book-details-cover">
+                            <img
+                                src="https://tse4.mm.bing.net/th/id/OIP.8PV_Z-59n4FKqR9_epwrqwHaLJ?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                                alt="Crime and Punishment book cover">
+                        </div>
+
+                        <div class="book-details-info">
+
+                            <h2>Crime and Punishment</h2>
+
+                            <p class="book-details-author">
+                                Author Name
+                            </p>
+
+                            <p class="book-details-description">
+                                This is a short description of the book.
+                                More information about this book will come from Firebase later.
+                            </p>
+
+                            <div
+                                class="book-details-actions"
+                               
+                            >
+
+                                <button
+                                    type="button"
+                                    class="book-btn library-btn">
+                                    <i data-lucide="library"></i>
+                                    Add to Library
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="book-btn reader-next-btn"
+                                    id="book-details-continue-btn">
+                                    Continue Reading
+                                    <i data-lucide="arrow-right"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
             
-            <!-- Added the missing control buttons package grouping -->
-            <div class="pdf-reader-actions">
-                <button type="button" class="window-control-btn" id="pdf-minimize-btn" title="Minimize Window View">−</button>
-                <button type="button" class="window-control-btn" id="pdf-fullscreen-btn" title="Toggle Fullscreen" >⛶</button>
-                <button type="button" class="window-control-btn" id="pdf-close-btn" title="Close Workspace Layer">&times;</button>
+            
+            
+            <div class="pdf-modal" id="pdf-modal">
+
+                <div class="pdf-reader">
+
+                    <!-- Reader Header -->
+                    <div class="pdf-reader-header">
+
+                        <h3>Reading</h3>
+
+                        <div class="pdf-reader-actions">
+
+                           <button
+                                type="button"
+                                class="pdf-minimize-btn"
+                                id="pdf-minimize-btn"
+                                aria-label="Minimize"
+                                title="Minimize">
+                                −
+                            </button>
+
+                            <button
+                                type="button"
+                                class="pdf-fullscreen-btn"
+                                id="pdf-fullscreen-btn"
+                                aria-label="Fullscreen"
+                                title="Fullscreen">
+                                ⛶
+                            </button>
+
+                            <button
+                                type="button"
+                                class="pdf-close-btn"
+                                id="pdf-close-btn"
+                                aria-label="Close"
+                                title="Close">
+                                ×
+                            </button>
+
+                        </div>
+
+
+                        
+                    </div>
+
+
+                    <!-- PDF -->
+                    <div class="pdf-viewer">
+
+                        <iframe
+                            id="pdf-frame"
+                            src=""
+                            title="PDF Reader">
+                        </iframe>
+
+
+                         <!-- =========================================================
+                            RESIZE HANDLES
+                        ========================================================= -->
+
+                        <div class="pdf-resize-handle pdf-resize-top"></div>
+                        <div class="pdf-resize-handle pdf-resize-bottom"></div>
+
+                        <div class="pdf-resize-handle pdf-resize-left"></div>
+                        <div class="pdf-resize-handle pdf-resize-right"></div>
+
+                        <div class="pdf-resize-handle pdf-resize-top-left"></div>
+                        <div class="pdf-resize-handle pdf-resize-top-right"></div>
+
+                        <div class="pdf-resize-handle pdf-resize-bottom-left"></div>
+                        <div class="pdf-resize-handle pdf-resize-bottom-right"></div>
+
+                    </div>
+
+                </div>
+                
+                    
+
+
             </div>
-        </div>
-        
-        <!-- 3. MAIN WORKSPACE DISPLAY VIEW Area -->
-        <div class="modal-body-content">
-            <iframe class="pdf-frame" id="pdf-frame" src="""></iframe>
 
-            <!-- NATIVE AUDIO CONTAINER (Revealed selectively for streaming mp3 paths) -->
-            <div id="audio-player-wrapper">
-                <div><i class="fa-solid fa-headphones"></i></div>
-                <p>Audio stream loading...</p>
-                <audio id="native-audio-player" controls></audio>
+
+                        <!-- =========================================================
+                SIGN UP OVERLAY
+            ========================================================= -->
+
+            <div class="signup-overlay" id="signup-overlay">
+
+                <div class="signup-box">
+
+                    <button
+                        type="button"
+                        class="signup-overlay-close"
+                        id="signup-overlay-close"
+                        aria-label="Close">
+                        ×
+                    </button>
+
+                    <div class="signup-icon">
+                        <i data-lucide="lock"></i>
+                    </div>
+
+                    <h3>Sign Up to Continue</h3>
+
+                    <p>
+                        You need to sign up to continue reading this book.
+                    </p>
+
+                    <div class="signup-actions">
+
+                        <a
+                            href="signup.html"
+                            class="signup-btn">
+                            Sign Up
+                        </a>
+
+                        <button
+                            type="button"
+                            class="skip-btn"
+                            id="skip-reading-btn">
+                            Skip
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
-        </div>
-
-    </div>
-</div>
 
 
-    <!-- ========================================FOOTER===================================================== -->
-    <footer class="home-footer">
-        <div class="footer-brand">
-            <img src="../images/logo/logo.png" alt="Invenire Library" class="footer-logo">
-        </div>
-        <p class="footer-text">© 2026 Invenire Library. All rights reserved.<p>
-        <div class="footer-nav">
-            <ul class="footer-list">
-                <li class="navLink"><a href="home.html">Home</a>
-                <li class="navLink"><a href="search.html">Search</a></li>   
-                <li class="navLink"><a href="library.html">Library</a></li></li>
-            </ul>
-        </div>
-    </footer>
+
+            <!-- =========================================================
+                FOOTER
+            ========================================================= -->
+
+            <footer class="site-footer">
+
+                <div class="footer-container">
+
+                    <!-- Brand -->
+                    <div class="footer-brand">
+
+                        <img
+                            src="../images/logo/logo.png"
+                            alt="Invenire Library"
+                            class="footer-logo"
+                        >
+
+                        <h3>Invenire Library</h3>
+
+                        <p>
+                            Read. Explore. Discover Yourself.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Quick Links -->
+                    <div class="footer-links">
+
+                        <h4>Quick Links</h4>
+
+                        <a href="home.html">Home</a>
+                        <a href="search.html">Search</a>
+                        <a href="library.html">Library</a>
+
+                    </div>
+
+
+                    <!-- Contact -->
+                    <div class="footer-contact">
+
+                        <h4>Contact</h4>
+
+                        <p>
+                            Have a question or suggestion?
+                        </p>
+
+                        <a href="#contact">Contact Us</a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Bottom -->
+                <div class="footer-bottom">
+
+                    <p>
+                        © 2026 Invenire Library. All rights reserved.
+                    </p>
+
+                </div>
+
+            </footer>
+
+   
+    
 </body>
 </html>
