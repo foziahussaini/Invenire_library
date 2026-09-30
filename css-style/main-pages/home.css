@@ -9,17 +9,16 @@ body{
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     font-size: var(--main-font-size);
-    overflow-x: hidden;
-    width: 100%;
-    padding: 0;
 }
 
 /* ==================== HEADER / NAVBAR ==================== */
+
 .site-header {
     width: 100%;
-    height: var(--main-header-height);
+    height: 80px;
     background: var(--header-background-color);
     color: var(--main-text-color);
+    box-shadow: 0 2px 8px rgba(11, 58, 103, 0.15);
     position: relative;
     z-index: 1000;
 }
@@ -27,11 +26,14 @@ body{
 .navbar {
     width: 100%;
     height: 100%;
-    padding: 0 20px;
+    padding: 0 24px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
+/* ==================== LOGO ==================== */
 
 .logo-link {
     display: flex;
@@ -40,13 +42,60 @@ body{
 }
 
 .logo {
-    width: 58px;
-    height: 58px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     display: block;
+    
+}
+/*================= nav left ==============*/ 
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-/* Main navigation */
+.nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-tool-btn {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: var(--main-border-radius);
+    background-color: transparent;
+    color: var(--main-text-color);
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-tool-btn svg {
+    width: 21px;
+    height: 21px;
+    stroke-width: 2;
+}
+
+.nav-tool-btn:hover {
+    color: var(--hover-text-color);
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+/* ==================== MAIN NAVIGATION ==================== */
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -58,13 +107,19 @@ body{
 .nav-item {
     width: 44px;
     height: 44px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     color: var(--main-text-color);
     text-decoration: none;
     border-radius: var(--main-border-radius);
-    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .nav-item svg {
@@ -83,26 +138,36 @@ body{
     color: var(--btn-background-color);
 }
 
-/* login btn and signup btn */
+/* ==================== LOGIN ==================== */
+
 .nav-auth {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 10px;
+
     padding-left: 24px;
     border-left: var(--default-border);
 }
-
 .login-btn {
     display: flex;
     align-items: center;
     gap: 8px;
+
     padding: 10px 18px;
+
     background-color: var(--btn-background-color);
     color: var(--btn-text-color);
+
     text-decoration: none;
     border-radius: var(--btn-border-radius);
+
     font-size: var(--main-font-size);
     font-weight: 600;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .login-btn svg {
@@ -148,97 +213,164 @@ body{
     color: var(--btn-text-hover-color);
     transform: translateY(-1px);
 }
+/* ==================== RESPONSIVE ==================== */
 
-/* Responsive */
 @media (max-width: 600px) {
-    .navbar { padding: 0 14px; }
-    .logo { width: 50px; height: 50px; }
-    .nav-links { gap: 4px; margin-right: 12px; }
-    .nav-item { width: 40px; height: 40px; }
-    .login-btn { padding: 9px 12px; }
-    .login-btn span { display: none; }
-    .nav-auth { padding-left: 12px; }
+
+    .navbar {
+        padding: 0 14px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav-links {
+        gap: 4px;
+        margin-right: 12px;
+    }
+
+    .nav-item {
+        width: 40px;
+        height: 40px;
+    }
+
+    .login-btn {
+        padding: 9px 12px;
+    }
+
+    .login-btn span {
+        display: none;
+    }
+
+    .nav-auth {
+        padding-left: 12px;
+    }
 }
 
-/* ==================== HERO ==================== */
+/* ==================== HOME HERO ==================== */
+
 .hero {
     width: 100%;
     height: calc(100vh - 80px);
+
     position: relative;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("/images/hero.jpeg");
+
+    background-image: url("../images/hero.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
     overflow: hidden;
 }
 
+/* Dark overlay */
 .hero-overlay {
     position: absolute;
     inset: 0;
+
     background: rgba(11, 58, 103, 0.45);
+
     z-index: 1;
 }
 
+/* Hero content */
 .hero-content {
     position: relative;
     z-index: 2;
+
     max-width: 900px;
     padding: 30px;
+
     text-align: center;
+
     color: var(--btn-text-color);
 }
 
+/* Main Library Name */
 .hero-title {
     margin: 0;
+
     font-family: "Cormorant Garamond", Georgia, serif;
+
     font-size: 100px;
     line-height: 0.95;
+
     font-weight: 600;
     letter-spacing: 12px;
+
     color: var(--premium-icon-color);
+
     text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
+/* Main message */
 .hero-subtitle {
     margin: 24px 0 18px;
+
     font-size: 34px;
     line-height: 1.2;
+
     font-weight: 600;
+
     color: var(--btn-text-color);
 }
 
+/* Description */
 .hero-description {
     max-width: 650px;
+
     margin: 0 auto 32px;
+
     font-size: 19px;
     line-height: 1.6;
+
     color: var(--btn-text-hover-color);
 }
 
+/* Explore button */
 .hero-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+
     padding: var(--btn-padding);
+
     background-color: var(--btn-background-color);
     color: var(--btn-text-color);
+
     text-decoration: none;
+
     font-size: var(--btn-font-size);
     font-weight: 600;
+
     border-radius: var(--btn-border-radius);
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.hero-btn svg { width: 20px; height: 20px; }
+.hero-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
 .hero-btn:hover {
     background-color: var(--btn-hover-background-color);
+
     transform: translateY(-2px);
+
     box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
 }
+
 
 /* ==================== BOOK SECTIONS ==================== */
 
@@ -368,246 +500,144 @@ body{
     box-shadow: 0 6px 14px rgba(11, 58, 103, 0.35);
 }
 
-/* book card====================== */
 
-/* Book card */
-.book-card {
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--input-background-color);
-    border: var(--default-border);
-    border-radius: var(--main-border-radius);
-    box-shadow: 0 8px 18px rgba(11, 58, 103, 0.12);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
+
+.about-section {
+    padding: 75px 8%;
+
+    background: linear-gradient(
+        135deg,
+        #E6F0FA,
+        #F1F5FA
+    );
+
+    border-top: 1px solid #C7D8EA;
+    border-bottom: 1px solid #C7D8EA;
+
+    text-align: center;
 }
 
-.book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 14px 28px rgba(11, 58, 103, 0.2);
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.book-cover {
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    background-color: var(--dropdown-background-color);
-}
+.section-label {
+    margin-bottom: 10px;
 
-.book-cover img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-.book-info { padding: 22px; }
-
-.book-title { margin: 0 0 8px; font-size: 22px; font-weight: 700; color: var(--main-text-color); }
-
-.book-author { margin: 0 0 14px; font-size: 14px; color: var(--input-text-color); }
-
-.book-description { margin: 0 0 22px; font-size: 15px; line-height: 1.6; color: var(--main-text-color); }
-
-.book-actions { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 22px 22px 22px; }
-
-.book-btn {
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    padding: 8px 13px;
-    border: none;
-    border-radius: var(--btn-border-radius);
-    background-color: var(--btn-background-color);
-    color: var(--btn-text-color);
-    text-decoration: none;
     font-size: 14px;
     font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    color: var(--premium-color);
 }
 
-.book-btn svg { width: 17px; height: 17px; }
+.about-content h2 {
+    margin: 0 0 20px;
 
-.book-btn:hover:not(:disabled) {
-    background-color: var(--btn-hover-background-color);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(11, 58, 103, 0.2);
-}
-
-.book-btn:disabled { opacity: 0.55; cursor: not-allowed; }
-
-.download-btn {
-    background-color: var(--btn-background-color);
-    color: var(--default-border);
-    border: var(--default-border);
-}
-.audiobook-btn { 
-    background-color: transparent; 
-    color: var(--btn-background-color); 
-    border: var(--default-border); }
-
-
-.pdf-modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 99999;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
-}
-
-.pdf-modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-}
-
-.pdf-modal .pdf-reader {
-    position: relative;
-    display: flex; flex-direction: column;
-    width: 90%;
-    height: 95vh;
-    max-width: 1100px;
-    background: var(--main-background-color);
-    border-radius: var(--btn-border-radius);
-    box-shadow: var(--default-box-shadow);
-    overflow: hidden;
-    transform: scale(0.95);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.pdf-modal.active .pdf-reader { transform: scale(1); }
-
-.pdf-reader-header {
-    width: 100%;
-    padding: var(--text-padding);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    background: var(--header-background-color);
-    border-bottom: 1px solid var(--btn-background-color);
-}
-
-.pdf-reader-header h3 {
-    width: 100%;
-    font-size: var(--header-font-size);
-    font-weight: bold;
-    color: var(--main-text-color);
-}
-
-.pdf-reader-actions{
-    width: 180px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    border-radius: var(--btn-border-radius);
-    opacity: 0.4;
-    margin-right: 1rem;
-}
-
-.window-control-btn {
-    background-color: var(--btn-background-color);
-    display: flex;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    box-shadow: var(--icon-box-shadow);
-    color: var(--hover-text-color);
-    border-radius: var(--btn-border-radius);
-    padding: 0 0.6rem;
     font-size: 34px;
-    border: none;
-    cursor: pointer;
-}
-
-.window-control-btn:hover { transform: scale(1.1); }
-
-.modal-body-content {
-    display:flex;
-    flex: 1;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--main-background-color);
-}
-
-#pdf-frame {
-    background-color: var(--main-background-color);
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-}
-
-#audio-player-wrapper {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    text-align: center;
-    width: 100%;
-    max-width: 700px;
-    padding: var(--card-padding);
-    background: var(--header-background-color);
-    box-shadow: var(--default-box-shadow);
-    border-radius: var(--btn-border-radius);
-    animation: slideUpFade 0.4s ease-out forwards;
-}
-
-#audio-player-wrapper p {
-    font-family: system-ui, -apple-system, sans-serif;
     color: var(--main-text-color);
 }
 
-#native-audio-player { outline: none; border-radius: 30px; }
+.about-content p:last-child {
+    margin: 0;
 
-@keyframes slideUpFade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    font-size: 16px;
+    line-height: 1.8;
+
+    color: var(--input-text-color);
+}
+/* =========================================================
+   QUOTATION POSTER
+========================================================= */
+
+.quotation-section {
+    position: relative;
+
+    min-height: 380px;
+
+    margin: 70px 6%;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            rgba(30, 42, 68, 0.72),
+            rgba(30, 42, 68, 0.72)
+        ),
+        url("../images/library-quotation.jpeg");
+
+    background-size: cover;
+    background-position: center;
+
+    box-shadow:
+        0 18px 45px rgba(30, 42, 68, 0.18);
+
+    border: 1px solid rgba(212, 160, 23, 0.35);
 }
 
-/* Minimized modal behavior */
-.pdf-modal.minimized {
-    background: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    pointer-events: none;
-    display: flex !important;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: 20px;
+.quotation-overlay {
+    min-height: 380px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 30px;
+
+    text-align: center;
 }
 
-.pdf-modal.minimized .pdf-reader {
-    width: 380px !important;
-    height: auto !important;
-    max-height: 180px !important;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    pointer-events: auto;
-    box-shadow: var(--default-box-shadow);
-    transform: scale(1) !important;
+.quotation-content {
+    max-width: 850px;
+
+    color: #ffffff;
 }
 
-.pdf-modal.minimized #pdf-frame,
-.pdf-modal.minimized #audio-player-wrapper div,
-.pdf-modal.minimized .pdf-resize-handle { display: none !important; }
+.quotation-icon {
+    width: 42px;
+    height: 42px;
 
-.pdf-modal.minimized #audio-player-wrapper {
-    padding: 0.75rem 1rem !important;
-    box-shadow: none !important;
+    margin-bottom: 20px;
+
+    color: var(--premium-color);
+
+    opacity: 0.95;
+}
+
+.quotation-content blockquote {
+    margin: 0;
+
+    font-size: clamp(28px, 4vw, 46px);
+
+    line-height: 1.35;
+
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.35);
+}
+
+.quotation-brand {
+    margin-top: 25px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: var(--premium-color);
 }
 
 
@@ -737,4 +767,175 @@ body{
 
     color: rgba(255, 255, 255, 0.65);
 }
+
+
+
+/* =========================================================
+   BOOK CARD
+========================================================= */
+
+.book-card {
+    width: 100%;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--input-background-color);
+
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+
+    box-shadow: 0 8px 18px rgba(11, 58, 103, 0.12);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 14px 28px rgba(11, 58, 103, 0.2);
+}
+
+
+/* ==================== BOOK COVER ==================== */
+
+.book-cover {
+    width: 100%;
+    height: 300px;
+
+    overflow: hidden;
+
+    background-color: var(--dropdown-background-color);
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* ==================== BOOK INFO ==================== */
+
+.book-info {
+    padding: 22px;
+}
+
+.book-title {
+    margin: 0 0 8px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: var(--main-text-color);
+}
+
+.book-author {
+    margin: 0 0 14px;
+
+    font-size: 14px;
+
+    color: var(--input-text-color);
+}
+
+.book-description {
+    margin: 0 0 22px;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: var(--main-text-color);
+}
+
+
+/* ==================== BOOK ACTIONS ==================== */
+
+.book-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.book-actions .book-btn {
+    width: 100%;
+    min-height: 42px;
+    box-sizing: border-box;
+}
+
+.book-btn {
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    border: none;
+    border-radius: var(--btn-border-radius);
+
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.book-btn svg {
+    width: 17px;
+    height: 17px;
+}
+
+.book-btn:hover:not(:disabled) {
+    background-color: var(--btn-hover-background-color);
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(11, 58, 103, 0.2);
+}
+
+.book-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* ==================== DOWNLOAD ==================== */
+
+.download-btn {
+    background-color: var(--btn-background-color);
+
+    color: var(--default-border);
+
+}
+
+
+/* ==================== AUDIOBOOK ==================== */
+
+.audiobook-btn {
+    background-color: transparent;
+
+    color: var(--btn-background-color);
+
+    border: var(--default-border);
+}
+
 
