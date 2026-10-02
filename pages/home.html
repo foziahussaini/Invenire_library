@@ -18,25 +18,13 @@
     <!-- =========================javascrip files =========================-->
     <script type="module" src="../js/home/allbooks.js" defer></script>
     <script type="module" src="../js/home/recent_section.js" defer></script>
-    <script defer src="../js/home/home.js"></script>
     <!-- =========================search bar js =========================-->
     <script type="module" src="../js/home/home_search.js"></script>
 </head>
 <body>
     <!-- header part -->
     <header>
-        <div class="subheader">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search your fav books..." class="search-input" autocomplete="off">
-                    <!-- a dropdown container shows the search result -->
-                    <div class="searchResult" id="search-dropDown"></div>
-                </div>
-                <div class="registration">
-                <a href="login.html" class="login-btn" aria-label="Login" title="Login">Login</a>
-                <a href="signup.html" class="signup-btn" title="SingUp">SignUp</a>
-               </div>
-        </div>
+        
         <div class="home-header">
             <div class="logo">
                <img src="/images/logo/logo.png" alt="Invenire Library">
@@ -45,36 +33,89 @@
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-item active" aria-label="Home" title="Home">Home</a></li>
                     <li><a href="#about" class="nav-item" aria-label="Search" title="about">About</a></li>
+                    <li><a href="#" class="nav-item" id="dashboard-link">Dashboard</a></li>
                     <li><a href="#explore" class="nav-item" aria-label="Library" title="explore">Explore</a></li>
                 </ul>
             </div>
             <div class="dropdown-icons">
-                <!-- 1st: Theme Dropdown -->
-                <div class="theme-dropdown">
-                        <button type="button" class="dropdown-header" id="themeDropdownBtn">
+
+                <!-- Login / SignUp -->
+                <div class="registration">
+                    <a href="login.html"
+                    class="login-btn"
+                    aria-label="Login"
+                    title="Login">
+                        Login
+                    </a>
+
+                    <a href="signup.html"
+                    class="signup-btn"
+                    aria-label="SignUp"
+                    title="SignUp">
+                        SignUp
+                    </a>
+                </div>
+
+                <!-- Theme / Language -->
+                <div class="settings-icons">
+
+                    <!-- Theme -->
+                    <div class="theme-dropdown">
+                        <button type="button"
+                                class="dropdown-header"
+                                id="themeDropdownBtn"
+                                aria-label="Theme">
                             <i class="fa-solid fa-palette"></i>
                         </button>
+
                         <ul class="dropdown-menu" id="themeDropdownMenu">
                             <li data-value="light">☀️ Light</li>
                             <li data-value="dark">🌙 Dark</li>
-                            <li data-value="neon">⚡ Neon</li>
-                            <li data-value="retro">🕹️ Retro</li>
                         </ul>
-                </div>    
-                  <!-- 2nd: Language Dropdown -->
+                    </div>
+
+                    <!-- Language -->
                     <div class="lang-dropdown">
-                        <button type="button" class="dropdown-header" id="langDropdownBtn">
+                        <button type="button"
+                                class="dropdown-header"
+                                id="langDropdownBtn"
+                                aria-label="Language">
                             <i class="fa-solid fa-earth-americas"></i>
                         </button>
+
                         <ul class="dropdown-menu" id="langDropdownMenu">
                             <li data-value="En">English</li>
                             <li data-value="Da">Dari</li>
                             <li data-value="Pa">Pashto</li>
                         </ul>
                     </div>
-            </div> 
-        </div>
+
+                </div>
+
+            </div>
     </header>
+
+    <div class="dashboard-modal" id="dashboardModal">
+        <div class="dashboard-modal-content">
+
+            <button class="dashboard-modal-close" id="dashboardModalClose">
+                &times;
+            </button>
+
+            <h2>Login Required</h2>
+
+            <p>
+                You are not logged in. Please login or sign up
+                to continue to Invenire.
+            </p>
+
+            <div class="dashboard-modal-actions">
+                <a href="login.html" class="modal-login-btn">Login</a>
+                <a href="signup.html" class="modal-signup-btn">Sign Up</a>
+            </div>
+
+        </div>
+    </div>
     <div class="main-container">
         <!-- Hero Section -->
         <section class="hero-section section1" id="home">
@@ -85,36 +126,45 @@
                 </div>
                 <p class="hero-description">Escape your daily boundaries and immerse your mind in thoughts that expand your perspective.</p>
                 <!-- Symmetrical, full vector icon asset social navigation block -->
-<div class="hero-social">
-    <!-- 1. Discord -->
-    <a href="https://discord.gg" class="social-icon-btn discord-link" target="_blank" rel="noopener noreferrer" title="Join our Discord Server" aria-label="Discord">
-        <svg xmlns="http://w3.org" viewBox="0 0 127.14 96.36" class="social-vector">
-            <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.79-.58,1.57-1.18,2.31-1.81a74.5,74.5,0,0,0,73.41,0c.74.63,1.52,1.23,2.31,1.81a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129,50.7,122.64,27.76,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
-        </svg>
-    </a>
-    
-    <!-- 2. Twitter / X -->
-    <a href="https://twitter.com" class="social-icon-btn twitter-link" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter / X" aria-label="Twitter">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
-            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
-        </svg>
-    </a>
-     <a href="https://invenire-library.app" class="social-icon-btn library-app-link" target="_blank" rel="noopener noreferrer" title="Download our Library App" aria-label="Library App">
-        <span><img src="../images/logo/google.png" alt=""></span>
-    </a>
-    <!-- 3. Instagram -->
-    <a href="https://instagram.com" class="social-icon-btn insta-link" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" aria-label="Instagram">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
-            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-        </svg>
-    </a>
-</div>
+            <div class="hero-social">
+                <!-- 1. Discord -->
+                <a href="https://discord.gg" class="social-icon-btn discord-link" target="_blank" rel="noopener noreferrer" title="Join our Discord Server" aria-label="Discord">
+                    <svg xmlns="http://w3.org" viewBox="0 0 127.14 96.36" class="social-vector">
+                        <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.79-.58,1.57-1.18,2.31-1.81a74.5,74.5,0,0,0,73.41,0c.74.63,1.52,1.23,2.31,1.81a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129,50.7,122.64,27.76,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                    </svg>
+                </a>
+                
+                <!-- 2. Twitter / X -->
+                <a href="https://twitter.com" class="social-icon-btn twitter-link" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter / X" aria-label="Twitter">
+                    <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
+                        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                    </svg>
+                </a>
+                <a href="https://invenire-library.app" class="social-icon-btn library-app-link" target="_blank" rel="noopener noreferrer" title="Download our Library App" aria-label="Library App">
+                    <span><img src="../images/logo/google.png" alt=""></span>
+                </a>
+                <!-- 3. Instagram -->
+                <a href="https://instagram.com" class="social-icon-btn insta-link" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" aria-label="Instagram">
+                    <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                </a>
+            </div>
+            <a href="#explore" class="hero-explore-btn">Explore</a>
 
             </div>
              <div class="hero-image">
                 <img src="../images/banner/hero.png" alt="">
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search your fav books..." class="search-input" autocomplete="off">
+                <div class="searchResult" id="search-dropDown"></div>
             </div>
         </section>
         <br>
@@ -277,5 +327,6 @@
             lucide.createIcons();
         }
     </script>
+    <script type="module" src="../js/home/home.js"></script>
 </body>
 </html>

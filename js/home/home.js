@@ -1,4 +1,45 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { auth } from "../../src/firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    const loginBtn = document.querySelector(".login-btn");
+    const signupBtn = document.querySelector(".signup-btn");
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("User is logged in:", user.email);
+
+        loginBtn?.style.setProperty("display", "none");
+        signupBtn?.style.setProperty("display", "none");
+    } else {
+        console.log("No user is logged in.");
+        loginBtn?.style.removeProperty("display");
+        signupBtn?.style.removeProperty("display");
+    }
+});
+    const dashboardLink = document.getElementById("dashboard-link");
+
+    const dashboardModal = document.getElementById("dashboardModal");
+    const dashboardModalClose = document.getElementById("dashboardModalClose");
+
+    dashboardLink?.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (auth.currentUser) {
+            window.location.href = "user_dashboard.html";
+        } else {
+            dashboardModal.style.display = "flex";
+        }
+    });
+
+    dashboardModalClose?.addEventListener("click", () => {
+        dashboardModal.style.display = "none";
+    });
+
+    dashboardModal?.addEventListener("click", (e) => {
+        if (e.target === dashboardModal) {
+            dashboardModal.style.display = "none";
+        }
+    });
+
+
 // =================================DROPDOWN FOR THEME AND LANGUAGE===============================
     const langBtn = document.getElementById('langDropdownBtn');
     const langMenu = document.getElementById('langDropdownMenu');
@@ -176,4 +217,4 @@ function rotateSubtitles() {
 // Automatically trigger a phrase swap every 5 seconds (5000 milliseconds)
 setInterval(rotateSubtitles, 5000);
 
-});
+console.log("home js loaded successfully"); 

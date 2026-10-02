@@ -91,9 +91,9 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--btn-padding);
+    padding: 2px; 
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
     background: transparent;
     border: none;
     transition: color 0.2s;
@@ -153,125 +153,70 @@ header {
     color: var(--dropdown-background-color);
 }
 
-/* =================================SEARCH BAR PART======================================= */
-.subheader{
-    width: 100%;
-    background: var(--subheader-background);
-    display: flex;
-    justify-content: space-evenly;
+/*====================Dashboard login modal ==============*/
+.dashboard-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
     align-items: center;
-    height: 10vh;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
 }
-.subheader .search-bar { /* its the searchbar container */
+
+.dashboard-modal-content {
     position: relative;
-    width: 780px;
-    max-width: 780px;
-    height: 40px;
-    margin-left: 5rem;
-    background: #84a6d371;
-    border-radius: var(--input-border-radius);
-    display: flex;
-    align-items: center;
-    box-shadow: var(--card-box-shadow);
-}
-
-.subheader .search-bar > input {
-    width: 100%;
-    height: 100%;
-    padding-left: 2.9rem;   
-    padding-right: 2rem;  
-    border: var(--default-border);
-    border-radius: var(--input-border-radius);
-    background-color: transparent;
-    color: var(--input-text-color);
-    font-size: var(--main-font-size);
-    transition: border-color 0.2s ease;
-}
-
-.subheader .search-bar input:focus {
-    outline: none;
-    border-color: var(--btn-background-color);
-}
-
-.subheader .search-bar .fa-search {
-    position: absolute;
-    font-size: 28px;
-    left: 0.8rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--btn-background-color);
-    z-index: 20;
-    pointer-events: none; 
-}
-
-/* the close icon element */
-.subheader .search-bar .close-icon {
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%); 
-    cursor: pointer;
-    color: var(--btn-background-color);
-    z-index: 20;
-    font-size: 1.1rem;
-    transition: color 0.15s ease;
-}
-
-.subheader .search-bar .close-icon:hover {
-    color: var(--btn-hover-background-color); 
-}
-
-/* ==============search result dropdown==============*/
-.subheader .search-bar .searchResult {
-    position: absolute;
-    flex-direction: column;
-    top: 42px; 
-    left: 0;
-    width: 100%;
-    height: 80vh;
-    background-color: var(--card-background-color);
-    border: var(--default-border);
-    border-top: none;
+    width: min(420px, 90%);
+    padding: 2rem;
+    background: var(--card-background-color);
+    color: var(--main-text-color);
     border-radius: var(--main-border-radius);
     box-shadow: var(--default-box-shadow);
-    z-index: 1000; 
-    max-height: 80vh;
-    overflow: none;
-    box-sizing: border-box;
-    display: none;
-}
-
-.search-item {
-    padding: var(--text-padding);
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    cursor: pointer;
-    font-size: var(--min-font-size);
-    color: var(--main-text-color);
-    border-bottom: var(--default-border);
-    transition: background-color 0.15s ease;
-}
-
-.search-item:last-child {
-    border-bottom: none;
-}
-
-.search-item:hover {
-    background-color: var(--btn-hover-background-color);
-    color: var(--btn-text-color)
-}
-
-.search-item i {
-    color: var(--btn-background-color);
-    font-size: 1rem;
-    width: 16px;
     text-align: center;
 }
 
-.search-item:hover i {
-    color: var(--main-background-color);
+.dashboard-modal-content h2 {
+    margin-bottom: 1rem;
 }
+
+.dashboard-modal-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.dashboard-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    border: none;
+    background: transparent;
+    color: var(--main-text-color);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dashboard-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.modal-login-btn,
+.modal-signup-btn {
+    padding: var(--btn-padding);
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+    text-decoration: none;
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+}
+
+.modal-login-btn:hover,
+.modal-signup-btn:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+}
+
 
 /* animated text for no result */
 .no-match{
@@ -351,15 +296,43 @@ header {
 
 /* ====================registration part login signup btn==================== */
 
-.registration{
+.dropdown-icons {
+    width: 150px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.4rem;
+    margin: 0;
+    margin-right: 20px;
+    position: relative;
+    top: -0.5rem;
+
+    transform: translateY(8px);
+}
+
+.registration {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-left: auto;
-    margin-right: 2rem;
+    margin: 0;
 }
 
+.settings-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.settings-icons .dropdown-header {
+    padding: 4px;
+    margin: 0 4px;
+    line-height: 1;
+}
 /* ==================== LOGIN ==================== */
 .login-btn,
 .signup-btn  {
@@ -390,25 +363,29 @@ header {
 
 .hero-section {
     width: 100%;
-    height: 440px;
+    height: 620px;
     position: relative;
     background-image: url("../../images/banner/hero1.png");
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: left -12rem top 1.2rem; 
+    background-size: 50% auto;
+    background-position: -240px 1.2rem; 
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: center;
     overflow: hidden;
     gap: 2.6rem;
 }
 
 /* Dark overlay */
 .hero-image {
+    position: absolute;
+    right: -5rem;
+    top: 50%;
+    transform: translateY(-50%);
+
     width: 500px;
     height: 380px auto;
-    margin-right: -7.6rem;
-    margin-top: 4rem;
+    margin-right: 0;
     z-index: 1;
 
     >img{
@@ -421,12 +398,15 @@ header {
 .hero-content {
     position: relative;
     z-index: 2;
-    left: 2.8rem;
+    left: 0;
     top: -1rem;
     max-width: 605px;
     padding: 20px;
     text-align: center;
     color: var(--btn-text-color);
+    width: 100%;
+    max-width: 605px;
+    text-align: center;
 }
 
 /*======================================animated hero title )=======================================*/
@@ -436,11 +416,13 @@ header {
     font-size: 100px;
     line-height: 0.95;
     font-weight: 600;
-    letter-spacing: 12px;
+    letter-spacing: 8px;
     background: var(--hero-animated-text-color);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    position: relative;
+    left: -15px;
     
     animation: gradientShift 8s ease infinite;
     display: inline-block;
@@ -528,6 +510,25 @@ header {
 .social-icon-btn:hover .discord-vector{
     width: 22px;
     height: 22px;
+}
+/*============HERO EXPLORE BTN ============*/ 
+.hero-explore-btn {
+    display: block;
+    width: fit-content;
+    margin: 1rem auto 0;
+    padding: 12px 30px;
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+    text-decoration: none;
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero-explore-btn:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+    transform: translateY(-3px);
 }
 
 

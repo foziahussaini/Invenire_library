@@ -2,21 +2,26 @@ import {auth, db } from "../../src/firebase-config.js";
 import { doc, setDoc, collection, query, where, getDocs, getDoc 
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-import { 
-    signInWithEmailAndPassword, 
-    signInWithPopup, 
-    GoogleAuthProvider 
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-// Initialize the Google Provider instance
-const googleProvider = new GoogleAuthProvider();
+setPersistence(auth, browserLocalPersistence)
+    .catch((error) => {
+        console.error("Session persistence error:", error);
+    });
 
+// Initialize the Google Provider instance
 // --- DOM Elements ---
 const signupForm = document.getElementById("signupForm");
 const loginForm = document.getElementById('login-form');
 const emailInput = document.getElementById('login-email');
 const passwordInput = document.getElementById('login-password');
-const googleBtn = document.querySelector('.google-account');
 
 const emailError = document.getElementById('emailError');
 const passwordError = document.getElementById('passwordError');
@@ -53,7 +58,18 @@ if (signupForm) {
         if (confirmPassword === "") { showError("confirmPasswordError", "Please confirm your password."); isValid = false; } 
         else if (password !== confirmPassword) { showError("confirmPasswordError", "Passwords do not match."); isValid = false; }
 
-        if (!isValid) return;
+        if (!isValid) {
+        }
+
+        try {
+            console.log("SIGHNUP AUTH CODE REACHED"); 
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            console.error("Signup Auth Error:", error);
+            displayFirebaseErrors(error);
+            return;
+        }
+
 
         // --- CHECK FIRESTORE FOR EXISTING EMAIL ---
         try {
@@ -79,14 +95,10 @@ if (signupForm) {
             avatar = "femaleProfile.png"; 
         }
 
-        const customDocId = "member" + Math.floor(Math.random() * 10000); 
-
         const userData = {
-            user_id: customDocId,
             full_name: fullName,
             email: email,
-            location: location,
-            password: password, 
+            location: location, 
             gender: gender,
             "profile-Img": avatar,
             isLoggedIn: true,
@@ -96,14 +108,6 @@ if (signupForm) {
         };
 
         try {
-            await setDoc(doc(db, "members", customDocId), userData);
-
-            // Storing user data locally according to your registration parameters
-            localStorage.setItem("invenireUser", JSON.stringify(userData));
-            localStorage.setItem("invenireLoggedIn", "true");
-            
-            // Also adding userSession schema uniformity for login state fallback
-            localStorage.setItem("userSession", JSON.stringify({ email: email, role: "member", uid: customDocId }));
 
             window.location.href = "../../pages/user_dashboard.html";
 
@@ -205,6 +209,9 @@ function displayFirebaseErrors(error) {
         case 'auth/network-request-failed':
             showError("loginError", "Network error. Please verify your internet connection.");
             break;
+         case 'auth/invalid-credential':
+            showError("loginError", "Incorrect email or password.");
+            break;
         default:
             showError("loginError", error.message);
             break;
@@ -260,27 +267,23 @@ if (loginForm) {
             const memberQuery = query(membersRef, where("email", "==", email));
             const memberSnapshot = await getDocs(memberQuery);
 
-            if (!memberSnapshot.empty) {
-                const memberDoc = memberSnapshot.docs[0]; // Get the first matching document
-                const memberData = memberDoc.data();
+            try {
+                const userCredential = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-                // Validate member password
-                if (memberData.password === password) {
-                    localStorage.setItem("userSession", JSON.stringify({ 
-                        email: email, 
-                        role: "member", 
-                        uid: memberDoc.id 
-                    }));
-                    localStorage.setItem("invenireUser", JSON.stringify(memberData));
-                    localStorage.setItem("invenireLoggedIn", "true");
-                    localStorage.setItem("user_id", memberDoc.id); 
-                    
-                    window.location.href = "../../pages/user_dashboard.html";
-                    return;
-                } else {
-                    showError("passwordError", "Incorrect password.");
-                    return;
-                }
+                const user = userCredential.user;
+
+                console.log("Member login successful:", user.uid);
+
+                window.location.href = "../../pages/user_dashboard.html";
+                return;
+
+            } catch (error) {
+                displayFirebaseErrors(error);
+                return;
             }
 
             // 3. Fallback error if the email isn't found in either collection
@@ -293,16 +296,3 @@ if (loginForm) {
 }
 
 
-// Google OAuth Single-Sign-On
-if (googleBtn) {
-googleBtn.style.cursor = "pointer";
-googleBtn.addEventListener('click', async () => {
-clearErrors();
-try {
-const result = await signInWithPopup(auth, googleProvider);
-await handleUserRouting(result.user);
-} catch (error) {
-displayFirebaseErrors(error);
-}
-});
-}
