@@ -126,7 +126,7 @@ async function membersTableList() {
         await userDetailsCards(membersSnapshot);
 
     } catch (error) {
-        console.error("Failed loading table elements via firestore:", error);
+        console.log("Failed loading table elements via firestore:", error);
     }
 }
 

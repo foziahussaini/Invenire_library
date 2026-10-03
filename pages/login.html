@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,11 @@
     <!-- Added FontAwesome CDN so your icons will work -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <!-- ========current file js link ================== -->
+    <script type="module" defer src="../js/auth-files/login.js"></script>
     <script defer src="../js/dropdowns.js"></script>
     <!-- ========user authenthication js link ================== -->
-
+    <script type="module" src="../js/auth-files/auth.js" defer></script>
+    <script type="module" src="../js/auth-files/setion_tracker.js" defer></script>
     <!-- =================for google font============== -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
@@ -99,11 +102,6 @@
             </div>
         </div>
     </div>
-    <script type="module">
-        import "../js/auth-files/auth.js";
-        import "../js/auth-files/login.js";
-        import "../js/auth-files/setion_tracker.js";
-    </script>
 </body>
 
 </html>

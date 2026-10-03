@@ -8,6 +8,7 @@ import {
   collection,
   getDocs,
   doc,
+  getDoc,
   query,
   where,
   deleteDoc
@@ -55,7 +56,7 @@ function appendIntoListContainer(container, fragmentOrElement) {
   if (!container) return;
   let list = container.querySelector(".list-container");
   if (!list) {
-    list = document.createElement("div");           // CREATE DIV (correct)
+    list = document.createElement("div");
     list.className = "list-container";
     container.appendChild(list);
   }
@@ -79,7 +80,7 @@ function renderMiniCards(items, container, defaultMeta, showDeleteBtn = false, d
   // ensure .list-container exists and clear it
   let listContainer = container.querySelector(".list-container");
   if (!listContainer) {
-    listContainer = document.createElement("div");    // CREATE DIV (correct)
+    listContainer = document.createElement("div");
     listContainer.className = "list-container";
     container.appendChild(listContainer);
   }
@@ -160,19 +161,8 @@ function renderMiniCards(items, container, defaultMeta, showDeleteBtn = false, d
 }
 
 // ---------------------- FIRESTORE HELPERS ----------------------
-async function findMemberDocIdByUid(uid) {
-  if (!uid) return null;
-  const membersRef = collection(db, "members");
-  const q = query(membersRef, where("user_id", "==", uid));
-  const snap = await getDocs(q);
-  if (snap.empty) return null;
-
-  let docId = null;
-  snap.forEach(d => {
-    if (!docId) docId = d.id;
-  });
-  return docId;
-}
+// NOTE: kept helper minimal — lookup now uses uid as document id via getDoc(doc(...))
+/* removed unused findMemberDocIdByUid to keep logic single-path */
 
 // ---------------------- BADGE / METRICS ----------------------
 function updateBadges(totalLibraryBooksCount) {
@@ -238,32 +228,25 @@ export async function processUserActivityMetricsEngine(forcedUid = null) {
   }
 
   try {
-    // 1) find member doc by user_id
-    const membersRef = collection(db, "members");
-    const userQuery = query(membersRef, where("user_id", "==", uid));
-    const userQuerySnap = await getDocs(userQuery);
+    // 1) find member doc by UID (document id is the uid)
+    const memberDocRef = doc(db, "members", uid);
+    const memberSnap = await getDoc(memberDocRef);
 
-    if (userQuerySnap.empty) {
-      console.log("No member document found for uid:", uid);
+    if (!memberSnap.exists()) {
+      console.log("No member document found for uid (doc id):", uid);
       renderFallbacks();
       return;
     }
 
-    let documentPathName = "";
-    let profileFields = {};
-    userQuerySnap.forEach((docNode) => {
-      if (!documentPathName) {
-        documentPathName = docNode.id;
-        profileFields = docNode.data();
-      }
-    });
+    const profileFields = memberSnap.data();
+    const documentPathName = uid; // using uid as document id
 
     // Inject Login Metrics safely into the UI components
     const totalLoginsCount = parseInt(profileFields.totalLoginsCount) || 0;
     if (loginCountTxt) loginCountTxt.textContent = totalLoginsCount;
     if (streakDaysTxt) streakDaysTxt.textContent = `${totalLoginsCount} Days`;
 
-    // 2) subcollection refs (same as original)
+    // 2) subcollection refs
     const downloadBookRef = collection(db, "members", documentPathName, "download-book");
     const purchasedBooksRef = collection(db, "members", documentPathName, "purchased-books");
     const myLibraryRef = collection(db, "members", documentPathName, "my-library");
@@ -290,22 +273,35 @@ export async function processUserActivityMetricsEngine(forcedUid = null) {
     }
 
     // ------------------- render shelves -------------------
+    // Per your requirement: only use Firestore data if the collection size is > 30; otherwise show fallback.
     if (downloadShelf) {
-      const targetArray = downloadSnap.empty ? FALLBACK.downloads.slice() : [];
-      if (!downloadSnap.empty) downloadSnap.forEach(docNode => targetArray.push({ id: docNode.id, ...docNode.data() }));
-      renderMiniCards(targetArray, downloadShelf, "Ready Offline", false, documentPathName);
+      if (!downloadSnap.empty && downloadSnap.size > 30) {
+        const targetArray = [];
+        downloadSnap.forEach(docNode => targetArray.push({ id: docNode.id, ...docNode.data() }));
+        renderMiniCards(targetArray, downloadShelf, "Ready Offline", false, documentPathName);
+      } else {
+        renderMiniCards(FALLBACK.downloads, downloadShelf, "Ready Offline", false, null);
+      }
     }
 
     if (purchaseShelf) {
-      const targetArray = purchaseSnap.empty ? FALLBACK.purchases.slice() : [];
-      if (!purchaseSnap.empty) purchaseSnap.forEach(docNode => targetArray.push({ id: docNode.id, ...docNode.data() }));
-      renderMiniCards(targetArray, purchaseShelf, "Purchased", false, documentPathName);
+      if (!purchaseSnap.empty && purchaseSnap.size > 30) {
+        const targetArray = [];
+        purchaseSnap.forEach(docNode => targetArray.push({ id: docNode.id, ...docNode.data() }));
+        renderMiniCards(targetArray, purchaseShelf, "Purchased", false, documentPathName);
+      } else {
+        renderMiniCards(FALLBACK.purchases, purchaseShelf, "Purchased", false, null);
+      }
     }
 
     if (favoritesShelf) {
-      const targetArray = librarySnap.empty ? FALLBACK.library.slice() : [];
-      if (!librarySnap.empty) librarySnap.forEach(docNode => targetArray.push({ id: docNode.id, ...docNode.data() }));
-      renderMiniCards(targetArray, favoritesShelf, "Library Shelf", !librarySnap.empty, documentPathName);
+      if (!librarySnap.empty && librarySnap.size > 30) {
+        const targetArray = [];
+        librarySnap.forEach(docNode => targetArray.push({ id: docNode.id, ...docNode.data() }));
+        renderMiniCards(targetArray, favoritesShelf, "Library Shelf", true, documentPathName);
+      } else {
+        renderMiniCards(FALLBACK.library, favoritesShelf, "Library Shelf", false, null);
+      }
     }
 
   } catch (err) {

@@ -81,14 +81,10 @@ if (!signupForm) {
     if (locationEl && !location) { showError("locationError", "Please enter your location."); isValid = false; }
     if (genderEl && !gender) { showError("genderError", "Please select your gender."); isValid = false; }
     
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+\$/;
     if (!email) { 
-      showError("emailError", "Please enter your email."); 
-      isValid = false; 
-    } else if (!emailPattern.test(email)) { 
-      showError("emailError", "Please enter a valid email address."); 
-      isValid = false; 
-    }
+  showError("emailError", "Please enter your email."); 
+  isValid = false; 
+}
 
     if (!password) { 
       showError("passwordError", "Please enter a password."); 
