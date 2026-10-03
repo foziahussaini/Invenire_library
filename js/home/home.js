@@ -1,5 +1,11 @@
 import { auth } from "../../src/firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { db } from "../../src/firebase-config.js";
+import {
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
     const loginBtn = document.querySelector(".login-btn");
     const signupBtn = document.querySelector(".signup-btn");
 onAuthStateChanged(auth, (user) => {
@@ -213,7 +219,90 @@ function rotateSubtitles() {
         subtitleElement.classList.remove("slide-from-right");
     }, 600); 
 }
+// ==================== FEEDBACK FORM ====================
 
+const feedbackForm = document.getElementById("feedback-form");
+
+if (feedbackForm) {
+    feedbackForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById("feedback-name")?.value.trim();
+        const email = document.getElementById("feedback-email")?.value.trim();
+        const message = document.getElementById("feedback-message")?.value.trim();
+        const rating = Number(
+            document.getElementById("feedback-rating-value")?.value || 0
+        );
+
+        if (!name || !email || !message || rating === 0) {
+            alert("Please complete all fields and select a rating.");
+            return;
+        }
+
+        try {
+            await addDoc(collection(db, "feedback"), {
+                name,
+                email,
+                message,
+                rating,
+                createdAt: serverTimestamp()
+            });
+
+            alert("Thank you! Your feedback has been submitted.");
+
+            feedbackForm.reset();
+
+            const ratingValue =
+                document.getElementById("feedback-rating-value");
+
+            if (ratingValue) {
+                ratingValue.value = "0";
+            }
+
+        } catch (error) {
+            console.error("FEEDBACK SUBMIT ERROR:", error);
+            console.error("Error code:", error.code);
+            console.error("Error message:", error.message);
+
+            alert(
+                `Something went wrong.\n\n${error.code || ""}\n${error.message || ""}`
+            );
+            }           
+    });
+}
+
+// ==================== FEEDBACK RATING ====================
+
+const feedbackStars = document.querySelectorAll(
+    "#feedback-stars button"
+);
+
+const feedbackRatingValue = document.getElementById(
+    "feedback-rating-value"
+);
+
+feedbackStars.forEach((star) => {
+
+    star.addEventListener("click", () => {
+
+        const selectedRating =
+            Number(star.dataset.rating);
+
+        feedbackRatingValue.value = selectedRating;
+
+        feedbackStars.forEach((item) => {
+
+            const itemRating =
+                Number(item.dataset.rating);
+
+            item.textContent =
+                itemRating <= selectedRating
+                    ? "★"
+                    : "☆";
+        });
+    });
+
+});
 // Automatically trigger a phrase swap every 5 seconds (5000 milliseconds)
 setInterval(rotateSubtitles, 5000);
 

@@ -4,6 +4,8 @@ import {
     collection,
     getDocs
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { auth } from "../../src/firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 
 // ==================== FALLBACK BOOKS ====================
@@ -57,6 +59,7 @@ const searchInput = document.querySelector(".search-input");
 const searchResultContainer = document.querySelector(".searchResult");
 const searchClear = document.querySelector(".search-clear");
 const categoryButtons = document.querySelectorAll(".category-btn");
+const nextReadContainer = document.getElementById("next-read-container");
 
 let allBooks = [];
 let selectedCategory = "all";
@@ -71,6 +74,36 @@ function normalizeText(value) {
         .trim()
         .replace(/[_-]+/g, " ")
         .replace(/\s+/g, " ");
+}
+
+function saveSearchHistory(searchText) {
+    const user = auth.currentUser;
+
+    if (!user || !searchText) {
+        return;
+    }
+
+    const key = `searchHistory_${user.uid}`;
+
+    let history = [];
+
+    try {
+        history = JSON.parse(localStorage.getItem(key)) || [];
+    } catch (error) {
+        history = [];
+    }
+
+    const normalizedSearch = normalizeText(searchText);
+
+    history = history.filter(
+        (item) => normalizeText(item) !== normalizedSearch
+    );
+
+    history.unshift(searchText.trim());
+
+    history = history.slice(0, 10);
+
+    localStorage.setItem(key, JSON.stringify(history));
 }
 
 
@@ -112,6 +145,7 @@ async function loadBooks() {
         });
 
         allBooks = dynamicBooks;
+        renderNextReadBooks(); 
 
     } catch (error) {
         console.warn(
@@ -120,7 +154,156 @@ async function loadBooks() {
         );
 
         allBooks = fallbackBooks;
+        renderNextReadBooks();
     }
+}
+
+function getSearchHistory() {
+    const user = auth.currentUser;
+
+    if (!user) {
+        return [];
+    }
+
+    const key = `searchHistory_${user.uid}`;
+
+    try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch (error) {
+        return [];
+    }
+}
+
+function getNextReadBooks() {
+    if (!allBooks.length) {
+        return [];
+    }
+
+    const history = getSearchHistory();
+
+    // if the user doesnt have a search history
+    if (history.length === 0) {
+        return [...allBooks]
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 4);
+    }
+
+    const searchTerms = history.map(normalizeText);
+
+    const scoredBooks = allBooks.map((book) => {
+        const bookName = normalizeText(book.book_name);
+        const author = normalizeText(book.author);
+        const genre = normalizeText(book.genre);
+
+        let score = 0;
+
+        searchTerms.forEach((term) => {
+            if (bookName.includes(term)) {
+                score += 5;
+            }
+
+            if (author.includes(term)) {
+                score += 4;
+            }
+
+            if (genre.includes(term)) {
+                score += 3;
+            }
+        });
+
+        return {
+            book,
+            score
+        };
+    });
+
+    return scoredBooks
+        .sort((a, b) => b.score - a.score)
+        .map((item) => item.book)
+        .slice(0, 4);
+}
+
+function renderNextReadBooks() {
+    if (!nextReadContainer) {
+        return;
+    }
+
+    const books = getNextReadBooks();
+
+    nextReadContainer.innerHTML = "";
+
+    books.forEach((book) => {
+        const title = book.book_name;
+        const author = book.author;
+
+        const fullDescription =
+            book.short_details || "No description available.";
+
+        const textLimit = 100;
+
+        const isLongText =
+            fullDescription.length > textLimit;
+
+        const shortDescription = isLongText
+            ? fullDescription.substring(0, textLimit) + "..."
+            : fullDescription;
+
+        const article = document.createElement("article");
+
+        article.className = "book-cards card1";
+
+        article.innerHTML = `
+            <div class="book-cover">
+                <img
+                    src="${book.cover_image || ""}"
+                    alt="${title} cover"
+                >
+            </div>
+
+            <div class="book-name">
+                ${title}
+            </div>
+
+            <div class="book-author">
+                ${author}
+            </div>
+
+            <bookdescription>
+                <span class="desc-text">
+                    ${shortDescription}
+                </span>
+
+                ${
+                    isLongText
+                        ? `
+                            <button
+                                type="button"
+                                class="toggle-desc-btn"
+                            >
+                                Read More
+                            </button>
+                        `
+                        : ""
+                }
+            </bookdescription>
+        `;
+
+        if (isLongText) {
+            const toggleBtn =
+                article.querySelector(".toggle-desc-btn");
+
+            toggleBtn?.addEventListener("click", (event) => {
+                event.stopPropagation();
+                openBookDetailsModal(book);
+            });
+        }
+
+        article.addEventListener("click", () => {
+            openBookDetailsModal(book);
+        });
+
+        nextReadContainer.appendChild(article);
+    });
 }
 
 
@@ -350,6 +533,7 @@ if (searchInput) {
                     }
 
                     filterAndRenderBooks();
+                    saveSearchHistory(searchInput.value); 
 
                 },
                 300
@@ -407,4 +591,8 @@ categoryButtons.forEach((button) => {
         }
     );
 });
+
+onAuthStateChanged(auth, async () => {
+    await loadBooks();
+})
 

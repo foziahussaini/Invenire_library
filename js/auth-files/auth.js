@@ -1,323 +1,663 @@
-import {auth, db } from "../../src/firebase-config.js"; 
-import { doc, setDoc, collection, query, where, getDocs, getDoc 
+import { auth, db } from "../../src/firebase-config.js";
+
+import {
+    doc,
+    setDoc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged,
     setPersistence,
-    browserLocalPersistence,
-    signOut
+    browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
+
+// =========================================================
+// 1. FIREBASE AUTH PERSISTENCE
+// =========================================================
+
 setPersistence(auth, browserLocalPersistence)
+    .then(() => {
+        console.log("Firebase session persistence enabled.");
+    })
     .catch((error) => {
         console.error("Session persistence error:", error);
     });
 
-// Initialize the Google Provider instance
-// --- DOM Elements ---
+
+// =========================================================
+// 2. DOM ELEMENTS
+// =========================================================
+
 const signupForm = document.getElementById("signupForm");
-const loginForm = document.getElementById('login-form');
-const emailInput = document.getElementById('login-email');
-const passwordInput = document.getElementById('login-password');
 
-const emailError = document.getElementById('emailError');
-const passwordError = document.getElementById('passwordError');
-const loginError = document.getElementById('loginError');
+const loginForm = document.getElementById("login-form");
+const emailInput = document.getElementById("login-email");
+const passwordInput = document.getElementById("login-password");
 
-// === 2. REGISTRATION LOGIC ===
-
-
-if (signupForm) {
-    signupForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        clearErrors(); 
-
-        const fullName = document.getElementById("fullName").value.trim();
-        const location = document.getElementById("location").value.trim();
-        const email = document.getElementById("signupEmail").value.trim().toLowerCase();
-        const password = document.getElementById("signupPassword").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-        let isValid = true;
-
-        const gender = document.getElementById("genderHiddenInput") ? document.getElementById("genderHiddenInput").value : ""; 
-        const theme = document.getElementById("themeHiddenInput") ? document.getElementById("themeHiddenInput").value : "light"; 
-        const language = document.getElementById("langHiddenInput") ? document.getElementById("langHiddenInput").value : "en"; 
-
-        // --- Field Validations ---
-        if (fullName === "") { showError("fullNameError", "Please enter your full name."); isValid = false; }
-        if (location === "") { showError("locationError", "Please enter your location."); isValid = false; }
-        if (gender === "") { showError("genderError", "Please select your gender."); isValid = false; }
-        
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email === "") { showError("emailError", "Please enter your email."); isValid = false; } 
-        else if (!emailPattern.test(email)) { showError("emailError", "Please enter a valid email address."); isValid = false; }
-
-        if (password === "") { showError("passwordError", "Please enter a password."); isValid = false; } 
-        else if (password.length < 8) { showError("passwordError", "Password must be at least 8 characters."); isValid = false; }
-        if (confirmPassword === "") { showError("confirmPasswordError", "Please confirm your password."); isValid = false; } 
-        else if (password !== confirmPassword) { showError("confirmPasswordError", "Passwords do not match."); isValid = false; }
-
-        if (!isValid) {
-        }
-
-        try {
-            console.log("SIGHNUP AUTH CODE REACHED"); 
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        } catch (error) {
-            console.error("Signup Auth Error:", error);
-            displayFirebaseErrors(error);
-            return;
-        }
+const emailError = document.getElementById("emailError");
+const passwordError = document.getElementById("passwordError");
+const loginError = document.getElementById("loginError");
 
 
-        // --- CHECK FIRESTORE FOR EXISTING EMAIL ---
-        try {
-            const membersRef = collection(db, "members");
-            const emailQuery = query(membersRef, where("email", "==", email));
-            const querySnapshot = await getDocs(emailQuery);
+// =========================================================
+// 3. ERROR FUNCTIONS
+// =========================================================
 
-            if (!querySnapshot.empty) {
-                showError("signupError", "It seems this email already used try another");
-                return; 
-            }
-        } catch (error) {
-            console.error("Error checking existing email: ", error);
-            showError("signupError", "Database error. Please try again.");
-            return;
-        }
-
-        // --- Setup Dynamic Profile Image ---
-        let avatar = "defaultProfile.png"; 
-        if (gender === "male") {
-            avatar = "manProfile.png"; 
-        } else if (gender === "female") {
-            avatar = "femaleProfile.png"; 
-        }
-
-        const userData = {
-            full_name: fullName,
-            email: email,
-            location: location, 
-            gender: gender,
-            "profile-Img": avatar,
-            isLoggedIn: true,
-            "last-login": new Date().toISOString(),
-            theme_preference: theme,
-            language_preference: language 
-        };
-
-        try {
-
-            window.location.href = "../../pages/user_dashboard.html";
-
-        } catch (error) {
-            console.error("Firestore Save Failure: ", error);
-            showError("signupError", "Failed to register account storage. Try again.");
-        }
-    });
-}
-
-// === 3. LOGIN ROUTING & SESSION ENGINE ===
-async function handleUserRouting(user) {
-    const email = user.email.toLowerCase();
-
-    try {
-        // 1. Look inside the 'config' collection for Admin validation
-        // (Assumes Admin config docs are keyed by their email string)
-        const adminDocRef = doc(db, "config", email);
-        const adminDocSnap = await getDoc(adminDocRef);
-
-        if (adminDocSnap.exists()) {
-            localStorage.setItem("userSession", JSON.stringify({ 
-                email: email, 
-                role: "admin", 
-                uid: user.uid 
-            }));
-            localStorage.setItem("invenireLoggedIn", "true");
-            window.location.href = "./adminadashboard.js"; 
-            return;
-        }
-
-        // 2. Look inside the 'members' collection for registered user accounts
-        // (Queries by email field since custom user IDs look like 'member4827')
-        const membersRef = collection(db, "members");
-        const memberQuery = query(membersRef, where("email", "==", email));
-        const memberSnapshot = await getDocs(memberQuery);
-
-        if (!memberSnapshot.empty) {
-            const memberDoc = memberSnapshot.docs[0];
-            const memberData = memberDoc.data();
-
-            localStorage.setItem("userSession", JSON.stringify({ 
-                email: email, 
-                role: "member", 
-                uid: user.uid 
-            }));
-            localStorage.setItem("invenireUser", JSON.stringify(memberData));
-            localStorage.setItem("invenireLoggedIn", "true");
-            
-            window.location.href = "../../pages/user_dashboard.html";
-            return;
-        }
-
-        // Fallback if authenticated via Firebase Auth/Google but missing from firestore database
-        showError("loginError", "Account verified, but no profile records found in database.");
-        
-    } catch (error) {
-        console.error("Firestore Routing Error:", error);
-        showError("loginError", "Database error. Failed to retrieve profile workspace properties.");
-    }
-}
-
-// === 4. ERROR DISPLAY AND FORMATTING RENDERING ENGINE ===
 function showError(errorId, message) {
     const errorElement = document.getElementById(errorId);
-    if (errorElement) { 
-        errorElement.textContent = message; 
-        errorElement.style.display = "block"; 
-        errorElement.closest(".input-group")?.classList.add("invalid");
+
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = "block";
+
+        errorElement
+            .closest(".input-group")
+            ?.classList.add("invalid");
     }
 }
+
 
 function clearErrors() {
-    // Structural layout clearing for both systems combined seamlessly
-    document.querySelectorAll(".error-message, .form-error").forEach(el => {
-        el.textContent = "";
-        el.style.display = "none"; 
-    });
-    document.querySelectorAll(".input-group").forEach(el => el.classList.remove("invalid"));
-    
-    if (emailError) emailError.textContent = "";
-    if (passwordError) passwordError.textContent = "";
-    if (loginError) loginError.textContent = "";
+    document
+        .querySelectorAll(".error-message, .form-error")
+        .forEach((element) => {
+            element.textContent = "";
+            element.style.display = "none";
+        });
+
+    document
+        .querySelectorAll(".input-group")
+        .forEach((element) => {
+            element.classList.remove("invalid");
+        });
+
+    if (emailError) {
+        emailError.textContent = "";
+    }
+
+    if (passwordError) {
+        passwordError.textContent = "";
+    }
+
+    if (loginError) {
+        loginError.textContent = "";
+    }
 }
 
+
 function displayFirebaseErrors(error) {
-    console.error("Auth Error Code:", error.code);
-    
+    console.error("Firebase Error Code:", error.code);
+
     switch (error.code) {
-        case 'auth/invalid-email':
-            showError("emailError", "The format of this email address is invalid.");
+
+        case "auth/invalid-email":
+            showError(
+                "emailError",
+                "The format of this email address is invalid."
+            );
             break;
-        case 'auth/user-not-found':
-            showError("emailError", "This email address has not been signed up yet.");
+
+        case "auth/user-not-found":
+            showError(
+                "emailError",
+                "This email address has not been signed up yet."
+            );
             break;
-        case 'auth/wrong-password':
-            showError("passwordError", "Incorrect password. Please try again.");
+
+        case "auth/wrong-password":
+            showError(
+                "passwordError",
+                "Incorrect password. Please try again."
+            );
             break;
-        case 'auth/network-request-failed':
-            showError("loginError", "Network error. Please verify your internet connection.");
+
+        case "auth/invalid-credential":
+            showError(
+                "loginError",
+                "Incorrect email or password."
+            );
             break;
-         case 'auth/invalid-credential':
-            showError("loginError", "Incorrect email or password.");
+
+        case "auth/email-already-in-use":
+            showError(
+                "emailError",
+                "This email is already registered. Please login instead."
+            );
             break;
+
+        case "auth/weak-password":
+            showError(
+                "passwordError",
+                "Password must be at least 6 characters."
+            );
+            break;
+
+        case "auth/network-request-failed":
+            showError(
+                "loginError",
+                "Network error. Please check your internet connection."
+            );
+            break;
+
         default:
-            showError("loginError", error.message);
+            showError(
+                "loginError",
+                error.message || "Something went wrong. Please try again."
+            );
             break;
     }
 }
-console.log("login form found", loginForm); 
 
-// === 5. LOGIN FORM ACTIONS (Direct Firestore Verification with Correct Field Queries) ===
-if (loginForm) {
-    console.log("LOGIN SUBMIT LISTENER ATTACHED");
 
-    loginForm.addEventListener('submit', async (e) => {
-        console.log("LOGIN SUBMIT FIRED");
+// =========================================================
+// 4. SIGN UP
+// =========================================================
 
-        e.preventDefault();
+if (signupForm) {
+
+    console.log("SIGNUP FORM FOUND");
+
+    signupForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
         clearErrors();
 
-        const email = emailInput.value.trim().toLowerCase();
-        const password = passwordInput.value;
+        // -----------------------------------------------------
+        // Get form values
+        // -----------------------------------------------------
+
+        const fullName =
+            document.getElementById("fullName")?.value.trim() || "";
+
+        const location =
+            document.getElementById("location")?.value.trim() || "";
+
+        const email =
+            document.getElementById("signupEmail")
+                ?.value.trim()
+                .toLowerCase() || "";
+
+        const password =
+            document.getElementById("signupPassword")?.value || "";
+
+        const confirmPassword =
+            document.getElementById("confirmPassword")?.value || "";
+
+
+        const gender =
+            document.getElementById("genderHiddenInput")?.value || "";
+
+        const theme =
+            document.getElementById("themeHiddenInput")?.value || "light";
+
+        const language =
+            document.getElementById("langHiddenInput")?.value || "en";
+
+
+        // -----------------------------------------------------
+        // Validation
+        // -----------------------------------------------------
+
+        let isValid = true;
+
+
+        if (!fullName) {
+            showError(
+                "fullNameError",
+                "Please enter your full name."
+            );
+            isValid = false;
+        }
+
+
+        if (!location) {
+            showError(
+                "locationError",
+                "Please enter your location."
+            );
+            isValid = false;
+        }
+
+
+        if (!gender) {
+            showError(
+                "genderError",
+                "Please select your gender."
+            );
+            isValid = false;
+        }
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 
         if (!email) {
-            showError("emailError", "Email field is required.");
-            return;
+
+            showError(
+                "emailError",
+                "Please enter your email."
+            );
+
+            isValid = false;
+
+        } else if (!emailPattern.test(email)) {
+
+            showError(
+                "emailError",
+                "Please enter a valid email address."
+            );
+
+            isValid = false;
         }
+
 
         if (!password) {
-            showError("passwordError", "Password field is required.");
+
+            showError(
+                "passwordError",
+                "Please enter a password."
+            );
+
+            isValid = false;
+
+        } else if (password.length < 8) {
+
+            showError(
+                "passwordError",
+                "Password must be at least 8 characters."
+            );
+
+            isValid = false;
+        }
+
+
+        if (!confirmPassword) {
+
+            showError(
+                "confirmPasswordError",
+                "Please confirm your password."
+            );
+
+            isValid = false;
+
+        } else if (password !== confirmPassword) {
+
+            showError(
+                "confirmPasswordError",
+                "Passwords do not match."
+            );
+
+            isValid = false;
+        }
+
+
+        // IMPORTANT
+        // Stop here if validation failed.
+
+        if (!isValid) {
             return;
         }
 
+
+        // =====================================================
+        // CREATE FIREBASE AUTH ACCOUNT
+        // =====================================================
+
         try {
-            // First authenticate the user with Firebase Authentication
-            const userCredential = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+
+            console.log("SIGNUP AUTH CODE REACHED");
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
             const user = userCredential.user;
 
-            console.log("Firebase Authentication successful:", user.uid);
-
-            // Now that the user is authenticated, check Admin config
-            const configRef = collection(db, "config");
-            const adminQuery = query(
-                configRef,
-                where("admin_email", "==", email)
+            console.log(
+                "Firebase Authentication successful:",
+                user.uid
             );
 
-            const adminSnapshot = await getDocs(adminQuery);
 
-            if (!adminSnapshot.empty) {
-                const adminDoc = adminSnapshot.docs[0];
+            // -------------------------------------------------
+            // Select profile image
+            // -------------------------------------------------
 
-                localStorage.setItem(
-                    "userSession",
-                    JSON.stringify({
-                        email: email,
-                        role: "admin",
-                        uid: adminDoc.id
-                    })
-                );
+            let avatar = "defaultProfile.png";
 
-                localStorage.setItem("invenireLoggedIn", "true");
-
-                window.location.href = "./admin_dashboard.html";
-                return;
+            if (gender === "male") {
+                avatar = "manProfile.png";
             }
 
-            // Check member profile after authentication
-            window.location.href = "../../pages/user_dashboard.html";
-                return;
+            if (gender === "female") {
+                avatar = "femaleProfile.png";
+            }
 
-            if (!memberSnapshot.empty) {
-                const memberDoc = memberSnapshot.docs[0];
-                const memberData = memberDoc.data();
 
-                localStorage.setItem(
-                    "userSession",
-                    JSON.stringify({
-                        email: email,
-                        role: "member",
-                        uid: user.uid
-                    })
+            // -------------------------------------------------
+            // Create member profile
+            // -------------------------------------------------
+
+            const userData = {
+
+                full_name: fullName,
+
+                email: email,
+
+                location: location,
+
+                gender: gender,
+
+                "profile-Img": avatar,
+
+                isLoggedIn: true,
+
+                "last-login":
+                    new Date().toISOString(),
+
+                theme_preference: theme,
+
+                language_preference: language
+            };
+
+
+            // -------------------------------------------------
+            // Save profile using Firebase UID
+            // -------------------------------------------------
+
+            await setDoc(
+                doc(db, "members", user.uid),
+                userData
+            );
+
+
+            console.log(
+                "Member profile created successfully."
+            );
+
+
+            // -------------------------------------------------
+            // Save local session
+            // -------------------------------------------------
+
+            localStorage.setItem(
+                "userSession",
+                JSON.stringify({
+                    email: email,
+                    role: "member",
+                    uid: user.uid
+                })
+            );
+
+
+            localStorage.setItem(
+                "invenireUser",
+                JSON.stringify(userData)
+            );
+
+
+            localStorage.setItem(
+                "invenireLoggedIn",
+                "true"
+            );
+
+
+            // -------------------------------------------------
+            // Go to Home
+            // -------------------------------------------------
+
+            window.location.href = "../../pages/home.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Signup Error:",
+                error
+            );
+
+            displayFirebaseErrors(error);
+        }
+    });
+}
+
+
+// =========================================================
+// 5. LOGIN
+// =========================================================
+
+if (loginForm) {
+
+    console.log("LOGIN FORM FOUND");
+    console.log("LOGIN SUBMIT LISTENER ATTACHED");
+
+
+    loginForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        console.log("LOGIN SUBMIT FIRED");
+
+        clearErrors();
+
+
+        const email =
+            emailInput?.value.trim().toLowerCase() || "";
+
+        const password =
+            passwordInput?.value || "";
+
+
+        // -----------------------------------------------------
+        // Validation
+        // -----------------------------------------------------
+
+        if (!email) {
+
+            showError(
+                "emailError",
+                "Email field is required."
+            );
+
+            return;
+        }
+
+
+        if (!password) {
+
+            showError(
+                "passwordError",
+                "Password field is required."
+            );
+
+            return;
+        }
+
+
+        // =====================================================
+        // FIREBASE AUTHENTICATION
+        // =====================================================
+
+        try {
+
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
                 );
+
+
+            const user =
+                userCredential.user;
+
+
+            console.log(
+                "Firebase Authentication successful:",
+                user.uid
+            );
+
+
+            // =================================================
+            // TRY ADMIN CHECK
+            // =================================================
+
+            try {
+
+                const adminDocRef =
+                    doc(db, "config", email);
+
+                const adminDocSnap =
+                    await getDoc(adminDocRef);
+
+
+                if (adminDocSnap.exists()) {
+
+                    console.log(
+                        "Admin account detected."
+                    );
+
+
+                    localStorage.setItem(
+                        "userSession",
+                        JSON.stringify({
+                            email: email,
+                            role: "admin",
+                            uid: user.uid
+                        })
+                    );
+
+
+                    localStorage.setItem(
+                        "invenireLoggedIn",
+                        "true"
+                    );
+
+
+                    window.location.href =
+                        "../../pages/admin_dashboard.html";
+
+                    return;
+                }
+
+            } catch (adminError) {
+
+                /*
+                 * If Firestore doesn't allow the admin check,
+                 * don't destroy normal member login.
+                 */
+
+                console.warn(
+                    "Admin check unavailable. Continuing as member.",
+                    adminError
+                );
+            }
+
+
+            // =================================================
+            // GET MEMBER PROFILE
+            // =================================================
+
+            let memberData = null;
+
+
+            try {
+
+                const memberDocRef =
+                    doc(db, "members", user.uid);
+
+                const memberDocSnap =
+                    await getDoc(memberDocRef);
+
+
+                if (memberDocSnap.exists()) {
+
+                    memberData =
+                        memberDocSnap.data();
+
+                    console.log(
+                        "Member profile loaded."
+                    );
+
+                } else {
+
+                    console.warn(
+                        "No member profile found. Continuing with Auth account."
+                    );
+                }
+
+            } catch (memberError) {
+
+                /*
+                 * Firestore permission problems should not
+                 * prevent Firebase Authentication from logging
+                 * the user in.
+                 */
+
+                console.warn(
+                    "Could not read member profile:",
+                    memberError
+                );
+            }
+
+
+            // =================================================
+            // SAVE MEMBER SESSION
+            // =================================================
+
+            localStorage.setItem(
+                "userSession",
+                JSON.stringify({
+                    email: email,
+                    role: "member",
+                    uid: user.uid
+                })
+            );
+
+
+            if (memberData) {
 
                 localStorage.setItem(
                     "invenireUser",
                     JSON.stringify(memberData)
                 );
-
-                localStorage.setItem("invenireLoggedIn", "true");
-
-                window.location.href = "../../pages/user_dashboard.html";
-                return;
             }
 
-            showError(
-                "loginError",
-                "Account verified, but no profile records found in database."
+
+            localStorage.setItem(
+                "invenireLoggedIn",
+                "true"
             );
 
+
+            console.log(
+                "Login session created successfully."
+            );
+
+
+            // =================================================
+            // GO TO HOME
+            // =================================================
+
+            window.location.href =
+                "../../pages/home.html";
+
+
         } catch (error) {
-            console.error("Login Error:", error);
+
+            console.error(
+                "Login Error:",
+                error
+            );
+
             displayFirebaseErrors(error);
         }
     });
