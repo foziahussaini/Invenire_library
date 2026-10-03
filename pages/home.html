@@ -22,6 +22,52 @@
     <script type="module" src="../js/home/home_search.js"></script>
 </head>
 <body>
+
+    <div class="dark-particles" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <!-- header part -->
     <header>
         
@@ -235,7 +281,7 @@
 
         <!--search bar -->
         
-        <section class="search-section">
+        <section class="search-section" id="search">
 
             <div class="search-bar">
                 <i class="fas fa-search"></i>
@@ -279,57 +325,21 @@
 
         <!-- Recent book Section3 -->
         <section class="book-section section3">
-            <div class="section-header"><h2>Recent</h2></div>
+            <div class="section-header"><h2><span>Recently</span> Added</h2></div>
             <div class="books-grid" id="recent-books"></div>
         </section>
-        <br>
-        <!-- ==============a quotation baaner Section4======================= -->
-        <section class="quotation-section section4">
-            <div class="quotation-container">
-                    <div class="commercial-badge">Premium Editions Collection</div>
-                    <p>From timeless classical poetry to immersive modern fiction, 
-                        <br>find the perfect edition of your next favorite romance and masterpiece literature.</p>
-                    <div class="genres-row">
-                        <span class="genre-tag">📚 Fiction</span>
-                        <span class="genre-tag">💖 Romance</span>
-                        <span class="genre-tag">🖋️ Literature</span>
-                        <span class="genre-tag">✨ Poetry</span>
-                    </div>
-            </div>
-        </section>
+        
 
 
         <!-- Next Read Grid -->
         <section class="explore-section section5" id="explore">
             <div class="section-header">
-                <h2>Your Next Read</h2>
-                <p>Books waiting for you to start reading.</p>
+                <h2>Your <span>Next Read</span></h2>
             </div>
             <div class="books-grid" id="next-read-container"></div>
         </section>
 
-        <!-- Enjoy Section -->
-        <section class="book-section section5">
-            <div class="section-header">
-                <h2>We Think You'll Enjoy</h2>
-                <p>More books selected around your reading interests.</p>
-            </div>
-            <div class="books-grid" id="enjoy-container"></div>
-        </section>
-
-        <!-- Try New Section -->
-        <section class="book-section try-new-section">
-            <div class="section-header">
-                <h2>Try Something New</h2>
-                <p>Explore something different based on what you already enjoy.</p>
-            </div>
-            <div class="books-grid" id="try-new-container"></div>
-        </section>
-
-        <!-- 2nd banner -->
-        <section class="banner-book section6">
-            <div class="banner-img"></div> <!-- image set at css-->
-        </section>
+    
     </div>
 
             <!-- =========================================================
@@ -535,27 +545,120 @@
             </div>
 
         </div>
+
+         <!--feadback section-->
+        <section class="feedback-section" id="contact">
+
+            <div class="feedback-header">
+                <span>We'd Love to Hear From You</span>
+                <h2>Share Your <span>Thoughts</span></h2>
+                <p>
+                    Have feedback, a question, or a suggestion?
+                    Let us know what you think about Invenire.
+                </p>
+            </div>
+
+            <form class="feedback-form" id="feedback-form">
+
+                <div class="feedback-field">
+                    <label for="feedback-name">Name</label>
+                    <input
+                        type="text"
+                        id="feedback-name"
+                        name="name"
+                        placeholder="Your name"
+                        required
+                    >
+                </div>
+
+                <div class="feedback-field">
+                    <label for="feedback-email">Email</label>
+                    <input
+                        type="email"
+                        id="feedback-email"
+                        name="email"
+                        placeholder="Your email"
+                        required
+                    >
+                </div>
+
+                <div class="feedback-field feedback-full">
+                    <label for="feedback-message">Feedback / Question</label>
+                    <textarea
+                        id="feedback-message"
+                        name="message"
+                        rows="5"
+                        placeholder="Write your feedback or question..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="feedback-rating">
+                    <span>Rate us</span>
+
+                    <div class="feedback-stars" id="feedback-stars">
+                        <button type="button" data-rating="1">☆</button>
+                        <button type="button" data-rating="2">☆</button>
+                        <button type="button" data-rating="3">☆</button>
+                        <button type="button" data-rating="4">☆</button>
+                        <button type="button" data-rating="5">☆</button>
+                    </div>
+
+                    <input
+                        type="hidden"
+                        id="feedback-rating-value"
+                        name="rating"
+                        value="0"
+                    >
+                </div>
+
+                <button type="submit" class="feedback-submit">
+                    Send Feedback
+                </button>
+
+            </form>
+
+        </section>
    
 
     <footer class="home-footer">
         <div class="footer-container">
+
             <div class="footer-brand">
-                <img src="../images/logo/logo.png" alt="Invenire Library" class="footer-logo">
+                <img
+                    src="../images/logo/logo.png"
+                    alt="Invenire Library"
+                    class="footer-logo"
+                >
+
                 <h3>Invenire Library</h3>
+
                 <p>Read. Explore. Discover Yourself.</p>
             </div>
+
+
             <div class="footer-links">
                 <h4>Quick Links</h4>
+
                 <a href="home.html">Home</a>
-                <a href="search.html">Search</a>
+                <a href="home.html#search">Search</a>
+                <a href="user_subPages/user_setting.html"> Settings</a>
+                <a href="user_dashboard.html">Dashboard</a>
                 <a href="library.html">Library</a>
             </div>
+
+
             <div class="footer-contact">
                 <h4>Contact</h4>
+
                 <p>Have a question or suggestion?</p>
-                <a href="#contact">Contact Us</a>
+
+                <a href="home.html#contact">Contact Us</a>
             </div>
+
         </div>
+
+
         <div class="footer-bottom">
             <p>© 2026 Invenire Library. All rights reserved.</p>
         </div>
@@ -568,5 +671,6 @@
         }
     </script>
     <script type="module" src="../js/home/home.js"></script>
+    <script src="../js/dashboard/sub_pages/theme.js"></script>
 </body>
 </html>

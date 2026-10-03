@@ -1,17 +1,35 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root{
-/* ----------------all the base colors---------------------*/
-    --primary-font-family: 'Yaldevi', sans-serif;;
+:root {
+
+    /* ==================== BASE COLORS ==================== */
+
+    --primary-font-family: 'Yaldevi', sans-serif;
+
     --main-background-color: #d5e4f7a2;
-    --header-background-color: linear-gradient(135deg, #8FB4E3 0%, #266bac, #dcedfe );
-    --subheader-background: linear-gradient(145deg, #cc927071 , #8FB4E3,
-     #8FB4E3,  #e3ca9837, #8FB4E3
-   );
+
+    --header-background-color:
+        linear-gradient(
+            135deg,
+            #8FB4E3 0%,
+            #266bac,
+            #dcedfe
+        );
+
+    --subheader-background:
+        linear-gradient(
+            145deg,
+            #cc9170,
+            #8FB4E3,
+            #8FB4E3,
+            #c49f8a,
+            #8FB4E3,
+            #f7a500af
+        );
 
     --main-text-color: #1b2844;
     --hover-text-color: #D4A017;
@@ -21,41 +39,158 @@
     --btn-hover-background-color: #2E6FB7;
     --btn-text-color: #FFFFFF;
     --btn-text-hover-color: #ded9d9;
-    
-    --card-background-color: #F0F2F5;
-    --card-hover-background-color: linear-gradient(135deg, #266bac64 10%, #75c8f1e0 50%);
-    --card-head-smooth-background-color: #266bac76;
-    --badge-box-shadow: 0 8px 20px rgba(14, 165, 233, 0.14);
 
-    --highest-chart-background-color: linear-gradient(135deg, #255ed9 10%,#266baccf 50%, #061f54, #284F7A );
-    --lowest-chart-background-color: linear-gradient(135deg, #ca2718c2 10%, #ff00008b 50%);
-    --normal-chart-background-color: linear-gradient(135deg, #f7a5008e 10%, #c9761e 50%, #F7A500);
-    --hero-animated-text-color: linear-gradient(135deg , #266baccf 10%,
-    #0073f78e,
-    #ff000041,
-    #0073f78e);
-    
+    --card-background-color: #F0F2F5;
+
+    --card-hover-background-color:
+        linear-gradient(
+            135deg,
+            #266bac64 10%,
+            #75c8f1e0 50%
+        );
+
+    --card-head-smooth-background-color: #266bac76;
+
+    --highest-chart-background-color:
+        linear-gradient(
+            135deg,
+            #255ed9 10%,
+            #266baccf 50%,
+            #061f54,
+            #284F7A
+        );
+
+    --lowest-chart-background-color:
+        linear-gradient(
+            135deg,
+            #ca2718c2 10%,
+            #ff00008b 50%
+        );
+
+    --normal-chart-background-color:
+        linear-gradient(
+            135deg,
+            #f7a5008e 10%,
+            #c9761e 50%,
+            #F7A500
+        );
+
+    --hero-animated-text-color:
+        linear-gradient(
+            135deg,
+            #ac26a8cf,
+            #266baccf 10%,
+            #F7A500,
+            #0073f78e,
+            #ff00008b,
+            #0073f78e
+        );
+
     --input-background-color: #ffffff;
     --input-text-color: #0B3A67;
     --input-border-color: #0B3A67;
-    
+
     --dropdown-background-color: #E6F0FA;
+
     --premium-icon-color: #F7A500;
     --fav-icon-color: #ff0000;
-    --active-user: #166534;
-    --footer-background-color: linear-gradient(120deg, #dcedfe 10%, #266bac 50%, #8FB4E3);
+
+    --footer-background-color:
+        linear-gradient(
+            120deg,
+            #dcedfe 10%,
+            #266bac 50%,
+            #8FB4E3
+        );
+
     --footer-text-color: #102141;
 
     --default-border: 0.8px solid var(--input-border-color);
+
     --shadow-color: #0B3A67;
-    --default-box-shadow: 0px 8px 16px var(--shadow-color);
-    --card-box-shadow: 1px 1px 6px #8FB4E3;
+
+    --default-box-shadow:
+        0px 8px 16px var(--shadow-color);
+
+    --card-box-shadow:
+        1px 1px 6px #8FB4E3;
 
     --icon-background-color: #266bac;
-    --icon-box-shadow: 0px 1px 4px var(--premium-icon-color);
 
-    /* ----------------size variables -----------------------*/
-    --main-header-height: 90px;
+    --icon-box-shadow:
+        0px 1px 4px var(--premium-icon-color);
+
+
+    /* ==================== DARK THEME COLORS ==================== */
+
+    --dark-background-color: #061225;
+
+    --dark-background-secondary: #091a32;
+
+    --dark-header-background:
+        linear-gradient(
+            135deg,
+            rgba(5, 17, 37, 0.94),
+            rgba(8, 27, 52, 0.92)
+        );
+
+    --dark-text-color: #e4e8ef;
+
+    --dark-secondary-text-color: #aeb7c6;
+
+    --dark-muted-text-color: #7f8a9d;
+
+    --dark-glass-background:
+        rgba(12, 30, 55, 0.72);
+
+    --dark-glass-light:
+        rgba(23, 48, 79, 0.58);
+
+    --dark-glass-border:
+        rgba(212, 160, 23, 0.22);
+
+    --dark-glass-border-hover:
+        rgba(212, 160, 23, 0.55);
+
+    --dark-gold-color: #D4A017;
+
+    --dark-gold-soft:
+        rgba(212, 160, 23, 0.12);
+
+    --dark-gold-glow:
+        rgba(212, 160, 23, 0.28);
+
+    --dark-gold-shadow:
+        0 8px 25px rgba(212, 160, 23, 0.18),
+        0 0 25px rgba(212, 160, 23, 0.12);
+
+    --dark-card-background:
+        rgba(12, 30, 55, 0.68);
+
+    --dark-card-hover:
+        rgba(20, 46, 76, 0.82);
+
+    --dark-input-background:
+        rgba(10, 27, 49, 0.68);
+
+    --dark-input-border:
+        rgba(212, 160, 23, 0.28);
+
+    --dark-footer-background:
+        linear-gradient(
+            135deg,
+            #040d1c,
+            #071a31,
+            #0a2340
+        );
+
+    --dark-footer-text: #dce2eb;
+
+
+    /* ==================== SIZE VARIABLES ==================== */
+
+    --main-header-height: 85px;
+
     --main-font-size: 16px;
     --header-font-size: 20px;
     --btn-font-size: 18px;
@@ -64,10 +199,110 @@
     --btn-border-radius: 0.6rem;
     --input-border-radius: 0.4rem;
     --main-border-radius: 0.5rem;
-    
+
     --btn-padding: 10px 24px;
     --card-padding: 10px 20px;
     --text-padding: 10px;
 }
 
-/* dark mode */
+
+/* =========================================================
+   DARK THEME
+========================================================= */
+
+body.dark-theme {
+
+    --main-background-color: #061225;
+
+    --header-background-color:
+        linear-gradient(
+            135deg,
+            rgba(5, 17, 37, 0.96),
+            rgba(7, 25, 48, 0.94),
+            rgba(5, 16, 34, 0.96)
+        );
+
+    --subheader-background:
+        linear-gradient(
+            135deg,
+            #07152b,
+            #0a2442,
+            #07172f
+        );
+
+    --main-text-color: #e4e8ef;
+
+    --hover-text-color: #D4A017;
+
+    --sub-script-color: #8fa9c7;
+
+    --btn-background-color: #0d4f91;
+
+    --btn-hover-background-color: #1768b5;
+
+    --btn-text-color: #ffffff;
+
+    --btn-text-hover-color: #ffffff;
+
+    --card-background-color:
+        rgba(12, 30, 55, 0.72);
+
+    --card-hover-background-color:
+        rgba(20, 46, 76, 0.86);
+
+    --card-head-smooth-background-color:
+        rgba(23, 55, 91, 0.7);
+
+    --input-background-color:
+        rgba(10, 27, 49, 0.72);
+
+    --input-text-color: #cbd3df;
+
+    --input-border-color:
+        rgba(212, 160, 23, 0.28);
+
+    --dropdown-background-color:
+        rgba(9, 27, 49, 0.96);
+
+    --premium-icon-color: #D4A017;
+
+    --footer-background-color:
+        linear-gradient(
+            135deg,
+            #040d1c,
+            #071a31,
+            #0a2340
+        );
+
+    --footer-text-color: #dce2eb;
+
+    --default-border:
+        0.8px solid rgba(212, 160, 23, 0.24);
+
+    --shadow-color: #D4A017;
+
+    --default-box-shadow:
+        0 8px 22px rgba(212, 160, 23, 0.16),
+        0 0 18px rgba(212, 160, 23, 0.08);
+
+    --card-box-shadow: 0 4px 10px rgba("212, 160, 23, 0.05"); 
+       
+
+    --icon-background-color: #0b3157;
+
+    --icon-box-shadow:
+        0 1px 8px rgba(212, 160, 23, 0.35);
+
+    --hero-animated-text-color:
+        linear-gradient(
+            135deg,
+            #D4A017,
+            #e5c35b,
+            #8fb4e3,
+            #D4A017,
+            #f1d47a
+        );
+}
+body.dark-theme .dashboard-container {
+    --card-box-shadow: none; 
+}
