@@ -28,6 +28,8 @@ const passwordError = document.getElementById('passwordError');
 const loginError = document.getElementById('loginError');
 
 // === 2. REGISTRATION LOGIC ===
+
+
 if (signupForm) {
     signupForm.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -217,82 +219,106 @@ function displayFirebaseErrors(error) {
             break;
     }
 }
+console.log("login form found", loginForm); 
 
 // === 5. LOGIN FORM ACTIONS (Direct Firestore Verification with Correct Field Queries) ===
 if (loginForm) {
+    console.log("LOGIN SUBMIT LISTENER ATTACHED");
+
     loginForm.addEventListener('submit', async (e) => {
+        console.log("LOGIN SUBMIT FIRED");
+
         e.preventDefault();
         clearErrors();
 
         const email = emailInput.value.trim().toLowerCase();
         const password = passwordInput.value;
 
-        if (!email) { showError("emailError", "Email field is required."); return; }
-        if (!password) { showError("passwordError", "Password field is required."); return; }
+        if (!email) {
+            showError("emailError", "Email field is required.");
+            return;
+        }
+
+        if (!password) {
+            showError("passwordError", "Password field is required.");
+            return;
+        }
 
         try {
-            // 1. FIXED: Query the 'config' collection searching the 'admin_email' field
+            // First authenticate the user with Firebase Authentication
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            const user = userCredential.user;
+
+            console.log("Firebase Authentication successful:", user.uid);
+
+            // Now that the user is authenticated, check Admin config
             const configRef = collection(db, "config");
-            const adminQuery = query(configRef, where("admin_email", "==", email));
+            const adminQuery = query(
+                configRef,
+                where("admin_email", "==", email)
+            );
+
             const adminSnapshot = await getDocs(adminQuery);
 
             if (!adminSnapshot.empty) {
-                const adminDoc = adminSnapshot.docs[0]; // Get the first matching document
-                const adminData = adminDoc.data();
-                
-                // Safety Check: Check if the admin document has a password field set up
-                if (!adminData.password) {
-                    showError("loginError", "Admin profile is missing a password field in Firestore.");
-                    return;
-                }
+                const adminDoc = adminSnapshot.docs[0];
 
-                // Validate admin password
-                if (adminData.password === password) {
-                    localStorage.setItem("userSession", JSON.stringify({ 
-                        email: email, 
-                        role: "admin", 
-                        uid: adminDoc.id // Stores 'adminheader123'
-                    }));
-                    localStorage.setItem("invenireLoggedIn", "true");
-                    window.location.href = "./admin_dashboard.html"; 
-                    return;
-                } else {
-                    showError("passwordError", "Incorrect password.");
-                    return;
-                }
-            }
-
-            // 2. Query the 'members' collection searching the 'email' field
-            const membersRef = collection(db, "members");
-            const memberQuery = query(membersRef, where("email", "==", email));
-            const memberSnapshot = await getDocs(memberQuery);
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
+                localStorage.setItem(
+                    "userSession",
+                    JSON.stringify({
+                        email: email,
+                        role: "admin",
+                        uid: adminDoc.id
+                    })
                 );
 
-                const user = userCredential.user;
+                localStorage.setItem("invenireLoggedIn", "true");
 
-                console.log("Member login successful:", user.uid);
+                window.location.href = "./admin_dashboard.html";
+                return;
+            }
+
+            // Check member profile after authentication
+            window.location.href = "../../pages/user_dashboard.html";
+                return;
+
+            if (!memberSnapshot.empty) {
+                const memberDoc = memberSnapshot.docs[0];
+                const memberData = memberDoc.data();
+
+                localStorage.setItem(
+                    "userSession",
+                    JSON.stringify({
+                        email: email,
+                        role: "member",
+                        uid: user.uid
+                    })
+                );
+
+                localStorage.setItem(
+                    "invenireUser",
+                    JSON.stringify(memberData)
+                );
+
+                localStorage.setItem("invenireLoggedIn", "true");
 
                 window.location.href = "../../pages/user_dashboard.html";
                 return;
-
-            } catch (error) {
-                displayFirebaseErrors(error);
-                return;
             }
 
-            // 3. Fallback error if the email isn't found in either collection
-            showError("emailError", "This email address is not registered yet.");
+            showError(
+                "loginError",
+                "Account verified, but no profile records found in database."
+            );
 
         } catch (error) {
-            console.error("Login Query Error:", error);
+            console.error("Login Error:", error);
+            displayFirebaseErrors(error);
         }
     });
 }
-
-

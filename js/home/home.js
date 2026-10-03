@@ -217,4 +217,28 @@ function rotateSubtitles() {
 // Automatically trigger a phrase swap every 5 seconds (5000 milliseconds)
 setInterval(rotateSubtitles, 5000);
 
-console.log("home js loaded successfully"); 
+// ==================== LIBRARY STATS ====================
+
+const booksCount = document.getElementById("books-count");
+const membersCount = document.getElementById("members-count");
+const categoriesCount = document.getElementById("categories-count");
+const satisfactionRate = document.getElementById("satisfaction-rate");
+
+function updateStat(element, value) {
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+// Stats data will be connected to Firebase
+// after the final Firestore collections are confirmed.
+
+function setDefaultStats() {
+    updateStat(booksCount, 0);
+    updateStat(membersCount, 0);
+    updateStat(categoriesCount, 0);
+    updateStat(satisfactionRate, 0);
+}
+
+setDefaultStats();
+
