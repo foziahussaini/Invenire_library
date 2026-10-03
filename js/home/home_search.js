@@ -1,104 +1,410 @@
-import { db } from "../../src/firebase-config.js"; 
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
+import { db } from "../../src/firebase-config.js";
+import { openBookDetailsModal } from "./recent_section.js";
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-///============================ SEARCH COMPONENTS & CLOSE ICON INITIALIZATION ========================
+
+// ==================== FALLBACK BOOKS ====================
+
+const fallbackBooks = [
+    {
+        id: "fallback-1",
+        book_name: "The Alchemist",
+        author: "Paulo Coelho",
+        short_details: "",
+        cover_image: "",
+        genre: "Fiction",
+        published: "",
+        pages: "",
+        language: "",
+        rating: 0,
+        pdf_url: ""
+    },
+    {
+        id: "fallback-2",
+        book_name: "Her Eyes",
+        author: "Bozorg Alavi",
+        short_details: "",
+        cover_image: "",
+        genre: "Fiction",
+        published: "",
+        pages: "",
+        language: "",
+        rating: 0,
+        pdf_url: ""
+    },
+    {
+        id: "fallback-3",
+        book_name: "Crime and Punishment",
+        author: "Fyodor Dostoevsky",
+        short_details: "",
+        cover_image: "",
+        genre: "Classic",
+        published: "",
+        pages: "",
+        language: "",
+        rating: 0,
+        pdf_url: ""
+    }
+];
+
+
+// ==================== SEARCH ELEMENTS ====================
+
 const searchInput = document.querySelector(".search-input");
-const searchBarContainer = document.querySelector(".search-bar");
-const searchResultDropDown = document.querySelector(".searchResult"); //shows as a dropdown
-const closeIcon = document.createElement("i");
+const searchResultContainer = document.querySelector(".searchResult");
+const searchClear = document.querySelector(".search-clear");
+const categoryButtons = document.querySelectorAll(".category-btn");
 
-if (searchBarContainer) {
-    closeIcon.className = "fas fa-times close-icon";
-    closeIcon.style.display = "none";
-    searchBarContainer.appendChild(closeIcon);
-}
-
+let allBooks = [];
+let selectedCategory = "all";
 let debounceTimeout;
 
-///============================ FIREBASE DYNAMIC LIVE BOOK SEARCH FUNCTIONALITY ==========================
-if (searchInput && searchResultDropDown) {
-    searchInput.addEventListener("input", async (e) => {
-        // initialize searchtext which user write as a input value
-        const searchText = e.target.value.toLowerCase().trim();
-        clearTimeout(debounceTimeout);
 
-        // cross icon and dropdown visibility
-        if (searchText === "") {
-            closeIcon.style.display = "none";
-            searchResultDropDown.style.display = "none"; 
-            return;
-        }
-        
-        closeIcon.style.display = "block";
+// ==================== NORMALIZE TEXT ====================
 
-        debounceTimeout = setTimeout(async () => {
-            try {
-                let hasResults = false;
-                searchResultDropDown.innerHTML = ""; 
-
-                // getting data from firestore for BOOK SEARCH ONLY
-                const booksSnapshot = await getDocs(collection(db, "book-list"));
-                booksSnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const bookName = data.book_name || "";
-                    const authorName = data.author || "";
-
-                    if (bookName.toLowerCase().includes(searchText) || authorName.toLowerCase().includes(searchText)) {
-                        hasResults = true;
-                        
-                        const itemList = document.createElement("div"); 
-                        itemList.className = "search-item";
-                        itemList.innerHTML = `<i class="fas fa-book"></i> <span><strong>${bookName}</strong> by ${authorName}</span>`;
-                        
-                        // FIXED: Click event now redirects directly to about_book.html 
-                        itemList.addEventListener("click", () => {
-                            window.location.href = `about_book.html?id=${doc.id}&name=${encodeURIComponent(bookName)}`;
-                        });
-                        searchResultDropDown.appendChild(itemList);
-                    }
-                });
-
-                // Show or hide dropdown box 
-                if (hasResults) {
-                    searchResultDropDown.style.display = "block";
-                } else {
-                    const noResultRow = document.createElement("div");
-                    noResultRow.className = "no-match";
-                    noResultRow.innerHTML = `
-                    <div class="sad-sticker">
-                        <div class="eyes"></div>
-                        <div class="mouth"></div>
-                    </div>
-                    <span>No result found</span>`;
-                    searchResultDropDown.appendChild(noResultRow);
-                    searchResultDropDown.style.display = "block";
-                }
-
-            } catch (error) {
-                console.error("error happen", error);
-            }
-        }, 300);
-    });
-
-    // Close cross icon click event handler 
-    closeIcon.addEventListener("click", () => {
-        searchInput.value = "";
-        searchResultDropDown.innerHTML = "";
-        closeIcon.style.display = "none";
-        searchResultDropDown.style.display = "none"; 
-        searchInput.focus();
-    });
-
-    window.addEventListener("click", (event) => {
-        
-        if (!searchInput.contains(event.target) && !searchResultDropDown.contains(event.target)) {
-            searchResultDropDown.style.display = "none";
-        }
-    });
-
-    searchInput.addEventListener("click", () => {
-        if (searchInput.value.trim() !== "") {
-            searchResultDropDown.style.display = "block";
-        }
-    });
+function normalizeText(value) {
+    return String(value ?? "")
+        .toLowerCase()
+        .trim()
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ");
 }
+
+
+// ==================== LOAD BOOKS ====================
+
+async function loadBooks() {
+    try {
+        const booksSnapshot = await getDocs(
+            collection(db, "book-list")
+        );
+
+        const dynamicBooks = [];
+
+        booksSnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            dynamicBooks.push({
+                id: doc.id,
+                book_name: data.book_name || "Untitled Book",
+                author: data.author || "Unknown Author",
+                short_details:
+                    data.short_details ||
+                    data.description ||
+                    "No description provided.",
+                cover_image:
+                    data.cover_image ||
+                    data.image ||
+                    "",
+                genre: data.genre || "",
+                published:
+                    data.published ||
+                    data.publication_year ||
+                    "",
+                pages: data.pages || "",
+                language: data.language || "",
+                rating: data.rating || 0,
+                pdf_url: data.pdf_url || ""
+            });
+        });
+
+        allBooks = dynamicBooks;
+
+    } catch (error) {
+        console.warn(
+            "Could not load books from Firestore. Using fallback books.",
+            error
+        );
+
+        allBooks = fallbackBooks;
+    }
+}
+
+
+// ==================== CATEGORY MATCH ====================
+
+function matchesCategory(book, category) {
+    if (category === "all") {
+        return true;
+    }
+
+    const selectedGenre = normalizeText(category);
+    const bookGenre = book.genre;
+
+    if (Array.isArray(bookGenre)) {
+        return bookGenre.some(
+            (genre) => normalizeText(genre) === selectedGenre
+        );
+    }
+
+    const genres = String(bookGenre || "")
+        .split(/[,|/]/)
+        .map((genre) => normalizeText(genre))
+        .filter(Boolean);
+
+    return genres.includes(selectedGenre);
+}
+
+
+// ==================== SEARCH MATCH ====================
+
+function matchesSearch(book, searchText) {
+    if (!searchText) {
+        return true;
+    }
+
+    const query = normalizeText(searchText);
+
+    const bookName = normalizeText(book.book_name);
+    const author = normalizeText(book.author);
+    const genre = normalizeText(book.genre);
+
+    return (
+        bookName.includes(query) ||
+        author.includes(query) ||
+        genre.includes(query)
+    );
+}
+
+
+// ==================== RENDER BOOK CARDS ====================
+
+function renderSearchResults(books) {
+
+    searchResultContainer.innerHTML = "";
+
+    if (books.length === 0) {
+
+        const noResultRow = document.createElement("div");
+
+        noResultRow.className = "no-match";
+
+        noResultRow.innerHTML = `
+            <div class="sad-sticker">
+                <div class="eyes"></div>
+                <div class="mouth"></div>
+            </div>
+
+            <span>No result found</span>
+        `;
+
+        searchResultContainer.appendChild(noResultRow);
+
+        searchResultContainer.style.display = "grid";
+
+        return;
+    }
+
+
+    books.forEach((book) => {
+
+        const title = book.book_name;
+        const author = book.author;
+
+        const fullDescription =
+            book.short_details || "No description available.";
+
+        const textLimit = 100;
+
+        const isLongText =
+            fullDescription.length > textLimit;
+
+        const shortDescription = isLongText
+            ? fullDescription.substring(0, textLimit) + "..."
+            : fullDescription;
+
+
+        const article = document.createElement("article");
+
+        article.className =
+            "book-cards card1 search-result-card";
+
+
+        article.innerHTML = `
+            <div class="book-cover">
+                <img
+                    src="${book.cover_image || ""}"
+                    alt="${title} cover"
+                >
+            </div>
+
+            <div class="book-name">
+                ${title}
+            </div>
+
+            <div class="book-author">
+                ${author}
+            </div>
+
+            <bookdescription>
+                <span class="desc-text">
+                    ${shortDescription}
+                </span>
+
+                ${
+                    isLongText
+                        ? `
+                            <button
+                                type="button"
+                                class="toggle-desc-btn"
+                            >
+                                Read More
+                            </button>
+                        `
+                        : ""
+                }
+            </bookdescription>
+        `;
+
+
+        // Read More
+        if (isLongText) {
+
+            const toggleBtn =
+                article.querySelector(".toggle-desc-btn");
+
+            toggleBtn?.addEventListener("click", (event) => {
+                event.stopPropagation();
+                openBookDetailsModal(book);
+            });
+        }
+
+
+        // Card click
+       article.addEventListener("click", () => {
+            openBookDetailsModal(book);
+        });
+
+
+        searchResultContainer.appendChild(article);
+    });
+
+
+    searchResultContainer.style.display = "grid";
+}
+
+
+// ==================== FILTER RESULTS ====================
+
+function filterAndRenderBooks() {
+
+    const searchText =
+        searchInput?.value.trim() || "";
+
+
+    // Nothing selected
+    if (
+        searchText === "" &&
+        selectedCategory === "all"
+    ) {
+        searchResultContainer.innerHTML = "";
+        searchResultContainer.style.display = "none";
+
+        return;
+    }
+
+
+    const filteredBooks = allBooks.filter((book) => {
+
+        const categoryMatch =
+            matchesCategory(
+                book,
+                selectedCategory
+            );
+
+        const searchMatch =
+            matchesSearch(
+                book,
+                searchText
+            );
+
+
+        // IMPORTANT:
+        // Category AND Search must both match
+        return categoryMatch && searchMatch;
+    });
+
+
+    renderSearchResults(filteredBooks);
+}
+
+
+// ==================== SEARCH INPUT ====================
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            clearTimeout(debounceTimeout);
+
+            debounceTimeout = setTimeout(
+                async () => {
+
+                    if (allBooks.length === 0) {
+                        await loadBooks();
+                    }
+
+                    filterAndRenderBooks();
+
+                },
+                300
+            );
+        }
+    );
+}
+
+
+// ==================== CLEAR SEARCH ====================
+
+if (searchClear) {
+
+    searchClear.addEventListener(
+        "click",
+        async () => {
+
+            searchInput.value = "";
+
+            if (allBooks.length === 0) {
+                await loadBooks();
+            }
+
+            filterAndRenderBooks();
+
+            searchInput.focus();
+        }
+    );
+}
+
+
+// ==================== CATEGORY BUTTONS ====================
+
+categoryButtons.forEach((button) => {
+
+    button.addEventListener(
+        "click",
+        async () => {
+
+            categoryButtons.forEach((btn) => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            selectedCategory =
+                button.dataset.category || "all";
+
+
+            if (allBooks.length === 0) {
+                await loadBooks();
+            }
+
+            filterAndRenderBooks();
+        }
+    );
+});
+
