@@ -16,7 +16,7 @@ const fallbackBooks = [
         book_name: "The Alchemist",
         author: "Paulo Coelho",
         short_details: "A magical story about Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure.",
-        cover_image: "https://gstatic.com",
+        cover_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3QlePKNRgjnfKQ4zUh41M9x9RuykDDkrMQAS6ntOr_g&s=10",
         pdf_url: "../pdfs/crime-and-punishments.pdf",
         audio_url: ""
     },

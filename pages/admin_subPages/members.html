@@ -4,31 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminBooks Management</title>
+    <!-- =================firebase config file============== -->
+    <script type="module" src="../../src/firebase-config.js"></script>
     <!-- css style link -->
     <link href="/src/output.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css-style/root.css"> <!-- for the base root linked-->
     <link rel="stylesheet" href="../../css-style/sub-pages/member.css">
     <!-- ===========responsive layout -->
     <link rel="stylesheet" href="../../responsive/dashboard/sidebar_profile_responsive.css">
-    
+    <!-- ============dashboard js for sidebar configuration listner=========== -->
+    <script type="module" src="../../js/auth-files/setion_tracker.js" defer></script>
     <!-- ==========search bar js link-->
     <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/members_search.js" defer></script>
-    
     <!-- ==============user profile js logic -->
-    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
-    
+    <script type="module" src="../../js/auth-files/profile.js"></script>
+    <!-- =================logut logic js file -->
+    <script type="module" src="../../js/auth-files/logout.js"></script>
     <!-- ==============current js logic link -->
     <script type="module" src="../../js/dashboard/sub_pages/member.js" defer></script>
-    
     <!-- tailwind and font awesome -->
     <script src="https://jsdelivr.net"></script>
-    <link rel="stylesheet" href="https://cloudflare.com" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
     <!-- main container include main body sidebar and header -->
     <div class="member-container">
+        <!-- sidebar -->
         <aside class="sidebar"> 
             <div class="logo">
                 <img src="../../images/logo/logo.png" alt="Logo">
@@ -68,13 +72,6 @@
                     <a href="settings.html">
                     <span class="menu-text">Settings</span></a>
                 </div>
-                <div class="menu-item" data-route="Statistic">
-                    <a class="menu-icon" href="reports.html">
-                        <i class="fa-solid fa-chart-bar "></i>
-                    </a>
-                    <a href="reports.html">
-                    <span class="menu-text">Statistic</span></a>
-                </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
                 <div class="menu-item" data-route="Theme">
                     <a class="menu-icon" href="theme.html">
@@ -91,7 +88,6 @@
                 </button>
             </div>
         </aside>
-
         <!-- main content of body plus header start from here -->
         <div class="member-main-content">
             <!-- HEADER PART  section1-->
@@ -110,11 +106,10 @@
                 </div>
                 <div class="profile-container">
                     <div class="profile">
-                        <img src="../../images/profile/female.jpg" alt="Admin Profile">
+                        <img src="../../images/profile/female.jpg" alt="Profile">
                     </div>
                 </div>
             </header>
-
             <!-- Your main page content goes here  section2-->
             <div class="member-list-container">
                 <div class="member-list">
@@ -180,105 +175,91 @@
                 </div>
             </div>
             </div>
-
-            <!-- members activity details container  section4-->
-            <div class="member-details-container">
-                <h3>Every activities of every members will be listed here</h3>
-                <!-- USER CARD 1 -->
-                <div class="detail1" target="memberDetails">
-                    <div class="detail-header">
-                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
-                        <small class="member-id">ID: member12</small>
-                    </div>
-                    <div class="member-info">
-                        <p><strong>Name:</strong> <span class="m-name">Fozia</span></p>
-                        <p><strong>Email:</strong> <span class="m-email">example@gmail.com</span></p>
-                    </div>
-                    <div class="books-sections">
-                        <p><strong>Purchased Books:</strong> <span class="purchased-books">Her Eyes, The Alchemist</span></p>
-                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">Atomic Habits</span></p>
-                        <p><strong>On Read Mode:</strong> <span class="on-read">Dune</span></p>
-                        <p><strong>My Library:</strong> <span class="my-library">Hamlet</span></p>
-                    </div>
-                    <div class="analytics-metrics">
-                        <p><strong>Active Days:</strong> <span class="active-days">4 Days</span></p>
-                        <p><strong>Profile Edits:</strong> <span class="profile-edits">0</span></p>
-                        <p><strong>Website Shares:</strong> <span class="site-shares">0</span></p>
-                    </div>
-                </div>
-
-                <!-- USER CARD 2 -->
-                <div class="detail2">
-                    <div class="detail-header">
-                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
-                        <small class="member-id">ID: --</small>
-                    </div>
-                    <div class="member-info">
-                        <p><strong>Name:</strong> <span class="m-name">--</span></p>
-                        <p><strong>Email:</strong> <span class="m-email">--</span></p>
-                    </div>
-                    <div class="books-sections">
-                        <p><strong>Purchased Books:</strong> <span class="purchased-books">--</span></p>
-                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">--</span></p>
-                        <p><strong>On Read Mode:</strong> <span class="on-read">--</span></p>
-                        <p><strong>My Library:</strong> <span class="my-library">--</span></p>
-                    </div>
-                    <div class="analytics-metrics">
-                        <p><strong>Active Days:</strong> <span class="active-days">--</span></p>
-                        <p><strong>Profile Edits:</strong> <span class="profile-edits">--</span></p>
-                        <p><strong>Website Shares:</strong> <span class="site-shares">--</span></p>
-                    </div>
-                </div>
-
-                <!-- USER CARD 3 -->
-                <div class="detail3">
-                    <div class="detail-header">
-                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
-                        <small class="member-id">ID: --</small>
-                    </div>
-                    <div class="member-info">
-                        <p><strong>Name:</strong> <span class="m-name">--</span></p>
-                        <p><strong>Email:</strong> <span class="m-email">--</span></p>
-                    </div>
-                    <div class="books-sections">
-                        <p><strong>Purchased Books:</strong> <span class="purchased-books">--</span></p>
-                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">--</span></p>
-                        <p><strong>On Read Mode:</strong> <span class="on-read">--</span></p>
-                        <p><strong>My Library:</strong> <span class="my-library">--</span></p>
-                    </div>
-                    <div class="analytics-metrics">
-                        <p><strong>Active Days:</strong> <span class="active-days">--</span></p>
-                        <p><strong>Profile Edits:</strong> <span class="profile-edits">--</span></p>
-                        <p><strong>Website Shares:</strong> <span class="site-shares">--</span></p>
-                    </div>
-                </div>
-
-                <!-- USER CARD 4 -->
-                <div class="detail4">
-                    <div class="detail-header">
-                        <h3><i class="fa-solid fa-user"></i> Member Profile</h3>
-                        <small class="member-id">ID: --</small>
-                    </div>
-                    <div class="member-info">
-                        <p><strong>Name:</strong> <span class="m-name">--</span></p>
-                        <p><strong>Email:</strong> <span class="m-email">--</span></p>
-                    </div>
-                    <div class="books-sections">
-                        <p><strong>Purchased Books:</strong> <span class="purchased-books">--</span></p>
-                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">--</span></p>
-                        <p><strong>On Read Mode:</strong> <span class="on-read">--</span></p>
-                        <p><strong>My Library:</strong> <span class="my-library">--</span></p>
-                    </div>
-                    <div class="analytics-metrics">
-                        <p><strong>Active Days:</strong> <span class="active-days">--</span></p>
-                        <p><strong>Profile Edits:</strong> <span class="profile-edits">--</span></p>
-                        <p><strong>Website Shares:</strong> <span class="site-shares">--</span></p>
-                    </div>
-                </div>
-
+<!-- ===================================EVERY MEMBERS DETAILS CARD SHOWS ALL DETAIL ABBOUT MEMBER ====== -->
+            <div class="allmember-activity-container">
+    <!-- The master profile wrapper container block -->
+    <div class="member-details-container" id="member-card-MOCK_ID">
+        
+        <!-- ROW 1: Avatar Header & Metadata Controls -->
+        <div class="member-detatails-row1">
+            <div class="member-prof-card"> 
+                <div class="profile-avatar"> 
+                    <span class="prof-img">
+                        <!-- Synced HTML img tag implementation -->
+                        <img src="../../images/banner/login.png" alt="Profile Image" class="user-avatar-img">
+                    </span> 
+                </div> 
+                <p class="member-username" id="member-username">Elaha Hakimi</p> 
+                <div class="member-status"> 
+                    <span id="member-gender">Female</span> • <span id="member-location">Iran</span> 
+                </div> 
             </div>
-             
-            <!-- footer       section5 -->
+            <div class="last-login-date"><span>21/Sep/2026</span></div> 
+        </div>
+        
+        <!-- ROW 2: Balanced Quad Metric Progress Boxes -->
+        <div class="member-detail-row2">
+<!-- =================================box1===================================== -->
+            <div class="login-box box1"> 
+                <div class="login-info"> 
+                    <p><strong>Total Logins</strong></p> 
+                    <span class="login-value" id="member-logins">12</span> 
+                </div> 
+                <div class="progress-circle-chart blue-ring" style="--percentage: 24%;"> 
+                    <span class="circle-inner-value"><i class="fa-solid fa-right-to-bracket"></i></span>
+                </div> 
+            </div>
+<!-- =================================box2===================================== -->
+            <div class="duration-active-min box2"> 
+                <div class="active-strick-info"> 
+                    <p><strong>Active Minutes</strong></p> 
+                    <span class="active-strick-value" id="duration">86<small>mins</small></span> 
+                </div> 
+                <div class="progress-circle-chart orange-ring" style="--percentage: 72%;"> 
+                    <span class="circle-inner-value"><i class="fa-solid fa-clock"></i></span>
+                </div> 
+            </div> 
+<!-- =================================box3===================================== -->           
+            <div class="shared-count box3 ">
+                <div class="share-info">
+                    <p><strong>Shares</strong></p>
+                    <span class="site-shares share-value">3</span>
+                </div>
+                <div class="progress-circle-chart purple-ring" style="--percentage: 18%;"> 
+                    <span class="circle-inner-value"><i class="fa-solid fa-share-nodes"></i></span>
+                </div> 
+            </div>
+<!-- =================================box4==================================== -->
+            <div class="profile-edits-count box4 ">
+                <div class="edit-info">
+                    <p><strong>Profile Edits</strong></p>
+                    <span class="profile-edits edit-value">0</span>
+                </div>
+                <div class="progress-circle-chart green-ring" style="--percentage: 0%;"> 
+                    <span class="circle-inner-value"><i class="fa-solid fa-user-pen"></i></span>
+                </div> 
+            </div>
+        </div>
+        
+        <!-- ROW 3: Subcollection Data Record Rows -->
+        <div class="member-detail-row3">
+            <div class="books-sections">
+                <p><strong>Purchased Books:</strong> <span class="purchased-books">None yet</span></p>
+                <p><strong>Downloaded Books:</strong> <span class="downloaded-books">None yet</span></p>
+                <p><strong>On Read Mode:</strong> <span class="on-read">None yet</span></p>
+                <p><strong>My Library:</strong> <span class="my-library">None yet</span></p>
+            </div>
+        </div>    
+        
+        <!-- ROW 4: Status Indicator Summary Footer Banner -->
+        <div class="member-detail-row4">
+            <p>Elaha Hakimi has read and search total 34 books and he our active member</p>
+        </div>
+        
+    </div>
+            </div>
+      
+            <!-- footer -->
             <footer class="member-footer">
                 <p class="footer-text">© 2026, Made by Invenire Team.</p>
             </footer>

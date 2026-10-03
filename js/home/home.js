@@ -1,7 +1,9 @@
 import { auth } from "../../src/firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
     const loginBtn = document.querySelector(".login-btn");
     const signupBtn = document.querySelector(".signup-btn");
+    
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("User is logged in:", user.email);
