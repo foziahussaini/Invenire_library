@@ -1,308 +1,111 @@
-import {auth, db } from "../../src/firebase-config.js"; 
-import { doc, setDoc, collection, query, where, getDocs, getDoc 
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { auth, db } from "../../src/firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-import { 
-    signInWithEmailAndPassword, 
-    signInWithPopup, 
-    GoogleAuthProvider 
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+// ====================== UNIFIED DYNAMIC ROUTING ENGINE =============================
+export async function handleUserRouting(user) {
+  if (!user) return;
+  const uid = user.uid;
+  const email = user.email ? user.email.toLowerCase().trim() : "";
 
-// Initialize the Google Provider instance
-const googleProvider = new GoogleAuthProvider();
+  try {
+    // 1. SCAN FOR ADMIN ONLY (Checks your config collection using the secure UID string)
+    const adminDocRef = doc(db, "config", uid);
+    const adminSnap = await getDoc(adminDocRef);
 
-// --- DOM Elements ---
-const signupForm = document.getElementById("signupForm");
-const loginForm = document.getElementById('login-form');
-const emailInput = document.getElementById('login-email');
-const passwordInput = document.getElementById('login-password');
-const googleBtn = document.querySelector('.google-account');
-
-const emailError = document.getElementById('emailError');
-const passwordError = document.getElementById('passwordError');
-const loginError = document.getElementById('loginError');
-
-// === 2. REGISTRATION LOGIC ===
-if (signupForm) {
-    signupForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        clearErrors(); 
-
-        const fullName = document.getElementById("fullName").value.trim();
-        const location = document.getElementById("location").value.trim();
-        const email = document.getElementById("signupEmail").value.trim().toLowerCase();
-        const password = document.getElementById("signupPassword").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
-        let isValid = true;
-
-        const gender = document.getElementById("genderHiddenInput") ? document.getElementById("genderHiddenInput").value : ""; 
-        const theme = document.getElementById("themeHiddenInput") ? document.getElementById("themeHiddenInput").value : "light"; 
-        const language = document.getElementById("langHiddenInput") ? document.getElementById("langHiddenInput").value : "en"; 
-
-        // --- Field Validations ---
-        if (fullName === "") { showError("fullNameError", "Please enter your full name."); isValid = false; }
-        if (location === "") { showError("locationError", "Please enter your location."); isValid = false; }
-        if (gender === "") { showError("genderError", "Please select your gender."); isValid = false; }
-        
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email === "") { showError("emailError", "Please enter your email."); isValid = false; } 
-        else if (!emailPattern.test(email)) { showError("emailError", "Please enter a valid email address."); isValid = false; }
-
-        if (password === "") { showError("passwordError", "Please enter a password."); isValid = false; } 
-        else if (password.length < 8) { showError("passwordError", "Password must be at least 8 characters."); isValid = false; }
-        if (confirmPassword === "") { showError("confirmPasswordError", "Please confirm your password."); isValid = false; } 
-        else if (password !== confirmPassword) { showError("confirmPasswordError", "Passwords do not match."); isValid = false; }
-
-        if (!isValid) return;
-
-        // --- CHECK FIRESTORE FOR EXISTING EMAIL ---
-        try {
-            const membersRef = collection(db, "members");
-            const emailQuery = query(membersRef, where("email", "==", email));
-            const querySnapshot = await getDocs(emailQuery);
-
-            if (!querySnapshot.empty) {
-                showError("signupError", "It seems this email already used try another");
-                return; 
-            }
-        } catch (error) {
-            console.error("Error checking existing email: ", error);
-            showError("signupError", "Database error. Please try again.");
-            return;
-        }
-
-        // --- Setup Dynamic Profile Image ---
-        let avatar = "defaultProfile.png"; 
-        if (gender === "male") {
-            avatar = "manProfile.png"; 
-        } else if (gender === "female") {
-            avatar = "femaleProfile.png"; 
-        }
-
-        const customDocId = "member" + Math.floor(Math.random() * 10000); 
-
-        const userData = {
-            user_id: customDocId,
-            full_name: fullName,
-            email: email,
-            location: location,
-            password: password, 
-            gender: gender,
-            "profile-Img": avatar,
-            isLoggedIn: true,
-            "last-login": new Date().toISOString(),
-            theme_preference: theme,
-            language_preference: language 
-        };
-
-        try {
-            await setDoc(doc(db, "members", customDocId), userData);
-
-            // Storing user data locally according to your registration parameters
-            localStorage.setItem("invenireUser", JSON.stringify(userData));
-            localStorage.setItem("invenireLoggedIn", "true");
-            
-            // Also adding userSession schema uniformity for login state fallback
-            localStorage.setItem("userSession", JSON.stringify({ email: email, role: "member", uid: customDocId }));
-
-            window.location.href = "../../pages/user_dashboard.html";
-
-        } catch (error) {
-            console.error("Firestore Save Failure: ", error);
-            showError("signupError", "Failed to register account storage. Try again.");
-        }
-    });
-}
-
-// === 3. LOGIN ROUTING & SESSION ENGINE ===
-async function handleUserRouting(user) {
-    const email = user.email.toLowerCase();
-
-    try {
-        // 1. Look inside the 'config' collection for Admin validation
-        // (Assumes Admin config docs are keyed by their email string)
-        const adminDocRef = doc(db, "config", email);
-        const adminDocSnap = await getDoc(adminDocRef);
-
-        if (adminDocSnap.exists()) {
-            localStorage.setItem("userSession", JSON.stringify({ 
-                email: email, 
-                role: "admin", 
-                uid: user.uid 
-            }));
-            localStorage.setItem("invenireLoggedIn", "true");
-            window.location.href = "./adminadashboard.js"; 
-            return;
-        }
-
-        // 2. Look inside the 'members' collection for registered user accounts
-        // (Queries by email field since custom user IDs look like 'member4827')
-        const membersRef = collection(db, "members");
-        const memberQuery = query(membersRef, where("email", "==", email));
-        const memberSnapshot = await getDocs(memberQuery);
-
-        if (!memberSnapshot.empty) {
-            const memberDoc = memberSnapshot.docs[0];
-            const memberData = memberDoc.data();
-
-            localStorage.setItem("userSession", JSON.stringify({ 
-                email: email, 
-                role: "member", 
-                uid: user.uid 
-            }));
-            localStorage.setItem("invenireUser", JSON.stringify(memberData));
-            localStorage.setItem("invenireLoggedIn", "true");
-            
-            window.location.href = "../../pages/user_dashboard.html";
-            return;
-        }
-
-        // Fallback if authenticated via Firebase Auth/Google but missing from firestore database
-        showError("loginError", "Account verified, but no profile records found in database.");
-        
-    } catch (error) {
-        console.error("Firestore Routing Error:", error);
-        showError("loginError", "Database error. Failed to retrieve profile workspace properties.");
+    if (adminSnap.exists()) {
+      localStorage.setItem("userSession", JSON.stringify({ email: email, role: "admin", uid: uid }));
+      localStorage.setItem("invenireLoggedIn", "true");
+      console.log("Admin routing approved. Redirecting...");
+      window.location.href = "/pages/admin_dashboard.html";
+      return;
     }
+
+    // 2. SCAN FOR STANDARD MEMBER ROLE (Checks your members collection)
+    const memberDocRef = doc(db, "members", uid);
+    const memberSnap = await getDoc(memberDocRef);
+    
+    if (memberSnap.exists()) {
+      const memberData = memberSnap.data();
+      localStorage.setItem("userSession", JSON.stringify({ email: email, role: "member", uid: uid }));
+      localStorage.setItem("invenireUser", JSON.stringify(memberData));
+      localStorage.setItem("invenireLoggedIn", "true");
+      console.log("Member routing approved. Redirecting...");
+      window.location.href = "/pages/user_dashboard.html";
+      return;
+    }
+
+    // 3. FALLBACK FOR NEW OAUTH/EXTERNAL LOGINS
+    console.warn("User document missing from Firestore. Registering placeholder profile details...");
+    const minimal = {
+      user_id: uid,
+      full_name: user.displayName || "New Library Member",
+      email: email,
+      location: "",
+      gender: "",
+      "profile-Img": user.photoURL || "defaultProfile.png",
+      isLoggedIn: true,
+      "last-login": new Date().toISOString(),
+      theme_preference: "light",
+      language_preference: "en",
+      totalLoginsCount: 1,
+      active_minutes_last_day: 0,
+      website_share_count: 0,
+      profile_edit_count: 0
+    };
+
+    await setDoc(doc(db, "members", uid), minimal);
+    localStorage.setItem("invenireUser", JSON.stringify(minimal));
+    localStorage.setItem("invenireLoggedIn", "true");
+    localStorage.setItem("userSession", JSON.stringify({ email: email, role: "member", uid: uid }));
+    window.location.href = "/pages/user_dashboard.html";
+  } catch (err) {
+    console.error("handleUserRouting database block crash caught:", err);
+    // Explicit safety toggle: If an element container is missing, target an available login error slot alternatively
+    showError("loginError", "Routing execution failed. Try again later.");
+    showError("emailError", "Routing execution failed. Try again later.");
+  }
 }
 
-// === 4. ERROR DISPLAY AND FORMATTING RENDERING ENGINE ===
+// ====================== PROTECTED STATE LIFECYCLE WATCHER =============================
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    const currentPath = window.location.pathname.toLowerCase();
+    if (currentPath.includes("user_dashboard.html") || currentPath.includes("admin_dashboard.html")) {
+        window.location.href = "login.html";
+    }
+    return;
+  }
+  
+  // Assign user contexts to the global window space instantly
+  window.userUid = user.uid;
+  window.currentUserEmail = user.email ? user.email.toLowerCase().trim() : "";
+
+  if (typeof window.triggerLibraryReload === "function") {
+      window.triggerLibraryReload();
+  }
+
+  const currentPath = window.location.pathname.toLowerCase();
+  
+  // Guard to block the auto-watcher on authentication portal entry pages
+  if (currentPath.includes("login.html") || currentPath.includes("signup.html") || currentPath.includes("auth.html")) {
+      console.log("Auto-routing paused: User operates inside login portal forms.");
+      return;
+  }
+  
+  // Stream loop guard: Global credentials updated. Background dashboard rerouting suspended safely.
+  if (currentPath.includes("user_dashboard.html") || currentPath.includes("admin_dashboard.html") || currentPath.includes("user_subpages")) {
+      return; 
+  }
+  
+  // Only auto-route if they refresh their browser from a generic root index landing page
+  handleUserRouting(user);
+});
+
 function showError(errorId, message) {
     const errorElement = document.getElementById(errorId);
-    if (errorElement) { 
-        errorElement.textContent = message; 
-        errorElement.style.display = "block"; 
-        errorElement.closest(".input-group")?.classList.add("invalid");
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = "block";
     }
-}
-
-function clearErrors() {
-    // Structural layout clearing for both systems combined seamlessly
-    document.querySelectorAll(".error-message, .form-error").forEach(el => {
-        el.textContent = "";
-        el.style.display = "none"; 
-    });
-    document.querySelectorAll(".input-group").forEach(el => el.classList.remove("invalid"));
-    
-    if (emailError) emailError.textContent = "";
-    if (passwordError) passwordError.textContent = "";
-    if (loginError) loginError.textContent = "";
-}
-
-function displayFirebaseErrors(error) {
-    console.error("Auth Error Code:", error.code);
-    
-    switch (error.code) {
-        case 'auth/invalid-email':
-            showError("emailError", "The format of this email address is invalid.");
-            break;
-        case 'auth/user-not-found':
-            showError("emailError", "This email address has not been signed up yet.");
-            break;
-        case 'auth/wrong-password':
-            showError("passwordError", "Incorrect password. Please try again.");
-            break;
-        case 'auth/network-request-failed':
-            showError("loginError", "Network error. Please verify your internet connection.");
-            break;
-        default:
-            showError("loginError", error.message);
-            break;
-    }
-}
-
-// === 5. LOGIN FORM ACTIONS (Direct Firestore Verification with Correct Field Queries) ===
-if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        clearErrors();
-
-        const email = emailInput.value.trim().toLowerCase();
-        const password = passwordInput.value;
-
-        if (!email) { showError("emailError", "Email field is required."); return; }
-        if (!password) { showError("passwordError", "Password field is required."); return; }
-
-        try {
-            // 1. FIXED: Query the 'config' collection searching the 'admin_email' field
-            const configRef = collection(db, "config");
-            const adminQuery = query(configRef, where("admin_email", "==", email));
-            const adminSnapshot = await getDocs(adminQuery);
-
-            if (!adminSnapshot.empty) {
-                const adminDoc = adminSnapshot.docs[0]; // Get the first matching document
-                const adminData = adminDoc.data();
-                
-                // Safety Check: Check if the admin document has a password field set up
-                if (!adminData.password) {
-                    showError("loginError", "Admin profile is missing a password field in Firestore.");
-                    return;
-                }
-
-                // Validate admin password
-                if (adminData.password === password) {
-                    localStorage.setItem("userSession", JSON.stringify({ 
-                        email: email, 
-                        role: "admin", 
-                        uid: adminDoc.id // Stores 'adminheader123'
-                    }));
-                    localStorage.setItem("invenireLoggedIn", "true");
-                    window.location.href = "./admin_dashboard.html"; 
-                    return;
-                } else {
-                    showError("passwordError", "Incorrect password.");
-                    return;
-                }
-            }
-
-            // 2. Query the 'members' collection searching the 'email' field
-            const membersRef = collection(db, "members");
-            const memberQuery = query(membersRef, where("email", "==", email));
-            const memberSnapshot = await getDocs(memberQuery);
-
-            if (!memberSnapshot.empty) {
-                const memberDoc = memberSnapshot.docs[0]; // Get the first matching document
-                const memberData = memberDoc.data();
-
-                // Validate member password
-                if (memberData.password === password) {
-                    localStorage.setItem("userSession", JSON.stringify({ 
-                        email: email, 
-                        role: "member", 
-                        uid: memberDoc.id 
-                    }));
-                    localStorage.setItem("invenireUser", JSON.stringify(memberData));
-                    localStorage.setItem("invenireLoggedIn", "true");
-                    localStorage.setItem("user_id", memberDoc.id); 
-                    
-                    window.location.href = "../../pages/user_dashboard.html";
-                    return;
-                } else {
-                    showError("passwordError", "Incorrect password.");
-                    return;
-                }
-            }
-
-            // 3. Fallback error if the email isn't found in either collection
-            showError("emailError", "This email address is not registered yet.");
-
-        } catch (error) {
-            console.error("Login Query Error:", error);
-        }
-    });
-}
-
-
-// Google OAuth Single-Sign-On
-if (googleBtn) {
-googleBtn.style.cursor = "pointer";
-googleBtn.addEventListener('click', async () => {
-clearErrors();
-try {
-const result = await signInWithPopup(auth, googleProvider);
-await handleUserRouting(result.user);
-} catch (error) {
-displayFirebaseErrors(error);
-}
-});
 }

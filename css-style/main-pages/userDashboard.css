@@ -4,15 +4,16 @@
     box-sizing: border-box;
 }
 
-body{
-    overflow-x: none;
+.user-body{
+    padding: 0;
+    overflow-x: hidden;
     width: 100% auto;
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     font-size: var(--main-font-size);
 }
 
-.dashboard-container{
+.member-container{
     width: 100%;
     height: 100% auto;
     min-height: 100vh;
@@ -31,7 +32,7 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
+    z-index: 20;
 }
 
 .sidebar .logo{
@@ -42,12 +43,12 @@ body{
     align-items: center;
     
     >img{
-        width: 160px;
+        width: 180px;
         height: 150px;
     }
 }
 
-.sidebar-menu{
+.sidebar .sidebar-menu{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -64,7 +65,7 @@ body{
     cursor : pointer;
     font-size: var(--main-font-size);
 }
-
+    
 .sidebar-menu .menu-item .menu-text{
     text-decoration: none;
     display: flex;
@@ -90,6 +91,91 @@ body{
     color: var(--hover-text-color);
     font-weight: bold;
 }
+/* dropdown theme and language */
+.theme-dropdown{
+    display: none;
+    top: 20rem;
+    position: absolute;
+    left: 9.6rem; 
+    z-index: 9999;
+}
+.lang-dropdown {
+    display: none;
+    top: 17rem;
+    position: absolute;
+    left: 9.5rem; 
+    z-index: 9999;
+}
+
+
+.dropdown-menu {
+    list-style: none;
+    padding: 8px;
+    margin: 0;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--btn-background-color);
+    border-radius: var(--btn-border-radius);
+    min-width: 180px;
+    box-shadow: var(--card-box-shadow);
+    animation: slideInDropdown 0.2s ease-out;
+    z-index: 1000;
+}
+
+/* Individual list item layout inside choices */
+.dropdown-menu li {
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--main-text-color);
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu:hover{
+    background: var(--card-hover-background-color);
+}
+/* Hover effect on options */
+.dropdown-menu li:hover {
+    padding-left: 18px;
+}
+
+/* Visual state applied when an option is selected */
+.dropdown-menu li.selected-option {
+    background-color:var(--input-text-color);
+    color: var(--main-text-color) !important;
+}
+
+@keyframes slideInDropdown {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(7); }
+}
+
+/* ==========================================================================
+   SIDEBAR CARET CHEVRON ARROWS
+   ========================================================================== */
+
+/* Pushes arrow right and rotates it sideways by default */
+.dropdown-arrow {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--premium-icon-color);
+    transform: rotate(-90deg); 
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+/* Highlights arrow on sidebar row hover */
+.menu-item:hover .dropdown-arrow {
+    color: var(--main-background-color);
+}
+
+/* Rotates downward seamlessly when the list is active/opened */
+.menu-item.overlay-active .dropdown-arrow {
+    transform: rotate(0deg); 
+}
+
 
 .logout{
     margin-top: 2.8rem;
@@ -112,7 +198,7 @@ body{
 }
 
 /* ==================================MAIN CONTENT LAYOUT====================================== */
-.user-main-content {
+.member-main-content {
     margin-left: 160px;
     width: calc(100% - 160px);
     flex-grow: 1;
@@ -120,11 +206,11 @@ body{
     flex-direction: column;
     box-sizing: border-box;
     background-color: var(--main-background-color);
-    min-height: 100vh;
 }
 
 /* ==================================HEADER====================================== */
-.admin-header{
+.member-header {
+    margin: 0;
     width: 100%;
     height: var(--main-header-height);
     background: var(--header-background-color);
@@ -136,7 +222,7 @@ body{
     color: var(--main-text-color);
 }
 /* ===============================SEARCH BAR PART========================================= */
-.admin-header .search-bar { /* its the searchbar container */
+.member-header .search-bar { /* its the searchbar container */
     position: relative;
     width: 640px;
     max-width: 640px;
@@ -146,7 +232,7 @@ body{
     align-items: center;
 }
 
-.admin-header .search-bar > input {
+.member-header .search-bar > input {
     width: 100%;
     height: 100%;
     padding-left: 2.9rem;   
@@ -159,12 +245,12 @@ body{
     transition: border-color 0.2s ease;
 }
 
-.admin-header .search-bar input:focus {
+.member-header .search-bar input:focus {
     outline: none;
     border-color: var(--hover-text-color);
 }
 
-.admin-header .search-bar .fa-search {
+.member-header .search-bar .fa-search {
     position: absolute;
     left: 0.8rem;
     top: 50%;
@@ -175,7 +261,7 @@ body{
 }
 
 /* the close icon element */
-.admin-header .search-bar .close-icon {
+.member-header .search-bar .close-icon {
     position: absolute;
     right: 0.8rem;
     top: 50%;
@@ -187,24 +273,24 @@ body{
     transition: color 0.15s ease;
 }
 
-.admin-header .search-bar .close-icon:hover {
+.member-header .search-bar .close-icon:hover {
     color: var(--btn-hover-background-color); 
 }
 
 /* search result dropdown*/
-.admin-header .search-bar .searchResult {
+.member-header .search-bar .searchResult {
     position: absolute;
     flex-direction: column;
     top: 42px; 
     left: 0;
     width: 100%;
     height: 80vh;
-    background-color: var(--main-background-color);
+    background-color: var(--card-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
     box-shadow: var(--default-box-shadow);
-    z-index: 1000; 
+    z-index: 20; 
     max-height: 80vh;
     overflow: none;
     box-sizing: border-box;
@@ -320,7 +406,7 @@ body{
 }
 
 /* ===============================CALENDER========================================= */
-.admin-header .calender {
+.member-header .calender {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -334,7 +420,14 @@ body{
 }
 
 /* ===============================PROFILE PART========================================= */ 
-.admin-header .profile-container {
+.member-header .profile-container .profile{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.member-header .profile-container {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -347,13 +440,13 @@ body{
     flex-shrink: 0;
 }
 
-.admin-header .profile-container .profile > img {
+.member-header .profile-container .profile > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.profile-dropDown {
+.member-header .profile-dropDown {
     position: fixed;
     top: 0;
     right: 0;
@@ -422,741 +515,460 @@ body{
 }
 
 /* ===============================MAIN BODY PART=========================================  */
-/* ==============HEADLINE PART=============== */ 
-.headline-content{
-    width: 100%;
+.member-main-content{
     display: flex;
-    justify-content: space-between;
-    padding: var(--text-padding);
+    flex-direction: column;
+    gap: 1rem;
 }
-.headline{
-    color: var(--main-text-color);
-    font-weight: 500;
-    font-size: var(--header-font-size);
-    margin-left: 1rem;
-    width: 80%;
-}
-
-.checkout-btn{
-    width: 180px;
-    height: 40px;
-    background: var(--btn-background-color);
-    color: var(--btn-text-color);
-    border-radius: var(--btn-border-radius);
-    display: flex;
-    text-align: center;
+.member-body-container{
+    margin: 1rem auto;
+    width: 100% auto;
+    display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    font-size: var(--btn-font-size);
+    gap: 1rem;
 }
 
-.checkout-btn:hover{
-    background: var(--btn-hover-background-color);
-    color: var(--btn-text-hover-color);
-}
-
-/* =================all the cards displaying grid layout ==================================*/
-.form-group{
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: auto auto auto; 
-    gap: 0.8rem;
-    width: 100%;
-    padding: var(--card-padding);
-}
-
-.card{
-    background-color: var(--card-background-color);
+.welcome-card{
+    position: relative;
+    width: 999px;
+    max-width: 999px ;
+    height: 150px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5l8PCtZMTeRX-POc46hFOoY2p070qx6Z4InhCpCd_Lg&s=10");
+    background-size: cover;
+    background-position: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     border-radius: var(--main-border-radius);
     box-shadow: var(--card-box-shadow);
     padding: var(--card-padding);
-    width: 240px;
-    height: 190px;
-    perspective: 1000px;
-    transition: background 0.3s ease; 
 }
 
-.card:hover{
-    background: var(--card-hover-background-color);
-    animation: microVibrate 1s linear;
-
-}
-
-@keyframes microVibrate {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(-2px); }
-    100% { transform: translate(1px); }
-}
-
-.card:nth-child(-n+4){
-   grid-column: span 2;
-}
-
-/* =============================CARD 1====================================  */
-.card1, .card2, .card3, .card4{
+.greeting{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
+    align-items: flex-start;
+    gap: 0.8rem;
     color: var(--main-text-color);
-    gap: 0.5rem;
-}
-
-.head-icons{display: flex; justify-content: space-between; align-items: center;}
-.head-icons .percentage{
-    font-size: 12px; 
-    font-weight: 600;
-    margin-top: 0.3rem;
-    border-radius: var(--btn-border-radius);
-    padding: 4px 6px;
-    background-color: var(--card-head-smooth-background-color);
-}
-
-.card1 .head-icons .icon,
-.card2 .head-icons .icon,
-.card3 .head-icons .icon,
-.card4 .head-icons .icon{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    margin-top: 0.4rem;
-    border-radius: 50%;
-    background: transparent;
-    background-color: var(--icon-background-color);
-    padding: 2px;
-    box-shadow: var(--icon-box-shadow);
-    
-    > i{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 28px;
-        height: 28px;
-        color: var(--premium-icon-color);
-    }
-}
-
-.card1 p, .card2 p, .card3 p, .card4 p{
+    font-size: var(--main-font-size);
     font-weight: bold;
-    margin-top: 0.5rem;
 }
 
-.card1 .analysis-line,
-.card2 .analysis-line,
-.card3 .analysis-line,
-.card4 .analysis-line{
-    width: 100%;
+.welcome-card .weather{
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
     display: flex;
-    height: 55px;
-
-    > i{
-        width: auto;
-        font-size: 2rem;
-    }
-}
-
-/* ======================CONTROL THE CHART LINE COLOR =============== */
-.card1:has(.trend-down),
-.card2:has(.trend-down),
-.card3:has(.trend-down),
-.card4:has(.trend-down) {--current-analysis-color: #f87171;}
-
-.card1:has(.trend-up),
-.card2:has(.trend-up),
-.card3:has(.trend-up),
-.card4:has(.trend-up){--current-analysis-color: #34d399;}
-
-.card1:has(.trend-neutral),
-.card2:has(.trend-neutral),
-.card3:has(.trend-neutral),
-.card4:has(.trend-neutral){--current-analysis-color: #0056b3;}
-
-/* ======================CONTROL THE CHART LINE STYLE =============== */
-.card1 .analysis-line svg path,
-.card2 .analysis-line svg path,
-.card3 .analysis-line svg path,
-.card4 .analysis-line svg path {
-    stroke: var(--current-analysis-color);
-    transition: stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card1:hover .analysis-line svg path,
-.card2:hover .analysis-line svg path,
-.card3:hover .analysis-line svg path,
-.card4:hover .analysis-line svg path{ stroke: var(--premium-icon-color);}
-
-.card1:hover .percentage,
-.card2:hover .percentage,
-.card3:hover .percentage,
-.card4:hover .percentage{
-    border: 0.9px solid var(--hover-text-color);
-    background-color: transparent;
-    box-shadow: var(--card-box-shadow);
-}
-
-
-/* =============================CHART BAR CARD5 PART=========================================  */
-.card5 {
-    grid-column: span 4;
-    grid-row: span 2;
-    width: 500px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-}
-
-.traffic-card-header {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    margin-top: 0.4rem;
-    gap: 0.6rem;
-}
-
-/* Title Label Text */
-.title-main {
-    font-size: var(--min-font-size);
-    font-weight: 600;
-    color: var(--main-text-color);
-}
-
-/* Peak Highlight Indicator Badge */
-.latestTime-peak {
-    width: 70px;
-    max-width: 70px;
-    font-size: 10px; 
-    font-weight: 600;
-    align-items: center;
-    text-align: center;
-    border-radius: var(--btn-border-radius);
-    padding: 4px;
-    background-color: var(--card-head-smooth-background-color);
-}
-
-.card:hover .latestTime-peak{
-    border: 0.9px solid var(--hover-text-color);
-    background-color: transparent;
-    box-shadow: var(--card-box-shadow);
-}
-
-/* Toggle Tabs Button Row */
-.traffic-toggle-tabs {
-    display: flex;
-    gap: 0.3rem;
-    border-radius: var(--btn-border-radius);
-    align-self: center;
-}
-
-/* Individual Interactive Filter Buttons */
-.traffic-toggle-tabs .tab-btn {
-    padding: var(--text-padding);
-    background: transparent;
-    color: var(--main-text-color);
-    cursor: pointer;
-    border-radius: var(--btn-border-radius);
-    font-size: 10px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.card:hover .traffic-toggle-tabs .tab-btn {
-    border: 0.9px solid var(--hover-text-color);
-}
-
-/* Active Selected Tab Interaction Color Override */
-.traffic-toggle-tabs .tab-btn.active {
-    background: var(--btn-background-color);
-    color: var(--btn-text-color);
-    box-shadow: var(--card-box-shadow);
-    font-weight: 600;
-}
-
-/* Details Subtitle Text */
-.details {
-    grid-column: 1;
-    font-size: 11px;
-    color: var(--input-text-color);
-    margin-top: -0.7rem;
-}
-
-/* Core Chart Visualizer Grid Wrapper */
-.traffic-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 0.4rem;
-    height: 210px; 
-    width: 100%;
-    margin-top: 0.5rem;
-    padding-top: 0;
-}
-
-/* Individual Vertical Visual Columns */
-.chart-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    height: 100%;
-    justify-content: flex-end;
-}
-
-/* Background tracks holding individual bars */
-.bar-wrapper {
-    height: 85%;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
+    flex-direction: row;
     justify-content: center;
-    border-radius: var(--btn-border-radius);
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--main-text-color);
+    font-size: var(--header-font-size);
 }
-
-/* Default Active Data Bar Pillars */
-.chartBar {
-    width: 50%;
-    background: var(--normal-chart-background-color);
-    border-radius:var(--card-border-radius);
-    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
-}
-
-/* Special Class Assigned Autonomously to Peak Element Metric Items */
-.chartBar.highestBar {
-    background: var(--highest-chart-background-color);
-}
-
-.chartBar.lowestBar{
-    background:var(--lowest-chart-background-color) ;
-}
-/* Bottom Chart Baseline Labeling Strings */
-.bar-label {
-    font-size: 9px;
-    font-weight: 500;
-    margin-top: 8px;
-    color: var(--input-text-color);
-    text-align: center;
-    white-space: nowrap;
-}
-
-/* =======================================CARD6 LAYOUT================================= */
-.card6 {
-    width: 500px;
-    max-width: 500px;
-    height: 300px;
-    grid-column: span 4;
-    grid-row: span 2;
+/* ===================================library PART=============== */ 
+.my-library{
+    width: 100%;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
+    align-content: start;
+
+}
+.section-header h1{
+    padding-left: 0.4rem;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--main-text-color);
+}
+#mylibrary-books {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.2rem;
+    padding: var(--card-padding);
+    width: 100%;
 }
 
-.card-header-flex {
+/* ==================== BOOK CARDS ==================== */
+.book-cards.card1 {
+    background-color: var(--card-background-color);
+    border-radius: var(--btn-border-radius);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    transition: transform 0.3s ease,;
+    box-shadow: var(--card-box-shadow);
+}
+
+.book-cards.card1:hover{
+    transform: translateY(-4px);
+    background: var(--card-hover-background-color);
+}
+
+/* =============COVER IMAGE==================== */
+.book-cover {
+    width: 100%;
+    height: 150px; 
+    border-radius:var(--btn-border-radius);
+    overflow: hidden;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.book-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--main-text-color);
+    margin-top: 10px;
+}
+
+.book-author{
+    font-size: 11px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--sub-script-color);
+    margin-bottom: 8px;
+}
+
+/* ====================button fo navigating to the about book page==================== */
+.book-detail-btn {
+    width: 100%;
+    padding: var(--btn-padding);
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+    border: none;
+    border-radius: var(--btn-border-radius);
+    font-size: var(--btn-font-size);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.book-cards.card1:hover .book-detail-btn{
+    transform: translateY(-4px);
+    background: var(--card-hover-background-color);
+    border: 1.6px solid var(--premium-icon-color);
+}
+.book-cards.card1:hover .book-author{
+    color: var(--btn-background-color);
+}
+.book-detail-btn:hover {
+    background-color: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+}
+
+.book-detail-btn:active {
+    transform: scale(0.98);
+}
+
+.network-error-fallback {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 24px;
+    background-color: rgba(229, 62, 62, 0.08);
+    color: var(--fav-icon-color);
+    border-radius: var(--main-border-radius, 8px);
+    font-size: 14px;
+    border: 1px solid rgba(229, 62, 62, 0.2);
+}
+
+/* ====================ssection3 my activity========================== */
+.my-activity{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    gap: 0.2rem;
+}
+
+
+.my-activity .title {
+  margin-bottom: 0.9rem;
+}
+
+.my-activity .title p {
+  margin: 0;
+  font-size: var(--header-font-size);
+  font-weight: bold;
+  color: var(--main-text-color);
+}
+
+.activity-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* ========first row status row================ */
+.status {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.title-group {
+.active-strick.box1,
+.login-count{
+  flex: 1 1 180px;
+  min-width: 200px;
+  min-height: 100px;
+  background: var(--card-background-color);
+  border-radius: var(--btn-border-radius);
+  box-shadow: var(--card-box-shadow);
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.status-dice.box2 {
+    flex: 2 1 310px;
+    min-width: 290px;
+  min-height: 100px;
+  background: var(--card-background-color);
+  border-radius: var(--btn-border-radius);
+  box-shadow: var(--card-box-shadow);
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  transition: transform 0.3s ease;
+}
+.active-strick.box1:hover,
+.login-count:hover,
+.status-dice.box2:hover {
+  transform: translateY(-2px);
+  border: 1px solid var(--hover-text-color) ;
+  background: var(--card-hover-background-color);
+}
+
+.active-strick,
+.login-count{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    >.text-context{
+         gap: 0.8rem;
+         display: flex;
+         flex-direction: column;
+    }
+   
+}
+
+.active-strick.box1:hover >span,
+.login-count:hover span{
+    color: var(--premium-icon-color);
+    background: var(--btn-background-color);
+}
+
+.active-strick.box1 > span,
+.login-count > span {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--btn-border-radius);
+  display: grid;
+  place-items: center;
+  background: var(--hero-animated-text-color);
+  color: var(--btn-background-color);
+  font-size: 1.7rem;
+  flex-shrink: 0;
+}
+
+.active-strick.box1 h1,
+.login-count h1 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--main-text-color);
+  line-height: 1.2;
+}
+
+#activity-streak-days,
+#activity-total-logins {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--btn-background-color);
+}
+
+/* STATUS DICE BADGES */
+.status-dice.box2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.status-dice.box2 > div {
+  width: 72px;
+  min-height: 72px;
+  border-radius: 10px;
+  border: 1px solid var(--badge-default-border);
+  background: var(--hero-animated-text-color);
   display: flex;
   flex-direction: column;
-}
-
-.card-title-row {
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.card-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: transparent;
-    background-color: var(--icon-background-color);
-    padding: 4px;
-    box-shadow: var(--icon-box-shadow);
-    width: 28px;
-    height: 28px;
-    
-}
-
-.card-title {
-  font-size: var(--main-font-size);
-  font-weight: 600;
-  color: var(--main-text-color);
-}
-
-.card-subtitle {
-    font-size: 11px;
-    color: var(--input-text-color);
-    margin-left: 2.1rem;
-}
-
-/* Growth Badge Component */
-.growth-badge {
-    font-size: 12px; 
-    font-weight: 600;
-    margin-top: 0.3rem;
-    border-radius: var(--btn-border-radius);
-    padding: 4px 6px;
-    background-color: var(--card-head-smooth-background-color);
-}
-
-.card:hover .growth-badge{
-    border: 0.9px solid var(--hover-text-color);
-    background-color: transparent;
-    box-shadow: var(--card-box-shadow);
-}
-
-.chart-wrapper {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 20px 0;
+  gap: 0.38rem;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
 }
 
-.donut-chart {
-  width: 145px;
-  height: 145px;
+/* Icon color for default (all badges) */
+.status-dice.box2 > div > span > i {
+  color: var(--btn-background-color);
+  font-size: 1rem;
+  transition: color 0.18s ease;
+}
+
+.status-dice.box2 > div.active-badge {
+  background: linear-gradient(180deg, #266baccf, #ffffffe0);
+  border: 1px solid var(--premium-icon-color);
+  box-shadow: var(--badge-box-shadow);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Selected icon color */
+.status-dice.box2 > div.active-badge > span > i {
+  color: var(--premium-icon-color);
+}
+
+.status-dice.box2 > div > span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: conic-gradient(
-    #ff8a48 0% 65%, 
-    #7c3aed 65% 85%, 
-    #0ea5e9 85% 98%, 
-    #e2e8f0 98% 100%
-  );
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  background: rgba(255,255,255,0.8);
+  color: #94a3b8;
 }
 
-/* Inner Cutout Mask to turn the circle into a hollow donut */
-.donut-chart::after {
-  content: "";
-  position: absolute;
-  width: 132px;
-  height: 132px;
-  background: var(--card-background-color);
-  border-radius: 50%;
-  z-index: 1;
+.status-dice.box2 > div.active-badge > span {
+  color: var(--btn-background-color, #0ea5e9);
 }
 
-.donut-inner-content {
-  position: relative;
-  z-index: 5;
-  text-align: center;
+/* ---------- ARTICLE (SHELVES) ---------- */
+.article {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 1rem;
 }
 
-.donut-label {
-  font-size: 13px;
-  color: var(--main-text-color);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 2px;
-}
-
-.donut-value {
-  font-size: var(--header-font-size);
-  font-weight: 700;
-  color: var(--main-text-color);
-  margin: 0;
-}
-
-.purchased-book-size {
-  font-size: 14px;
-  color: var(--input-text-color);
-  text-align: center;
-  font-weight: 600;
-  border-top: 1px dashed var(--input-text-color);
-  padding-top: 12px;
-}
-
-.card:hover .purchased-book-size{
-     border-top: 2px dashed var(--hover-text-color);
-}
-
-/* ======================================== CARD 7 CONTAINER LAYOUT=================================================== */
-.card7 {
-    grid-column: span 5;
-    grid-row: span 2;
-    width: 630px;
-    height:auto;
-    min-height: 420px auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.popular-card-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--main-text-color);
-
-    > .view-all-link {
-        font-size: 12px; 
-        font-weight: 600;
-        margin-top: 0.3rem;
-        border-radius: var(--btn-border-radius);
-        padding: 6px;
-        background-color: var(--card-head-smooth-background-color);
-    }
-}
-
-.card:hover .view-all-link,
-.card:hover .active-badge {
-    border: 0.9px solid var(--hover-text-color);
-}
-
-.popular-main-title {
-    font-weight: 600;
-    font-size: var(--main-text-color);
-}
-
-.popular-sub-title {
-    color: var(--input-text-color); 
-    font-size: var(--min-font-size);
-}
-
-.books-list-container {
-    width: 600px;
-    padding: 4px;
-    margin-top: 0.2rem;
-}
-
-.book-row-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 1.4rem;
-    width: 580px;
-    max-width: 580px;
-}
-
-.book-row-item:last-child {
-    border-bottom: none;
-}
-
-.book-row-item .book-rank {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--main-text-color);
-}
-
-.book-icon {
-    width: 30px ;   
-    height: 30px;  
-    max-width: 30px !important;
-    max-height: 30px !important;
-    border-radius: 50%;
-    box-shadow: var(--icon-box-shadow);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--icon-background-color);
-
-    >.icon {
-    max-width: 30px !important;
-    width: 30px !important;
-    height: 30px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-}
-
-.popular-book-details{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    width: 230px;
-    max-width: 230px;
-    padding: 0 0.4rem;
-}
-
-.popular-book-title {
-    font-size: var(--main-font-size);
-    font-weight: 700;
-    color: var(--main-text-color);
-    white-space: nowrap;
-    /* overflow: hidden; */
-    text-overflow: ellipsis;
-}
-
-.popular-book-author {
-    font-size: 11px;
-    color: var(--input-text-color);
-}
-
-.progress-and-details {
-    width: 220px;
-    max-width: 220px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 2px;
-    margin-right: 1rem;
-}
-
-.progress-container {
-    background: var(--normal-chart-background-color);
-    height: 4px;
-    border-radius: 10px;
-    width: 220px;
-    max-width: 220px;
-    overflow: hidden;
-}
-
-.progress-fill-line {
-    background: var(--highest-chart-background-color);
-    height: 100%;
-    border-radius: 10px;
-    width: 0%;
-    transition: width 0.6s ease-in-out;
-}
-
-.book-details-card {
-    font-size: 9px;
-    color: var(--input-text-color);
-    font-weight: 400;
-}
-
-/* ====================================CARD8========================= */
-.card8{
-    grid-column: span 3;
-    grid-row: span 2;
-    width: 375px;
-    height: auto;
-    min-height: 300px auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.card8 .member-card-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--main-text-color);
-
-    > .active-badge {
-        font-size: 10px; 
-        font-weight: 600;
-        border-radius: var(--btn-border-radius);
-        padding: 6px;
-        background-color: var(--card-head-smooth-background-color);
-    }
-}
-
-.member-title {
-    font-weight: 600;
-    font-size: var(--min-text-color);
-}
-
-.card8 .member-sub-title {
-    color: var(--input-text-color); 
-    font-size: 10px;
-}
-.member-list-container{
-    width: 340px;
-    max-width: 340px;
-    display: flex;
-    flex-direction: column;
-    /* background-color: #0056b3; */
-    padding: 0.8rem 0;
-}
-.member-row-item{
-    max-width: 330px;
-    display: flex;
-    justify-content: space-between;
+.list-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    height: 200px auto;
     align-items: center;
 }
 
-.member-icon{
-    width: 30px;
-    height: 30px;
-
-    >.i{
-        width: 28px;
-        height: 28px;
-    }
-}
-
-.member-details{
-    width: 130px;
-    max-width: 130px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    padding: 0.4rem;
-}
-
-.member-name{
-    font-weight: 600;
-    color: var(--main-text-color);
-    font-size: 11px;
-}
-
-.location{
-    font-size: 8px;
-    color: var(--input-text-color);
-}
-
-.progress-details{
-    width: 165px;
-    max-width: 165px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.progress-bar{
-    background: var(--normal-chart-background-color);
-    height: 4px;
-    border-radius: 10px;
-    width: 165px;
-    max-width: 165px;
-    overflow: hidden;
-
-    >.progress-line{
-        background: var(--highest-chart-background-color);
-        height: 100%;
-        border-radius: 10px;
-        width: 0%;
-        transition: width 0.6s ease-in-out;
-    }
-}
-
-.login-details{
-    font-size:8px;
-    font-weight: 600;
-    color: var(--input-text-color);
-}
-
-/* =============================FOOTER PART=========================================  */
-.user-footer{
+article.book-mini-card{
     width: 100%;
-    height: var(--main-header-height);
-    background: var(--footer-background-color);
-    display: flex;
-    justify-content:center;
+    height: 280px;
+    padding: 1rem;
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    background: var(--card-background-color);
 
-    >.footer-text{
+    >img{
+        width: 100%;
+        height: 160px;
+        border-radius: var(--btn-border-radius);
+    }
+}
+
+.mini-card-body{
+    margin-top: 0.5rem;
+    font-size: 13px;
+   font-weight: 600;
+
+   >.mini-card-meta{
+    font-size: 11px;
+    color: var(--sub-script-color);
+    font-style: italic;
+   }
+}
+
+.mini-card-btn{
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--btn-text-color);
+    float: right;
+    padding: 0.3rem 1rem;
     margin-top: 1rem;
-    font-weight: 500;
-    font-size: var(--header-font-size);
-    color: var(--footer-text-color);
+    border-radius: var(--btn-border-radius);
+    background-color: var(--btn-background-color);
 }
+
+/* settings part */
+.my-settings{
+    display: flex;
+    flex-direction: column;
 }
- 
+
+/* Card Container Layout */
+.setting-context {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Header Navigation Tabs */
+.head-title ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ccc;
+}
+
+.head-title ul li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Active Tab Styling */
+.head-title ul li a.active {
+    background-color: #fff;
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
+/* Content Box Stacking Logic */
+.setting-body-content {
+    position: relative;
+    padding: 20px;
+    min-height: 250px; /* Ensures space for content stacked over each other */
+}
+
+.setting-body-content .box {
+    display: none; /* Hide all boxes by default */
+    width: 100%;
+}
+
+/* The active rule that overwrites display none */
+.setting-body-content .box.active {
+    display: block; 
+}

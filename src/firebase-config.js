@@ -1,6 +1,5 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
@@ -14,12 +13,19 @@ const firebaseConfig = {
     measurementId: "G-D8TPBP1109"
 };
 
-  // Initialize Firebase
+// Initialize Firebase services to create real references in memory
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+let analytics = null;
+isSupported().then(supported => {
+    if (supported) {
+        analytics = getAnalytics(app);
+        console.log("Firebase Analytics mounted successfully.");
+    } else {
+        console.warn("Analytics environment mismatch: Tracking skipped in this workspace wrapper context.");
+    }
+}).catch(err => console.warn("Analytics bypassed:", err));
 
-console.log(app);
-console.log(analytics);
-console.log("Database initialized successfully:", db);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+export { app, analytics, db, auth};

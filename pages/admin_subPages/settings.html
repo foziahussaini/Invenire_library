@@ -15,7 +15,9 @@
     <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/members_search.js" defer></script>
     <!-- ==============user profile js logic -->
-    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
+    <script type="module" src="../../js/auth-files/profile.js"></script>
+    <!-- =================logut logic js file -->
+    <script type="module" src="../../js/auth-files/logout.js"></script>
     <!-- ==============current js logic link -->
     <script type="module" src="../../js/dashboard/sub_pages/settings.js" defer></script>
     <!-- tailwind and font awesome -->
@@ -65,13 +67,6 @@
                     <a href="settings.html">
                     <span class="menu-text">Settings</span></a>
                 </div>
-                <div class="menu-item" data-route="Statistic">
-                    <a class="menu-icon" href="reports.html">
-                        <i class="fa-solid fa-chart-bar "></i>
-                    </a>
-                    <a href="reports.html">
-                    <span class="menu-text">Statistic</span></a>
-                </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
                 <div class="menu-item" data-route="Theme">
                     <a class="menu-icon" href="theme.html">
@@ -111,7 +106,60 @@
                 </div>
             </header>
             <!-- Your main page content goes here -->
-            <main></main>
+            <!-- Main Settings Content Area -->
+<div class="settings-container">
+    <h2>Account Settings</h2>
+    <div id="settingsGlobalError" class="form-error" style="display:none; color:red; margin-bottom:15px;"></div>
+    <div id="settingsGlobalSuccess" class="form-success" style="display:none; color:green; margin-bottom:15px;"></div>
+
+    <form id="settingsForm">
+        <!-- Profile Image Blending Panel -->
+        <div class="settings-avatar-group">
+            <div class="avatar-preview-wrapper">
+                <img id="settingsAvatarPreview" src="../../assets/images/defaultProfile.png" alt="Profile Avatar" style="width:100px; height:100px; border-radius:50%;">
+            </div>
+            <label for="settingsGender">Gender Avatar Base:</label>
+            <select id="settingsGender">
+                <option value="">Keep Current / Unset</option>
+                <option value="male">Male (Man Avatar)</option>
+                <option value="female">Female (Woman Avatar)</option>
+            </select>
+        </div>
+
+        <!-- Full Name Info Input -->
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="settingsFullName" placeholder="Enter your full name">
+            <span id="settingsFullNameError" class="error-message" style="display:none; color:red;"></span>
+        </div>
+
+        <!-- Account Email String -->
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="settingsEmail" placeholder="Enter your email address">
+            <span id="settingsEmailError" class="error-message" style="display:none; color:red;"></span>
+        </div>
+
+        <!-- Security Password Reset Blocks -->
+        <div class="input-group">
+            <label>New Password (Leave blank to keep unchanged)</label>
+            <input type="password" id="settingsNewPassword" placeholder="Minimum 8 characters">
+            <span id="settingsPasswordError" class="error-message" style="display:none; color:red;"></span>
+        </div>
+
+        <button type="submit" class="save-settings-btn">Save Changes</button>
+    </form>
+
+    <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+    <!-- Danger Zone: Delete Account Section -->
+    <div class="danger-zone">
+        <h3>Danger Zone</h3>
+        <p>Once you delete your account, your profile records and tracking metrics will be wiped out from the platform database completely. This action cannot be reversed.</p>
+        <button id="deleteAccountBtn" class="delete-account-btn" style="background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Delete Account</button>
+    </div>
+</div>
+
             <!-- footer -->
             <footer class="setting-footer">
             <p class="footer-text">© 2026, Made by Invenire Team.</p>
