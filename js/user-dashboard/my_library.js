@@ -1,274 +1,970 @@
 import { db } from "../../src/firebase-config.js";
+
 import {
-  getAuth,
-  onAuthStateChanged
+    getAuth,
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
 import {
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  query,
-  where
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    query,
+    where
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-// ==================== 1. ARRAY FALLBACK DATA ====================
-const fallbackBooks = [
-  {
-    id: "fallback-1",
-    book_name: "The Alchemist",
-    author: "Paulo Coelho",
-    cover_image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWnaop4zO63Ay9SgRxSQ6AjTJcZAumeIVex8rhQufNCw&s=10"
-  },
-  {
-    id: "fallback-2",
-    book_name: "Yesterday",
-    author: "Juan Emar",
-    cover_image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvR5sodUCuqVU2JvNLzCAtP6nZU0ERgaGd7ZfQm54xJg&s"
-  },
-  {
-    id: "fallback-3",
-    book_name: "Yesterday: A Novel of Reincarnation",
-    author: "Samyann",
-    cover_image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT35UTqe-I5Id6J2F1KdueIn1ExIX3nMiNYM1ZmXBI08g&s=10"
-  }
-];
+import { openBookDetailsModal } from "../home/recent_section.js";
 
-// STATE CONTROLLER SEMAPHORES
-let isLibraryGridLoaded = false;
-let isFetchInProgress = false;
 
-// Firebase Auth instance
+// =========================================================
+// FIREBASE AUTH
+// =========================================================
+
 const auth = getAuth();
 
-// ==================== 2. AUTH LISTENER + INIT ====================
-function verifyAndLoadShelf() {
-  const targetGrid =
-    document.getElementById("mylibrary-books") || document.querySelector(".books-grid");
 
-  if (!targetGrid) return;
+// =========================================================
+// STATE
+// =========================================================
 
-  // Avoid repeated loads
-  if (isLibraryGridLoaded || isFetchInProgress) return;
+let currentUser = null;
+let isLibraryLoaded = false;
+let isLoading = false;
 
-  // If auth object is already ready, load immediately
-  const currentUser = auth.currentUser;
 
-  if (currentUser && currentUser.uid) {
-    window.userUid = currentUser.uid;
-    myLibraryBooksShelf();
-    return;
-  }
+// =========================================================
+// FIND LIBRARY CONTAINER
+// =========================================================
 
-  // Else wait for auth state change
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      window.userUid = user.uid;
-      console.log("✅ Firebase user ready:", user.uid);
-      myLibraryBooksShelf();
-    } else {
-      console.warn("⚠️ No authenticated user. Library fetch skipped.");
-      window.userUid = null;
-      isLibraryGridLoaded = true; // prevents repeated requests
-      if (targetGrid) renderBooksGrid(fallbackBooks, targetGrid);
+function getLibraryContainer() {
+    return (
+        document.getElementById("your-library-books") ||
+        document.getElementById("mylibrary-books") ||
+        document.querySelector(".my-library .books-grid") ||
+        document.querySelector(".mylibrary .books-grid")
+    );
+}
+
+
+// =========================================================
+// FIND CURRENT MEMBER BY FIREBASE AUTH EMAIL
+// =========================================================
+
+async function getCurrentMember(user) {
+
+    if (!user?.email) {
+        console.warn("Firebase user has no email.");
+        return null;
     }
-  });
-}
 
-// Initial execution attempt when DOM is ready
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", verifyAndLoadShelf);
-} else {
-  verifyAndLoadShelf();
-}
+    const email = user.email.trim().toLowerCase();
 
-// Global observer callback method
-window.triggerLibraryReload = function () {
-  if (isFetchInProgress) return;
+    console.log("Searching member by email:", email);
 
-  console.log("Waking up library engine: Global user ID updated by authentication stream.");
-  isLibraryGridLoaded = false;
-  myLibraryBooksShelf();
-};
+    const membersRef = collection(db, "members");
 
-// ==================== 3. LIBRARY LOADER ====================
-async function myLibraryBooksShelf() {
-  const targetGrid =
-    document.getElementById("mylibrary-books") || document.querySelector(".books-grid");
-
-  if (!targetGrid) return;
-
-  // Prevent duplicate loads
-  if (isLibraryGridLoaded || isFetchInProgress) return;
-
-  // If user not authenticated yet, stop safely
-  if (!window.userUid) {
-    console.warn("No user UID available yet. Waiting for auth...");
-    return;
-  }
-
-  try {
-    isFetchInProgress = true;
-    isLibraryGridLoaded = false;
-
-    targetGrid.innerHTML = `
-      <div class="loading-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--btn-background-color); font-weight: 700;">
-        <i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Loading your library collections shelf...
-      </div>
-    `;
-
-    // Query members by the field user_id == authenticated current uid
-    const membersCollectionRef = collection(db, "members");
-    const userFieldQuery = query(
-      membersCollectionRef,
-      where("user_id", "==", window.userUid)
+    const memberQuery = query(
+        membersRef,
+        where("email", "==", email)
     );
 
-    const querySnapshot = await getDocs(userFieldQuery);
+    const memberSnapshot = await getDocs(memberQuery);
 
-    if (querySnapshot.empty) {
-      console.warn("No member document found for this user. Loading fallback books.");
-      renderBooksGrid(fallbackBooks, targetGrid);
-      isLibraryGridLoaded = true;
-      return;
+    console.log(
+        "Members found:",
+        memberSnapshot.size
+    );
+
+    if (memberSnapshot.empty) {
+        console.warn(
+            "No member found for email:",
+            email
+        );
+
+        return null;
     }
 
-    // Get the matching member document ID
-    let targetDocumentPathName = "";
-    querySnapshot.forEach((memberDoc) => {
-      if (memberDoc.data().user_id === window.userUid) {
-        targetDocumentPathName = memberDoc.id;
-      }
-    });
+    const memberDoc = memberSnapshot.docs[0];
 
-    if (!targetDocumentPathName) {
-      console.warn("Member doc found, but no matching UID. Loading fallback books.");
-      renderBooksGrid(fallbackBooks, targetGrid);
-      isLibraryGridLoaded = true;
-      return;
-    }
+    console.log(
+        "Library member document:",
+        memberDoc.id
+    );
 
-    const onReadRef = collection(db, "members", targetDocumentPathName, "onReadMode");
-    const myLibraryRef = collection(db, "members", targetDocumentPathName, "my-library");
+    console.log(
+        "Library member data:",
+        memberDoc.data()
+    );
 
-    const [onReadSnap, myLibrarySnap] = await Promise.all([
-      getDocs(onReadRef),
-      getDocs(myLibraryRef)
-    ]);
-
-    // If both subcollections are empty, load fallback
-    if (onReadSnap.empty && myLibrarySnap.empty) {
-      console.warn("User subcollections are empty in database. Loading fallbacks.");
-      renderBooksGrid(fallbackBooks, targetGrid);
-      isLibraryGridLoaded = true;
-      return;
-    }
-
-    // Collect unique book IDs from both subcollections
-    const uniqueBookIds = new Set();
-
-    onReadSnap.forEach((docSnap) => {
-      uniqueBookIds.add(docSnap.id);
-    });
-
-    myLibrarySnap.forEach((docSnap) => {
-      uniqueBookIds.add(docSnap.id);
-    });
-
-    const resolvedBooksList = [];
-    const documentFetchPromises = [];
-
-    uniqueBookIds.forEach((bookId) => {
-      const masterBookDocRef = doc(db, "book-list", bookId);
-
-      const fetchTask = getDoc(masterBookDocRef)
-        .then((masterDocSnap) => {
-          if (masterDocSnap.exists()) {
-            const data = masterDocSnap.data();
-
-            resolvedBooksList.push({
-              id: masterDocSnap.id,
-              book_name: data.book_name || data.title || "Untitled Book",
-              author: data.author || "Unknown Author",
-              cover_image: data.cover_url || data.cover_image || "https://images.unsplash.com/photo-1512820790803-83ca734da794"
-            });
-          }
-        })
-        .catch((err) => {
-          console.error(`Error resolving book ID ${bookId}:`, err);
-        });
-
-      documentFetchPromises.push(fetchTask);
-    });
-
-    await Promise.all(documentFetchPromises);
-
-    if (resolvedBooksList.length === 0) {
-      renderBooksGrid(fallbackBooks, targetGrid);
-    } else {
-      renderBooksGrid(resolvedBooksList, targetGrid);
-    }
-
-    isLibraryGridLoaded = true;
-  } catch (error) {
-    console.error("Firestore library synchronization failed. Loading fallbacks:", error);
-
-    // Handle permission denied safely
-    if (error && error.code === "permission-denied") {
-      console.warn("Firestore permission denied. The user may not be signed in or rules block access.");
-    }
-
-    renderBooksGrid(fallbackBooks, targetGrid);
-    isLibraryGridLoaded = true;
-  } finally {
-    isFetchInProgress = false;
-  }
+    return memberDoc;
 }
 
-// ==================== 4. REUSABLE RENDERING ENGINE ====================
-function renderBooksGrid(booksArray, targetContainer) {
-  targetContainer.innerHTML = "";
 
-  if (!Array.isArray(booksArray) || booksArray.length === 0) {
-    targetContainer.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
-        No books saved yet.
-      </div>
+// =========================================================
+// AUTH STATE
+// =========================================================
+
+onAuthStateChanged(auth, async (user) => {
+
+    currentUser = user;
+
+    const libraryContainer =
+        getLibraryContainer();
+
+    if (!libraryContainer) {
+
+        console.warn(
+            "Library container not found."
+        );
+
+        return;
+    }
+
+
+    // -----------------------------------------------------
+    // USER IS NOT LOGGED IN
+    // -----------------------------------------------------
+
+    if (!user) {
+
+        isLibraryLoaded = false;
+
+        renderLoginRequired(
+            libraryContainer
+        );
+
+        return;
+    }
+
+
+    // -----------------------------------------------------
+    // USER IS LOGGED IN
+    // -----------------------------------------------------
+
+    console.log(
+        "Library user:",
+        user.uid
+    );
+
+    console.log(
+        "Library user email:",
+        user.email
+    );
+
+    isLibraryLoaded = false;
+
+    await loadUserLibrary(user);
+
+});
+
+
+// =========================================================
+// LOAD USER LIBRARY
+// =========================================================
+
+async function loadUserLibrary(user) {
+
+    const targetContainer =
+        getLibraryContainer();
+
+    if (!targetContainer) {
+
+        console.warn(
+            "Library container not found."
+        );
+
+        return;
+    }
+
+
+    if (!user) {
+
+        renderLoginRequired(
+            targetContainer
+        );
+
+        return;
+    }
+
+
+    if (isLoading) {
+        return;
+    }
+
+
+    try {
+
+        isLoading = true;
+
+        renderLoading(
+            targetContainer
+        );
+
+
+        // =================================================
+        // FIND MEMBER BY EMAIL
+        // =================================================
+
+        const memberDoc =
+            await getCurrentMember(user);
+
+
+        // -------------------------------------------------
+        // MEMBER NOT FOUND
+        // -------------------------------------------------
+
+        if (!memberDoc) {
+
+            console.log(
+                "No member document found for current user."
+            );
+
+            renderEmptyLibrary(
+                targetContainer
+            );
+
+            isLibraryLoaded = true;
+
+            return;
+        }
+
+
+        // =================================================
+        // USER LIBRARY COLLECTION
+        // =================================================
+
+        const libraryRef = collection(
+            db,
+            "members",
+            memberDoc.id,
+            "my-library"
+        );
+
+
+        const librarySnapshot =
+            await getDocs(libraryRef);
+
+
+        console.log(
+            "Library books found:",
+            librarySnapshot.size
+        );
+
+
+        // -------------------------------------------------
+        // LIBRARY IS EMPTY
+        // -------------------------------------------------
+
+        if (librarySnapshot.empty) {
+
+            console.log(
+                "User library is empty."
+            );
+
+            renderEmptyLibrary(
+                targetContainer
+            );
+
+            isLibraryLoaded = true;
+
+            return;
+        }
+
+
+        // =================================================
+        // GET BOOK IDS
+        // =================================================
+
+        const bookIds = [];
+
+        librarySnapshot.forEach(
+            (libraryDoc) => {
+
+                if (libraryDoc.id) {
+
+                    bookIds.push(
+                        libraryDoc.id
+                    );
+
+                }
+
+            }
+        );
+
+
+        const uniqueBookIds =
+            [...new Set(bookIds)];
+
+
+        console.log(
+            "Unique library book IDs:",
+            uniqueBookIds
+        );
+
+
+        // =================================================
+        // GET BOOK DATA FROM BOOK-LIST
+        // =================================================
+
+        const books = [];
+
+        const requests =
+            uniqueBookIds.map(
+                async (bookId) => {
+
+                    try {
+
+                        const bookRef =
+                            doc(
+                                db,
+                                "book-list",
+                                bookId
+                            );
+
+
+                        const bookSnapshot =
+                            await getDoc(
+                                bookRef
+                            );
+
+
+                        if (
+                            !bookSnapshot.exists()
+                        ) {
+
+                            console.warn(
+                                `Book ${bookId} no longer exists in book-list.`
+                            );
+
+                            return;
+                        }
+
+
+                        const data =
+                            bookSnapshot.data();
+
+
+                        books.push({
+
+                            id:
+                                bookSnapshot.id,
+
+                            book_name:
+                                data.book_name ||
+                                data.title ||
+                                "Untitled Book",
+
+                            author:
+                                data.author ||
+                                "Unknown Author",
+
+                            cover_image:
+                                data.cover_image ||
+                                data.cover_url ||
+                                "",
+
+                            pdf_url:
+                                data.pdf_url ||
+                                "",
+
+                            audio_url:
+                                data.audio_url ||
+                                "",
+
+                            short_details:
+                                data.short_details ||
+                                data.description ||
+                                "No description available.",
+
+                            genre:
+                                data.genre ||
+                                "",
+
+                            published:
+                                data.published ||
+                                "",
+
+                            pages:
+                                data.pages ||
+                                "",
+
+                            language:
+                                data.language ||
+                                "",
+
+                            rating:
+                                data.rating ||
+                                ""
+
+                        });
+
+                    } catch (error) {
+
+                        console.error(
+                            `Failed to load book ${bookId}:`,
+                            error
+                        );
+
+                    }
+
+                }
+            );
+
+
+        await Promise.all(
+            requests
+        );
+
+
+        // =================================================
+        // NO VALID BOOKS FOUND
+        // =================================================
+
+        if (books.length === 0) {
+
+            console.warn(
+                "Library contains saved book IDs, but no matching books were found."
+            );
+
+            renderEmptyLibrary(
+                targetContainer
+            );
+
+            isLibraryLoaded = true;
+
+            return;
+        }
+
+
+        // =================================================
+        // RENDER USER LIBRARY
+        // =================================================
+
+        renderLibraryBooks(
+            books,
+            targetContainer
+        );
+
+
+        isLibraryLoaded = true;
+
+
+    } catch (error) {
+
+        console.error(
+            "Library loading failed:",
+            error
+        );
+
+
+        renderLibraryError(
+            targetContainer
+        );
+
+    } finally {
+
+        isLoading = false;
+
+    }
+
+}
+
+
+// =========================================================
+// LOADING STATE
+// =========================================================
+
+function renderLoading(container) {
+
+    container.innerHTML = `
+
+        <div class="library-message loading-state">
+
+            <i class="fas fa-spinner fa-spin"></i>
+
+            <p>
+                Loading your library...
+            </p>
+
+        </div>
+
     `;
-    return;
-  }
 
-  booksArray.forEach((book) => {
-    const bookId = book.id;
-    const title = book.book_name || "Untitled Book";
-    const authorName = book.author || "Unknown Author";
-    const coverImage = book.cover_image || "https://images.unsplash.com/photo-1512820790803-83ca734da794";
+}
 
-    const article = document.createElement("article");
-    article.className = "book-cards card1";
 
-    article.innerHTML = `
-      <div class="book-cover">
-        <img
-          src="${coverImage}"
-          alt="${title} cover"
-          onerror="this.src='https://images.unsplash.com/photo-1512820790803-83ca734da794';"
-          style="width:100%; height:100%; object-fit:cover;"
-        >
-      </div>
-      <div class="book-name">${title}</div>
-      <div class="book-author">By ${authorName}</div>
-      <button class="book-detail-btn">View</button>
+// =========================================================
+// NOT LOGGED IN
+// =========================================================
+
+function renderLoginRequired(container) {
+
+    container.innerHTML = `
+
+        <div class="library-message login-required-library">
+
+            <p>
+                You are not logged in.
+                Please log in or sign up
+                to open your library.
+            </p>
+
+            <div class="library-message-actions">
+
+                <a
+                    href="login.html"
+                    class="library-login-btn"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="signup.html"
+                    class="library-signup-btn"
+                >
+                    Sign Up
+                </a>
+
+            </div>
+
+        </div>
+
     `;
 
-    const detailsButton = article.querySelector(".book-detail-btn");
-    detailsButton.addEventListener("click", () => {
-      window.location.href = `about_book.html?id=${bookId}&title=${encodeURIComponent(title)}`;
+}
+
+
+// =========================================================
+// EMPTY LIBRARY
+// =========================================================
+
+function renderEmptyLibrary(container) {
+
+    container.innerHTML = `
+
+        <div class="library-message empty-library">
+
+            <p>
+                No book added to library yet.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// ERROR
+// =========================================================
+
+function renderLibraryError(container) {
+
+    container.innerHTML = `
+
+        <div class="library-message library-error">
+
+            <p>
+                We couldn't load your library right now.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================================================
+// RENDER BOOKS
+// =========================================================
+
+function renderLibraryBooks(
+    books,
+    container
+) {
+
+    container.innerHTML = "";
+
+
+    books.forEach((book) => {
+
+        const article =
+            document.createElement("article");
+
+
+        // Same card class as Home
+        article.className =
+            "book-card";
+
+
+        article.dataset.id =
+            book.id;
+
+
+        article.innerHTML = `
+
+            <div class="book-cover">
+
+                <img
+                    src="${escapeHTML(book.cover_image)}"
+                    alt="${escapeHTML(book.book_name)} cover"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="book-info">
+
+                <h3 class="book-title">
+                    ${escapeHTML(book.book_name)}
+                </h3>
+
+
+                <p class="book-author">
+                    by ${escapeHTML(book.author)}
+                </p>
+
+
+                <div class="description-wrapper">
+
+                    <p class="book-description collapsed">
+                        ${escapeHTML(book.short_details)}
+                    </p>
+
+
+                    <button
+                        type="button"
+                        class="toggle-desc-btn"
+                    >
+
+                        <span class="btn-text">
+                            Read More
+                        </span>
+
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+
+                    </button>
+
+                </div>
+
+
+
+        `;
+
+
+        // =================================================
+        // WHOLE CARD → EXISTING BOOK DETAILS MODAL
+        // =================================================
+
+        article.addEventListener(
+            "click",
+            () => {
+              console.log("LIBRARY CARD CLCIKED",book);
+              console.log("MODAL UNCTION:", openBookDetailsModal);
+
+                openBookDetailsModal(book);
+
+            }
+        );
+
+
+        // =================================================
+        // DESCRIPTION TOGGLE
+        // =================================================
+
+        const descriptionButton =
+            article.querySelector(
+                ".toggle-desc-btn"
+            );
+
+        const description =
+            article.querySelector(
+                ".book-description"
+            );
+
+        const descriptionButtonText =
+            descriptionButton?.querySelector(
+                ".btn-text"
+            );
+
+        const descriptionIcon =
+            descriptionButton?.querySelector(
+                ".toggle-icon"
+            );
+
+
+        descriptionButton?.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+                description?.classList.toggle(
+                    "collapsed"
+                );
+
+
+                const isCollapsed =
+                    description?.classList.contains(
+                        "collapsed"
+                    );
+
+
+                if (descriptionButtonText) {
+
+                    descriptionButtonText.textContent =
+                        isCollapsed
+                            ? "Read More"
+                            : "Read Less";
+
+                }
+
+
+                descriptionIcon?.classList.toggle(
+                    "fa-chevron-down",
+                    isCollapsed
+                );
+
+                descriptionIcon?.classList.toggle(
+                    "fa-chevron-up",
+                    !isCollapsed
+                );
+
+            }
+        );
+
+
+        // =================================================
+        // READ BUTTON
+        // =================================================
+
+        const readButton =
+            article.querySelector(
+                ".read-btn"
+            );
+
+
+        readButton?.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+                openBookDetailsModal(book);
+
+            }
+        );
+
+
+        // =================================================
+        // LISTEN BUTTON
+        // =================================================
+
+        const listenButton =
+            article.querySelector(
+                ".play-audio-btn"
+            );
+
+
+        listenButton?.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+
+                if (!book.audio_url) {
+
+                    alert(
+                        "Audio is not available for this book."
+                    );
+
+                    return;
+
+                }
+
+
+                window.open(
+                    book.audio_url,
+                    "_blank"
+                );
+
+            }
+        );
+
+
+        // =================================================
+        // DOWNLOAD BUTTON
+        // =================================================
+
+        const downloadButton =
+            article.querySelector(
+                ".download-btn"
+            );
+
+
+        downloadButton?.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+
+                if (!book.pdf_url) {
+
+                    alert(
+                        "PDF is not available for this book."
+                    );
+
+                    return;
+
+                }
+
+
+                const link =
+                    document.createElement("a");
+
+
+                link.href =
+                    book.pdf_url;
+
+                link.download =
+                    `${book.book_name}.pdf`;
+
+                link.target =
+                    "_blank";
+
+
+                document.body.appendChild(
+                    link
+                );
+
+                link.click();
+
+                link.remove();
+
+            }
+        );
+
+
+        // =================================================
+        // LIBRARY BUTTON
+        // =================================================
+
+        const libraryButton =
+            article.querySelector(
+                ".library-btn"
+            );
+
+
+        libraryButton?.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+                // This book is already inside
+                // the user's library.
+                // No remove logic is added here yet.
+
+            }
+        );
+
+
+        container.appendChild(
+            article
+        );
+
     });
 
-    targetContainer.appendChild(article);
-  });
 }
+
+
+// =========================================================
+// OPEN BOOK
+// =========================================================
+
+function openBook(book) {
+
+    openBookDetailsModal(book);
+
+}
+
+
+// =========================================================
+// SECURITY HELPER
+// =========================================================
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// =========================================================
+// OPTIONAL GLOBAL RELOAD
+// =========================================================
+
+window.triggerLibraryReload =
+    function () {
+
+        const container =
+            getLibraryContainer();
+
+
+        if (!currentUser) {
+
+            if (container) {
+
+                renderLoginRequired(
+                    container
+                );
+
+            }
+
+            return;
+        }
+
+
+        isLibraryLoaded = false;
+
+        loadUserLibrary(
+            currentUser
+        );
+
+    };

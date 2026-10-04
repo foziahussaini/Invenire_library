@@ -181,3 +181,127 @@ document.addEventListener("DOMContentLoaded", () => {
     runClockTickCycle();
     setInterval(runClockTickCycle, 1000);
 });
+
+
+// =========================================================
+// YOUR PROGRESS - TEMPORARY HARDCODED DATA
+// =========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const progressContainer =
+        document.getElementById("progress-books");
+
+    const emptyState =
+        document.getElementById("progress-empty-state");
+
+    if (!progressContainer) return;
+
+    const progressBooks = [
+        {
+            title: "Boofe Koor",
+            author: "Sadegh Hedayat",
+            cover: "https://files.virgool.io/upload/users/4767704/post_...",
+            progress: 68
+        },
+        {
+            title: "The Alchemist",
+            author: "Paulo Coelho",
+            cover: "../images/books/alchemist.jpg",
+            progress: 42
+        },
+        {
+            title: "Atomic Habits",
+            author: "James Clear",
+            cover: "../images/books/atomic-habits.jpg",
+            progress: 25
+        },
+        {
+            title: "The Little Prince",
+            author: "Antoine de Saint-Exupéry",
+            cover: "../images/books/little-prince.jpg",
+            progress: 85
+        }
+    ];
+
+    if (progressBooks.length === 0) {
+        progressContainer.innerHTML = "";
+        if (emptyState) {
+            emptyState.style.display = "block";
+        }
+        return;
+    }
+
+    if (emptyState) {
+        emptyState.style.display = "none";
+    }
+
+    progressContainer.innerHTML = "";
+
+    progressBooks.forEach(book => {
+
+        const card = document.createElement("article");
+
+        card.className = "progress-card";
+
+        const progress =
+            Math.min(
+                Math.max(book.progress, 0),
+                100
+            );
+
+        card.innerHTML = `
+            
+            <div class="progress-card-cover">
+                <img
+                    src="${book.cover}"
+                    alt="${book.title} cover"
+                    loading="lazy"
+                >
+            </div>
+
+            <div class="progress-card-info">
+
+                <h3 class="progress-card-title">
+                    ${book.title}
+                </h3>
+
+                <p class="progress-card-author">
+                    by ${book.author}
+                </p>
+
+                <div class="progress-card-progress">
+
+                    <div class="progress-bar">
+                        <div
+                            class="progress-bar-fill"
+                            style="width: ${progress}%;">
+                        </div>
+                    </div>
+
+                    <span class="progress-percent">
+                        ${progress}%
+                    </span>
+
+                </div>
+
+                <div class="progress-card-footer">
+
+                    <span class="progress-status">
+                        ${
+                            progress >= 100
+                                ? "✓ Finished"
+                                : "Continue Reading"
+                        }
+                    </span>
+
+                </div>
+
+            </div>
+        `;
+
+        progressContainer.appendChild(card);
+
+    });
+
+});

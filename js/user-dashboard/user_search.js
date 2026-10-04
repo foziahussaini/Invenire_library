@@ -1,5 +1,6 @@
 import { db } from "../../src/firebase-config.js"; 
 import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js"; 
+import { openBookDetailsModal } from "../home/recent_section.js";
 
 ///============================ SEARCH COMPONENTS & CLOSE ICON INITIALIZATION ========================
 const searchInput = document.querySelector(".search-input");
@@ -50,9 +51,64 @@ if (searchInput && searchResultDropDown) {
                         itemList.className = "search-item";
                         itemList.innerHTML = `<i class="fas fa-book"></i> <span><strong>${bookName}</strong> by ${authorName}</span>`;
                         
-                        // FIXED: Click event now redirects directly to about_book.html 
                         itemList.addEventListener("click", () => {
-                            window.location.href = `about_book.html?id=${doc.id}&name=${encodeURIComponent(bookName)}`;
+
+                            const book = {
+                                id: doc.id,
+
+                                book_name:
+                                    data.book_name ||
+                                    data.title ||
+                                    "Untitled Book",
+
+                                author:
+                                    data.author ||
+                                    "Unknown Author",
+
+                                cover_image:
+                                    data.cover_image ||
+                                    data.cover_url ||
+                                    "",
+
+                                pdf_url:
+                                    data.pdf_url ||
+                                    "",
+
+                                audio_url:
+                                    data.audio_url ||
+                                    "",
+
+                                short_details:
+                                    data.short_details ||
+                                    data.description ||
+                                    "No description available.",
+
+                                genre:
+                                    data.genre ||
+                                    "",
+
+                                published:
+                                    data.published ||
+                                    "",
+
+                                pages:
+                                    data.pages ||
+                                    "",
+
+                                language:
+                                    data.language ||
+                                    "",
+
+                                rating:
+                                    data.rating ||
+                                    ""
+                            };
+
+                            searchResultDropDown.style.display = "none";
+                            searchInput.value = "";
+                            closeIcon.style.display = "none";
+
+                            openBookDetailsModal(book);
                         });
                         searchResultDropDown.appendChild(itemList);
                     }
