@@ -11,6 +11,7 @@
     <link href="/src/output.css" rel="stylesheet">
     <link rel="stylesheet" href="../css-style/root.css"> <!-- for the base root linked-->
     <link rel="stylesheet" href="../css-style/main-pages/userDashboard.css">
+    <link rel="stylesheet" href="../css-style/components/book-detail-modal.css">
     <!-- ===========responsive layout -->
     <link rel="stylesheet" href="../responsive/dashboard/sidebar_profile_responsive.css">
     <!-- ============dashboard js for sidebar configuration listner=========== -->
@@ -127,104 +128,173 @@
                         <span id="dashboardWeather">25°C</span>
                     </div>
                 </div>
-                <!--================book shelf==============-->
-                <!-- Added id="my-library" to map with sidebar menu selections dynamically -->
-                <div class="my-library section2" id="my-library">
-                    <div class="section-header">
-                        <h1>Book Shelf</h1>
-                    </div>
-                    <div class="books-grid" id="mylibrary-books">
-                        <article class="book-cards card1">
-                            <div class="book-cover">
-                                <img src="../images/book_cover/defaultCover.jpeg" alt="">
-                            </div>
-                            <div class="book-name">Yesterday</div>
-                            <div class="book-author"></div>
-                            <button class="book-detail-btn">view</button>
-                        </article>
-                    </div>
+                
+                            <!-- =========================================================
+                YOUR LIBRARY
+            ========================================================= -->
+            <section class="my-library section2" id="my-library">
+
+                <!-- Section Header -->
+                <div class="section-header library-section-header">
+                    <h1>Your <span>Library</span></h1>
                 </div>
-                <!-- =========================SECTION3 MY ACTIVITY======================================== -->
-                <!-- Added id="activity" to map with sidebar menu selections dynamically -->
-                <div class="my-activity section3" id="activity">
-                    <div class="title">
-                        <p>My Activity</p>
+
+            
+                <div class="library-content" id="your-library-content">
+
+                    <!--
+                        Dynamic book cards will be inserted here.
+                        Keep this empty. Do NOT add fake/test books.
+                    -->
+                    <div
+                        class="books-grid your-library-grid"
+                        id="your-library-books">
                     </div>
-                    <div class="activity-container">
-                        <div class="status">
-                            <!-- Preserved original class names -->
-                            <div class="active-strick box1">
-                                <div class="text-context">
-                                    <h1>30 Days</h1>
-                                    <p id="activity-streak-days">0</p>
-                                </div>
-                                <span><i class="fa-solid fa-fire"></i></span>
-                            </div>
-                            <div class="login-count">
-                                <div class="text-context">
-                                    <h1>Total login</h1>
-                                    <p id="activity-total-logins">0</p>
-                                </div>
-                                <span><i class="fa-solid fa-clock"></i></span>
-                            </div>
-                            <div class="status-dice box2">
-                                <!-- Badges containing individual target wrapper templates -->
-                                <div class="silver" id="badge-silver">
-                                    <span><i class="fa-solid fa-award"></i></span>
-                                    <p>Silver</p>
-                                </div>
-                                <div class="gild" id="badge-gold">
-                                    <span><i class="fa-solid fa-crown"></i></span>
-                                    <p>Gold</p>
-                                </div>
-                                <div class="bronze" id="badge-bronze">
-                                    <span><i class="fa-solid fa-medal"></i></span>
-                                    <p>Bronze</p>
-                                </div>
-                                <div class="star" id="badge-star">
-                                    <span><i class="fa-solid fa-star"></i></span>
-                                    <p>Star</p>
-                                </div>
-                            </div>
+
+                    <!-- Not Logged In State -->
+                    <div
+                        class="library-empty-state library-login-state"
+                        id="library-login-state"
+                        style="display: none;">
+
+                        <div class="library-state-icon">
+                            <i class="fa-solid fa-lock"></i>
                         </div>
 
-                        <!-- Output Containers Hooked Up -->
-                        <div class="article">
-                            <div class="donloaded-list box3" id="activity-download-shelf">
-                                <p>download</p>
-                                <div class="list-container">
-                                    <!-- Dynamic elements fill space -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="purchase-list box4" id="activity-purchase-shelf">
-        <p>purchase</p>
-        <div class="list-container">
-            <!-- data here -->
-        </div>
-    </div>
-                            <!-- Article 3: Missing Section Restored -->
-                        <div class="favorites-list box3" id="activity-favorites-shelf">
-                                <p>favorites</p>
-                                <div class="list-container">
-                                    <!-- Dynamic content goes here -->
-                                </div>
+                        <h3>You are not logged in.</h3>
+
+                        <p>
+                            Please log in or sign up to open your library.
+                        </p>
+
+                        <div class="library-state-actions">
+
+                            <a
+                                href="login.html"
+                                class="library-state-btn">
+                                Login
+                            </a>
+
+                            <a
+                                href="signup.html"
+                                class="library-state-btn">
+                                Sign Up
+                            </a>
+
                         </div>
                     </div>
-                </div> 
+
+                    <!-- Logged In But Empty State -->
+                    <div
+                        class="library-empty-state library-no-books-state"
+                        id="library-no-books-state"
+                        style="display: none;">
+
+                        <div class="library-state-icon">
+                            <i class="fa-solid fa-bookmark"></i>
+                        </div>
+
+                        <h3>No book added to library yet.</h3>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                YOUR PROGRESSES
+            ========================================================= -->
+            <section
+                class="your-progresses section3"
+                id="your-progresses">
+
+                <!-- Section Header -->
+                <div class="section-header progress-section-header">
+                    <h1>Your <span>Progresses</span></h1>
+                </div>
+
+                
+                <div
+                    class="books-grid progress-books-grid"
+                    id="progress-books">
+
+                </div>
+
+                <!-- Empty Progress State -->
+                <div
+                    class="progress-empty-state"
+                    id="progress-empty-state"
+                    style="display: none;">
+
+                    <div class="progress-state-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+
+                    <h3>No reading progress yet.</h3>
+
+                    <p>
+                        Start reading a book to see your progress here.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                YOUR DOWNLOADS
+            ========================================================= -->
+            <section
+                class="your-downloads section4"
+                id="your-downloads">
+
+                <!-- Section Header -->
+                <div class="section-header download-section-header">
+                    <h1>Your <span>Downloads</span></h1>
+                </div>
+
+              
+                <div
+                    class="books-grid download-books-grid"
+                    id="download-books">
+
+                </div>
+
+                <!-- Empty Download State -->
+                <div
+                    class="download-empty-state"
+                    id="download-empty-state"
+                    style="display: none;">
+
+                    <div class="download-state-icon">
+                        <i class="fa-solid fa-download"></i>
+                    </div>
+
+                    <h3>No downloaded books yet.</h3>
+
+                    <p>
+                        Books you download will appear here.
+                    </p>
+
+                </div>
+
+            </section>
+              
                 <!-- =====================setting======================== -->
                <div class="my-settings section4" id="Settings" style="margin-top:20px;">
-    <div class="setting-context">
-        <div class="head-title">
-            <ul>
-                <!-- Fixed href attributes to strictly match the box IDs -->
-                <li><a href="#personal" class="active">personal</a></li>
-                <li><a href="#setting-library">my library</a></li>
-                <li><a href="#del-account">delete account</a></li>
-                <li><a href="#manage-size">manage size</a></li>
-                <li><a href="#notification">notification</a></li>
-            </ul>
-        </div>
+                <div class="setting-context">
+                    <div class="head-title">
+                        <ul>
+                            <!-- Fixed href attributes to strictly match the box IDs -->
+                            <li><a href="#personal" class="active">personal</a></li>
+                            <li><a href="#setting-library">my library</a></li>
+                            <li><a href="#del-account">delete account</a></li>
+                            <li><a href="#manage-size">manage size</a></li>
+                            <li><a href="#notification">notification</a></li>
+                        </ul>
+                    </div>
         <div class="setting-body-content">
             <div class="box11 box personal active" id="personal">
                 <input type="image" src="../images/profile/female.jpg" alt="">

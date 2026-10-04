@@ -1653,6 +1653,26 @@ header {
     font-size: 12px;
 }
 
+.book-details-action-btn {
+    position: relative;
+}
+
+.library-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.library-check i {
+    color: #22c55e;
+}
+
+.book-details-action-btn.is-added {
+    /* فقط وضعیت داخلی دکمه را نگه می‌داریم */
+}
+
 /* =========================================================
    LOGIN REQUIRED MODAL
 ========================================================= */
