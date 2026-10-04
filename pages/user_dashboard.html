@@ -5,30 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library</title>
-    <!-- =================firebase config file============== -->
-    <script type="module" src="../../src/firebase-config.js"></script>
     <!-- css style link -->
     <link href="/src/output.css" rel="stylesheet">
     <link rel="stylesheet" href="../css-style/root.css"> <!-- for the base root linked-->
     <link rel="stylesheet" href="../css-style/main-pages/userDashboard.css">
     <!-- ===========responsive layout -->
     <link rel="stylesheet" href="../responsive/dashboard/sidebar_profile_responsive.css">
-    <!-- ============dashboard js for sidebar configuration listner=========== -->
     <!-- ==================current js file ================ -->
     <script type="module" src="../js/user-dashboard/user_dashboard.js" defer></script>
     <!-- auth logic -->
     <script type="module" defer src="../js/auth-files/auth.js"></script>
     <!-- user header part-->
     <script type="module" src="../js/user-dashboard/user_search.js" defer></script>
-    <script type="module" src="../js/auth-files/profile.js" defer></script>
+    <script type="module" src="../js/auth-files/profile.js"></script>
     <!-- =================logut logic js file -->
-    <script type="module" src="../js/auth-files/logout.js" defer></script>
+    <script type="module" src="../js/auth-files/logout.js"></script>
     <!-- ========greeting logic js file -->
     <script src="../js/user-dashboard/greeting.js" defer></script>
     <script type="module" src="../js/user-dashboard/my_library.js" defer></script>
     <script type="module" src="../js/user-dashboard/activity.js" defer></script>
     <!-- setting part js file -->
-     <script defer src="../js/user-dashboard/user_setting.js"></script>
+    <script defer src="../js/setting.js"></script>
+    <!-- Injecting Playwrite Cuba and Amatic SC typography scripts directly into the dashboard context -->
+    <link rel="stylesheet" href="https://googleapis.com">
+
     <!-- ==========tailwind and font swesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
@@ -76,21 +76,25 @@
                     </ul>
                 </div>
                 <hr class="w-full h-px bg-gray-400 border-0 my-2">
-                <div class="menu-item" data-route="Theme">
-                    <a class="menu-icon" href="#"><i class="fa-solid fa-palette"></i></a>
-                    <a href="#" class="menu-text"><span class="menu-text">Theme</span></a>
+                <!-- === FIXED: Injected id="themeDropdownBtn" to establish connection layout handles === -->
+                <div class="menu-item" data-route="Theme" id="themeDropdownBtn" style="cursor: pointer;">
+                    <a class="menu-icon" href="javascript:void(0);"><i class="fa-solid fa-palette"></i></a>
+                    <a href="javascript:void(0);" class="menu-text"><span class="menu-text">Theme</span></a>
                     <i class="fa-solid fa-angle-down dropdown-arrow"></i>
                 </div>
+
                 <div class="theme-dropdown">
-                <ul class="dropdown-menu" id="themeDropdownMenu">
-                            <li data-value="light">☀️ Light</li>
-                            <li data-value="dark">🌙 Dark</li>
-                </ul>
-            </div>
+                    <ul class="dropdown-menu" id="themeDropdownMenu">
+                        <!-- Kept dataset values exactly matching data-value strings for script tracking -->
+                        <li data-value="light">☀️ Light</li>
+                        <li data-value="dark">🌙 Dark</li>
+                    </ul>
+                </div>
+
                 <button class="logout">Log Out</button>
             </div>
         </aside>
-    
+
         <!-- ==================== MAIN WORKSPACE ENGINE ==================== -->
         <div class="member-main-content">
 
@@ -110,8 +114,7 @@
                 </div>
                 <div class="profile-container">
                     <div class="profile">
-                        <img src="/src/assets/images/defaultProfile.png" id="headerProfileAvatar"
-                            alt="Header View space Profile Mini Avatar Image">
+                        <img src="../images/profile/female.jpg" alt="">
                     </div>
                 </div>
             </header>
@@ -198,67 +201,192 @@
                             </div>
                         </div>
                         <div class="purchase-list box4" id="activity-purchase-shelf">
-        <p>purchase</p>
-        <div class="list-container">
-            <!-- data here -->
-        </div>
-    </div>
-                            <!-- Article 3: Missing Section Restored -->
+                            <p>purchase</p>
+                            <div class="list-container">
+                                <!-- data here -->
+                            </div>
+                        </div>
+                        <!-- Article 3: Missing Section Restored -->
                         <div class="favorites-list box3" id="activity-favorites-shelf">
-                                <p>favorites</p>
-                                <div class="list-container">
-                                    <!-- Dynamic content goes here -->
-                                </div>
+                            <p>favorites</p>
+                            <div class="list-container">
+                                <!-- Dynamic content goes here -->
+                            </div>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <!-- =====================setting======================== -->
-               <div class="my-settings section4" id="Settings" style="margin-top:20px;">
-    <div class="setting-context">
-        <div class="head-title">
-            <ul>
-                <!-- Fixed href attributes to strictly match the box IDs -->
-                <li><a href="#personal" class="active">personal</a></li>
-                <li><a href="#setting-library">my library</a></li>
-                <li><a href="#del-account">delete account</a></li>
-                <li><a href="#manage-size">manage size</a></li>
-                <li><a href="#notification">notification</a></li>
-            </ul>
-        </div>
-        <div class="setting-body-content">
-            <div class="box11 box personal active" id="personal">
-                <input type="image" src="../images/profile/female.jpg" alt="">
-                <input type="text" placeholder="FullName">
-                <input type="email" name="email" id="email">
-                <input type="text" placeholder="previous password">
-                <input type="text" placeholder="new password">
-                <button>save</button>
-            </div>
-            <div class="box12 box library" id="setting-library">
-                <div class="favbook">Favorite Books</div>
-                <div class="downloaded-book">Downloaded</div>
-                <div class="reset-library">Reset</div>
-            </div>
-            <div class="box13 box delAccount" id="del-account">
-                <h1>Delete Account</h1>
-                <p>Are you sure?</p>
-                <button>delete</button>
-                <button>cancel</button>
-            </div>
-            <div class="box14 box size-manage" id="manage-size">
-                <div class="header-card-box">Header color</div>
-                <div class="btn-box">Btn color</div>
-            </div>
-            <div class="box15 box nofity" id="notification">
-                <div class="email-recieve">Email notification</div>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="my-settings section4" id="Settings" style="margin-top:20px;">
+                    <div class="setting-context">
+                        <div class="head-title">
+                            <ul>
+                                <li><a href="javascript:void(0);" data-target="personal"
+                                        class="tab-link active">personal</a></li>
+                                <!-- <li><a href="javascript:void(0);" data-target="setting-library" class="tab-link">my
+                                        library</a></li> -->
+                                <li><a href="javascript:void(0);" data-target="del-account" class="tab-link">delete
+                                        account</a></li>
+                                <li><a href="javascript:void(0);" data-target="manage-size" class="tab-link">manage
+                                        size</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="setting-body-content">
+                            <!-- Changed from a generic <div> to a semantic, accessible <form> layout structure -->
+                            <form class="box1 box personal active" id="personal" onsubmit="return false;">
+
+                                <!-- Profile Picture Container Block Area Layout -->
+                                <div class="profile-pic" id="profilePicContainer"
+                                    title="Click to upload a new profile picture">
+                                    <img id="profileImageDisplay" src="../images/profile/female.jpg"
+                                        alt="Profile Picture" />
+                                    <input type="file" id="imageUploadInput" accept="image/*" style="display: none;" />
+                                </div>
+
+                                <!-- Full Name Input Row Container -->
+                                <div class="input-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" placeholder="FullName" id="name" required />
+                                </div>
+
+                                <!-- Email Address Input Row Container -->
+                                <div class="input-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" name="email" id="email" placeholder="example@domain.com"
+                                        required />
+                                </div>
+
+                                <!-- Security Validation Layer: Current Password Input Row Container -->
+                                <div class="input-group">
+                                    <label for="pre-password">Current Password</label>
+                                    <input type="password" placeholder="Previous password" id="pre-password"
+                                        autocomplete="current-password" />
+                                </div>
+
+                                <!-- Security Validation Layer: New Password Input Row Container -->
+                                <div class="input-group">
+                                    <label for="new-pass">New Password</label>
+                                    <input type="password" placeholder="New password" id="new-pass"
+                                        autocomplete="new-password" />
+                                </div>
+
+                                <!-- Action Execution Node Button Trigger Row -->
+                                <button type="button" id="saveProfileButton">save</button>
+                            </form>
+
+                            <!-- <div class="box12 box library" id="setting-library">
+                                <div class="favbook">Favorite Books</div>
+                                <div class="downloaded-book">Downloaded</div>
+                                <div class="reset-library">Reset</div>
+                            </div> -->
+                            <div class="box13 box delAccount" id="del-account">
+                                <span><i class="fa-solid fa-warning"></i></span>
+                                <h1>Delete Account</h1>
+                                <p>Are you sure you want to delete your account?</p>
+                                <p>once you delete you will naver have access to your library</p>
+                                <button>delete</button>
+                                <button>cancel</button>
+                            </div>
+                            <!-- ===================================manage size================================== -->
+                            <div class="box14 box manage-size" id="manage-size">
+                                <h2>Personalization</h2>
+
+                                <div class="card-option-group">
+                                    <h3>Text Display Size</h3>
+                                    <div class="cards-grid" id="sizeCardsContainer">
+
+                                        <!-- 1. Compact Config Card -->
+                                        <div class="visual-option-card" data-type="size" data-value="small">
+                                            <div class="card-mini-preview size-preview-small">
+                                                <div class="mini-header">Header</div>
+                                                <div class="mini-text">Normal text
+                                                    <div class="mini-btn">Button</div>
+                                                </div>
+                                            </div>
+                                            <span class="option-label">Compact</span>
+                                        </div>
+
+                                        <!-- 2. Standard Config Card -->
+                                        <div class="visual-option-card active" data-type="size" data-value="medium">
+                                            <div class="card-mini-preview size-preview-medium">
+                                                <div class="mini-header">Header</div>
+                                                <div class="mini-text">Normal text
+                                                    <div class="mini-btn">Button</div>
+                                                </div>
+                                            </div>
+                                            <span class="option-label">Standard</span>
+                                        </div>
+
+                                        <!-- 3. Expanded Config Card -->
+                                        <div class="visual-option-card" data-type="size" data-value="large">
+                                            <div class="card-mini-preview size-preview-large">
+                                                <div class="mini-header">Header</div>
+                                                <div class="mini-text">Normal text
+                                                    <div class="mini-btn">Button</div>
+                                                </div>
+
+                                            </div>
+                                            <span class="option-label">Expanded</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- GROUP 2: TYPOGRAPHY STYLE CONFIGURATION (ADDED HERE) -->
+                                <div class="card-option-group">
+                                    <h3>Typography Theme Style</h3>
+                                    <div class="cards-grid" id="styleCardsContainer">
+
+                                        <!-- Modern Clean Choice Card -->
+                                        <div class="visual-option-card active" data-type="style" data-value="modern">
+                                            <div class="card-mini-preview font-preview-modern">
+                                                <div class="mini-header">Modern</div>
+                                                <div class="mini-text">Clean
+                                                    <div class="mini-btn">Action</div>
+                                                </div>
+
+                                            </div>
+                                            <span class="option-label">Modern Clean</span>
+                                        </div>
+
+                                        <!-- Elegant Cursive Choice Card -->
+                                        <div class="visual-option-card" data-type="style" data-value="cursive">
+                                            <div class="card-mini-preview font-preview-cursive">
+                                                <div class="mini-header">Header</div>
+                                                <div class="mini-text">Cursive Style
+                                                    <div class="mini-btn">Action</div>
+                                                </div>
+
+                                            </div>
+                                            <span class="option-label">Elegant Cursive</span>
+                                        </div>
+
+                                        <!-- Creative Tall Choice Card -->
+                                        <div class="visual-option-card" data-type="style" data-value="tall">
+                                            <div class="card-mini-preview font-preview-tall">
+                                                <div class="mini-header">HEADER</div>
+                                                <div class="mini-text">TALL STYLE
+                                                    <div class="mini-btn">ACTION</div>
+                                                </div>
+
+                                            </div>
+                                            <span class="option-label">Creative Tall</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- SAVE ACTIONS BUTTON  -->
+                                <button type="button" id="commitGlobalDashboardStylesBtn">Apply Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
     <script src="../js/dashboard/sub_pages/theme.js"></script>
 </body>
+
 </html>

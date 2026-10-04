@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ========================= SIDEBAR LAYOUT MAP PIPELINE ENGINE ===================================================
     const menuItems = document.querySelectorAll(".menu-item");
     
-    // Exact selectors mapping to your new clean <ul> lists
+    // Exact selectors mapping to your clean <ul> lists
     const langDropdownMenu = document.getElementById("langDropdownMenu");
     const themeDropdownMenu = document.getElementById("themeDropdownMenu");
 
@@ -88,7 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.stopPropagation();
                 
                 // Close the opposing theme panel if open
-                if (themeDropdownMenu) themeDropdownMenu.parentElement.style.display = "none";
+                if (themeDropdownMenu) {
+                    themeDropdownMenu.classList.remove("show");
+                    themeDropdownMenu.style.setProperty("display", "none", "important");
+                }
                 document.querySelector('.menu-item[data-route="Theme"], .menu-item[data-route="theme"]')?.classList.remove("overlay-active");
 
                 if (langDropdownMenu) {
@@ -100,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 3. ROUTE PATTERN C: Theme flyout interaction triggers
+            // 3. ROUTE PATTERN C: Theme flyout interaction triggers (DEFERRED TO SPECIFIC CONTROLLER)
             if (routeTarget === "theme") {
                 e.preventDefault();
                 e.stopPropagation();
@@ -109,11 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (langDropdownMenu) langDropdownMenu.closest('.lang-dropdown').style.display = "none";
                 document.getElementById("langMenuItem")?.classList.remove("overlay-active");
 
+                // Toggle visibility using your new class setup securely
                 if (themeDropdownMenu) {
-                    const parentContainer = themeDropdownMenu.closest('.theme-dropdown');
-                    const isCurrentlyOpen = parentContainer.style.display === "block";
-                    parentContainer.style.display = isCurrentlyOpen ? "none" : "block";
-                    item.classList.toggle("overlay-active", !isCurrentlyOpen);
+                    const isOpen = themeDropdownMenu.classList.toggle("show");
+                    themeDropdownMenu.style.setProperty("display", isOpen ? "block" : "none", "important");
+                    item.classList.toggle("overlay-active", isOpen);
                 }
                 return;
             }
@@ -128,19 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==================== OVERLAY DISMISSAL CLICK LISTENERS ====================
-    // Dismisses menus instantly when clicking in blank space outside selection rows
     window.addEventListener("click", (e) => {
         const langContainer = langDropdownMenu?.closest('.lang-dropdown');
-        const themeContainer = themeDropdownMenu?.closest('.theme-dropdown');
 
         if (langContainer && !langContainer.contains(e.target) && !e.target.closest('[data-route="language"]')) {
             langContainer.style.display = "none";
             document.getElementById("langMenuItem")?.classList.remove("overlay-active");
         }
-        if (themeContainer && !themeContainer.contains(e.target) && !e.target.closest('[data-route="Theme"], [data-route="theme"]')) {
-            themeContainer.style.display = "none";
-            document.querySelector('.menu-item[data-route="Theme"], .menu-item[data-route="theme"]')?.classList.remove("overlay-active");
-        }
+        
     });
 
     // Options selection capture loops for Language choices
@@ -158,22 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Options selection capture loops for Theme choices (Light, Dark, Neon, Retro)
-    document.querySelectorAll("#themeDropdownMenu li").forEach(option => {
-        option.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const selectedTheme = option.getAttribute("data-value");
-            console.log(`🟢 Theme interface mode changed to: ${selectedTheme}`);
-            
-            option.parentElement.querySelectorAll("li").forEach(li => li.classList.remove("selected-option"));
-            option.classList.add("selected-option");
-
-            if (themeDropdownMenu) themeDropdownMenu.closest('.theme-dropdown').style.display = "none";
-            document.querySelector('.menu-item[data-route="Theme"], .menu-item[data-route="theme"]')?.classList.remove("overlay-active");
-        });
-    });
-
-    // ============================== TIME DATE CLOCK LIFECYCLE WATCHER ==============================
+// ============================== TIME DATE CLOCK LIFECYCLE WATCHER ==============================
     const timeLabel = document.querySelector(".time");
     const dateLabel = document.querySelector(".date");
 
