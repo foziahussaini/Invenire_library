@@ -44,6 +44,7 @@
     .report-main-content,
     .member-main-content,
     .setting-main-content,
+    .etting-main-content,
     .main-content{
        margin-left: 160px;
        width: calc(100% - 160px);

@@ -331,4 +331,3 @@ function setDefaultStats() {
 }
 
 setDefaultStats();
-
