@@ -165,5 +165,16 @@ const fa = {
         "تاریخ خرید",
 
     "© 2026, Made by Invenire Team.":
-        "© ۲۰۲۶، ساخته شده توسط تیم اینونیر."
-};
+        "© ۲۰۲۶، ساخته شده توسط تیم اینونیر.",
+
+    "About Us": "درباره ما",
+
+    "Discover More Than Books Find Yourself":
+        "فراتر از کتاب‌ها را کشف کنید، خودتان را پیدا کنید",
+
+    "Invenire is a premier digital sanctuary designed to put the entire universe of reading directly into your hands. Engineered with smart, intuitive search tools, our platform makes finding your favorite books, trending titles, and rare editions completely effortless. Whether you want to download clean, offline-ready PDFs, listen to immersive audiobooks on the go, or flip through the latest issues of premium magazines, Invenire bridges the gap between classic literature and modern convenience. We believe knowledge should be universally accessible, which is why we offer our massive, ever-growing multimedia catalog at an incredibly low, budget-friendly price. Step inside a digital ecosystem built to help you read affordably, explore boundlessly, and discover who you are.":
+        "اینونیر یک پناهگاه دیجیتال پیشرفته برای مطالعه است که تمام دنیای کتاب‌خوانی را مستقیماً در اختیار شما قرار می‌دهد. پلتفرم ما با ابزارهای جست‌وجوی هوشمند و ساده طراحی شده تا پیدا کردن کتاب‌های موردعلاقه، عناوین پرطرفدار و نسخه‌های کمیاب را کاملاً آسان کند. چه بخواهید فایل‌های PDF تمیز و قابل استفاده بدون اینترنت را دانلود کنید، چه در مسیر به کتاب‌های صوتی غوطه‌ورکننده گوش دهید یا جدیدترین شماره‌های مجلات معتبر را ورق بزنید، اینونیر فاصله میان ادبیات کلاسیک و راحتی دنیای مدرن را از بین می‌برد. ما باور داریم که دانش باید برای همه قابل دسترس باشد؛ به همین دلیل مجموعه چندرسانه‌ای گسترده و همیشه در حال رشد خود را با قیمتی بسیار پایین و مقرون‌به‌صرفه ارائه می‌کنیم. وارد یک اکوسیستم دیجیتال شوید که به شما کمک می‌کند با هزینه مناسب بخوانید، بی‌حدومرز کاوش کنید و خود واقعی‌تان را کشف کنید.",
+    "Categories": "دسته‌بندی‌ها",
+    "Satisfaction rate": "نرخ رضایت",
+
+ };
