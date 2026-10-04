@@ -1,18 +1,18 @@
 const LANGUAGES = {
-    en: EN,
-    fa: FA,
-    ps: PS
+    en: en,
+    fa: fa,
+    ps: ps
 };
 
 let currentLanguage = "en";
 
-// Store the original English text
+// Store original text and placeholders
 const originalTexts = new WeakMap();
 const originalPlaceholders = new WeakMap();
 
 
 // ------------------------------------
-// Save original English text
+// Save original text
 // ------------------------------------
 
 function saveOriginalTexts() {
@@ -23,15 +23,24 @@ function saveOriginalTexts() {
 
     elements.forEach(element => {
 
+        // Save only elements that contain direct text.
+        // This prevents parent elements from replacing
+        // their child elements such as <span>, <strong>, etc.
         if (!originalTexts.has(element)) {
 
-            const text = element.textContent.trim();
+            const directText = Array.from(element.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .filter(Boolean)
+                .join(" ")
+                .trim();
 
-            if (text) {
-                originalTexts.set(element, text);
+            if (directText) {
+                originalTexts.set(element, directText);
             }
         }
 
+        // Save original placeholders
         if (
             element.matches("input, textarea") &&
             !originalPlaceholders.has(element)
@@ -50,7 +59,7 @@ function saveOriginalTexts() {
 // Change language
 // ------------------------------------
 
-function changeLanguage(language) {
+window.changeLanguage = function (language) {
 
     if (!LANGUAGES[language]) {
         console.log("Language not found:", language);
@@ -63,7 +72,11 @@ function changeLanguage(language) {
 
     saveOriginalTexts();
 
-    // Translate normal text
+
+    // ------------------------------------
+    // Translate direct text only
+    // ------------------------------------
+
     originalTexts.forEach;
 
     const elements = document.querySelectorAll(
@@ -76,13 +89,56 @@ function changeLanguage(language) {
 
         if (!original) return;
 
-        if (translation[original]) {
-            element.textContent = translation[original];
+        const translated = translation[original];
+
+        if (!translated) return;
+
+        // Change only the direct text nodes.
+        // Do NOT use element.textContent here,
+        // because that would remove child elements.
+        const textNodes = Array.from(element.childNodes)
+            .filter(node => node.nodeType === Node.TEXT_NODE);
+
+        if (textNodes.length === 0) return;
+
+        if (textNodes.length === 1) {
+
+            textNodes[0].textContent =
+                textNodes[0].textContent.replace(
+                    textNodes[0].textContent.trim(),
+                    translated
+                );
+
+        } else {
+
+            // Preserve the HTML structure and replace
+            // only the combined direct text.
+            let remainingText = translated;
+
+            textNodes.forEach((node, index) => {
+
+                const originalText = node.textContent.trim();
+
+                if (!originalText) return;
+
+                if (index === textNodes.length - 1) {
+                    node.textContent = remainingText;
+                } else {
+                    node.textContent = originalText;
+                    remainingText = remainingText.replace(
+                        originalText,
+                        ""
+                    ).trim();
+                }
+            });
         }
     });
 
 
+    // ------------------------------------
     // Translate placeholders
+    // ------------------------------------
+
     const formElements = document.querySelectorAll(
         "input, textarea"
     );
@@ -99,7 +155,10 @@ function changeLanguage(language) {
     });
 
 
+    // ------------------------------------
     // Translate select options
+    // ------------------------------------
+
     const options = document.querySelectorAll("option");
 
     options.forEach(option => {
@@ -109,15 +168,20 @@ function changeLanguage(language) {
                 option.textContent.trim();
         }
 
-        const original = option.dataset.originalText;
+        const original =
+            option.dataset.originalText;
 
         if (translation[original]) {
-            option.textContent = translation[original];
+            option.textContent =
+                translation[original];
         }
     });
 
 
+    // ------------------------------------
     // RTL for Farsi and Pashto
+    // ------------------------------------
+
     if (language === "fa" || language === "ps") {
 
         document.documentElement.dir = "rtl";
@@ -134,7 +198,10 @@ function changeLanguage(language) {
     }
 
 
+    // ------------------------------------
     // Remember user's choice
+    // ------------------------------------
+
     localStorage.setItem(
         "invenireLanguage",
         language
@@ -180,60 +247,80 @@ function updateLanguageSelector() {
 // Start the language system
 // ------------------------------------
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    saveOriginalTexts();
-
-
-    // Check saved language
-    const savedLanguage =
-        localStorage.getItem("invenireLanguage");
+        saveOriginalTexts();
 
 
-    // Use saved language or English
-    const language =
-        savedLanguage && LANGUAGES[savedLanguage]
-            ? savedLanguage
-            : "en";
+        // Check saved language
+        const savedLanguage =
+            localStorage.getItem(
+                "invenireLanguage"
+            );
 
 
-    changeLanguage(language);
+        // Use saved language or English
+        const language =
+            savedLanguage &&
+            LANGUAGES[savedLanguage]
+                ? savedLanguage
+                : "en";
 
 
-    // Navbar dropdown
-    const selector =
-        document.getElementById("languageSelect");
+        changeLanguage(language);
 
-    if (selector) {
 
-        selector.addEventListener(
-            "change",
-            function () {
+        // ------------------------------------
+        // Navbar dropdown
+        // ------------------------------------
 
-                changeLanguage(this.value);
+        const selector =
+            document.getElementById(
+                "languageSelect"
+            );
 
-            }
-        );
+        if (selector) {
+
+            selector.addEventListener(
+                "change",
+                function () {
+
+                    changeLanguage(
+                        this.value
+                    );
+
+                }
+            );
+        }
+
+
+        // ------------------------------------
+        // Navbar language buttons
+        // ------------------------------------
+
+        const buttons =
+            document.querySelectorAll(
+                "[data-language]"
+            );
+
+        buttons.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const language =
+                        this.getAttribute(
+                            "data-language"
+                        );
+
+                    changeLanguage(language);
+
+                }
+            );
+        });
+
     }
-
-
-    // Navbar buttons
-    const buttons =
-        document.querySelectorAll("[data-language]");
-
-    buttons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                const language =
-                    this.getAttribute("data-language");
-
-                changeLanguage(language);
-
-            }
-        );
-    });
-
-});
+);
