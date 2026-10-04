@@ -1,5 +1,5 @@
-import { defaultFemaleProfile, defaultMaleProfile } from "../../../src/assets.js";
-import { db } from "../../../src/firebase-config.js";
+import { defaultFemaleProfile, defaultMaleProfile } from "../../src/assets.js";
+import { db, auth } from "../../src/firebase-config.js";
 import { 
     collection, 
     query, 
@@ -9,15 +9,31 @@ import {
     getDoc
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-// --- DOM Target Elements ---
-const profileImg = document.querySelector(".profile");
-const profileContainer = document.querySelector(".profile-container"); 
+const profileImg = document.querySelector(".profile") || document.querySelector(".member-header .profile");
+const profileContainer = document.querySelector(".profile-container") || document.querySelector(".member-header .profile-container");
 
 // Read the unified session schema generated at login state lifecycle
 const userSession = JSON.parse(localStorage.getItem("userSession")) || null;
 const loggedUserEmail = userSession ? userSession.email : "";
-const loggedUserRole = userSession ? userSession.role : "member"; // Default fallback to member
-const loggedDocId = userSession ? userSession.uid : ""; // Stores admin document name 'adminheader123' or member keys
+const loggedUserRole = userSession ? userSession.role : "member"; 
+const loggedDocId = userSession ? userSession.uid : ""; 
+
+// =======================================================================================
+// FIX 1: DYNAMIC PATH AND SCROLL RESOLVER BASED ON VISITED PAGE AREA (FIXED DUPLICATION)
+// =======================================================================================
+const currentPathName = window.location.pathname.toLowerCase();
+const isSubPage = window.location.pathname.includes("admin_subPages");
+const isAtAdminPanel = currentPathName.includes("admin_dashboard") || currentPathName.includes("admin_subpages");
+
+let settingsRedirectPath = "javascript:void(0);";
+
+if (isAtAdminPanel) {
+    // If inside an admin subfolder, redirect relatively. Otherwise, push down to the subfolder path
+    settingsRedirectPath = isSubPage ? "./settings.html" : "../../../pages/admin_subPages/settings.html";
+} else if (currentPathName.includes("user_dashboard")) {
+    // If the user is on user_dashboard.html, we target the local ID container anchor string
+    settingsRedirectPath = "#Settings";
+}
 
 function normalizeGender(value) {
     if (!value) return null;
@@ -36,33 +52,23 @@ async function fetchCurrentUserData() {
     if (!userSession || !loggedUserEmail) return null;
 
     try {
-        // 1. If user is an Admin, fetch directly using Document ID
         if (loggedUserRole === "admin") {
             const adminDocRef = doc(db, "config", loggedDocId);
             const adminSnap = await getDoc(adminDocRef);
-            if (adminSnap.exists()) {
-                return adminSnap.data();
-            }
+            if (adminSnap.exists()) return adminSnap.data();
             
-            // Fallback: Query by field email if document structure varies
             const configRef = collection(db, "config");
             const adminQuery = query(configRef, where("admin_email", "==", loggedUserEmail));
             const querySnapshot = await getDocs(adminQuery);
-            if (!querySnapshot.empty) {
-                return querySnapshot.docs[0].data();
-            }
-        } 
-        // 2. If user is a Member, fetch using field criteria matches
-        else {
+            if (!querySnapshot.empty) return querySnapshot.docs[0].data();
+        } else {
             const membersRef = collection(db, "members");
             const memberQuery = query(membersRef, where("email", "==", loggedUserEmail));
             const querySnapshot = await getDocs(memberQuery);
-            if (!querySnapshot.empty) {
-                return querySnapshot.docs[0].data();
-            }
+            if (!querySnapshot.empty) return querySnapshot.docs[0].data();
         }
     } catch (error) {
-        console.error("Firestore database profile lookup failure:", error);
+        console.log("Firestore database profile lookup failure:", error);
     }
     return null;
 }
@@ -74,7 +80,6 @@ async function loadUserProfileFromFirestore() {
     const img = profileImg.querySelector("img");
     if (!img) return;
 
-    // First check local storage cache parameters for instant visual layout rendering
     const localGender = normalizeGender(localStorage.getItem("userGender"));
     if (localGender) {
         img.src = getDefaultProfileByGender(localGender);
@@ -83,13 +88,11 @@ async function loadUserProfileFromFirestore() {
     const data = await fetchCurrentUserData();
 
     if (data) {
-        // Apply Firestore profile network image if it exists
         if (data["profile-Img"]) {
             img.src = data["profile-Img"];
             return;
         }
 
-        // Structural fallback to database gender values if image field is blank
         const firestoreGender = normalizeGender(data.gender || data.sex || data.admin_gender);
         if (firestoreGender) {
             img.src = getDefaultProfileByGender(firestoreGender);
@@ -97,13 +100,10 @@ async function loadUserProfileFromFirestore() {
         }
     }
 
-    // Ultimate fallback security choice
     img.src = getDefaultProfileByGender(localGender || "female");
 }
 
-// Run immediately upon window page loading sequence
 loadUserProfileFromFirestore();
-
 
 // === PROFILE INTERACTIVE DROPDOWN MODAL DRAWER ===
 if (profileContainer) {
@@ -127,7 +127,14 @@ if (profileContainer) {
             dropdown.remove();
         });
         dropdown.appendChild(closeBtn);
-        document.body.appendChild(dropdown);
+
+        // Append to the header wrapper area to inherit CSS positioning rules cleanly
+        const headerParentWrapper = document.querySelector(".admin-header") || document.querySelector(".member-header");
+        if (headerParentWrapper) {
+            headerParentWrapper.appendChild(dropdown);
+        } else {
+            document.body.appendChild(dropdown); 
+        }
 
         // Fetch properties data based on current active profile type
         const userData = await fetchCurrentUserData();
@@ -135,7 +142,6 @@ if (profileContainer) {
         if (userData) {
             createUserCard(userData, dropdown);
 
-            // Synchronize the header thumbnail immediately
             if (userData["profile-Img"] && profileImg.querySelector("img")) {
                 profileImg.querySelector("img").src = userData["profile-Img"]; 
             }
@@ -161,7 +167,6 @@ function createUserCard(userData, container) {
     userName.className = "user-name";
 
     const email = document.createElement("p");
-    // Standardizes mapping between admin_email and regular user email fields
     email.textContent = userData.admin_email || userData.email || "example@gmail.com";
     email.className = "user-email";
 
@@ -169,12 +174,31 @@ function createUserCard(userData, container) {
     memberID.textContent = userData.user_id || loggedDocId || "Invenire System Account";
     memberID.className = "user-id";
 
+    // === FIXED: CONDITIONAL CLICK ROUTER SWITCHES SMOOTH SCROLLING VS REDIRECTS ===
     const settingsBtn = document.createElement("button");
     settingsBtn.textContent = "Settings";
     settingsBtn.className = "settings-btn";
     settingsBtn.addEventListener("click", (e) => {
         e.stopPropagation(); 
-        window.location.href = "../../../pages/admin_subPages/settings.html";
+        
+        if (settingsRedirectPath === "#Settings") {
+            const settingsSection = document.getElementById("Settings");
+            if (settingsSection) {
+                // 1. Instantly remove the flyout menu container drawer
+                container.remove();
+                
+                // 2. Smoothly scroll the screen right down to the settings container box anchor
+                settingsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                
+                // 3. Keep tab engine configurations synchronized by clicking the personal anchor link node
+                document.querySelector('.head-title ul li a[data-target="personal"]')?.click();
+            } else {
+                console.warn("⚠️ Targeted section wrapper element matching ID '#Settings' was not located in the DOM.");
+            }
+        } else {
+            // Traditional location href rewrite redirect for admin views
+            window.location.href = settingsRedirectPath;
+        }
     });
 
     userCard.appendChild(userName);

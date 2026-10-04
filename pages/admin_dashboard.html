@@ -26,7 +26,9 @@
     <script type="module" src="../js/dashboard/search_bar/members_search.js" defer></script>
     <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
     <!-- ====================PROFILE LINK JS -->
-    <script type="module" src ="../js/auth-files/profile.js" defer></script>
+    <script type="module" src="../js/auth-files/profile.js"></script>
+    <!-- =================logut logic js file -->
+    <script type="module" src="../js/auth-files/logout.js"></script>
     <!-- ==========tailwind and font swesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -71,13 +73,6 @@
                     <a href="./admin_subPages/settings.html">
                     <span class="menu-text">Settings</span></a>
                 </div>
-                <div class="menu-item" data-route="Statistic">
-                    <a class="menu-icon" href="./admin_subPages/reports.html">
-                        <i class="fa-solid fa-chart-bar "></i>
-                    </a>
-                    <a href="./admin_subPages/reports.html">
-                    <span class="menu-text">Statistic</span></a>
-                </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
                 <div class="menu-item" data-route="Theme">
                     <a class="menu-icon" href="./admin_subPages/theme.html">
@@ -87,10 +82,7 @@
                     <span class="menu-text">Theme</span></a>
                 </div>
 
-                <button class="logout">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    Logout
-                </button>
+                <button class="logout" data-redirect="../auth/login.html">Log Out</button>
             </div>
         </aside>
 

@@ -202,7 +202,7 @@ body{
     left: 0;
     width: 100%;
     height: 80vh;
-    background-color: var(--main-background-color);
+    background-color: var(--card-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
@@ -425,6 +425,18 @@ body{
 }
 
 /* =============================================ADMIN BOOK CATALOG GRID LAYOUt========================================================= */
+.headline{
+    width: 100% auto;
+    height: 40px;
+    margin: 0 1.5rem 0 1.5rem;
+    background: var(--header-background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--header-font-size);
+    color: var(--main-text-color);
+    font-weight: bold;
+}
 .book-main-content .main-books-list {
     width: 1200px auto;
     max-width: 1200px auto;

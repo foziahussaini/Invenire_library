@@ -109,11 +109,12 @@ onAuthStateChanged(auth, (user) => {
 
         langMenu.querySelectorAll('li').forEach(item => {
             item.addEventListener('click', (e) => {
-                const selectedLang = e.currentTarget.getAttribute('data-value');
+               const selectedLang = e.currentTarget.getAttribute('value');
                 const visibleText = e.currentTarget.textContent;
                 
                 if (selectedLangText) selectedLangText.textContent = visibleText;
                 if (langHiddenInput) langHiddenInput.value = selectedLang;
+                window.changeLanguage(selectedLang);
                 
                 closeAllMenus();
             });
@@ -330,4 +331,3 @@ function setDefaultStats() {
 }
 
 setDefaultStats();
-

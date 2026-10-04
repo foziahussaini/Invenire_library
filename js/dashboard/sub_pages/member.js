@@ -3,7 +3,7 @@ import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/
 
 const membersTableBody = document.querySelector(".member-table-body");
 const feedbackCardsContainer = document.querySelector(".feedback-cards");
-const detailsContainer = document.querySelector(".member-details-container");
+const detailsContainer = document.querySelector(".allmember-activity-container");
 
 let activeSlotPointer = 1;
 
@@ -58,18 +58,17 @@ async function initMembersPage() {
     await  userDetailsCards();
 }
 
-// MEMBERS TABLE function getting data from db
+// ==================================== FUNCTION 1: GENERATE ALL USERS TABLE ROWS ====================================
 async function membersTableList() {
     if (!membersTableBody) return;
 
     try {
-        // ====================LOADING STATE LOGIC ====================
-         membersTableBody.innerHTML = `
+        membersTableBody.innerHTML = `
             <tr>
-                <td colspan="7" style="padding: 0; border: none;">
+                <td">
                     <div class="loading-state">
                         <i class="fa-solid fa-spinner fa-spin"></i>
-                        <span>Loading...</span>
+                        <span>Loading Table...</span>
                     </div>
                 </td>
             </tr>
@@ -78,14 +77,13 @@ async function membersTableList() {
         const membersSnapshot = await getDocs(collection(db, "members"));
         if (membersSnapshot.empty) return;
 
-        // Clear the hardcoded baseline template item row when dynamic rendering begins
         membersTableBody.innerHTML = ""; 
 
         for (const docSnap of membersSnapshot.docs) {
             const user = docSnap.data();
             const memberDocId = docSnap.id;
 
-            // Dynamically count sizes from nested user subcollections
+            // Gather sizes from subcollections to populate table counters
             const downloadDocs = await getDocs(collection(db, "members", memberDocId, "download-book"));
             const purchasedDocs = await getDocs(collection(db, "members", memberDocId, "purchased-books"));
             const readModeDocs = await getDocs(collection(db, "members", memberDocId, "onReadMode"));
@@ -104,102 +102,220 @@ async function membersTableList() {
                 <td><button class="details-btn">Details</button></td>
             `;
 
-            const detailBtn = row.querySelector(".details-btn");
+            // SCROLL TARGET FUNCTION: Looks for the matching card id on the page and scrolls to it
+            const handleScrollToCard = () => {
+                const targetCard = document.getElementById(`member-card-${memberDocId}`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            };
 
+            const detailBtn = row.querySelector(".details-btn");
             detailBtn.addEventListener("click", (e) => {
-                e.stopPropagation(); // Stops event bubbling up to the row container
-                userDetailsCards(user, memberDocId);
+                e.stopPropagation(); 
+                handleScrollToCard();
             });
 
-            // Fallback: Also process if they click anywhere on the background layout row
             row.addEventListener("click", () => {
-                userDetailsCards(user, memberDocId);
+                handleScrollToCard();
             });
 
             membersTableBody.appendChild(row);
         }
+
+        await userDetailsCards(membersSnapshot);
+
     } catch (error) {
         console.log("Failed loading table elements via firestore:", error);
     }
 }
 
-// user details card
-// user details card - 100% dynamic without changing your inner class names
-async function userDetailsCards(userData, docId) {
-    if (!detailsContainer) return;
+// ==================================== FUNCTION 2: GENERATE ALL UNIQUE PROFILE CARDS ====================================
+async function userDetailsCards(membersSnapshot) {
+    if (!detailsContainer || !membersSnapshot || membersSnapshot.empty) return;
 
-    // Show details parent section container wrapper layout block visually
-    detailsContainer.style.display = "flex";
+    detailsContainer.innerHTML = `
+        <div class="member-details-container">
+            <div class="loading-state">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <span>Generating Member Profiles Cards Matrix...</span>
+            </div>
+        </div>
+    `;
+
+    // HELPER FUNCTION: Safely turns Firestore Timestamps into DD/MMM/YYYY
+    const formatFirestoreTimestamp = (timestamp) => {
+        if (!timestamp) return "No record";
+        
+        let dateObj;
+
+        // 1. If it's a native Firestore Timestamp object with a .toDate() method
+        if (typeof timestamp.toDate === "function") {
+            dateObj = timestamp.toDate();
+        } 
+        // 2. If it's a raw object containing seconds property
+        else if (timestamp.seconds !== undefined) {
+            dateObj = new Date(timestamp.seconds * 1000);
+        } 
+        // 3. Fallback if it is already an ISO string or standard date representation
+        else {
+            dateObj = new Date(timestamp);
+        }
+
+        // Validate that we created a real date instance
+        if (isNaN(dateObj.getTime())) return "No record";
+
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        
+        // Formats month names to short 3-letter representations (e.g., Sep, Oct, Nov)
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const monthName = months[dateObj.getMonth()];
+        
+        const year = dateObj.getFullYear();
+
+        return `${day}/${monthName}/${year}`;
+    };
 
     try {
-        const downloadSnapshot = await getDocs(collection(db, "members", docId, "download-book"));
-        const librarySnapshot = await getDocs(collection(db, "members", docId, "my-library"));
-        const readModeSnapshot = await getDocs(collection(db, "members", docId, "onReadMode"));
-        const purchasedSnapshot = await getDocs(collection(db, "members", docId, "purchased-books"));
+        detailsContainer.innerHTML = "";
 
-        const collectBookTitles = (snapshot) => {
-            let titlesArray = [];
-            snapshot.forEach(doc => titlesArray.push(doc.id));
-            return titlesArray.join(", ") || "None";
-        };
+        for (const docSnap of membersSnapshot.docs) {
+            const userData = docSnap.data();
+            const docId = docSnap.id;
 
-        const purchasedText = collectBookTitles(purchasedSnapshot);
-        const downloadedText = collectBookTitles(downloadSnapshot);
-        const readModeText = collectBookTitles(readModeSnapshot);
-        const libraryText = collectBookTitles(librarySnapshot);
+            const downloadSnapshot = await getDocs(collection(db, "members", docId, "download-book"));
+            const librarySnapshot = await getDocs(collection(db, "members", docId, "my-library"));
+            const readModeSnapshot = await getDocs(collection(db, "members", docId, "onReadMode"));
+            const purchasedSnapshot = await getDocs(collection(db, "members", docId, "purchased-books"));
 
-        // ==================== DYNAMIC HTML GENERATOR ====================
-        const cardElement = document.createElement("div");
-        
-        // Dynamically assigns the outer class index (.detail1, .detail2, etc.) based on your pointer loop
-        cardElement.className = `detail${activeSlotPointer}`; 
+            const collectBookTitles = (snapshot) => {
+                let titlesArray = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    titlesArray.push(data.book_name || data.title || doc.id);
+                });
+                return titlesArray.join(", ") || "None yet";
+            };
 
-        // Injecting your exact inner HTML template structure with your original class names intact
-        cardElement.innerHTML = `
-            <span class="member-id">ID: ${userData.user_id || docId}</span>
-            <span class="m-name">${userData.full_name || "N/A"}</span>
-            <span class="m-email">${userData.email || "N/A"}</span>
-            <span class="purchased-books">${purchasedText}</span>
-            <span class="downloaded-books">${downloadedText}</span>
-            <span class="on-read">${readModeText}</span>
-            <span class="my-library">${libraryText}</span>
-            <span class="active-days">${userData.active_days || 0} Days</span>
-            <span class="profile-edits">${userData.profile_edit_count || 0}</span>
-            <span class="site-shares">${userData.website_share_count || 0}</span>
-        `;
+            const purchasedText = collectBookTitles(purchasedSnapshot);
+            const downloadedText = collectBookTitles(downloadSnapshot);
+            const readModeText = collectBookTitles(readModeSnapshot);
+            const libraryText = collectBookTitles(librarySnapshot);
 
-        // Clear out any old hardcoded template placeholders on the very first user inspection click
-        if (activeSlotPointer === 1 && detailsContainer.querySelectorAll('[class^="detail"]').length > 0) {
-            detailsContainer.innerHTML = "";
+            const namePlaceholder = userData.full_name || "This member";
+            const searchCount = userData.booksSearchedCount || 0;
+            const readCount = readModeSnapshot.size;
+            const totalCalculatedBooks = searchCount + readCount;
+            let sex = userData.full_name;
+            if(userData.gender === "female"){
+                sex = "she";
+            }else if(userData.gender === "male"){
+                sex = "he";
+            } else{sex = userData.full_name;}
+
+            //values once to avoid variable crashes
+            const totalLoginsDisplay = userData["totalLoginsCount"] || 3;
+            const activeMinutesDisplay = userData["active_minutes_last_day"] || 23;
+            const shareCountDisplay = userData.website_share_count || 0;
+            const editCountDisplay = userData.profile_edit_count || 2;
+
+            // Calculate percentage metrics out of 100 for your visual rings
+            const loginPercentage = Math.min((totalLoginsDisplay / 50) * 100, 100);
+            const activePercentage = Math.min((activeMinutesDisplay / 120) * 100, 100);
+            const sharePercentage = Math.min((shareCountDisplay / 10) * 100, 100);
+            const editPercentage = Math.min((editCountDisplay / 5) * 100, 100);
+
+            const userCard = document.createElement("div");
+            userCard.className = "member-details-container";
+            userCard.id = `member-card-${docId}`; 
+
+            const imageUrl = userData["profile-Img"];
+            
+            const profileImageHtml = imageUrl 
+                ? `<img src="${imageUrl}" alt="Profile Image" class="user-avatar-img">`
+                : `<img src="../../images/banner/login.png" alt="Default Avatar" class="user-avatar-img">`;
+
+            // Passing the raw timestamp object through the date formatter utility
+            const lastLoginDisplay = formatFirestoreTimestamp(userData["last-login"]);
+
+            userCard.innerHTML = `
+                <div class="member-detatails-row1">
+                    <div class="member-prof-card"> 
+                          <div class="profile-avatar"> 
+                              <span class="prof-img">${profileImageHtml}</span> 
+                           </div> 
+                          <p class="member-username">${userData.full_name || "Anonymous Guest"}</p> 
+                          <div class="member-status"> 
+                              <span id="member-gender">${userData.gender || "Unspecified"}</span> • <span id="member-location">${userData.location || "Global"}</span> 
+                          </div> 
+                    </div>
+                    <div class="last-login-date"><span>${lastLoginDisplay}</span></div> 
+                </div>
+                
+                <div class="member-detail-row2">
+                    <!-- =============================BOX 1================================= -->
+                    <div class="login-box box1"> 
+                        <div class="login-info"> 
+                            <p><strong>Total Logins</strong></p> 
+                            <span class="login-value" id="member-logins">${totalLoginsDisplay}</span> 
+                        </div> 
+                        <div class="progress-circle-chart blue-ring" style="--percentage: ${loginPercentage}%;"> 
+                            <span class="circle-inner-value"><i class="fa-solid fa-right-to-bracket"></i></span>
+                        </div> 
+                    </div>
+                    <!-- =============================BOX 2================================= -->
+                    <div class="duration-active-min box2"> 
+                        <div class="active-strick-info"> 
+                            <p><strong>Active Minutes</strong></p> 
+                            <span class="active-strick-value" id="duration">${activeMinutesDisplay}<small>mins</small></span> 
+                        </div> 
+                        <div class="progress-circle-chart orange-ring" style="--percentage: ${activePercentage}%;"> 
+                            <span class="circle-inner-value"><i class="fa-solid fa-clock"></i></span>
+                        </div> 
+                    </div> 
+
+                    <!-- =============================BOX 3================================= -->
+                    <div class="shared-count box3">
+                        <div class="share-info">
+                            <p><strong>Website Shares</strong></p>
+                            <span class="share-value site-shares">${shareCountDisplay}</span>
+                        </div>
+                        <div class="progress-circle-chart purple-ring" style="--percentage: ${sharePercentage}%;"> 
+                            <span class="circle-inner-value"><i class="fa-solid fa-share-nodes"></i></span>
+                        </div> 
+                    </div>
+
+                    <!-- =============================BOX 4================================= -->
+                    <div class="profile-edits-count box4">
+                        <div class="edit-info">
+                            <p><strong>Profile Edits</strong></p>
+                            <span class="edit-value profile-edits">${editCountDisplay}</span>
+                        </div>
+                        <div class="progress-circle-chart green-ring" style="--percentage: ${editPercentage}%;"> 
+                            <span class="circle-inner-value"><i class="fa-solid fa-user-pen"></i></span>
+                        </div> 
+                    </div>
+                </div>
+                
+                <div class="member-detail-row3">
+                     <div class="books-sections">
+                        <p><strong>Purchased Books:</strong> <span class="purchased-books">${purchasedText}</span></p>
+                        <p><strong>Downloaded Books:</strong> <span class="downloaded-books">${downloadedText}</span></p>
+                        <p><strong>On Read Mode:</strong> <span class="on-read">${readModeText}</span></p>
+                        <p><strong>My Library:</strong> <span class="my-library">${libraryText}</span></p>
+                    </div>
+                </div>    
+                <div class="member-detail-row4">
+                     <p>${namePlaceholder} has read and search total ${totalCalculatedBooks} books and ${sex} is our active member</p>
+                </div>
+            `;
+
+            detailsContainer.appendChild(userCard);
         }
-
-        // Check if a card at this slot layout position already exists in the container view
-        const existingCard = detailsContainer.querySelector(`.detail${activeSlotPointer}`);
-        if (existingCard) {
-            // Replace the old card data with the fresh clicked member card layout structure
-            detailsContainer.replaceChild(cardElement, existingCard);
-        } else {
-            // Append it to build up your active list grid lanes
-            detailsContainer.appendChild(cardElement);
-        }
-
-        // Smoothly scroll down targeting the container element layout wrapper area
-        const targetSection = document.querySelector('[target="memberDetails"]') || detailsContainer;
-        if (targetSection) {
-            targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        // Progress your slot counter pointer indices (Sequential loop 1-4)
-        activeSlotPointer++;
-        if (activeSlotPointer > 4) {
-            activeSlotPointer = 1; 
-        }
-
     } catch (err) {
-        console.error("Subcollection content processing failure encountered:", err);
+        console.error("Failure compiling multi-member layout tracks matrices profiles:", err);
     }
 }
-
 
 // FEEDBACK CARD GRID ENGINE MAPPINGS
 async function feedbackCards() {
