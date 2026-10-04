@@ -1,5 +1,5 @@
-import { defaultFemaleProfile, defaultMaleProfile } from "../../../src/assets.js";
-import { db } from "../../../src/firebase-config.js";
+import { defaultFemaleProfile, defaultMaleProfile } from "../../src/assets.js";
+import { db, auth } from "../../src/firebase-config.js";
 import { 
     collection, 
     query, 
@@ -16,8 +16,13 @@ const profileContainer = document.querySelector(".profile-container");
 // Read the unified session schema generated at login state lifecycle
 const userSession = JSON.parse(localStorage.getItem("userSession")) || null;
 const loggedUserEmail = userSession ? userSession.email : "";
-const loggedUserRole = userSession ? userSession.role : "member"; // Default fallback to member
-const loggedDocId = userSession ? userSession.uid : ""; // Stores admin document name 'adminheader123' or member keys
+const loggedUserRole = userSession ? userSession.role : "member"; 
+const loggedDocId = userSession ? userSession.uid : ""; 
+
+// FIX 1: Dynamic Path Resolver
+// Detects if the current viewport page is nested deep inside the "admin_subPages" subdirectory
+const isSubPage = window.location.pathname.includes("admin_subPages");
+const settingsRedirectPath = isSubPage ? "./settings.html" : "../../../pages/admin_subPages/settings.html";
 
 function normalizeGender(value) {
     if (!value) return null;
@@ -62,7 +67,7 @@ async function fetchCurrentUserData() {
             }
         }
     } catch (error) {
-        console.error("Firestore database profile lookup failure:", error);
+        console.log("Firestore database profile lookup failure:", error);
     }
     return null;
 }
@@ -174,7 +179,8 @@ function createUserCard(userData, container) {
     settingsBtn.className = "settings-btn";
     settingsBtn.addEventListener("click", (e) => {
         e.stopPropagation(); 
-        window.location.href = "../../../pages/admin_subPages/settings.html";
+        // FIX 2: Uses the dynamically evaluated path variable to clear routing breaks
+        window.location.href = settingsRedirectPath;
     });
 
     userCard.appendChild(userName);

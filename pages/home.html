@@ -18,25 +18,13 @@
     <!-- =========================javascrip files =========================-->
     <script type="module" src="../js/home/allbooks.js" defer></script>
     <script type="module" src="../js/home/recent_section.js" defer></script>
-    <script defer src="../js/home/home.js"></script>
     <!-- =========================search bar js =========================-->
     <script type="module" src="../js/home/home_search.js"></script>
 </head>
 <body>
     <!-- header part -->
     <header>
-        <div class="subheader">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search your fav books..." class="search-input" autocomplete="off">
-                    <!-- a dropdown container shows the search result -->
-                    <div class="searchResult" id="search-dropDown"></div>
-                </div>
-                <div class="registration">
-                <a href="login.html" class="login-btn" aria-label="Login" title="Login">Login</a>
-                <a href="signup.html" class="signup-btn" title="SingUp">SignUp</a>
-               </div>
-        </div>
+        
         <div class="home-header">
             <div class="logo">
                <img src="/images/logo/logo.png" alt="Invenire Library">
@@ -45,20 +33,44 @@
                 <ul class="nav-list">
                     <li><a href="#home" class="nav-item active" aria-label="Home" title="Home">Home</a></li>
                     <li><a href="#about" class="nav-item" aria-label="Search" title="about">About</a></li>
+                    <li><a href="#" class="nav-item" id="dashboard-link">Dashboard</a></li>
                     <li><a href="#explore" class="nav-item" aria-label="Library" title="explore">Explore</a></li>
                 </ul>
             </div>
             <div class="dropdown-icons">
-                <!-- 1st: Theme Dropdown -->
-                <div class="theme-dropdown">
-                        <button type="button" class="dropdown-header" id="themeDropdownBtn">
+
+                <!-- Login / SignUp -->
+                <div class="registration">
+                    <a href="login.html"
+                    class="login-btn"
+                    aria-label="Login"
+                    title="Login">
+                        Login
+                    </a>
+
+                    <a href="signup.html"
+                    class="signup-btn"
+                    aria-label="SignUp"
+                    title="SignUp">
+                        SignUp
+                    </a>
+                </div>
+
+                <!-- Theme / Language -->
+                <div class="settings-icons">
+
+                    <!-- Theme -->
+                    <div class="theme-dropdown">
+                        <button type="button"
+                                class="dropdown-header"
+                                id="themeDropdownBtn"
+                                aria-label="Theme">
                             <i class="fa-solid fa-palette"></i>
                         </button>
+
                         <ul class="dropdown-menu" id="themeDropdownMenu">
                             <li data-value="light">☀️ Light</li>
                             <li data-value="dark">🌙 Dark</li>
-                            <li data-value="neon">⚡ Neon</li>
-                            <li data-value="retro">🕹️ Retro</li>
                         </ul>
                 </div>    
                   <!-- 2nd: Language Dropdown -->
@@ -66,15 +78,69 @@
                         <button type="button" class="dropdown-header" id="langDropdownBtn">
                             <i class="fa-solid fa-earth-americas"></i>
                         </button>
+
                         <ul class="dropdown-menu" id="langDropdownMenu">
                             <li value="en">English</li>
                             <li value="fa">Dari</li>
                             <li value="ps">Pashto</li>
                         </ul>
                     </div>
-            </div> 
-        </div>
+
+                </div>
+
+            </div>
     </header>
+
+    <div class="dashboard-modal" id="dashboardModal">
+        <div class="dashboard-modal-content">
+
+            <button class="dashboard-modal-close" id="dashboardModalClose">
+                &times;
+            </button>
+
+            <h2>Login Required</h2>
+
+            <p>
+                You are not logged in. Please login or sign up
+                to continue to Invenire.
+            </p>
+
+            <div class="dashboard-modal-actions">
+                <a href="login.html" class="modal-login-btn">Login</a>
+                <a href="signup.html" class="modal-signup-btn">Sign Up</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="login-required-modal" id="login-required-modal">
+        <div class="login-required-card">
+
+            <button
+                type="button"
+                class="login-required-close"
+                id="login-required-close"
+                aria-label="Close">
+                &times;
+            </button>
+
+            <div class="login-required-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <h2>Login Required</h2>
+
+            <p>
+                Please login or create an account to continue reading this book.
+            </p>
+
+            <div class="login-required-actions">
+                <a href="login.html" class="login-required-btn">Login</a>
+                <a href="signup.html" class="login-required-btn">Sign Up</a>
+            </div>
+
+        </div>
+    </div>
     <div class="main-container">
         <!-- Hero Section -->
         <section class="hero-section section1" id="home">
@@ -85,39 +151,75 @@
                 </div>
                 <p class="hero-description">Escape your daily boundaries and immerse your mind in thoughts that expand your perspective.</p>
                 <!-- Symmetrical, full vector icon asset social navigation block -->
-<div class="hero-social">
-    <!-- 1. Discord -->
-    <a href="https://discord.gg" class="social-icon-btn discord-link" target="_blank" rel="noopener noreferrer" title="Join our Discord Server" aria-label="Discord">
-        <svg xmlns="http://w3.org" viewBox="0 0 127.14 96.36" class="social-vector">
-            <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.79-.58,1.57-1.18,2.31-1.81a74.5,74.5,0,0,0,73.41,0c.74.63,1.52,1.23,2.31,1.81a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129,50.7,122.64,27.76,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
-        </svg>
-    </a>
-    
-    <!-- 2. Twitter / X -->
-    <a href="https://twitter.com" class="social-icon-btn twitter-link" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter / X" aria-label="Twitter">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
-            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
-        </svg>
-    </a>
-     <a href="https://invenire-library.app" class="social-icon-btn library-app-link" target="_blank" rel="noopener noreferrer" title="Download our Library App" aria-label="Library App">
-        <span><img src="../images/logo/google.png" alt=""></span>
-    </a>
-    <!-- 3. Instagram -->
-    <a href="https://instagram.com" class="social-icon-btn insta-link" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" aria-label="Instagram">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
-            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-        </svg>
-    </a>
-</div>
+            <div class="hero-social">
+                <!-- 1. Discord -->
+                <a href="https://discord.gg" class="social-icon-btn discord-link" target="_blank" rel="noopener noreferrer" title="Join our Discord Server" aria-label="Discord">
+                    <svg xmlns="http://w3.org" viewBox="0 0 127.14 96.36" class="social-vector">
+                        <path fill="currentColor" d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.79-.58,1.57-1.18,2.31-1.81a74.5,74.5,0,0,0,73.41,0c.74.63,1.52,1.23,2.31,1.81a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129,50.7,122.64,27.76,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z"/>
+                    </svg>
+                </a>
+                
+                <!-- 2. Twitter / X -->
+                <a href="https://twitter.com" class="social-icon-btn twitter-link" target="_blank" rel="noopener noreferrer" title="Follow us on Twitter / X" aria-label="Twitter">
+                    <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
+                        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                    </svg>
+                </a>
+                <a href="https://invenire-library.app" class="social-icon-btn library-app-link" target="_blank" rel="noopener noreferrer" title="Download our Library App" aria-label="Library App">
+                    <span><img src="../images/logo/google.png" alt=""></span>
+                </a>
+                <!-- 3. Instagram -->
+                <a href="https://instagram.com" class="social-icon-btn insta-link" target="_blank" rel="noopener noreferrer" title="Follow us on Instagram" aria-label="Instagram">
+                    <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-vector">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                </a>
+            </div>
+            <a href="#explore" class="hero-explore-btn">Explore</a>
 
             </div>
              <div class="hero-image">
-                <img src="../images/hero.png" alt="">
+                <img src="../images/banner/hero.png" alt="">
             </div>
         </section>
-        <br>
+
+                
+            <!-- ==================== LIBRARY STATS ==================== -->
+            <section class="stats-section" id="library-stats">
+
+                <div class="stat-item">
+                    <div class="stat-value">
+                        <span class="stat-number" id="books-count">0</span><span class="stat-symbol">+</span>
+                    </div>
+                    <span class="stat-label">Books</span>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-value">
+                        <span class="stat-number" id="members-count">0</span><span class="stat-symbol">+</span>
+                    </div>
+                    <span class="stat-label">Members</span>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-value">
+                        <span class="stat-number" id="categories-count">0</span>
+                    </div>
+                    <span class="stat-label">Categories</span>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-value">
+                        <span class="stat-number" id="satisfaction-rate">0</span><span class="stat-symbol">%</span>
+                    </div>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+
+            </section>
+
+
         <!-- About Section SECTION2-->
         <section class="about-section section2" id="about">
             <div class="about-content">
@@ -127,37 +229,74 @@
             </div>
         </section>
 
+        <!--search bar -->
+        
+        <section class="search-section">
+
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Search your fav books..."
+                    class="search-input"
+                    autocomplete="off"
+                >
+
+                <button class="search-clear" type="button" aria-label="Clear search">
+                    &times;
+                </button>
+
+                
+            </div>
+
+            <div class="category-section">
+
+                <div class="category-heading">
+                    <h2>Browse by <span>Category</span></h2>
+                    <div class="category-line"></div>
+                </div>
+
+                <div class="category-buttons">
+                    <button class="category-btn active" data-category="all">ALL</button>
+                    <button class="category-btn" data-category="fiction">FICTION</button>
+                    <button class="category-btn" data-category="classic">CLASSIC</button>
+                    <button class="category-btn" data-category="fantasy">FANTASY</button>
+                    <button class="category-btn" data-category="self-help">SELF HELP</button>
+                    <button class="category-btn" data-category="non-fiction">NON FICTION</button>
+                    <button class="category-btn" data-category="philosophy">PHILOSOPHY</button>
+                    <button class="category-btn" data-category="psychology">PSYCHOLOGY</button>
+                </div>
+
+            </div>
+            <div class="searchResult" id="search-dropDown"></div>
+
+        </section>
+
         <!-- Recent book Section3 -->
         <section class="book-section section3">
             <div class="section-header"><h2>Recent</h2></div>
-            <div class="books-grid" id="recent-books">
-                <article class="book-cards card1">
-                    <div class="book-cover"></div>
-                    <book-info></book-info>
-                    <bookdescription></bookdescription>
-                    <button class="book-detail-btn"></button>
-                </article>
-            </div>
+            <div class="books-grid" id="recent-books"></div>
         </section>
         <br>
- <!-- ==============a quotation baaner Section4======================= -->
-<section class="quotation-section section4">
-    <div class="quotation-container">
-            <div class="commercial-badge">Premium Editions Collection</div>
-            <p>From timeless classical poetry to immersive modern fiction, 
-                <br>find the perfect edition of your next favorite romance and masterpiece literature.</p>
-            <div class="genres-row">
-                <span class="genre-tag">📚 Fiction</span>
-                <span class="genre-tag">💖 Romance</span>
-                <span class="genre-tag">🖋️ Literature</span>
-                <span class="genre-tag">✨ Poetry</span>
+        <!-- ==============a quotation baaner Section4======================= -->
+        <section class="quotation-section section4">
+            <div class="quotation-container">
+                    <div class="commercial-badge">Premium Editions Collection</div>
+                    <p>From timeless classical poetry to immersive modern fiction, 
+                        <br>find the perfect edition of your next favorite romance and masterpiece literature.</p>
+                    <div class="genres-row">
+                        <span class="genre-tag">📚 Fiction</span>
+                        <span class="genre-tag">💖 Romance</span>
+                        <span class="genre-tag">🖋️ Literature</span>
+                        <span class="genre-tag">✨ Poetry</span>
+                    </div>
             </div>
-    </div>
-</section>
+        </section>
 
 
         <!-- Next Read Grid -->
-        <section class="explore-section section5">
+        <section class="explore-section section5" id="explore">
             <div class="section-header">
                 <h2>Your Next Read</h2>
                 <p>Books waiting for you to start reading.</p>
@@ -189,63 +328,210 @@
         </section>
     </div>
 
-    <!-- Overlay UI Elements (Modals) -->
-    <div class="book-details-modal" id="book-details-modal">
-        <div class="book-details-card">
-            <button type="button" class="book-details-close" id="book-details-close">×</button>
-            <div class="book-details-content">
-                <div class="book-details-cover">
-                    <img src="https://bing.net" alt="Crime and Punishment book cover">
-                </div>
-                <div class="book-details-info">
-                    <h2>Crime and Punishment</h2>
-                    <p class="book-details-author">Fyodor Dostoevsky</p>
-                    <p class="book-details-description">This is a short description of the book. More information about this book will come from Firebase later.</p>
-                    <div class="book-details-actions">
-                        <button type="button" class="book-btn library-btn"><i data-lucide="library"></i><span>Add to Library</span></button>
-                        <button type="button" class="book-btn reader-next-btn" id="book-details-continue-btn"><span>Continue Reading</span><i data-lucide="arrow-right"></i></button>
+            <!-- =========================================================
+            BOOK DETAILS MODAL
+        ========================================================= -->
+
+        <div class="book-details-modal" id="book-details-modal">
+
+            <div class="book-details-card">
+
+                <!-- Close -->
+                <button
+                    type="button"
+                    class="book-details-close"
+                    id="book-details-close"
+                    aria-label="Close book details">
+                    &times;
+                </button>
+
+
+                <!-- Main Top Area -->
+                <div class="book-details-top">
+
+                    <!-- Cover -->
+                    <div class="book-details-cover">
+                        <img
+                            id="details-book-cover"
+                            src=""
+                            alt="Book cover">
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="pdf-modal" id="pdf-modal">
-        <div class="pdf-reader">
-            <div class="pdf-reader-header">
-                <h3>Reading</h3>
-                <div class="pdf-reader-actions">
-                    <button type="button" class="pdf-minimize-btn" id="pdf-minimize-btn" aria-label="Minimize" title="Minimize">−</button>
-                    <button type="button" class="pdf-fullscreen-btn" id="pdf-fullscreen-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
-                    <button type="button" class="pdf-close-btn" id="pdf-close-btn" aria-label="Close" title="Close">×</button>
-                </div>
-            </div>
-                        <div class="pdf-viewer">
-                <iframe id="pdf-frame" src="" title="PDF Reader"></iframe>
-                <div class="pdf-resize-handle pdf-resize-top"></div>
-                <div class="pdf-resize-handle pdf-resize-bottom"></div>
-                <div class="pdf-resize-handle pdf-resize-left"></div>
-                <div class="pdf-resize-handle pdf-resize-right"></div>
-                <div class="pdf-resize-handle pdf-resize-top-left"></div>
-                <div class="pdf-resize-handle pdf-resize-top-right"></div>
-                <div class="pdf-resize-handle pdf-resize-bottom-left"></div>
-                <div class="pdf-resize-handle pdf-resize-bottom-right"></div>
-            </div>
-        </div>
-    </div>
 
-    <div class="signup-overlay" id="signup-overlay">
-        <div class="signup-box">
-            <button type="button" class="signup-overlay-close" id="signup-overlay-close" aria-label="Close">×</button>
-            <div class="signup-icon"><i data-lucide="lock"></i></div>
-            <h3>Sign Up to Continue</h3>
-            <p>You need to sign up to continue reading this book.</p>
-            <div class="signup-actions">
-                <a href="signup.html" class="signup-btn">Sign Up</a>
-                <button type="button" class="skip-btn" id="skip-reading-btn">Skip</button>
+                    <!-- Right Side -->
+                    <div class="book-details-right">
+
+                        <!-- Main Book Info -->
+                        <div class="book-details-main">
+
+                            <span
+                                class="book-details-genre"
+                                id="details-book-genre">
+                                Genre
+                            </span>
+
+                            <h2
+                                class="book-details-title"
+                                id="details-book-title">
+                                Book Title
+                            </h2>
+
+                            <p
+                                class="book-details-author"
+                                id="details-book-author">
+                                Author Name
+                            </p>
+
+
+                            <!-- Rating -->
+                            <div
+                                class="book-details-rating"
+                                id="details-book-rating">
+
+                                <span
+                                    class="rating-stars"
+                                    id="details-rating-stars">
+                                    ★★★★★
+                                </span>
+
+                                <span
+                                    class="rating-value"
+                                    id="details-rating-value">
+                                    0.0
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Book Information -->
+                        <div class="book-details-information">
+
+                            <div class="book-info-item">
+                                <span class="book-info-label">
+                                    Published
+                                </span>
+
+                                <span
+                                    class="book-info-value"
+                                    id="details-book-published">
+                                    —
+                                </span>
+                            </div>
+
+
+                            <div class="book-info-item">
+                                <span class="book-info-label">
+                                    Pages
+                                </span>
+
+                                <span
+                                    class="book-info-value"
+                                    id="details-book-pages">
+                                    —
+                                </span>
+                            </div>
+
+
+                            <div class="book-info-item">
+                                <span class="book-info-label">
+                                    Language
+                                </span>
+
+                                <span
+                                    class="book-info-value"
+                                    id="details-book-language">
+                                    —
+                                </span>
+                            </div>
+
+
+                            <div class="book-info-item">
+                                <span class="book-info-label">
+                                    Genre
+                                </span>
+
+                                <span
+                                    class="book-info-value"
+                                    id="details-book-genre-info">
+                                    —
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="book-details-description-section">
+
+                    <span class="book-details-section-label">
+                        Description
+                    </span>
+
+                    <p
+                        class="book-details-description"
+                        id="details-book-description">
+                        No description available.
+                    </p>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="book-details-actions">
+
+                    <button
+                        type="button"
+                        class="book-details-action-btn"
+                        id="details-read-btn">
+
+                        <i class="fa-solid fa-book-open"></i>
+
+                        <span>
+                            Read Book
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="book-details-action-btn"
+                        id="details-download-btn">
+
+                        <i class="fa-solid fa-download"></i>
+
+                        <span>
+                            Download PDF
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="book-details-action-btn"
+                        id="details-library-btn">
+
+                        <i class="fa-solid fa-bookmark"></i>
+
+                        <span>
+                            Add to Library
+                        </span>
+
+                    </button>
+
+                </div>
+
             </div>
+
         </div>
-    </div>
+   
 
     <footer class="home-footer">
         <div class="footer-container">
@@ -277,5 +563,6 @@
             lucide.createIcons();
         }
     </script>
+    <script type="module" src="../js/home/home.js"></script>
 </body>
 </html>

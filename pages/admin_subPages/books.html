@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminBooks Management</title>
     <link href="/src/output.css" rel="stylesheet">
-    <!-- Font Awesome Link for icons (matches your dashboard setup) -->
-    <link rel="stylesheet" href="../../css-style/main-pages/home.css"> <!-- for the base root linked-->
+    <!--======================ROOT CSS FILE=====================-->
+    <link rel="stylesheet" href="../../css-style/root.css"> <!-- for the base root linked-->
     <link rel="stylesheet" href="../../css-style/sub-pages/books.css">
-    <!-- responsive css paths -->
+    <!-- =================responsive css paths======================-->
     <link rel="stylesheet" href="../../responsive/dashboard/sidebar_profile_responsive.css"> 
     <link rel="stylesheet" href="../../responsive/dashboard/book-responsive.css">
+    <!-- ====================search bar JS=================== -->
     <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/members_search.js" defer></script>
     <script type="module" src="../../js/dashboard/sub_pages/books/books_list.js" defer></script>
     <script type="module" src="../../js/dashboard/sub_pages/books/addBooks.js" defer></script>
-    <script type="module" src="../../js/dashboard/acount/profile.js" defer></script>
+    <!-- ====================PROFILE LINK JS=================== -->
+    <script type="module" src="../../js/auth-files/profile.js"></script>
+    <!-- =================logut logic js file -->
+    <script type="module" src="../../js/auth-files/logout.js"></script>
+    <!-- ====================current JS===================  -->
     <script src="../../js/dashboard/sub_pages/books.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -65,13 +70,6 @@
                     <a href="./settings.html">
                     <span class="menu-text">Settings</span></a>
                 </div>
-                <div class="menu-item" data-route="Statistic">
-                    <a class="menu-icon" href="./reports.html">
-                        <i class="fa-solid fa-chart-bar "></i>
-                    </a>
-                    <a href="./reports.html">
-                    <span class="menu-text">Statistic</span></a>
-                </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
                 <div class="menu-item" data-route="Theme">
                     <a class="menu-icon" href="./theme.html">
@@ -112,10 +110,9 @@
             </header>
             <br>
             <!-- ================HEADLINE TITLE SECTION==================== -->
-            <div class="headline w-full-auto h-12 mt-2 items-center p-4">
-                <div class="title flex justify-between mx-8">
-                    <span><i class="fas fa-landmark w-[200px] h-[30px] text-blue-400 size-[34px]"></i></span>
-                    <P class="">alL bOOKS IN lIBRARY</P>
+            <div class="headline">
+                <div class="title">
+                    <P class="">ALL bOOKS IN lIBRARY</P>
                 </div>
             </div>
             <!-- Main Table Container Structure -->
