@@ -1,18 +1,34 @@
-const FA = {
+const fa = {
+
     "ABOUT US": "درباره ما",
 
     "Discover More Than Books. Find Yourself!":
         "فراتر از کتاب‌ها را کشف کنید. خودتان را پیدا کنید!",
 
+    "Invenire is a premier digital sanctuary designed to put the entire universe of reading directly into your hands.":
+        "اینونیر یک پناهگاه دیجیتال برتر است که طراحی شده تا تمام دنیای مطالعه را مستقیماً در دستان شما قرار دهد.",
+
+    "Engineered with smart, intuitive search tools, our platform makes finding your favorite books, trending titles, and rare editions completely effortless. Whether you want to download clean, offline-ready PDFs, listen to immersive audiobooks on the go, or flip through the latest issues of premium magazines, Invenire bridges the gap between classic literature and modern convenience. We believe knowledge should be universally accessible, which is why we offer our massive, ever-growing multimedia catalog at an incredibly low, budget-friendly price. Step inside a digital ecosystem built to help you read affordably, explore boundlessly, and discover who you are.":
+        "پلتفرم ما با ابزارهای جستجوی هوشمند و ساده طراحی شده است تا پیدا کردن کتاب‌های مورد علاقه، عناوین پرطرفدار و نسخه‌های کمیاب را کاملاً آسان کند. چه بخواهید فایل‌های PDF تمیز و قابل استفاده بدون اینترنت را دانلود کنید، چه در حال حرکت به کتاب‌های صوتی جذاب گوش دهید یا جدیدترین شماره‌های مجلات ویژه را ورق بزنید، اینونیر میان ادبیات کلاسیک و امکانات مدرن پلی ایجاد می‌کند. ما باور داریم که دانش باید برای همه قابل دسترس باشد؛ به همین دلیل، مجموعه بزرگ و همواره در حال گسترش چندرسانه‌ای خود را با قیمتی بسیار پایین و مقرون‌به‌صرفه ارائه می‌کنیم. وارد یک اکوسیستم دیجیتال شوید که به شما کمک می‌کند با هزینه مناسب مطالعه کنید، بی‌حدومرز کاوش کنید و خودتان را کشف کنید.",
+
     "Recent": "اخیر",
+
     "Home": "خانه",
     "About": "درباره ما",
     "Explore": "کاوش",
     "Login": "ورود",
     "SignUp": "ثبت‌نام",
 
+    "Search your fav books...":
+        "کتاب مورد علاقه‌تان را جستجو کنید...",
+
+    "INVENIRE": "اینونیر",
+
     "Read Explore Discover Yourself":
         "بخوانید، کاوش کنید، خودتان را کشف کنید",
+
+    "Escape your daily boundaries and immerse your mind in thoughts that expand your perspective.":
+        "از مرزهای روزمره خود فراتر بروید و ذهن خود را در افکاری غوطه‌ور کنید که دیدگاه شما را گسترش می‌دهند.",
 
     "Premium Editions Collection":
         "مجموعه نسخه‌های ویژه",
@@ -25,7 +41,9 @@ const FA = {
     "Literature": "ادبیات",
     "Poetry": "شعر",
 
-    "Your Next Read": "کتاب بعدی شما",
+    "Your Next Read":
+        "کتاب بعدی شما",
+
     "Books waiting for you to start reading.":
         "کتاب‌هایی که منتظرند خواندنشان را آغاز کنید.",
 
@@ -45,12 +63,23 @@ const FA = {
     "Password": "رمز عبور",
     "Confirm Password": "تأیید رمز عبور",
 
+    "Select your gender":
+        "جنسیت خود را انتخاب کنید",
+
+    "Enter your location":
+        "موقعیت خود را وارد کنید",
+
+    "Enter your password":
+        "رمز عبور خود را وارد کنید",
+
     "Already have an account? login":
         "قبلاً حساب دارید؟ ورود",
 
     "Male": "مرد",
     "Female": "زن",
     "Other": "دیگر",
+
+    "Sign Up": "ثبت‌نام",
 
     "Dashboard": "داشبورد",
     "Books": "کتاب‌ها",
@@ -99,18 +128,23 @@ const FA = {
     "TOTAL FEE":
         "مجموع هزینه",
 
+    "Total Books Purchased":
+        "مجموع کتاب‌های خریداری‌شده",
+
     "Most Popular Books":
         "محبوب‌ترین کتاب‌ها",
+
+    "Top books ranked by members adding them to my library":
+        "کتاب‌های برتر بر اساس تعداد اعضایی که آن‌ها را به کتابخانه خود اضافه کرده‌اند",
 
     "Most Active Members":
         "فعال‌ترین اعضا",
 
-    "View all": "مشاهده همه",
+    "View all":
+        "مشاهده همه",
 
-    "Active": "فعال",
-
-    "Total Books Purchased":
-        "مجموع کتاب‌های خریداری‌شده",
+    "Active":
+        "فعال",
 
     "Welcome back Book Friends":
         "خوش برگشتید، دوستان کتاب‌خوان",
@@ -118,10 +152,17 @@ const FA = {
     "Don't have an account yet? SignIn":
         "هنوز حساب ندارید؟ ثبت‌نام",
 
+    "Don’t have an account yet? SignIn":
+        "هنوز حساب ندارید؟ ثبت‌نام",
+
     "LogIn": "ورود",
 
-    "Search your fav books...":
-        "کتاب مورد علاقه‌تان را جستجو کنید...",
+    "Daily": "روزانه",
+    "Weekly": "هفتگی",
+    "Monthly": "ماهانه",
+
+    "Purchase Date":
+        "تاریخ خرید",
 
     "© 2026, Made by Invenire Team.":
         "© ۲۰۲۶، ساخته شده توسط تیم اینونیر."
