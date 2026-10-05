@@ -199,7 +199,7 @@ body{
     left: 0;
     width: 100%;
     height: 80vh;
-    background-color: var(--card-background-color);
+    background: var(--footer-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
@@ -366,7 +366,7 @@ body{
     right: 0;
     width: 350px; 
     height: 100vh;
-    background-color: var(--dropdown-background-color);
+    background: var(--footer-background-color);
     box-shadow: var(--default-box-shadow);
     padding: var(--card-padding);
     display: flex;

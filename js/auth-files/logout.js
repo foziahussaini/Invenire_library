@@ -1,4 +1,3 @@
-// FIX 1: Root absolute path routing guarantees module access across user and admin sub-folders
 import { auth, db } from "../../src/firebase-config.js"; 
 import { signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import { doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
@@ -6,18 +5,24 @@ import { doc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebas
 async function updateLogoutStatus(uid) {
   if (!uid) return;
   
+  // FIXED: If the user is an admin, skip updating the members collection entirely
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+  if (isAdmin) {
+    console.log("Admin logging out — skipping member status update.");
+    return;
+  }
+  
   try {
     // Direct document reference matching the secure unified Auth UID token anchor
     const userDocRef = doc(db, "members", uid);
     
     // Fire the database token clear operation asynchronously without blocking the local window wipe threads
-    updateDoc(userDocRef, {
+    await updateDoc(userDocRef, {
       isLoggedIn: false,
       "last-login": serverTimestamp()
-    }).catch(e => console.warn("Background firestore status update postponed:", e.message));
-
-  } catch (err) {
-    console.error("Failed to compile background visibility states:", err);
+    });
+  } catch (e) { 
+    console.warn("Background firestore status update postponed:", e.message);
   }
 }
 
@@ -32,7 +37,7 @@ async function performLogout({ redirectTo = null } = {}) {
   // Fallback property mapping to ensure thread safety
   const uid = auth.currentUser?.uid || storedSession?.uid || null;
 
-  // FIX 2: Trigger local database cleanup state updates concurrently
+  // Trigger local database cleanup state updates concurrently
   if (uid) {
       await updateLogoutStatus(uid);
   }
@@ -45,10 +50,11 @@ async function performLogout({ redirectTo = null } = {}) {
     console.error("Firebase engine signOut failed:", err);
   }
 
-  // FIX 3: Local parameters are completely removed now even if database permissions reject the offline write packets
+  // FIXED: Clear ALL admin and user tracking parameters out of your cache storage
   localStorage.removeItem("invenireUser");
   localStorage.removeItem("invenireLoggedIn");
   localStorage.removeItem("userSession");
+  localStorage.removeItem("isAdmin"); // Clean up admin tracker flag
 
   // Synchronize interface component visibility states cross-platform
   document.querySelectorAll(".login-btn, .signup-btn").forEach(el => {
@@ -63,7 +69,7 @@ async function performLogout({ redirectTo = null } = {}) {
     window.location.href = redirectTo;
   } else {
     // Unified default fallback landing context if explicit redirect properties are unset
-    window.location.href = "home.html"; 
+    window.location.href = "/pages/home.html"; 
   }
 }
 

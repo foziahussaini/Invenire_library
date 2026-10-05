@@ -1,6 +1,8 @@
 import { logoUrl } from "../../src/assets.js";
 
-// ============================ LOGO APPEND AND CLICK EVENT ===============================================
+// ==========================================================================
+// 1. LOGO RENDER ENGINE & INITIALIZATION
+// ==========================================================================
 const logo = document.querySelector(".logo");
 
 if (logo) {
@@ -15,19 +17,65 @@ if (logo) {
     });
 }
 
+// ==========================================================================
+// 2. THEME STORAGE SYNC ENGINE (Runs instantly before DOM loads to prevent flash)
+// ==========================================================================
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-theme");
+} else {
+    document.body.classList.remove("dark-theme");
+}
+
+// ==========================================================================
+// 3. MAIN DOM REGISTRATION CONTROLLER
+// ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
-    // ========================= SIDEBAR LAYOUT MAP PIPELINE ENGINE ===================================================
     const menuItems = document.querySelectorAll(".menu-item");
     
-    // Exact selectors mapping to your clean <ul> lists
+    // Select dropdown elements matching your layout classes and structures
     const langDropdownMenu = document.getElementById("langDropdownMenu");
     const themeDropdownMenu = document.getElementById("themeDropdownMenu");
+    const themeDropdownBtn = document.getElementById("themeDropdownBtn");
 
-    // Unified routing layout specs
+    const themeOptions = themeDropdownMenu ? themeDropdownMenu.querySelectorAll("li") : [];
+    const time = document.querySelector(".time");
+    const date = document.querySelector(".date");
+
+    // ==========================================================================
+    // A. LIVE CALENDAR & CLOCK UTILITY FUNCTIONS
+    // ==========================================================================
+    function runLiveCalendarMetrics() {
+        const now = new Date();
+
+        if (time) {
+            time.textContent = now.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+            });
+        }
+
+        if (date) {
+            date.textContent = now.toLocaleDateString("en-US", {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            });
+        }
+    }
+
+    // Initialize clock cycle loop ticker
+    runLiveCalendarMetrics();
+    setInterval(runLiveCalendarMetrics, 1000);
+
+    // ==========================================================================
+    // B. ROUTING PATH HIGHLIGHTING ENGINE
+    // ==========================================================================
     function syncActivePageLayoutStates() {
         const currentPath = window.location.pathname.toLowerCase();
         
-        // Restore last active section if returning from another page
+        // Restore last active section if returning from another page view context
         const savedActiveSection = localStorage.getItem("activeSidebarSection");
         if (savedActiveSection && savedActiveSection.startsWith("#")) {
             menuItems.forEach(i => i.classList.remove("active"));
@@ -55,11 +103,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Initialize layout defaults
+    // Initialize state highlighting paths on entry pointers
     syncActivePageLayoutStates();
     window.addEventListener("pageshow", syncActivePageLayoutStates);
 
-    // Interactive Menu Clicking Node Dispatcher Engine 
+    // ==========================================================================
+    // C. MENU CLICK DISPATCHER ROUTING MANAGEMENT
+    // ==========================================================================
     menuItems.forEach(item => {
         item.addEventListener("click", (e) => {
             const rawRoute = item.getAttribute("data-route");
@@ -67,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const routeTarget = rawRoute.toLowerCase().trim();
 
-            // 1. ROUTE PATTERN A: Internal dynamic section scroll jumps
+            // PATTERN 1: Internal dynamic section scroll layout jumps
             if (routeTarget.startsWith("#")) {
                 e.preventDefault();
                 menuItems.forEach(i => i.classList.remove("active"));
@@ -82,12 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // 2. ROUTE PATTERN B: Language flyout interaction triggers
+            // PATTERN 2: Language flyout panel dropdown toggles
             if (routeTarget === "language") {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Close the opposing theme panel if open
+                // Safety clear: close theme dropdown elements if they reside open
                 if (themeDropdownMenu) {
                     themeDropdownMenu.classList.remove("show");
                     themeDropdownMenu.style.setProperty("display", "none", "important");
@@ -95,90 +145,82 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.querySelector('.menu-item[data-route="Theme"], .menu-item[data-route="theme"]')?.classList.remove("overlay-active");
 
                 if (langDropdownMenu) {
-                    const parentContainer = langDropdownMenu.closest('.lang-dropdown');
+                    const parentContainer = langDropdownMenu.closest('.lang-dropdown') || langDropdownMenu;
                     const isCurrentlyOpen = parentContainer.style.display === "block";
-                    parentContainer.style.display = isCurrentlyOpen ? "none" : "block";
+                    parentContainer.style.setProperty("display", isCurrentlyOpen ? "none" : "block", isCurrentlyOpen ? "" : "important");
                     item.classList.toggle("overlay-active", !isCurrentlyOpen);
                 }
                 return;
             }
 
-            // 3. ROUTE PATTERN C: Theme flyout interaction triggers (DEFERRED TO SPECIFIC CONTROLLER)
+            // PATTERN 3: Theme flyout panel dropdown toggles (FIXED THE CUTOFF INTERACTION)
             if (routeTarget === "theme") {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                // Close the opposing language panel if open
-                if (langDropdownMenu) langDropdownMenu.closest('.lang-dropdown').style.display = "none";
-                document.getElementById("langMenuItem")?.classList.remove("overlay-active");
 
-                // Toggle visibility using your new class setup securely
+                // Safety clear: close language menu blocks to prevent overlay clash artifacts
+                if (langDropdownMenu) {
+                    const langParent = langDropdownMenu.closest('.lang-dropdown') || langDropdownMenu;
+                    langParent.style.setProperty("display", "none", "important");
+                }
+                document.querySelector('.menu-item[data-route="Language"], .menu-item[data-route="language"]')?.classList.remove("overlay-active");
+
                 if (themeDropdownMenu) {
-                    const isOpen = themeDropdownMenu.classList.toggle("show");
-                    themeDropdownMenu.style.setProperty("display", isOpen ? "block" : "none", "important");
-                    item.classList.toggle("overlay-active", isOpen);
+                    const isThemeOpen = themeDropdownMenu.classList.toggle("show");
+                    themeDropdownMenu.style.setProperty("display", isThemeOpen ? "block" : "none", "important");
+                    item.classList.toggle("overlay-active", isThemeOpen);
                 }
                 return;
             }
-
-            // 4. ROUTE PATTERN D: Normal relative web page url jumps
-            if (routeTarget.includes(".html")) {
-                menuItems.forEach(i => i.classList.remove("active"));
-                item.classList.add("active");
-                window.location.href = rawRoute;
-            }
         });
     });
 
-    // ==================== OVERLAY DISMISSAL CLICK LISTENERS ====================
-    window.addEventListener("click", (e) => {
-        const langContainer = langDropdownMenu?.closest('.lang-dropdown');
-
-        if (langContainer && !langContainer.contains(e.target) && !e.target.closest('[data-route="language"]')) {
-            langContainer.style.display = "none";
-            document.getElementById("langMenuItem")?.classList.remove("overlay-active");
-        }
-        
-    });
-
-    // Options selection capture loops for Language choices
-    document.querySelectorAll("#langDropdownMenu li").forEach(option => {
-        option.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const selectedLang = option.getAttribute("data-value");
-            console.log(`🟢 Language preference changed to: ${selectedLang}`);
-            
-            option.parentElement.querySelectorAll("li").forEach(li => li.classList.remove("selected-option"));
-            option.classList.add("selected-option");
-            
-            if (langDropdownMenu) langDropdownMenu.closest('.lang-dropdown').style.display = "none";
-            document.getElementById("langMenuItem")?.classList.remove("overlay-active");
+    // ==========================================================================
+    // D. SYSTEM THEME OPTION SUB-SELECTION LISTENERS
+    // ==========================================================================
+    if (themeDropdownBtn && themeDropdownMenu) {
+        themeDropdownBtn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const isOpen = themeDropdownMenu.classList.toggle("show");
+            themeDropdownMenu.style.setProperty("display", isOpen ? "block" : "none", "important");
         });
-    });
-
-// ============================== TIME DATE CLOCK LIFECYCLE WATCHER ==============================
-    const timeLabel = document.querySelector(".time");
-    const dateLabel = document.querySelector(".date");
-
-    function runClockTickCycle() {
-        const timestampNow = new Date();
-        if (timeLabel) {
-            timeLabel.textContent = timestampNow.toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true
-            });
-        }
-        if (dateLabel) {
-            dateLabel.textContent = timestampNow.toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-            });
-        }
     }
 
-    runClockTickCycle();
-    setInterval(runClockTickCycle, 1000);
-});
+    themeOptions.forEach(option => {
+        option.addEventListener("click", (event) => {
+            event.stopPropagation();
+            const selectedTheme = option.dataset.value;
 
+            if (selectedTheme === "dark") {
+                document.body.classList.add("dark-theme");
+            } else {
+                document.body.classList.remove("dark-theme");
+            }
+
+            // Lock in chosen appearance theme context value globally
+            localStorage.setItem("theme", selectedTheme);
+
+            // Close active configuration wrapper elements gracefully
+            if (themeDropdownMenu) {
+                themeDropdownMenu.classList.remove("show");
+                themeDropdownMenu.style.setProperty("display", "none", "important");
+            }
+            document.querySelector('.menu-item[data-route="Theme"], .menu-item[data-route="theme"]')?.classList.remove("overlay-active");
+        });
+    });
+
+    // ==========================================================================
+    // E. INTERACTIVE OUTSIDE CLICK SURFACE PANEL DISMISSAL CLOSURES
+    // ==========================================================================
+    document.addEventListener("click", () => {
+        if (themeDropdownMenu) {
+            themeDropdownMenu.classList.remove("show");
+            themeDropdownMenu.style.setProperty("display", "none", "important");
+        }
+        if (langDropdownMenu) {
+            const langParent = langDropdownMenu.closest('.lang-dropdown') || langDropdownMenu;
+            langParent.style.setProperty("display", "none", "important");
+        }
+        menuItems.forEach(i => i.classList.remove("overlay-active"));
+});
+});

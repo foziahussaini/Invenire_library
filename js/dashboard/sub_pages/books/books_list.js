@@ -15,10 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   allLibraryBooks();
 });
 
-// =====================================================
-// TABLE STATUS
-// =====================================================
-
 function showTableStatus(message, status = "") {
   if (!tableBodyContainer) return;
 

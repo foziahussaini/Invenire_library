@@ -324,6 +324,8 @@ function getFormData(bookInputs) {
         audio_url: getValidAudioUrl(bookInputs.audioUrl?.value),
         price: getValidPrice(bookInputs.price?.value),
         cover_image: cleanText(bookInputs.coverImage?.value),
+        pages: cleanText(bookInputs.pages?.value),
+        language: cleanText(bookInputs.language?.value),
         created_at: new Date().toISOString()
     };
 }
@@ -619,10 +621,7 @@ async function setupEditModeOnLoad(bookForm, bookInputs) {
     await loadBookIntoForm(editingId);
 }
 
-// =====================================================
-// EDIT BUTTON (for form itself — kept minimal, removed earlier)
-// =====================================================
-
+// ======================EDIT BUTTON===================================
 function setupEditButton() {
     // left intentionally minimal: the in-form edit button was removed at init
     return;

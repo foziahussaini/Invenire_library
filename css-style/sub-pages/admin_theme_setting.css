@@ -202,7 +202,7 @@ body{
     left: 0;
     width: 100%;
     height: 80vh;
-    background-color: var(--main-background-color);
+    background: var(--footer-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
@@ -362,7 +362,7 @@ body{
     right: 0;
     width: 350px; 
     height: 100vh;
-    background-color: var(--dropdown-background-color);
+    background: var(--footer-background-color);
     box-shadow: var(--default-box-shadow);
     padding: var(--card-padding);
     display: flex;
@@ -424,6 +424,118 @@ body{
     color: var(--btn-text-hover-color);
 }
 
+/*  */
+.input-group{
+    display: flex;
+    flex-direction: column;
+    color: var(--main-text-color);
+}
+
+label{
+    margin-left: 0.3rem;    
+    font-size: var(--min-font-size);
+    font-weight: 600;
+}
+
+.gender-dropdown {
+    background-color: var(--card-background-color);
+    position: relative;
+    width: 100%;
+}
+
+.input-group input,
+.gender-dropdown .dropdown-header,
+.gender-dropdown .dropdown-menu{
+    width: 100%;
+    height: 36px;
+    background: var(--card-background-color);
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--input-border-color);
+    padding: 0.4rem 0.8rem;
+    color: var(--main-text-color);
+    font-size: var(--min-font-size);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: var(--btn-background-color);
+    color: var(--input-text-color);
+    outline: none;
+}
+
+.input-group input::placeholder {
+    color: var(--input-text-color);
+    font-size: 11px;
+}
+
+.form-row4 .gender,
+.form-row4 .location,
+.form-row5 .input-group{
+    width: 400px;
+}
+.gender-dropdown .dropdown-menu{
+    width: 100%;
+    height: auto;
+    box-shadow: var(--card-box-shadow);
+    border-radius: var(--btn-border-radius);
+    border: 1px solid var(--input-border-color);
+    padding: 0.4rem 0.8rem;
+    color: var(--main-text-color);
+    font-size: var(--min-font-size);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+
+/* Style the dropdown button frame */
+.gender-dropdown .form-input-dropdown {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--main-background-color);
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.gender-dropdown .form-dropdown-menu {
+    display: none;       
+    position: absolute;   
+    top: calc(100% + 4px); 
+    left: 0;
+    width: 100%;        
+    background-color: var(--footer-background-color);
+    border: var(--default-border);
+    border-radius: var(--main-border-radius);
+    box-shadow: var(--card-box-shadow);
+    list-style: none;
+    padding: 6px 0;
+    margin: 0;
+    z-index: 999;       
+}
+
+.gender-dropdown .form-dropdown-menu.show {
+    display: block;      
+}
+
+.gender-dropdown .form-dropdown-menu li {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--main-text-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.gender-dropdown .form-dropdown-menu li:hover {
+    background-color: var(--btn-hover-background-color, #3b82f6);
+    color: var(--btn-text-hover-color);
+}
 /* =============================FOOTER PART=========================================  */
 .theme-footer{
     width: 100%;

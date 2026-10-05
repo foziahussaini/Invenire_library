@@ -159,10 +159,6 @@ function renderMiniCards(items, container, defaultMeta, showDeleteBtn = false, d
   appendIntoListContainer(container, frag);
 }
 
-// ---------------------- FIRESTORE HELPERS ----------------------
-// NOTE: kept helper minimal — lookup now uses uid as document id via getDoc(doc(...))
-/* removed unused findMemberDocIdByUid to keep logic single-path */
-
 // ---------------------- BADGE / METRICS ----------------------
 function updateBadges(totalLibraryBooksCount) {
   document.querySelectorAll(selectors.statusDice).forEach(el => el.classList.remove("active-badge"));

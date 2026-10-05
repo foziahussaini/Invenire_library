@@ -16,8 +16,7 @@
     <!-- auth logic -->
     <script type="module" defer src="../js/auth-files/auth.js"></script>
     <!-- user header part -->
-    <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
-    <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
+    <script type="module" src="../js/user-dashboard/user_dashboard_search.js" defer></script>
     <script type="module" src="../js/auth-files/profile.js"></script>
     <!-- logout logic -->
     <script type="module" src="../js/auth-files/logout.js"></script>
@@ -26,6 +25,7 @@
     <!-- library logic -->
     <script type="module" src="../js/user-dashboard/my_library.js" defer></script>
     <script type="module" src="../js/user-dashboard/user-progress.js" defer></script>
+    <script type="module" src="../js/user-dashboard/user_download.js" defer></script>
     <!-- activity logic -->
     <script type="module" src="../js/user-dashboard/activity.js" defer></script>
 
@@ -38,6 +38,7 @@
         integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
+
 <body class="user-body">
     <div class="member-container">
         <!-- sidebar -->
@@ -73,9 +74,9 @@
 
                 <div class="lang-dropdown">
                     <ul class="dropdown-menu" id="langDropdownMenu">
-                        <li data-value="En">English</li>
-                        <li data-value="Da">Dari</li>
-                        <li data-value="Pa">Pashto</li>
+                        <li data-language="en">English</li>
+                        <li data-language="fa">Dari</li>
+                        <li data-language="ps">Pashto</li>
                     </ul>
                 </div>
 
@@ -174,24 +175,27 @@
                         <p>Start reading a book to see your progress here.</p>
                     </div>
                 </div>
-
                 <div class="your-downloads section4" id="your-downloads">
                     <div class="section-header download-section-header">
                         <h1>Your <span>Downloads</span></h1>
                     </div>
 
-                    <div class="books-grid download-books-grid" id="download-books"></div>
+                    <div class="books-grid download-books-grid" id="download-books">
+                        <div class="download-card"></div>
+                    </div>
 
                     <div class="download-empty-state" id="download-empty-state" style="display: none;">
                         <div class="download-state-icon">
                             <i class="fa-solid fa-download"></i>
                         </div>
+                        <h3>No downloads yet.</h3>
+                        <p>Download books to see them here.</p>
                     </div>
                 </div>
-                <!-- Added id="activity" to map with sidebar menu selections dynamically -->
+                <!-- ==========================user activity 30 day strick=========================-->
                 <div class="my-activity section5" id="activity">
-                    <div class="title">
-                        <p>My Activity</p>
+                    <div class="title-header activity-title-section">
+                        <h1>My <span>Activity</span></h1>
                     </div>
                     <div class="activity-container">
                         <div class="status">
@@ -230,152 +234,164 @@
                                 </div>
                             </div>
                         </div>
-
-                <div class="my-settings section5" id="Settings" style="margin-top:20px;">
-                    <div class="setting-context">
-                        <div class="head-title">
-                            <ul>
-                                <li><a href="javascript:void(0);" data-target="personal"
-                                        class="tab-link active">personal</a></li>
-                                <li><a href="javascript:void(0);" data-target="del-account" class="tab-link">delete
-                                        account</a></li>
-                                <li><a href="javascript:void(0);" data-target="manage-size" class="tab-link">manage
-                                        size</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="setting-body-content">
-
-                            <form class="box1 box personal active" id="personal" onsubmit="return false;">
-                                <div class="profile-pic" id="profilePicContainer"
-                                    title="Click to upload a new profile picture">
-                                    <img id="profileImageDisplay" src="../images/profile/female.jpg"
-                                        alt="Profile Picture" />
-                                    <input type="file" id="imageUploadInput" accept="image/*" style="display: none;" />
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" placeholder="FullName" id="name" required />
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" name="email" id="email" placeholder="example@domain.com"
-                                        required />
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="pre-password">Current Password</label>
-                                    <input type="password" placeholder="Previous password" id="pre-password"
-                                        autocomplete="current-password" />
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="new-pass">New Password</label>
-                                    <input type="password" placeholder="New password" id="new-pass"
-                                        autocomplete="new-password" />
-                                </div>
-
-                                <button type="button" id="saveProfileButton">save</button>
-                            </form>
-
-                            <div class="box13 box delAccount" id="del-account">
-                                <span><i class="fa-solid fa-warning"></i></span>
-                                <h1>Delete Account</h1>
-                                <p>Are you sure you want to delete your account?</p>
-                                <p>once you delete you will naver have access to your library</p>
-                                <button>delete</button>
-                                <button>cancel</button>
+                        <!-- ===============================setting parts================================= -->
+                        <div class="my-settings section5" id="Settings" style="margin-top:20px;">
+                            <div class="section-header setting-section-header">
+                                <h1>My <span>Setting</span></h1>
                             </div>
-
-                            <div class="box14 box manage-size" id="manage-size">
-                                <h2>Personalization</h2>
-
-                                <div class="card-option-group">
-                                    <h3>Text Display Size</h3>
-                                    <div class="cards-grid" id="sizeCardsContainer">
-                                        <div class="visual-option-card" data-type="size" data-value="small">
-                                            <div class="card-mini-preview size-preview-small">
-                                                <div class="mini-header">Header</div>
-                                                <div class="mini-text">Normal text
-                                                    <div class="mini-btn">Button</div>
-                                                </div>
-                                            </div>
-                                            <span class="option-label">Compact</span>
-                                        </div>
-
-                                        <div class="visual-option-card active" data-type="size" data-value="medium">
-                                            <div class="card-mini-preview size-preview-medium">
-                                                <div class="mini-header">Header</div>
-                                                <div class="mini-text">Normal text
-                                                    <div class="mini-btn">Button</div>
-                                                </div>
-                                            </div>
-                                            <span class="option-label">Standard</span>
-                                        </div>
-
-                                        <div class="visual-option-card" data-type="size" data-value="large">
-                                            <div class="card-mini-preview size-preview-large">
-                                                <div class="mini-header">Header</div>
-                                                <div class="mini-text">Normal text
-                                                    <div class="mini-btn">Button</div>
-                                                </div>
-                                            </div>
-                                            <span class="option-label">Expanded</span>
-                                        </div>
-                                    </div>
+                            <div class="setting-context">
+                                <div class="head-title">
+                                    <ul>
+                                        <li><a href="javascript:void(0);" data-target="personal"
+                                                class="tab-link active">personal</a></li>
+                                        <li><a href="javascript:void(0);" data-target="del-account"
+                                                class="tab-link">delete
+                                                account</a></li>
+                                        <li><a href="javascript:void(0);" data-target="manage-size"
+                                                class="tab-link">manage
+                                                size</a></li>
+                                    </ul>
                                 </div>
 
-                                <div class="card-option-group">
-                                    <h3>Typography Theme Style</h3>
-                                    <div class="cards-grid" id="styleCardsContainer">
-                                        <div class="visual-option-card active" data-type="style" data-value="modern">
-                                            <div class="card-mini-preview font-preview-modern">
-                                                <div class="mini-header">Modern</div>
-                                                <div class="mini-text">Clean
-                                                    <div class="mini-btn">Action</div>
-                                                </div>
-                                            </div>
-                                            <span class="option-label">Modern Clean</span>
+                                <div class="setting-body-content">
+
+                                    <form class="box1 box personal active" id="personal" onsubmit="return false;">
+                                        <div class="profile-pic" id="profilePicContainer"
+                                            title="Click to upload a new profile picture">
+                                            <img id="profileImageDisplay" src="../images/profile/female.jpg"
+                                                alt="Profile Picture" />
+                                            <input type="file" id="imageUploadInput" accept="image/*"
+                                                style="display: none;" />
                                         </div>
 
-                                        <div class="visual-option-card" data-type="style" data-value="cursive">
-                                            <div class="card-mini-preview font-preview-cursive">
-                                                <div class="mini-header">Header</div>
-                                                <div class="mini-text">Cursive Style
-                                                    <div class="mini-btn">Action</div>
-                                                </div>
-                                            </div>
-                                            <span class="option-label">Elegant Cursive</span>
+                                        <div class="input-group">
+                                            <label for="name">Full Name</label>
+                                            <input type="text" placeholder="FullName" id="name" required />
                                         </div>
 
-                                        <div class="visual-option-card" data-type="style" data-value="tall">
-                                            <div class="card-mini-preview font-preview-tall">
-                                                <div class="mini-header">HEADER</div>
-                                                <div class="mini-text">TALL STYLE
-                                                    <div class="mini-btn">ACTION</div>
+                                        <div class="input-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" name="email" id="email" placeholder="example@domain.com"
+                                                required />
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label for="pre-password">Current Password</label>
+                                            <input type="password" placeholder="Previous password" id="pre-password"
+                                                autocomplete="current-password" />
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label for="new-pass">New Password</label>
+                                            <input type="password" placeholder="New password" id="new-pass"
+                                                autocomplete="new-password" />
+                                        </div>
+
+                                        <button type="button" id="saveProfileButton">save</button>
+                                    </form>
+
+                                    <div class="box13 box delAccount" id="del-account">
+                                        <span><i class="fa-solid fa-warning"></i></span>
+                                        <h1>Delete Account</h1>
+                                        <p>Are you sure you want to delete your account?</p>
+                                        <p>once you delete you will naver have access to your library</p>
+                                        <button>delete</button>
+                                        <button>cancel</button>
+                                    </div>
+
+                                    <div class="box14 box manage-size" id="manage-size">
+                                        <h2>Personalization</h2>
+
+                                        <div class="card-option-group">
+                                            <h3>Text Display Size</h3>
+                                            <div class="cards-grid" id="sizeCardsContainer">
+                                                <div class="visual-option-card" data-type="size" data-value="small">
+                                                    <div class="card-mini-preview size-preview-small">
+                                                        <div class="mini-header">Header</div>
+                                                        <div class="mini-text">Normal text
+                                                            <div class="mini-btn">Button</div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="option-label">Compact</span>
+                                                </div>
+
+                                                <div class="visual-option-card active" data-type="size"
+                                                    data-value="medium">
+                                                    <div class="card-mini-preview size-preview-medium">
+                                                        <div class="mini-header">Header</div>
+                                                        <div class="mini-text">Normal text
+                                                            <div class="mini-btn">Button</div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="option-label">Standard</span>
+                                                </div>
+
+                                                <div class="visual-option-card" data-type="size" data-value="large">
+                                                    <div class="card-mini-preview size-preview-large">
+                                                        <div class="mini-header">Header</div>
+                                                        <div class="mini-text">Normal text
+                                                            <div class="mini-btn">Button</div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="option-label">Expanded</span>
                                                 </div>
                                             </div>
-                                            <span class="option-label">Creative Tall</span>
                                         </div>
+
+                                        <div class="card-option-group">
+                                            <h3>Typography Theme Style</h3>
+                                            <div class="cards-grid" id="styleCardsContainer">
+                                                <div class="visual-option-card active" data-type="style"
+                                                    data-value="modern">
+                                                    <div class="card-mini-preview font-preview-modern">
+                                                        <div class="mini-header">Modern</div>
+                                                        <div class="mini-text">Clean
+                                                            <div class="mini-btn">Action</div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="option-label">Modern Clean</span>
+                                                </div>
+
+                                                <div class="visual-option-card" data-type="style" data-value="cursive">
+                                                    <div class="card-mini-preview font-preview-cursive">
+                                                        <div class="mini-header">Header</div>
+                                                        <div class="mini-text">Cursive Style
+                                                            <div class="mini-btn">Action</div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="option-label">Elegant Cursive</span>
+                                                </div>
+
+                                                <div class="visual-option-card" data-type="style" data-value="tall">
+                                                    <div class="card-mini-preview font-preview-tall">
+                                                        <div class="mini-header">HEADER</div>
+                                                        <div class="mini-text">TALL STYLE
+                                                            <div class="mini-btn">ACTION</div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="option-label">Creative Tall</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" id="commitGlobalDashboardStylesBtn">Apply Changes</button>
                                     </div>
                                 </div>
-
-                                <button type="button" id="commitGlobalDashboardStylesBtn">Apply Changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+             <!-- footer -->
+            <footer class="user-footer">
+            <p class="footer-text">© 2026, Made by Invenire Team.</p>
+           </footer>
         </div>
     </div>
-
-    <script src="../js/dashboard/sub_pages/theme.js"></script>
-    <script src="../languages/en.js"></script>
-    <script src="../languages/fa.js"></script>
-    <script src="../languages/ps.js"></script>
-    <script src="../languages/language.js"></script>
+            <script src="../languages/en.js"></script>
+            <script src="../languages/fa.js"></script>
+            <script src="../languages/ps.js"></script>
+            <script src="../languages/language.js"></script>
 </body>
 
 </html>

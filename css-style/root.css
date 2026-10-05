@@ -10,7 +10,7 @@
 
     --primary-font-family: 'Yaldevi', sans-serif;
 
-    --main-background-color: #d5e4f7a2;
+    --main-background-color: #d5e4f74e;
 
     --header-background-color:
         linear-gradient(
@@ -40,7 +40,7 @@
     --btn-text-color: #FFFFFF;
     --btn-text-hover-color: #ded9d9;
 
-    --card-background-color: #F0F2F5;
+    --card-background-color: #c3e4d861;
 
     --card-hover-background-color:
         linear-gradient(
@@ -99,9 +99,9 @@
     --footer-background-color:
         linear-gradient(
             120deg,
-            #dcedfe 10%,
-            #266bac 50%,
-            #8FB4E3
+            #8FB4E3 10%,
+            #266bac 20%,
+            #dcedfe 
         );
 
     --footer-text-color: #102141;

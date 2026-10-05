@@ -93,9 +93,10 @@
 }
 /* dropdown theme and language */
 .theme-dropdown{
-    display: none;
+    display: block;
     top: 20rem;
     position: absolute;
+    background: var(--card-background-color);
     left: 9.6rem; 
     z-index: 9999;
 }
@@ -116,7 +117,6 @@
     border: 1px solid var(--btn-background-color);
     border-radius: var(--btn-border-radius);
     min-width: 180px;
-    box-shadow: var(--card-box-shadow);
     animation: slideInDropdown 0.2s ease-out;
     z-index: 1000;
 }
@@ -285,7 +285,7 @@
     left: 0;
     width: 100%;
     height: 80vh;
-    background-color: var(--card-background-color);
+    background: var(--footer-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
@@ -452,7 +452,7 @@
     right: 0;
     width: 350px; 
     height: 100vh;
-    background-color: var(--dropdown-background-color);
+    background: var(--footer-background-color);
     box-shadow: var(--default-box-shadow);
     padding: var(--card-padding);
     display: flex;
@@ -582,7 +582,9 @@
 
 .library-section-header,
 .progress-section-header,
-.download-section-header {
+.download-section-header,
+.activity-title-section,
+.setting-section-header{
     width: 100%;
     display: flex;
     align-items: center;
@@ -591,7 +593,9 @@
 
 .library-section-header h1,
 .progress-section-header h1,
-.download-section-header h1 {
+.download-section-header h1,
+.activity-title-section h1,
+.setting-section-header h1 {
     margin: 0;
     padding: 0;
     font-size: 26px;
@@ -601,10 +605,25 @@
 
 .library-section-header h1 span,
 .progress-section-header h1 span,
-.download-section-header h1 span {
+.download-section-header h1 span,
+.activity-title-section h1 span,
+.setting-section-header h1 span{
     color: var(--premium-icon-color);
 }
 
+
+.library-section-header::after,
+.progress-section-header::after,
+.download-section-header::after,
+.activity-title-section::after,
+.setting-section-header::after{
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--sub-script-color);
+    opacity: 0.35;
+    
+}
 /* =================LIBRARY CONTENT========================================== */
 .library-content {
     width: 100%;
@@ -1003,13 +1022,13 @@ button[disabled] {
     max-width: 980px;
     min-height: 180px;
     padding: 30px;
-    display: none; /* Managed directly via your JS engine logic handlers (.style.display) */
+    display: none; 
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-radius: var(--main-border-radius, 16px);
-    background: var(--card-background-color, #ffffff);
+    border-radius: var(--main-border-radius);
+    background: var(--card-background-color);
     box-shadow: var(--card-box-shadow);
     box-sizing: border-box;
 }
@@ -1022,70 +1041,56 @@ button[disabled] {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(212, 160, 23, 0.12);
-    color: var(--premium-icon-color, #d4a017);
+    background: var(--btn-background-color);
+    color: var(--premium-icon-color);
     font-size: 20px;
 }
 
 .progress-empty-state h3 {
     margin: 0 0 7px 0;
-    color: var(--text-heading, #2d3436);
+    color: var(--main-text-color);
     font-size: 17px;
     font-weight: 700;
 }
 
 .progress-empty-state p {
     margin: 0;
-    color: var(--sub-script-color, #636e72);
+    color: var(--sub-script-color);
     font-size: 13px;
 }
 
-
-
-/* =========================================================
-   YOUR DOWNLOADS
-========================================================= */
-
-.your-downloads {
+/* ==============================YOUR DOWNLOADS SECTION==================================== */
+.your-downloads{
     width: 100%;
     margin: 2.5rem 0;
-    padding: 0 1rem;
+    padding: var(--btn-border-radius);
+    height: auto;
+    min-width: 560px;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .download-books-grid {
-    width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, minmax(160px, 1fr));
-    gap: 1.4rem;
-    padding: 0;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
-
-
-/* =========================================================
-   DOWNLOAD CARD
-========================================================= */
 
 .download-books-grid .download-card {
     position: relative;
-
     min-width: 0;
-
     padding: 0.7rem;
-
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     background: var(--card-background-color);
-
     border-radius: var(--main-border-radius);
-
     box-shadow: var(--card-box-shadow);
-
     overflow: hidden;
-
     transition:
         transform 0.3s ease,
         background-color 0.3s ease;
@@ -1096,68 +1101,58 @@ button[disabled] {
     background: var(--card-hover-background-color);
 }
 
-
 /* Download cover */
-
 .download-card-cover {
     width: 100%;
-    height: 230px;
-
-    border-radius: calc(var(--main-border-radius) - 6px);
-
+    height: 220px;
+    border-radius: var(--main-border-radius);
     overflow: hidden;
 }
 
 .download-card-cover img {
     width: 100%;
     height: 100%;
-
     display: block;
-
     object-fit: cover;
 }
 
-
-/* Download information */
-
+/* Download info */
 .download-card-title {
     margin: 12px 0 4px;
-
     color: var(--main-text-color);
-
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1;
 }
 
 .download-card-author {
     margin: 0 0 12px;
-
     color: var(--sub-script-color);
-
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 10px;
+    font-weight: 600;
+    font-style: italic;
 }
 
+/* Buttons row */
+.download-card-actions {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 /* Download button */
 
 .download-card-btn {
-    width: 100%;
-
-    padding: 9px 12px;
-
+    width: 100px;
+    padding: 0.4rem 0.6rem;
     border: none;
     border-radius: var(--btn-border-radius);
-
     background: var(--btn-background-color);
     color: var(--btn-text-color);
-
     font-size: var(--btn-font-size);
     font-weight: 600;
-
     cursor: pointer;
-
     transition:
         background-color 0.3s ease,
         color 0.3s ease,
@@ -1170,19 +1165,68 @@ button[disabled] {
 }
 
 .download-card-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.9);
 }
 
+.read-btn {
+    background: var(--btn-background-color);
+}
+
+.delete-download-btn {
+    background: var(--sub-script-color);
+}
+
+.delete-download-btn:hover {
+    color: var(--btn-background-color);
+}
 
 /* =========================================================
    DOWNLOAD EMPTY STATE
 ========================================================= */
-
 .download-empty-state {
     width: 100%;
+    max-width: 980px;
     min-height: 180px;
-
     padding: 30px;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: var(--main-border-radius);
+    background: var(--card-background-color);
+    box-shadow: var(--card-box-shadow);
+    box-sizing: border-box;
+}
+.download-state-icon {
+     width: 50px;
+    height: 50px;
+    margin-bottom: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--btn-background-color);
+    color: var(--premium-icon-color);
+    font-size: 20px;
+}
+
+.download-empty-state h3 {
+    margin: 0 0 7px 0;
+    color: var(--main-text-color);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.download-empty-state p {
+    margin: 0;
+    color: var(--sub-script-color);
+    font-size: 13px;
+}
+
+.download-message {
+    width: 100%;
+    min-height: 180px;
 
     display: flex;
     flex-direction: column;
@@ -1195,570 +1239,32 @@ button[disabled] {
 
     background: var(--card-background-color);
     box-shadow: var(--card-box-shadow);
-}
-
-.download-state-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 13px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: rgba(212, 160, 23, 0.12);
-    color: var(--premium-icon-color);
-
-    font-size: 20px;
-}
-
-.download-empty-state h3 {
-    margin: 0 0 7px;
-
-    color: var(--main-text-color);
-
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.download-empty-state p {
-    margin: 0;
 
     color: var(--sub-script-color);
-
-    font-size: 13px;
 }
 
-/* =========================================================
-   LIBRARY / PROGRESS / DOWNLOADS SECTION SPACING
-========================================================= */
-
-.my-library,
-.your-progresses,
-.your-downloads {
-    width: 100%;
-    margin: 2.5rem 0;
-    padding: 0 2.5rem;
+.download-message i {
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 
-
-/* =========================================================
-   SECTION TITLES
-========================================================= */
-
-.library-section-header,
-.progress-section-header,
-.download-section-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.library-section-header h1,
-.progress-section-header h1,
-.download-section-header h1 {
+.download-message p {
     margin: 0;
-    padding: 0;
-
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 30px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-
-    color: var(--main-text-color);
-}
-
-.library-section-header h1 span,
-.progress-section-header h1 span,
-.download-section-header h1 span {
-    color: var(--premium-icon-color);
-}
-
-
-/* =========================================================
-   SECTION TITLE + HORIZONTAL LINE
-========================================================= */
-
-.library-section-header,
-.progress-section-header,
-.download-section-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 1.5rem;
-    color: rgb(198, 198, 3);
-}
-
-.library-section-header::after,
-.progress-section-header::after,
-.download-section-header::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--sub-script-color);
-    opacity: 0.35;
-    
-}
-
-.status-dice.box2 > div {
-  width: 72px;
-  min-height: 72px;
-  border-radius: 10px;
-  border: 1px solid var(--badge-default-border);
-  background: var(--hero-animated-text-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.38rem;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-}
-
-/* Icon color for default (all badges) */
-.status-dice.box2 > div > span > i {
-  color: var(--btn-background-color);
-  font-size: 1rem;
-  transition: color 0.18s ease;
-}
-
-.status-dice.box2 > div.active-badge {
-  background: linear-gradient(180deg, #266baccf, #ffffffe0);
-  border: 1px solid var(--premium-icon-color);
-  box-shadow: var(--badge-box-shadow);
-  transform: translateY(-4px) scale(1.02);
-}
-
-/* Selected icon color */
-.status-dice.box2 > div.active-badge > span > i {
-  color: var(--premium-icon-color);
-}
-
-.status-dice.box2 > div > span {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.8);
-  color: #94a3b8;
-}
-
-.status-dice.box2 > div.active-badge > span {
-  color: var(--btn-background-color, #0ea5e9);
-}
-
-/* ---------- ARTICLE (SHELVES) ---------- */
-.article {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  margin-top: 1rem;
-}
-
-.list-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-    height: 200px auto;
-    align-items: center;
-}
-
-article.book-mini-card{
-    width: 100%;
-    height: 280px;
-    padding: 1rem;
-    box-shadow: var(--card-box-shadow);
-    border-radius: var(--btn-border-radius);
-    background: var(--card-background-color);
-
-    >img{
-        width: 100%;
-        height: 160px;
-        border-radius: var(--btn-border-radius);
-    }
-}
-
-.mini-card-body{
-    margin-top: 0.5rem;
-    font-size: 13px;
-   font-weight: 600;
-
-   >.mini-card-meta{
-    font-size: 11px;
-    color: var(--sub-script-color);
-    font-style: italic;
-   }
-}
-
-.mini-card-btn{
     font-size: 14px;
-    font-weight: 700;
-    color: var(--btn-text-color);
-    float: right;
-    padding: 0.3rem 1rem;
-    margin-top: 1rem;
-    border-radius: var(--btn-border-radius);
-    background-color: var(--btn-background-color);
+    color: var(--main-text-color);
 }
 
-/* settings part */
-.my-settings{
-    display: flex;
-    flex-direction: column;
-}
-
-/* Card Container Layout */
-.setting-context {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Header Navigation Tabs */
-.head-title ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: #f1f1f1;
-    border-bottom: 1px solid #ccc;
-}
-
-.head-title ul li a {
-    display: block;
-    padding: 15px 20px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Active Tab Styling */
-.head-title ul li a.active {
-    background-color: #fff;
-    border-bottom: 2px solid #007bff;
-    color: #007bff;
-}
-
-/* Content Box Stacking Logic */
-.setting-body-content {
-    position: relative;
-    padding: 20px;
-    min-height: 250px; /* Ensures space for content stacked over each other */
-}
-
-.setting-body-content .box {
-    display: none; /* Hide all boxes by default */
-    width: 100%;
-}
-
-/* The active rule that overwrites display none */
-.setting-body-content .box.active {
-    display: block; 
-}
-/* =========================================================
-   YOUR PROGRESS - GLASS DARK CARDS
-========================================================= */
-
-.progress-books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 22px;
-}
-
-
-/* -------------------------
-   Progress Card
-------------------------- */
-
-.progress-book-card {
-    position: relative;
-    overflow: hidden;
-
-    padding: 16px;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(17, 26, 50, 0.78),
-            rgba(23, 43, 80, 0.62)
-        );
-
-    border: 1px solid rgba(255, 255, 255, 0.09);
-
-    box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.30),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    color: #ffffff;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
-}
-
-.progress-book-card:hover {
-    transform: translateY(-4px);
-
-    border-color:
-        rgba(212, 160, 23, 0.35);
-
-    box-shadow:
-        0 24px 55px rgba(0, 0, 0, 0.42),
-        0 0 25px rgba(35, 86, 145, 0.15);
-}
-
-
-/* -------------------------
-   Cover
-------------------------- */
-
-.progress-book-cover {
-    width: 100%;
-    height: 230px;
-
-    overflow: hidden;
-
-    border-radius: 14px;
-
-    background: #0b1429;
-
-    box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.35);
-}
-
-.progress-book-cover img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-}
-
-
-/* -------------------------
-   Information
-------------------------- */
-
-.progress-book-info {
-    padding: 15px 3px 4px;
-}
-
-.progress-book-title {
-    margin: 0;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 1.15rem;
-    font-weight: 600;
-
-    color: #ffffff;
-}
-
-.progress-book-author {
-    margin: 4px 0 14px;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 0.78rem;
-    font-style: italic;
-
-    color: #aeb8ca;
-}
-
-
-/* -------------------------
-   Progress Label
-------------------------- */
-
-.progress-label-row {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 7px;
-}
-
-.progress-label {
-    font-size: 0.65rem;
-
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-
-    color: #8f9aae;
-}
-
-.progress-percentage {
-    font-size: 0.72rem;
-
-    font-weight: 600;
-
-    color: #D4A017;
-}
-
-
-/* -------------------------
-   Progress Bar
-------------------------- */
-
-.progress-bar {
-    width: 100%;
-    height: 7px;
-
-    overflow: hidden;
-
-    border-radius: 999px;
-
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.progress-bar-fill {
-    height: 100%;
-
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            #D4A017,
-            #e8c35b
-        );
-
-    box-shadow:
-        0 0 10px rgba(212, 160, 23, 0.25);
-
-    transition: width 0.4s ease;
-}
-
-
-/* -------------------------
-   Continue Button
-------------------------- */
-
-.progress-continue-btn {
-    width: 100%;
-    height: 36px;
-
-    margin-top: 14px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    border: 1px solid
-        rgba(255, 255, 255, 0.10);
-
-    border-radius: 9px;
-
-    background:
-        rgba(255, 255, 255, 0.055);
-
-    color: #edf1f7;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 0.78rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.25s ease;
-}
-
-.progress-continue-btn:hover {
-    background:
-        rgba(212, 160, 23, 0.13);
-
-    border-color:
-        rgba(212, 160, 23, 0.40);
-
-    color: #D4A017;
-}
-
-
-/* =========================================================
-   LIGHT THEME
-========================================================= */
-
-body.light-theme .progress-book-card {
-    background:
-        rgba(255, 255, 255, 0.72);
-
-    border-color:
-        rgba(30, 42, 68, 0.10);
-
-    box-shadow:
-        0 15px 35px rgba(30, 42, 68, 0.12);
-
-    color: #1E2A44;
-}
-
-body.light-theme .progress-book-title {
-    color: #1E2A44;
-}
-
-body.light-theme .progress-book-author {
-    color: #64748b;
-}
-
-body.light-theme .progress-bar {
-    background: rgba(30, 42, 68, 0.08);
-}
-
-body.light-theme .progress-continue-btn {
-    background: rgba(30, 42, 68, 0.04);
-    color: #1E2A44;
-}
-
-/* ====================ssection3 my activity========================== */
+/* ========================my activity section================================ */
 .my-activity{
     width: 100%;
+    margin: 2rem 0;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
-    align-content: start;
-    gap: 0.2rem;
-}
-
-
-.my-activity .title {
-  margin-bottom: 0.9rem;
-}
-
-.my-activity .title p {
-  margin: 0;
-  font-size: var(--header-font-size);
-  font-weight: bold;
-  color: var(--main-text-color);
 }
 
 .activity-container {
+    margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -1914,4 +1420,21 @@ body.light-theme .progress-continue-btn {
 
 .status-dice.box2 > div.active-badge > span {
   color: var(--btn-background-color, #0ea5e9);
+}
+
+
+/* =============================FOOTER PART=========================================  */
+.user-footer{
+    width: 100%;
+    height: var(--main-header-height);
+    background: var(--footer-background-color);
+    display: flex;
+    justify-content:center;
+
+    >.footer-text{
+    margin-top: 1rem;
+    font-weight: 500;
+    font-size: var(--header-font-size);
+    color: var(--footer-text-color);
+}
 }

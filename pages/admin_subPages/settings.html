@@ -116,7 +116,9 @@
             </header>
             <!-- Your main page content goes here -->
             <div class="settings-contain">
-                <h2>Account Settings</h2>
+                <div class="account-header">
+                    <h2>Account Settings</h2>
+                </div>
                 <hr>
                 <div id="settingsGlobalError" class="form-error"></div>
                 <div id="settingsGlobalSuccess" class="form-success"></div>
@@ -125,17 +127,33 @@
                     <!-- Profile Image Blending Panel -->
                     <div class="settings-avatar-group">
                         <div class="avatar-preview-wrapper">
-                            <img id="settingsAvatarPreview" src="../../assets/images/defaultProfile.png"
+                            <img id="settingsAvatarPreview" src="../../images/profile/female.jpg"
                                 alt="Profile Avatar" style="width:100px; height:100px; border-radius:50%;">
                         </div>
-                        <label for="settingsGender">Gender Avatar Base:</label>
-                        <select id="settingsGender">
-                            <option value="">Keep Current / Unset</option>
-                            <option value="male">Male (Man Avatar)</option>
-                            <option value="female">Female (Woman Avatar)</option>
-                        </select>
-                    </div>
+                        <div class="gender">
+                    <!-- Gender Custom Dropdown -->
+                            <div class="input-group gender">
+                        <label for="genderDropdownBtn">Gender</label>
+                        <div class="gender-dropdown">
+                            <!-- The header trigger displays like an input block -->
+                            <button type="button" class="dropdown-header form-input-dropdown" id="genderDropdownBtn">
+                                <span id="selected-gender">Select your gender</span>
+                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                            </button>
 
+                            <!-- Hidden inputs allow standard form collection -->
+                            <input type="hidden" name="gender" id="genderHiddenInput" value="">
+
+                            <!-- The option menu list matching your layout coordinates -->
+                            <ul class="dropdown-menu form-dropdown-menu" id="genderDropdownMenu">
+                                <li data-value="male">Male</li>
+                                <li data-value="female">Female</li>
+                                <li data-value="other">Other</li>
+                            </ul>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Full Name Info Input -->
                     <div class="input-group">
                         <label>Full Name</label>
