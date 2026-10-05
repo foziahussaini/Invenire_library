@@ -1,6 +1,6 @@
 import { auth, db } from "../../src/firebase-config.js";
-import { onAuthStateChanged } from "https://gstatic.com";
-import { doc, getDoc, setDoc } from "https://gstatic.com";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 function redirectTo(path) {
   window.location.href = path;
@@ -74,29 +74,26 @@ export async function handleUserRouting(user) {
   }
 }
 
-// 2. PASTE THE LOOP-PROTECTED OBSERVER HERE AT THE BOTTOM
 onAuthStateChanged(auth, (user) => {
-  const page = window.location.pathname.split("/").pop().toLowerCase();
+  const page = window.location.pathname.split("/").pop();
 
-  // If no user is authenticated, force them to stay on or go to login
   if (!user) {
     if (["user_dashboard.html", "admin_dashboard.html"].includes(page)) {
-      window.location.href = "/pages/login.html";
+      redirectTo("/pages/login.html");
     }
     return;
   }
 
-  // Bind globals for dashboard script access
   window.userUid = user.uid;
   window.currentUserEmail = user.email ? user.email.toLowerCase().trim() : "";
 
-  // If user IS authenticated and they are already on a dashboard, STOP running logic to prevent loops
-  if (["user_dashboard.html", "admin_dashboard.html"].includes(page)) {
-    return; 
+  if (["login.html", "signup.html", "auth.html"].includes(page)) {
+    return;
   }
 
-  // Otherwise, handle their routing if they are sitting on login.html
-  if (["login.html", "signup.html", "auth.html"].includes(page) || page === "") {
-    handleUserRouting(user);
+  if (["user_dashboard.html", "admin_dashboard.html"].includes(page)) {
+    return;
   }
+
+  handleUserRouting(user);
 });

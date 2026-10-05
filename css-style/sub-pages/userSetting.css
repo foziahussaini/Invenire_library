@@ -1,0 +1,772 @@
+
+/* ================================== SEETINGS PART========================================*/
+.my-settings {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Container Layout */
+.setting-context {
+    width: 100%;
+    max-width: 990px;
+    margin: 1.6rem auto;
+    border: 1px solid var(--btn-background-color);
+    border-radius: var(--btn-border-radius);
+    overflow: hidden;
+    background: var(--card-background-color);
+    box-shadow: var(--card-box-shadow);
+}
+
+/* the overlay body */
+.setting-body-content {
+    position: relative; 
+    padding: 2rem;
+    min-height: 780px;  
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Force all overlay to the same position*/
+.setting-body-content .box {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.96); 
+    opacity: 0;
+    pointer-events: none; 
+    display: none !important; 
+    width: 100%;
+    max-width: 700px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === THE ACTIVE PANEL VISIBILITY=== */
+.setting-body-content .box.active {
+    display: flex !important;
+    opacity: 1;
+    pointer-events: auto; 
+    transform: translate(-50%, -50%) scale(1); 
+    z-index: 10; 
+}
+
+/* ====================================TABS BAR======================================== */
+.head-title ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--header-background-color);
+    border-bottom: 1px solid var(--premium-icon-color);
+}
+
+.head-title ul li {
+    flex: 1;
+    text-align: center;
+}
+
+.head-title ul li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--main-text-color);
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.head-title ul li a:hover {
+    border-bottom: 2px solid var(--hover-text-color);
+    color: var(--hover-text-color);
+    background-color: var(--card-background-color);
+}
+
+.head-title ul li a.active {
+    border-bottom: 2px solid var(--hover-text-color);
+    color: var(--hover-text-color);
+}
+
+/* ======================================== PERSONAL PROFILE======================================================= */
+.box1.box.personal {
+    padding: 0.2rem;
+    gap: 1.4rem;
+}
+
+.profile-pic {
+    margin-top: 1rem;
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; 
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid var(--main-text-color);
+    box-shadow: var(--default-box-shadow);
+    transition: width 0.2s ease, height 0.2s ease; 
+}
+
+.profile-pic:hover {
+    width: 190px;
+    height: 190px;
+}
+
+.profile-pic::after {
+    content: "Change";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 4px 0;
+    background: var(--main-background-color);
+    color: var(--btn-text-color);
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center; 
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.profile-pic:hover::after {
+    opacity: 1;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    max-width: 700px;
+}
+
+.input-group label {
+    font-size: var(--min-font-size);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--main-text-color);
+    text-align: start; 
+    width: 160px;
+}
+
+.input-group input {
+    width: 100%;
+    max-width: 500px; 
+    padding: 1rem 1.2rem;
+    font-size: var(--min-font-size);
+    text-align: center; 
+    color: var(--input-text-color);
+    background-color: var(--input-background-color);
+    border: 1px solid var(--premium-icon-color);
+    border-radius: var(--btn-border-radius);
+    outline: none;
+    transition: border-color 0.2s ease; 
+}
+
+.input-group input:focus {
+    background-color: var(--input-background-color);
+    border-color: var(--hover-text-color); 
+}
+
+.input-group input::placeholder {
+    color: var(--input-text-color);
+    font-size: 14px;
+}
+
+#saveProfileButton {
+    width: 100%;
+    max-width: 380px;
+    padding: var(--btn-padding);
+    margin-top: 0.8rem;
+    font-size: var(--main-font-size);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--main-text-color);
+    background: var(--btn-background-color);
+    border: none;
+    border-radius: var(--btn-border-radius);
+    cursor: pointer;
+    box-shadow: var(--card-box-shadow);
+    transition: transform 0.1s ease; 
+}
+
+#saveProfileButton:hover {
+    background: var(--btn-hover-background-color);
+    color: var(--btn-text-hover-color);
+}
+
+#saveProfileButton:active {
+    transform: scale(0.95); 
+}
+
+#saveProfileButton:disabled {
+    background: var(--btn-hover-background-color);
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/*  ====================================DELETE ACCOUNT SECTION ================================================== */
+#del-account {
+    width: 100%;
+    max-width: 640px;
+    height: 450px;
+    background-color: var(--card-background-color); 
+    padding: var(--card-padding);
+    border-radius: var(--btn-border-radius);
+    border: 1px dashed var(--fav-icon-color); 
+    box-shadow: var(--card-box-shadow);
+}
+
+#del-account span > i{
+    color: var(--premium-icon-color);
+    font-size: 6rem;
+    margin-bottom: 1.8rem;
+}
+/* Header Text Title Styling */
+#del-account h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--fav-icon-color); 
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+/* Warning Description Paragraph */
+#del-account p {
+    font-size: 15px;
+    color: var(--main-text-color); 
+    margin-bottom: 0.7rem;
+    line-height: 1.5;
+}
+
+#del-account button {
+    width: 100%;
+    max-width: 320px;
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--btn-border-radius);
+    cursor: pointer;
+    margin-top: 0.8rem;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+#del-account button:last-child {
+    margin-bottom: 0;
+    margin-top: 1.3rem;
+}
+
+#del-account button:active {
+    transform: scale(0.97); 
+}
+
+#del-account button:first-of-type {
+    background: var(--lowest-chart-background-color);
+    color: var(--btn-text-color);
+    box-shadow: var(--default-box-shadow);
+}
+
+#del-account button:first-of-type:hover {
+    filter: brightness(1.1);
+    background: var(--btn-hover-background-color);
+}
+
+#del-account button:last-of-type {
+    background-color: var(--sub-script-color); 
+    color: var(--main-text-color);
+}
+
+#del-account button:last-of-type:hover {
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+}
+
+/* =======================================MANAGE SIZE PART======================================== */
+.box14.box.manage-size {
+    width: 100% ;
+    max-width: 900px ;
+    padding: var(--card-padding);
+    margin: 0 auto;
+}
+
+.box14.box.manage-size h2 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--main-text-color);
+    margin-bottom: 24px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.card-option-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.card-option-group h3 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--main-text-color);
+    margin-bottom: 14px;
+    text-align: start;
+}
+
+/* ================================PREVIEW CARD======================================== */
+.cards-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.visual-option-card {
+    flex: 1;
+    border: 1px solid var(--premium-icon-color);
+    border-radius: var(--btn-border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.visual-option-card:hover {
+    transform: translateY(-2px);
+    background-color: var(--card-hover-background-color);
+}
+
+.visual-option-card.active {
+    background-color: var(--card-hover-background-color);
+    box-shadow: var(--default-box-shadow);
+}
+
+.visual-option-card .option-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--btn-background-color);
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.visual-option-card.active .option-label {
+    color: var(--main-text-color);
+}
+
+/* ====================================CARD PREVIEW ========================= */
+.card-mini-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 0.2rem;
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+}
+
+.card-mini-preview .mini-header {
+    width: 260px;
+    margin-top: 0.4rem;
+    font-weight: 700;
+    min-height: 50px;
+    padding: var(--card-padding);
+    border-radius: var(--btn-border-radius);
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+    text-align: center;
+}
+
+.card-mini-preview .mini-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1rem;
+    width: 260px;
+    height: 130px;
+    border-radius: var(--btn-border-radius);
+    color: var(--main-text-color);
+    background-color: var(--main-background-color);
+    text-align: center;
+}
+
+.card-mini-preview .mini-text .mini-btn {
+    width: 90px;
+    margin-left: 1.5rem;
+    padding: 0.3rem 0.6rem;
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+    text-align: center;
+}
+
+.size-preview-small .mini-header  { font-size: 16; }
+.size-preview-small .mini-text    { font-size: 9; }
+.size-preview-small .mini-btn     { font-size: 10; padding: 2px 6px; }
+
+.size-preview-medium .mini-header { font-size: 18px; }
+.size-preview-medium .mini-text   { font-size: 13px; }
+.size-preview-medium .mini-btn    { font-size: 14px; }
+
+.size-preview-large .mini-header  { font-size: 34px; }
+.size-preview-large .mini-text    { font-size: 16px; }
+.size-preview-large .mini-btn     { font-size: 18px; }
+
+/* Card 1 Preview Framework: Modern Clean (Standard System Sans-Serif) */
+.font-preview-modern .mini-header,
+.font-preview-modern .mini-text,
+.font-preview-modern .mini-btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+.font-preview-modern .mini-header { font-size: 15px; }
+.font-preview-modern .mini-text   { font-size: 11px; }
+.font-preview-modern .mini-btn    { font-size: 10px; }
+
+/* Card 2 Preview Framework: Elegant Cursive (Playwrite Cuba Guides) */
+.font-preview-cursive .mini-header,
+.font-preview-cursive .mini-text,
+.font-preview-cursive .mini-btn {
+    font-family: 'Playwrite Cuba Guides', cursive !important;
+}
+.font-preview-cursive .mini-header { font-size: 11px; font-weight: normal; }
+.font-preview-cursive .mini-text   { font-size: 9px; }
+.font-preview-cursive .mini-btn    { font-size: 8px; padding: 1px 6px; font-weight: normal; }
+
+/* Card 3 Preview Framework: Creative Tall (Amatic SC) */
+.font-preview-tall .mini-header,
+.font-preview-tall .mini-text,
+.font-preview-tall .mini-btn {
+    font-family: 'Amatic SC', cursive !important;
+}
+.font-preview-tall .mini-header { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+.font-preview-tall .mini-text   { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; }
+.font-preview-tall .mini-btn    { font-size: 12px; padding: 2px 8px; font-weight: 700; }
+
+/* ==========================================================================
+   4. CORE APPLY SYSTEM MODIFICATIONS TRIGGER BUTTON
+   ========================================================================== */
+#commitGlobalDashboardStylesBtn {
+    width: 100%;
+    max-width: 500px;
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--btn-text-color);
+    background: var(--btn-background-color);
+     border: none;
+    border-radius: var(--btn-border-radius, 8px);
+    cursor: pointer;
+    box-shadow: var(--card-box-shadow);
+    transition: filter 0.2s ease, transform 0.1s ease;
+    margin-top: 1rem;
+}
+
+#commitGlobalDashboardStylesBtn:hover {
+    filter: brightness(1.08);
+}
+
+#commitGlobalDashboardStylesBtn:active {
+    transform: scale(0.98); 
+}
+
+
+/* =========================================================
+   YOUR PROGRESS - GLASS DARK CARDS
+========================================================= */
+
+.progress-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+
+/* -------------------------
+   Progress Card
+------------------------- */
+
+.progress-book-card {
+    position: relative;
+    overflow: hidden;
+
+    padding: 16px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(17, 26, 50, 0.78),
+            rgba(23, 43, 80, 0.62)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    color: #ffffff;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.progress-book-card:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(212, 160, 23, 0.35);
+
+    box-shadow:
+        0 24px 55px rgba(0, 0, 0, 0.42),
+        0 0 25px rgba(35, 86, 145, 0.15);
+}
+
+
+/* -------------------------
+   Cover
+------------------------- */
+
+.progress-book-cover {
+    width: 100%;
+    height: 230px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    background: #0b1429;
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+.progress-book-cover img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* -------------------------
+   Information
+------------------------- */
+
+.progress-book-info {
+    padding: 15px 3px 4px;
+}
+
+.progress-book-title {
+    margin: 0;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 1.15rem;
+    font-weight: 600;
+
+    color: #ffffff;
+}
+
+.progress-book-author {
+    margin: 4px 0 14px;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 0.78rem;
+    font-style: italic;
+
+    color: #aeb8ca;
+}
+
+
+/* -------------------------
+   Progress Label
+------------------------- */
+
+.progress-label-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+}
+
+.progress-label {
+    font-size: 0.65rem;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: #8f9aae;
+}
+
+.progress-percentage {
+    font-size: 0.72rem;
+
+    font-weight: 600;
+
+    color: #D4A017;
+}
+
+
+/* -------------------------
+   Progress Bar
+------------------------- */
+
+.progress-bar {
+    width: 100%;
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #D4A017,
+            #e8c35b
+        );
+
+    box-shadow:
+        0 0 10px rgba(212, 160, 23, 0.25);
+
+    transition: width 0.4s ease;
+}
+
+
+/* -------------------------
+   Continue Button
+------------------------- */
+
+.progress-continue-btn {
+    width: 100%;
+    height: 36px;
+
+    margin-top: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.10);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255, 255, 255, 0.055);
+
+    color: #edf1f7;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.progress-continue-btn:hover {
+    background:
+        rgba(212, 160, 23, 0.13);
+
+    border-color:
+        rgba(212, 160, 23, 0.40);
+
+    color: #D4A017;
+}
+
+
+/* =========================================================
+   LIGHT THEME
+========================================================= */
+
+body.light-theme .progress-book-card {
+    background:
+        rgba(255, 255, 255, 0.72);
+
+    border-color:
+        rgba(30, 42, 68, 0.10);
+
+    box-shadow:
+        0 15px 35px rgba(30, 42, 68, 0.12);
+
+    color: #1E2A44;
+}
+
+body.light-theme .progress-book-title {
+    color: #1E2A44;
+}
+
+body.light-theme .progress-book-author {
+    color: #64748b;
+}
+
+body.light-theme .progress-bar {
+    background: rgba(30, 42, 68, 0.08);
+}
+
+body.light-theme .progress-continue-btn {
+    background: rgba(30, 42, 68, 0.04);
+    color: #1E2A44;
+}

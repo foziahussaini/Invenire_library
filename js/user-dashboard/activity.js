@@ -1,4 +1,3 @@
-// activity.js - Unified Activity and Dynamic Badge Gamification Pipeline
 import { db } from "../../src/firebase-config.js";
 import {
   getAuth,

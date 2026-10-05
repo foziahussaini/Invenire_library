@@ -7,42 +7,41 @@
     <title>My Library</title>
     <!-- css style link -->
     <link href="/src/output.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css-style/root.css"> <!-- for the base root linked-->
+    <link rel="stylesheet" href="../css-style/root.css">
     <link rel="stylesheet" href="../css-style/main-pages/userDashboard.css">
-    <link rel="stylesheet" href="../css-style/components/book-detail-modal.css">
-    <!-- ===========responsive layout -->
+    <link rel="stylesheet" href="../css-style/sub-pages/userSetting.css">
     <link rel="stylesheet" href="../responsive/dashboard/sidebar_profile_responsive.css">
-    <!-- ==================current js file ================ -->
+    <!-- current js file -->
     <script type="module" src="../js/user-dashboard/user_dashboard.js" defer></script>
     <!-- auth logic -->
     <script type="module" defer src="../js/auth-files/auth.js"></script>
-    <!-- user header part-->
-    <script type="module" src="../js/user-dashboard/user_search.js" defer></script>
+    <!-- user header part -->
+    <script type="module" src="../js/dashboard/search_bar/books_search.js" defer></script>
+    <script type="module" src="../js/dashboard/search_bar/search.js" defer></script>
     <script type="module" src="../js/auth-files/profile.js"></script>
-    <!-- =================logut logic js file -->
+    <!-- logout logic -->
     <script type="module" src="../js/auth-files/logout.js"></script>
-    <!-- ========greeting logic js file -->
+    <!-- greeting logic -->
     <script src="../js/user-dashboard/greeting.js" defer></script>
+    <!-- library logic -->
     <script type="module" src="../js/user-dashboard/my_library.js" defer></script>
+    <script type="module" src="../js/user-dashboard/user-progress.js" defer></script>
+    <!-- activity logic -->
     <script type="module" src="../js/user-dashboard/activity.js" defer></script>
-    <!-- setting part js file -->
-    <script defer src="../js/setting.js"></script>
-    <!-- Injecting Playwrite Cuba and Amatic SC typography scripts directly into the dashboard context -->
-    <link rel="stylesheet" href="https://googleapis.com">
 
-    <!-- ==========tailwind and font swesome -->
+    <!-- settings -->
+    <script defer src="../js/setting.js"></script>
+
+    <!-- Tailwind + Font Awesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
         integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
-
 <body class="user-body">
-    <!-- Main container include main body sidebar and header -->
     <div class="member-container">
-        <!-- ==================== SIDEBAR LAYOUT FRAME ==================== -->
+        <!-- sidebar -->
         <aside class="sidebar">
-
             <div class="logo"></div>
             <hr class="h-px bg-gray-300 border-0 w-full">
             <div class="sidebar-menu">
@@ -50,25 +49,28 @@
                     <a class="menu-icon" href="/pages/home.html"><i class="fa-solid fa-house"></i></a>
                     <a href="/pages/home.html" class="menu-text">Home</a>
                 </div>
-                <!-- Updated data-route targets to match your smooth scrolling hash selector structure -->
+
                 <div class="menu-item active" data-route="#my-library">
                     <a class="menu-icon" href="#"><i class="fa-solid fa-table-cells-large"></i></a>
                     <a href="#"><span class="menu-text">My Library</span></a>
                 </div>
+
                 <div class="menu-item" data-route="#activity">
                     <a class="menu-icon" href="#"><i class="fa-solid fa-book-open"></i></a>
                     <a href="#"><span class="menu-text">Activity</span></a>
                 </div>
+
                 <div class="menu-item" data-route="#Settings">
                     <a class="menu-icon" href="#"><i class="fa-solid fa-gear"></i></a>
                     <a href="#"><span class="menu-text">Settings</span></a>
                 </div>
-                <!-- Added side chevron icon for your dropdown tracking -->
+
                 <div class="menu-item" data-route="language" id="langMenuItem">
                     <a class="menu-icon" href="#"><i class="fa-solid fa-language"></i></a>
                     <a href="#" class="menu-text"><span>Language</span></a>
                     <a href="#"><i class="fa-solid fa-angle-down dropdown-arrow"></i></a>
                 </div>
+
                 <div class="lang-dropdown">
                     <ul class="dropdown-menu" id="langDropdownMenu">
                         <li data-value="En">English</li>
@@ -76,8 +78,9 @@
                         <li data-value="Pa">Pashto</li>
                     </ul>
                 </div>
+
                 <hr class="w-full h-px bg-gray-400 border-0 my-2">
-                <!-- === FIXED: Injected id="themeDropdownBtn" to establish connection layout handles === -->
+
                 <div class="menu-item" data-route="Theme" id="themeDropdownBtn" style="cursor: pointer;">
                     <a class="menu-icon" href="javascript:void(0);"><i class="fa-solid fa-palette"></i></a>
                     <a href="javascript:void(0);" class="menu-text"><span class="menu-text">Theme</span></a>
@@ -86,7 +89,6 @@
 
                 <div class="theme-dropdown">
                     <ul class="dropdown-menu" id="themeDropdownMenu">
-                        <!-- Kept dataset values exactly matching data-value strings for script tracking -->
                         <li data-value="light">☀️ Light</li>
                         <li data-value="dark">🌙 Dark</li>
                     </ul>
@@ -96,31 +98,29 @@
             </div>
         </aside>
 
-        <!-- ==================== MAIN WORKSPACE ENGINE ==================== -->
         <div class="member-main-content">
-
-            <!-- HEADER NAVIGATION ROW -->
-            <header class="member-header">
+            <header class="member-header 1">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search books, members, authors..." class="search-input"
                         autocomplete="off">
                     <div class="searchResult" id="search-dropDown"></div>
                 </div>
-                <!-- Preserved exact original spelling class name layout -->
+
                 <div class="calender">
                     <div class="time">--:--</div>
                     <div class="divider-line"></div>
                     <div class="date" id="headerLiveDateDisplay">Loading Date...</div>
                 </div>
+
                 <div class="profile-container">
                     <div class="profile">
                         <img src="../images/profile/female.jpg" alt="">
                     </div>
                 </div>
             </header>
-            <div class="member-body-container">
-                <!-- section1   Greeting Card -->
+
+            <div class="member-body-container 2">
                 <div class="welcome-card section1">
                     <div class="greeting">
                         <h1 id="dashboardWelcomeName">Welcome back! Fozia</h1>
@@ -131,171 +131,122 @@
                         <span id="dashboardWeather">25°C</span>
                     </div>
                 </div>
-                
-                            <!-- =========================================================
-                YOUR LIBRARY
-            ========================================================= -->
-            <section class="my-library section2" id="my-library">
 
-                <!-- Section Header -->
-                <div class="section-header library-section-header">
-                    <h1>Your <span>Library</span></h1>
-                </div>
-
-            
-                <div class="library-content" id="your-library-content">
-
-                    <!--
-                        Dynamic book cards will be inserted here.
-                        Keep this empty. Do NOT add fake/test books.
-                    -->
-                    <div
-                        class="books-grid your-library-grid"
-                        id="your-library-books">
+                <div class="my-library section2" id="my-library">
+                    <div class="section-header library-section-header">
+                        <h1>Your <span>Library</span></h1>
                     </div>
 
-                    <!-- Not Logged In State -->
-                    <div
-                        class="library-empty-state library-login-state"
-                        id="library-login-state"
-                        style="display: none;">
-
-                        <div class="library-state-icon">
-                            <i class="fa-solid fa-lock"></i>
+                    <div class="library-content" id="your-library-content">
+                        <div class="library-books-grid" id="your-library-books">
+                            <!-- library book appear here -->
                         </div>
 
-                        <h3>You are not logged in.</h3>
-
-                        <p>
-                            Please log in or sign up to open your library.
-                        </p>
-
-                        <div class="library-state-actions">
-
-                            <a
-                                href="login.html"
-                                class="library-state-btn">
-                                Login
-                            </a>
-
-                            <a
-                                href="signup.html"
-                                class="library-state-btn">
-                                Sign Up
-                            </a>
-
+                        <div class="library-empty-state library-no-books-state" id="library-no-books-state">
+                            <div class="library-state-icon">
+                                <i class="fa-solid fa-bookmark"></i>
+                            </div>
+                            <h3>No book added to library yet.</h3>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Logged In But Empty State -->
-                    <div
-                        class="library-empty-state library-no-books-state"
-                        id="library-no-books-state"
-                        style="display: none;">
+                <div class="your-progresses section3" id="your-progresses">
+                    <div class="section-header progress-section-header">
+                        <h1>Your <span>Progresses</span></h1>
+                    </div>
+                    <div class="books-grid progress-books-grid" id="progress-books">
+                        <div class="progress-card">
+                            <div class="progress-card-cover"></div>
+                            <div class="progress-info"></div>
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="progress-card"></div>
+                        <div class="progress-card"></div>
+                        <div class="progress-card"></div>
+                    </div>
 
-                        <div class="library-state-icon">
-                            <i class="fa-solid fa-bookmark"></i>
+                    <div class="progress-empty-state" id="progress-empty-state" style="display: none;">
+                        <div class="progress-state-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3>No reading progress yet.</h3>
+                        <p>Start reading a book to see your progress here.</p>
+                    </div>
+                </div>
+
+                <div class="your-downloads section4" id="your-downloads">
+                    <div class="section-header download-section-header">
+                        <h1>Your <span>Downloads</span></h1>
+                    </div>
+
+                    <div class="books-grid download-books-grid" id="download-books"></div>
+
+                    <div class="download-empty-state" id="download-empty-state" style="display: none;">
+                        <div class="download-state-icon">
+                            <i class="fa-solid fa-download"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Added id="activity" to map with sidebar menu selections dynamically -->
+                <div class="my-activity section5" id="activity">
+                    <div class="title">
+                        <p>My Activity</p>
+                    </div>
+                    <div class="activity-container">
+                        <div class="status">
+                            <!-- Preserved original class names -->
+                            <div class="active-strick box1">
+                                <div class="text-context">
+                                    <h1>30 Days</h1>
+                                    <p id="activity-streak-days">0</p>
+                                </div>
+                                <span><i class="fa-solid fa-fire"></i></span>
+                            </div>
+                            <div class="login-count">
+                                <div class="text-context">
+                                    <h1>Total login</h1>
+                                    <p id="activity-total-logins">0</p>
+                                </div>
+                                <span><i class="fa-solid fa-clock"></i></span>
+                            </div>
+                            <div class="status-dice box2">
+                                <!-- Badges containing individual target wrapper templates -->
+                                <div class="silver" id="badge-silver">
+                                    <span><i class="fa-solid fa-award"></i></span>
+                                    <p>Silver</p>
+                                </div>
+                                <div class="gild" id="badge-gold">
+                                    <span><i class="fa-solid fa-crown"></i></span>
+                                    <p>Gold</p>
+                                </div>
+                                <div class="bronze" id="badge-bronze">
+                                    <span><i class="fa-solid fa-medal"></i></span>
+                                    <p>Bronze</p>
+                                </div>
+                                <div class="star" id="badge-star">
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                    <p>Star</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <h3>No book added to library yet.</h3>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =========================================================
-                YOUR PROGRESSES
-            ========================================================= -->
-            <section
-                class="your-progresses section3"
-                id="your-progresses">
-
-                <!-- Section Header -->
-                <div class="section-header progress-section-header">
-                    <h1>Your <span>Progresses</span></h1>
-                </div>
-
-                
-                <div
-                    class="books-grid progress-books-grid"
-                    id="progress-books">
-
-                </div>
-
-                <!-- Empty Progress State -->
-                <div
-                    class="progress-empty-state"
-                    id="progress-empty-state"
-                    style="display: none;">
-
-                    <div class="progress-state-icon">
-                        <i class="fa-solid fa-book-open"></i>
-                    </div>
-
-                    <h3>No reading progress yet.</h3>
-
-                    <p>
-                        Start reading a book to see your progress here.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- =========================================================
-                YOUR DOWNLOADS
-            ========================================================= -->
-            <section
-                class="your-downloads section4"
-                id="your-downloads">
-
-                <!-- Section Header -->
-                <div class="section-header download-section-header">
-                    <h1>Your <span>Downloads</span></h1>
-                </div>
-
-              
-                <div
-                    class="books-grid download-books-grid"
-                    id="download-books">
-
-                </div>
-
-                <!-- Empty Download State -->
-                <div
-                    class="download-empty-state"
-                    id="download-empty-state"
-                    style="display: none;">
-
-                    <div class="download-state-icon">
-                        <i class="fa-solid fa-download"></i>
-                    </div>
-                </div> 
-                <!-- =====================setting======================== -->
-                <div class="my-settings section4" id="Settings" style="margin-top:20px;">
-                                <div class="setting-context">
-                                    <div class="head-title">
-                                        <ul>
-                                            <li><a href="javascript:void(0);" data-target="personal"
-                                                    class="tab-link active">personal</a></li>
-                                            <!-- <li><a href="javascript:void(0);" data-target="setting-library" class="tab-link">my
-                                        library</a></li> -->
-                                            <li><a href="javascript:void(0);" data-target="del-account" class="tab-link">delete
+                <div class="my-settings section5" id="Settings" style="margin-top:20px;">
+                    <div class="setting-context">
+                        <div class="head-title">
+                            <ul>
+                                <li><a href="javascript:void(0);" data-target="personal"
+                                        class="tab-link active">personal</a></li>
+                                <li><a href="javascript:void(0);" data-target="del-account" class="tab-link">delete
                                         account</a></li>
-                                            <li><a href="javascript:void(0);" data-target="manage-size" class="tab-link">manage
-                                                    size</a></li>
-                                        </ul>
-                                    </div>
+                                <li><a href="javascript:void(0);" data-target="manage-size" class="tab-link">manage
+                                        size</a></li>
+                            </ul>
+                        </div>
 
                         <div class="setting-body-content">
-                            <!-- Changed from a generic <div> to a semantic, accessible <form> layout structure -->
-                            <form class="box1 box personal active" id="personal" onsubmit="return false;">
 
-                                <!-- Profile Picture Container Block Area Layout -->
+                            <form class="box1 box personal active" id="personal" onsubmit="return false;">
                                 <div class="profile-pic" id="profilePicContainer"
                                     title="Click to upload a new profile picture">
                                     <img id="profileImageDisplay" src="../images/profile/female.jpg"
@@ -303,42 +254,32 @@
                                     <input type="file" id="imageUploadInput" accept="image/*" style="display: none;" />
                                 </div>
 
-                                <!-- Full Name Input Row Container -->
                                 <div class="input-group">
                                     <label for="name">Full Name</label>
                                     <input type="text" placeholder="FullName" id="name" required />
                                 </div>
 
-                                <!-- Email Address Input Row Container -->
                                 <div class="input-group">
                                     <label for="email">Email Address</label>
                                     <input type="email" name="email" id="email" placeholder="example@domain.com"
                                         required />
                                 </div>
 
-                                <!-- Security Validation Layer: Current Password Input Row Container -->
                                 <div class="input-group">
                                     <label for="pre-password">Current Password</label>
                                     <input type="password" placeholder="Previous password" id="pre-password"
                                         autocomplete="current-password" />
                                 </div>
 
-                                <!-- Security Validation Layer: New Password Input Row Container -->
                                 <div class="input-group">
                                     <label for="new-pass">New Password</label>
                                     <input type="password" placeholder="New password" id="new-pass"
                                         autocomplete="new-password" />
                                 </div>
 
-                                <!-- Action Execution Node Button Trigger Row -->
                                 <button type="button" id="saveProfileButton">save</button>
                             </form>
 
-                            <!-- <div class="box12 box library" id="setting-library">
-                                <div class="favbook">Favorite Books</div>
-                                <div class="downloaded-book">Downloaded</div>
-                                <div class="reset-library">Reset</div>
-                            </div> -->
                             <div class="box13 box delAccount" id="del-account">
                                 <span><i class="fa-solid fa-warning"></i></span>
                                 <h1>Delete Account</h1>
@@ -347,15 +288,13 @@
                                 <button>delete</button>
                                 <button>cancel</button>
                             </div>
-                            <!-- ===================================manage size================================== -->
+
                             <div class="box14 box manage-size" id="manage-size">
                                 <h2>Personalization</h2>
 
                                 <div class="card-option-group">
                                     <h3>Text Display Size</h3>
                                     <div class="cards-grid" id="sizeCardsContainer">
-
-                                        <!-- 1. Compact Config Card -->
                                         <div class="visual-option-card" data-type="size" data-value="small">
                                             <div class="card-mini-preview size-preview-small">
                                                 <div class="mini-header">Header</div>
@@ -366,7 +305,6 @@
                                             <span class="option-label">Compact</span>
                                         </div>
 
-                                        <!-- 2. Standard Config Card -->
                                         <div class="visual-option-card active" data-type="size" data-value="medium">
                                             <div class="card-mini-preview size-preview-medium">
                                                 <div class="mini-header">Header</div>
@@ -377,75 +315,62 @@
                                             <span class="option-label">Standard</span>
                                         </div>
 
-                                        <!-- 3. Expanded Config Card -->
                                         <div class="visual-option-card" data-type="size" data-value="large">
                                             <div class="card-mini-preview size-preview-large">
                                                 <div class="mini-header">Header</div>
                                                 <div class="mini-text">Normal text
                                                     <div class="mini-btn">Button</div>
                                                 </div>
-
                                             </div>
                                             <span class="option-label">Expanded</span>
                                         </div>
-
                                     </div>
                                 </div>
 
-                                <!-- GROUP 2: TYPOGRAPHY STYLE CONFIGURATION (ADDED HERE) -->
                                 <div class="card-option-group">
                                     <h3>Typography Theme Style</h3>
                                     <div class="cards-grid" id="styleCardsContainer">
-
-                                        <!-- Modern Clean Choice Card -->
                                         <div class="visual-option-card active" data-type="style" data-value="modern">
                                             <div class="card-mini-preview font-preview-modern">
                                                 <div class="mini-header">Modern</div>
                                                 <div class="mini-text">Clean
                                                     <div class="mini-btn">Action</div>
                                                 </div>
-
                                             </div>
                                             <span class="option-label">Modern Clean</span>
                                         </div>
 
-                                        <!-- Elegant Cursive Choice Card -->
                                         <div class="visual-option-card" data-type="style" data-value="cursive">
                                             <div class="card-mini-preview font-preview-cursive">
                                                 <div class="mini-header">Header</div>
                                                 <div class="mini-text">Cursive Style
                                                     <div class="mini-btn">Action</div>
                                                 </div>
-
                                             </div>
                                             <span class="option-label">Elegant Cursive</span>
                                         </div>
 
-                                        <!-- Creative Tall Choice Card -->
                                         <div class="visual-option-card" data-type="style" data-value="tall">
                                             <div class="card-mini-preview font-preview-tall">
                                                 <div class="mini-header">HEADER</div>
                                                 <div class="mini-text">TALL STYLE
                                                     <div class="mini-btn">ACTION</div>
                                                 </div>
-
                                             </div>
                                             <span class="option-label">Creative Tall</span>
                                         </div>
-
                                     </div>
                                 </div>
 
-                                <!-- SAVE ACTIONS BUTTON  -->
                                 <button type="button" id="commitGlobalDashboardStylesBtn">Apply Changes</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
     <script src="../js/dashboard/sub_pages/theme.js"></script>
     <script src="../languages/en.js"></script>
     <script src="../languages/fa.js"></script>
