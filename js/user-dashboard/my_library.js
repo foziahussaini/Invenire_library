@@ -254,12 +254,22 @@ function renderLibraryBooks(books, container) {
     }
 
     // Read
-    readBtn?.addEventListener("click", (e) => {
-      if (readBtn.disabled) return;
-      e.stopPropagation();
-      try { sessionStorage.setItem("library-open", JSON.stringify({ type: "pdf", url: book.pdf_url, bookId: book.id })); } catch (e) {}
-      window.location.href = "/pages/home.html";
-    });
+   readBtn?.addEventListener("click", (e) => {
+    if (readBtn.disabled) return;
+    e.stopPropagation();
+
+    // 1. Get the PDF URL from your book object
+    const pdfUrl = book.pdf_url;
+
+    if (!pdfUrl) {
+        alert("PDF is not available for this book.");
+        return;
+    }
+
+    // 2. Open the PDF in a new tab immediately
+    window.open(pdfUrl, "_blank");
+});
+
 
     // Listen
     listenBtn?.addEventListener("click", (e) => {
