@@ -1,6 +1,6 @@
 import { auth, db } from "../../src/firebase-config.js"; 
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { signInWithEmailAndPassword } from "https://gstatic.com";
+import { doc, getDoc, collection, query, where, getDocs } from "https://gstatic.com";
 
 const loginForm = document.getElementById("login-form");
 const emailInput = document.getElementById("login-email");
@@ -48,20 +48,29 @@ function displayFirebaseErrors(error) {
   showError("loginError", "Authentication service error. Please check your network connection.");
 }
 
-async function routeUserByCollection(user) {
+async function routeUserByCollection(user, inputPassword) {
     const email = user.email.toLowerCase().trim();
     try {
-        // 1. SCAN FOR ADMIN BY FIELD VALUE (admin_email)
+        // 1. SCAN FOR ADMIN (Match by admin_email field)
         const adminQuery = query(collection(db, "config"), where("admin_email", "==", email));
         const adminSnap = await getDocs(adminQuery);
 
         if (!adminSnap.empty) {
-            localStorage.setItem("userSession", JSON.stringify({ email: email, role: "admin", uid: user.uid }));
-            localStorage.setItem("isAdmin", "true");
-            localStorage.setItem("invenireLoggedIn", "true");
-            console.log("Admin routing approved by email matching. Redirecting...");
-            window.location.href = "/pages/admin_dashboard.html";
-            return;
+            // Get the matching admin document object inside the query snapshot collection array
+            const adminDoc = adminSnap.docs[0];
+            const adminData = adminDoc.data();
+
+            // Match structural configurations: check if the password field matches input, and document ID equals 'adminheader123'
+            if (adminData.password === inputPassword && adminDoc.id === "adminheader123") {
+                localStorage.setItem("userSession", JSON.stringify({ email: email, role: "admin", uid: user.uid }));
+                localStorage.setItem("isAdmin", "true");
+                localStorage.setItem("invenireLoggedIn", "true");
+                console.log("Admin parameters successfully authorized. Routing to admin panel...");
+                window.location.href = "/pages/admin_dashboard.html";
+                return;
+            } else {
+                console.warn("Admin email matched but password or structural Document ID verification failed.");
+            }
         }
 
         // 2. SCAN FOR REGULAR MEMBERS BY AUTH UID MATCHING
@@ -102,7 +111,8 @@ if (loginForm) {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      await routeUserByCollection(userCredential.user);
+      // Pass the raw text input password along to verify against your custom config document fields
+      await routeUserByCollection(userCredential.user, password);
     } catch (err) {
       displayFirebaseErrors(err);
     }
