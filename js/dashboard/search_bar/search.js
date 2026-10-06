@@ -55,7 +55,7 @@ if (searchInput && searchResultDropDown) {
                     
                 // click event redirect for search details to the related page
                     itemList.addEventListener("click", () => {
-                        window.location.href = `../pages/admin_subPages/books.html?search=${encodeURIComponent(bookName)}`;
+                        window.location.href = `/pages/admin_subPages/books.html?search=${encodeURIComponent(bookName)}`;
                     });
                     searchResultDropDown.appendChild(itemList);
                 }
@@ -77,7 +77,7 @@ if (searchInput && searchResultDropDown) {
                     
                 // click event redirect for search details to the related page
                     itemList.addEventListener("click", () => {
-                        window.location.href = `../pages/admin_subPages/members.html?search=${encodeURIComponent(fullName)}`;
+                        window.location.href = `/pages/admin_subPages/members.html?search=${encodeURIComponent(fullName)}`;
                     });
                     searchResultDropDown.appendChild(itemList);
                 }

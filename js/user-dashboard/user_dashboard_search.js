@@ -119,7 +119,7 @@ async function handleBookNavigation(bookId) {
   
   if (!currentUser) {
     localStorage.setItem("highlightRecentBookId", bookId);
-    window.location.href = "../../home.html";
+    window.location.href = "../../pages/home.html";
     return;
   }
 
@@ -169,6 +169,6 @@ async function handleBookNavigation(bookId) {
     localStorage.setItem("highlightRecentBookId", bookId);
     
     // FIXED PATH FALLBACK
-    window.location.href = "../../home.html";
+    window.location.href = "../../pages/home.html";
   }
 }
