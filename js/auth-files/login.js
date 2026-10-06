@@ -26,24 +26,17 @@ function clearErrors() {
 function displayFirebaseErrors(error) {
   console.log("Auth Error Captured:", error);
   const code = error?.code;
-  
-  // Clear any structural fallback container errors first
   const globalErrorEl = document.getElementById("loginError");
   if (globalErrorEl) globalErrorEl.style.display = "none";
 
-  // 1. Check for bad formatting
   if (code === "auth/invalid-email") {
       showError("emailError", "The format of this email address is invalid.");
       return;
   } 
-  
-  // 2. Handle modern combined credential errors
   if (code === "auth/invalid-credential") {
       showError("emailError", "Invalid email address or incorrect password.");
       return;
   }
-
-  // 3. Handle legacy distinct error types (just in case)
   if (code === "auth/user-not-found") {
       showError("emailError", "This email address is not registered.");
       return;
@@ -52,29 +45,26 @@ function displayFirebaseErrors(error) {
       showError("passwordError", "Incorrect password. Please try again.");
       return;
   }
-
-  // 4. Ultimate catch-all fallback for network failures / system blocks
   showError("loginError", "Authentication service error. Please check your network connection.");
 }
 
-
-// === UNIFIED DYNAMIC ROUTING SYSTEM ===
 async function routeUserByCollection(user) {
     const email = user.email.toLowerCase().trim();
     try {
-        // 1. SCAN FOR ADMIN ONLY (Checks your config collection using the secure UID string)
-        const adminDocRef = doc(db, "config", user.uid);
-        const adminSnap = await getDoc(adminDocRef);
+        // 1. SCAN FOR ADMIN BY FIELD VALUE (admin_email)
+        const adminQuery = query(collection(db, "config"), where("admin_email", "==", email));
+        const adminSnap = await getDocs(adminQuery);
 
-        if (adminSnap.exists()) {
+        if (!adminSnap.empty) {
             localStorage.setItem("userSession", JSON.stringify({ email: email, role: "admin", uid: user.uid }));
+            localStorage.setItem("isAdmin", "true");
             localStorage.setItem("invenireLoggedIn", "true");
-            console.log("Admin routing approved. Redirecting...");
+            console.log("Admin routing approved by email matching. Redirecting...");
             window.location.href = "/pages/admin_dashboard.html";
             return;
         }
 
-        // 2. SCAN FOR REGULAR MEMBERS (Checks your members collection using the secure UID string)
+        // 2. SCAN FOR REGULAR MEMBERS BY AUTH UID MATCHING
         const memberDocRef = doc(db, "members", user.uid);
         const memberSnap = await getDoc(memberDocRef);
 
@@ -87,7 +77,7 @@ async function routeUserByCollection(user) {
             return;
         }
 
-        // 3. FORCE BYPASS SAFEFALLBACK: If user exists in Auth but document hasn't synced yet
+        // 3. FORCE BYPASS SAFEFALLBACK
         console.warn("User authenticated but document not found. Executing safe dashboard bypass...");
         localStorage.setItem("userSession", JSON.stringify({ email: email, role: "member", uid: user.uid }));
         localStorage.setItem("invenireLoggedIn", "true");
@@ -95,7 +85,6 @@ async function routeUserByCollection(user) {
 
     } catch (error) {
         console.error("Routing execution crash avoided:", error);
-        // Absolute fail-safe rescue fallback to make sure they aren't trapped on screen
         window.location.href = "/pages/user_dashboard.html"; 
     }
 }
@@ -112,12 +101,8 @@ if (loginForm) {
     if (!password) { showError("passwordError", "Password required."); return; }
 
     try {
-      // Step 1: Validate credentials securely with Firebase Auth
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
-      // Step 2: Route the user based on which collection their document belongs to
       await routeUserByCollection(userCredential.user);
-
     } catch (err) {
       displayFirebaseErrors(err);
     }
