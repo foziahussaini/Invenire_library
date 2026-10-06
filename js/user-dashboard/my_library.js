@@ -299,6 +299,7 @@ function renderLibraryBooks(books, container) {
       } catch (err) {
         console.error("Download failed:", err);
         alert("Download failed. Please try again later or open the file manually.");
+        window.open(book.pdf_url, "_blank");
       }
     });
 
