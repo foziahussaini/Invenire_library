@@ -1686,7 +1686,7 @@ header {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(7, 13, 28, 0.78);
+    background: var(--footer-background-color);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }

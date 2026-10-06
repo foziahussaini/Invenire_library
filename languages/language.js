@@ -27,15 +27,17 @@ function saveOriginalTexts() {
     });
 }
 
-// Greetings mapping helper logic block
-const greetingsList = typeof activeTranslations !== 'undefined' ? activeTranslations.warmGreetings : [
-    "Your next great adventure is waiting between the pages."
-];
-const randomIndex = Math.floor(Math.random() * greetingsList.length);
-const selectedGreetingText = greetingsList[randomIndex];
-const quoteContainer = document.getElementById("welcome-quote") || document.querySelector(".greeting-subtext");
-if (quoteContainer) {
-    quoteContainer.textContent = selectedGreetingText;
+// FIXED: Wrapped into a structural function to prevent crashing on page boot execution
+function displayRandomGreeting(translation) {
+    const greetingsList = translation && translation.warmGreetings ? translation.warmGreetings : [
+        "Your next great adventure is waiting between the pages."
+    ];
+    const randomIndex = Math.floor(Math.random() * greetingsList.length);
+    const selectedGreetingText = greetingsList[randomIndex];
+    const quoteContainer = document.getElementById("welcome-quote") || document.querySelector(".greeting-subtext");
+    if (quoteContainer) {
+        quoteContainer.textContent = selectedGreetingText;
+    }
 }
 
 // =========================================================
@@ -51,7 +53,6 @@ window.changeLanguage = function (language) {
     saveOriginalTexts();
 
     // 1. Translate standard text nodes
-    originalTexts.forEach;
     const elements = document.querySelectorAll("body *:not(script):not(style)");
     elements.forEach(element => {
         const original = originalTexts.get(element);
@@ -88,7 +89,7 @@ window.changeLanguage = function (language) {
         }
     });
 
-    // 3. Translate select drop options (FIXED: Moved back inside function)
+    // 3. Translate select drop options
     const options = document.querySelectorAll("option");
     options.forEach(option => {
         if (!option.dataset.originalText) {
@@ -100,7 +101,7 @@ window.changeLanguage = function (language) {
         }
     });
 
-    // 4. Update core page layouts and direction rules (FIXED: Moved back inside function)
+    // 4. Update core page layouts and direction rules
     if (language === "fa" || language === "ps") {
         document.documentElement.dir = "rtl";
         document.documentElement.lang = language;
@@ -111,9 +112,12 @@ window.changeLanguage = function (language) {
         document.body.classList.remove("rtl");
     }
 
+    // FIXED: Run greeting layout generator updates dynamically using the active map data parameters
+    displayRandomGreeting(translation);
+
     localStorage.setItem("invenireLanguage", language);
     updateLanguageSelector();
-}; // <-- FIXED: Correctly matching function closing statement boundary frame
+};
 
 function updateLanguageSelector() {
     const selector = document.getElementById("languageSelect");
