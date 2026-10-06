@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!weatherTextElement) return;
 
         try {
-            // Uses wttr.in to autonomously lookup location diagnostics via device IP address
             const response = await fetch("https://wttr.in");
             if (!response.ok) throw new Error("Weather network API rejected connection reference.");
 

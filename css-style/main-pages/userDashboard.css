@@ -93,7 +93,7 @@
 }
 /* dropdown theme and language */
 .theme-dropdown{
-    display: block;
+    display: none;
     top: 20rem;
     position: absolute;
     background: var(--card-background-color);
@@ -553,7 +553,7 @@
     justify-content: center;
     align-items: flex-start;
     gap: 0.8rem;
-    color: var(--main-text-color);
+    color: var(--btn-background-color);
     font-size: var(--main-font-size);
     font-weight: bold;
 }
@@ -567,7 +567,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    color: var(--main-text-color);
+    color: var(--btn-background-color);
     font-size: var(--header-font-size);
 }
 

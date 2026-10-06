@@ -22,7 +22,7 @@
     <!-- =================logut logic js file -->
     <script type="module" src="../../js/auth-files/logout.js"></script>
     <!-- ==============current js logic link -->
-    <script type="module" src="../../js/dashboard/sub_pages/settings.js" defer></script>
+    <script type="module" src="../../js/dashboard/admin_setting.js" defer></script>
     <!-- tailwind and font awesome -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
@@ -130,29 +130,6 @@
                             <img id="settingsAvatarPreview" src="../../images/profile/female.jpg"
                                 alt="Profile Avatar" style="width:100px; height:100px; border-radius:50%;">
                         </div>
-                        <div class="gender">
-                    <!-- Gender Custom Dropdown -->
-                            <div class="input-group gender">
-                        <label for="genderDropdownBtn">Gender</label>
-                        <div class="gender-dropdown">
-                            <!-- The header trigger displays like an input block -->
-                            <button type="button" class="dropdown-header form-input-dropdown" id="genderDropdownBtn">
-                                <span id="selected-gender">Select your gender</span>
-                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                            </button>
-
-                            <!-- Hidden inputs allow standard form collection -->
-                            <input type="hidden" name="gender" id="genderHiddenInput" value="">
-
-                            <!-- The option menu list matching your layout coordinates -->
-                            <ul class="dropdown-menu form-dropdown-menu" id="genderDropdownMenu">
-                                <li data-value="male">Male</li>
-                                <li data-value="female">Female</li>
-                                <li data-value="other">Other</li>
-                            </ul>
-                        </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- Full Name Info Input -->
                     <div class="input-group">
@@ -160,6 +137,21 @@
                         <input type="text" id="settingsFullName" placeholder="Enter your full name">
                         <span id="settingsFullNameError" class="error-message" style="display:none; color:red;"></span>
                     </div>
+                    <div class="input-group">
+    <label for="genderDropdownBtn">Gender</label>
+    <div class="gender-dropdown">
+        <button type="button" class="dropdown-header form-input-dropdown" id="genderDropdownBtn">
+            <span id="selected-gender">Select your gender</span>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+        </button>
+        <input type="hidden" name="gender" id="genderHiddenInput" value="">
+        <ul class="dropdown-menu form-dropdown-menu" id="genderDropdownMenu">
+            <li data-value="male">Male</li>
+            <li data-value="female">Female</li>
+            <li data-value="other">Other</li>
+        </ul>
+    </div>
+</div>
 
                     <!-- Account Email String -->
                     <div class="input-group">

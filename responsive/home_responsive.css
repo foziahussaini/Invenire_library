@@ -1,0 +1,33 @@
+@media (max-width: 1200px) {
+  
+.book-details-top {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+}
+
+.book-details-cover {
+    width: 260px;
+    height: 300px;
+
+
+}
+.book-details-right {
+    min-width: 0;
+    height: 300px;
+}
+}
+
+@media (max-width: 1130px) {
+   .book-details-cover {
+    width: 260px;
+    height: 160px;
+
+
+}
+.book-details-right {
+    min-width: 0;
+    height: 160px;
+}
+}

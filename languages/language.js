@@ -53,6 +53,20 @@ function saveOriginalTexts() {
         }
     });
 }
+// Assume 'activeTranslations' holds the currently imported language object (en, fa, or ps)
+const greetingsList = activeTranslations.warmGreetings || [
+    "Your next great adventure is waiting between the pages." // Default fallback string
+];
+
+// Pick a random index row matching your array size footprint
+const randomIndex = Math.floor(Math.random() * greetingsList.length);
+const selectedGreetingText = greetingsList[randomIndex];
+
+// Inject the localized phrase string element into your text container row card node view
+const quoteContainer = document.getElementById("welcome-quote") || document.querySelector(".greeting-subtext");
+if (quoteContainer) {
+    quoteContainer.textContent = selectedGreetingText;
+}
 
 
 // ------------------------------------

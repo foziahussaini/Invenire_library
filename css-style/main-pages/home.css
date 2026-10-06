@@ -1358,17 +1358,17 @@ header {
     padding: 8px 13px;
     border: none;
     border-radius: var(--btn-border-radius);
-    background-color: var(--btn-background-color);
+    background-color: green;
     color: var(--btn-text-color);
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-
+/* 
     transition:
         background-color 0.2s ease,
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease; */
 }
 
 .book-btn svg {
@@ -1429,7 +1429,8 @@ header {
     width: min(900px, 92vw);
     padding: 28px 32px 24px;
     overflow: hidden;
-
+    max-height: 98vh;
+    height: auto;
     background:
         linear-gradient(
             135deg,
@@ -1484,7 +1485,7 @@ header {
 
 .book-details-cover {
     width: 260px;
-    height: 360px;
+    height: 285px;
     overflow: hidden;
     border-radius: 14px;
     background: #0b1429;
@@ -1503,7 +1504,7 @@ header {
 
 .book-details-right {
     min-width: 0;
-    height: 360px;
+    height: 285px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -324,7 +324,7 @@ function updateStat(element, value) {
 // after the final Firestore collections are confirmed.
 
 function setDefaultStats() {
-    updateStat(booksCount, 0);
+    updateStat(booksCount, "2000+");
     updateStat(membersCount, 0);
     updateStat(categoriesCount, 0);
     updateStat(satisfactionRate, 0);

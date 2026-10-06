@@ -114,8 +114,8 @@ body{
 
 /* ===========================MAIN CONTENT====================== */
 .theme-main-content{
-    margin-left: 190px;
-    width: calc(100% - 190px);
+    margin-left: 160px;
+    width: calc(100% - 160px);
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -536,6 +536,287 @@ label{
     background-color: var(--btn-hover-background-color, #3b82f6);
     color: var(--btn-text-hover-color);
 }
+/* =============================THEME SETTING=========================================  */
+.theme.manage-size {
+    display: flex;
+    flex-direction: column;
+    align-items: start; 
+    justify-content: center;
+    width: 990px auto;
+    max-width: 990px auto;
+    border-radius: var(--btn-border-radius);
+    box-shadow: var(--card-box-shadow);
+    margin: 1rem auto;
+    background: var(--card-background-color);
+}
+
+.theme.manage-size .theme-head{
+    border-radius: var(--btn-border-radius);
+    width: 100%;
+    height: 90px;
+    background: var(--main-background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.theme.manage-size h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    background: var(--subheader-background);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.card-option-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.card-option-group h3 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--main-text-color);
+    margin-bottom: 14px;
+    margin-left: 2.4rem;
+    text-align: start;
+
+    >hr{
+        width: 800px;
+        color: var(--btn-background-color);
+    }
+}
+
+/* ================================PREVIEW CARD======================================== */
+.cards-grid{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 2.5rem;
+}
+
+.visual-option-card {
+    flex: 1;
+    border: 1px solid var(--premium-icon-color);
+    border-radius: var(--btn-border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.visual-option-card:hover {
+    transform: translateY(-2px);
+    background-color: var(--card-hover-background-color);
+}
+
+.visual-option-card.active {
+    background-color: var(--card-hover-background-color);
+    box-shadow: var(--default-box-shadow);
+}
+
+.visual-option-card .option-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--btn-background-color);
+    text-align: center;
+    margin-top: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.visual-option-card.active .option-label {
+    color: var(--main-text-color);
+}
+
+/* ====================================CARD PREVIEW ========================= */
+.card-mini-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 0.2rem;
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    box-sizing: border-box;
+}
+
+.card-mini-preview .mini-header {
+    width: 260px;
+    margin-top: 0.4rem;
+    font-weight: 700;
+    min-height: 50px;
+    padding: var(--card-padding);
+    border-radius: var(--btn-border-radius);
+    background-color: var(--main-background-color);
+    color: var(--main-text-color);
+    text-align: center;
+}
+
+.card-mini-preview .mini-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1rem;
+    width: 260px;
+    height: 130px;
+    border-radius: var(--btn-border-radius);
+    color: var(--main-text-color);
+    background-color: var(--main-background-color);
+    text-align: center;
+}
+
+.card-mini-preview .mini-text .mini-btn {
+    width: 90px;
+    margin-left: 1.5rem;
+    padding: 0.3rem 0.6rem;
+    background-color: var(--btn-background-color);
+    color: var(--btn-text-color);
+    border-radius: var(--btn-border-radius);
+    font-weight: 600;
+    text-align: center;
+}
+
+.size-preview-small .mini-header  { font-size: 16; }
+.size-preview-small .mini-text    { font-size: 9; }
+.size-preview-small .mini-btn     { font-size: 10; padding: 2px 6px; }
+
+.size-preview-medium .mini-header { font-size: 18px; }
+.size-preview-medium .mini-text   { font-size: 13px; }
+.size-preview-medium .mini-btn    { font-size: 14px; }
+
+.size-preview-large .mini-header  { font-size: 34px; }
+.size-preview-large .mini-text    { font-size: 16px; }
+.size-preview-large .mini-btn     { font-size: 18px; }
+
+/* Card 1 Preview Framework: Modern Clean (Standard System Sans-Serif) */
+.font-preview-modern .mini-header,
+.font-preview-modern .mini-text,
+.font-preview-modern .mini-btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+.font-preview-modern .mini-header { font-size: 15px; }
+.font-preview-modern .mini-text   { font-size: 11px; }
+.font-preview-modern .mini-btn    { font-size: 10px; }
+
+/* Card 2 Preview Framework: Elegant Cursive (Playwrite Cuba Guides) */
+.font-preview-cursive .mini-header,
+.font-preview-cursive .mini-text,
+.font-preview-cursive .mini-btn {
+    font-family: 'Playwrite Cuba Guides', cursive !important;
+}
+.font-preview-cursive .mini-header { font-size: 11px; font-weight: normal; }
+.font-preview-cursive .mini-text   { font-size: 9px; }
+.font-preview-cursive .mini-btn    { font-size: 8px; padding: 1px 6px; font-weight: normal; }
+
+/* Card 3 Preview Framework: Creative Tall (Amatic SC) */
+.font-preview-tall .mini-header,
+.font-preview-tall .mini-text,
+.font-preview-tall .mini-btn {
+    font-family: 'Amatic SC', cursive !important;
+}
+.font-preview-tall .mini-header { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+.font-preview-tall .mini-text   { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; }
+.font-preview-tall .mini-btn    { font-size: 12px; padding: 2px 8px; font-weight: 700; }
+
+/* ==========================================================================
+   4. CORE APPLY SYSTEM MODIFICATIONS TRIGGER BUTTON
+   ========================================================================== */
+#commitGlobalDashboardStylesBtn {
+    width: 100%;
+    max-width: 500px;
+    align-self: center;
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--btn-text-color);
+    background: var(--btn-background-color);
+     border: none;
+    border-radius: var(--btn-border-radius, 8px);
+    cursor: pointer;
+    box-shadow: var(--card-box-shadow);
+    transition: filter 0.2s ease, transform 0.1s ease;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+#commitGlobalDashboardStylesBtn:hover {
+    filter: brightness(1.08);
+}
+
+#commitGlobalDashboardStylesBtn:active {
+    transform: scale(0.98); 
+}
+
+/* ===============foor theme */
+#colorCardsContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 2.5rem;
+}
+
+.mini-header, .mini-text, .mini-btn {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 3px 0;
+    font-size: 12px;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+/* --- 1. Classic Theme (Browns & Golds) --- */
+.theme-preview-classic .mini-header { background-color: #704214; color: #ffffff; }
+.theme-preview-classic .mini-text { background-color: #b8860b; color: #ffffff; }
+.theme-preview-classic .mini-btn { background-color: #d2b48c; color: #704214; }
+
+/* --- 2. Midnight Theme (Deep Navy & Slate) --- */
+.theme-preview-dark .mini-header { background-color: #0f172a; color: #ffffff; }
+.theme-preview-dark .mini-text { background-color: #1e293b; color: #ffffff; }
+.theme-preview-dark .mini-btn { background-color: #38bdf8; color: #0f172a; }
+
+/* --- 3. Daylight Theme (Soft Blues & Cool Grays) --- */
+.theme-preview-light .mini-header { background-color: #2563eb; color: #ffffff; }
+.theme-preview-light .mini-text { background-color: #64748b; color: #ffffff; }
+.theme-preview-light .mini-btn { background-color: #e2e8f0; color: #2563eb; }
+
+/* --- 4. Cyberpunk Theme (Neons & Dark Background Blocks) --- */
+.theme-preview-neon .mini-header { background-color: #0b0f19; color: #00f2fe; border: 1px solid #00f2fe; }
+.theme-preview-neon .mini-text { background-color: #f43f5e; color: #ffffff; }
+.theme-preview-neon .mini-btn { background-color: #00f2fe; color: #0b0f19; }
+
+/* --- 5. Vibrant Theme (Chroma Reds & Oranges) --- */
+.theme-preview-chroma .mini-header { background-color: #ff0844; color: #ffffff; }
+.theme-preview-chroma .mini-text { background-color: #ffb199; color: #ff0844; }
+.theme-preview-chroma .mini-btn { background-color: #7c2d12; color: #ffffff; }
+
+/* --- 6. Soothing Theme (Pastels) --- */
+.theme-preview-pastel .mini-header { background-color: #cbd5e1; color: #4f46e5; }
+.theme-preview-pastel .mini-text { background-color: #e0c3fc; color: #4f46e5; }
+.theme-preview-pastel .mini-btn { background-color: #8ec5fc; color: #4f46e5; }
+
+
 /* =============================FOOTER PART=========================================  */
 .theme-footer{
     width: 100%;

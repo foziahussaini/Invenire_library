@@ -18,7 +18,7 @@ if (logo) {
 }
 
 // ==========================================================================
-// 2. THEME STORAGE SYNC ENGINE (Runs instantly before DOM loads to prevent flash)
+// 1. RECOVERY SYSTEM APPEARANCE PERSISTENCE (Runs instantly to prevent layout flash)
 // ==========================================================================
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "dark") {
@@ -28,17 +28,20 @@ if (savedTheme === "dark") {
 }
 
 // ==========================================================================
-// 3. MAIN DOM REGISTRATION CONTROLLER
+// 2. MAIN DOM REGISTRATION CONTROLLER
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     const menuItems = document.querySelectorAll(".menu-item");
     
-    // Select dropdown elements matching your layout classes and structures
-    const langDropdownMenu = document.getElementById("langDropdownMenu");
-    const themeDropdownMenu = document.getElementById("themeDropdownMenu");
-    const themeDropdownBtn = document.getElementById("themeDropdownBtn");
+    // FIXED SELECTORS: Now searching via class names to match your HTML markup structures
+    const langDropdownMenu = document.querySelector(".lang-dropdown-menu, #langDropdownMenu");
+    const themeDropdownMenu = document.querySelector(".theme-dropdown-menu, .theme-dropdown, #themeDropdownMenu");
+    
+    // Select the actual click target trigger item button for Theme inside your sidebar list
+    const themeDropdownBtn = document.querySelector('.menu-item[data-route="theme"], .menu-item[data-route="Theme"]');
 
-    const themeOptions = themeDropdownMenu ? themeDropdownMenu.querySelectorAll("li") : [];
+    // Dynamically find option rows/list entries inside your dropdown panel layer
+    const themeOptions = themeDropdownMenu ? themeDropdownMenu.querySelectorAll("li, div, .dropdown-item") : [];
     const time = document.querySelector(".time");
     const date = document.querySelector(".date");
 
@@ -153,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // PATTERN 3: Theme flyout panel dropdown toggles (FIXED THE CUTOFF INTERACTION)
+            // PATTERN 3: Theme flyout panel dropdown toggles
             if (routeTarget === "theme") {
                 e.preventDefault();
                 e.stopPropagation();
@@ -178,41 +181,41 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // D. SYSTEM THEME OPTION SUB-SELECTION LISTENERS
     // ==========================================================================
-    if (themeDropdownBtn && themeDropdownMenu) {
-        themeDropdownBtn.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const isOpen = themeDropdownMenu.classList.toggle("show");
-            themeDropdownMenu.style.setProperty("display", isOpen ? "block" : "none", "important");
-        });
-    }
-
     themeOptions.forEach(option => {
         option.addEventListener("click", (event) => {
-            event.stopPropagation();
-            const selectedTheme = option.dataset.value;
+            event.stopPropagation(); // Prevents the event from instantly bubbling out to the body closer element
 
-            if (selectedTheme === "dark") {
+            // Fallback strategy to find theme text value labels regardless of attribute syntax mappings
+            const selectedTheme = option.getAttribute("data-value") || option.dataset.value || option.textContent.trim().toLowerCase();
+            console.log("Selected dashboard theme:", selectedTheme);
+
+            if (selectedTheme.includes("dark")) {
                 document.body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark");
             } else {
                 document.body.classList.remove("dark-theme");
+                localStorage.setItem("theme", "light");
             }
 
-            // Lock in chosen appearance theme context value globally
-            localStorage.setItem("theme", selectedTheme);
-
-            // Close active configuration wrapper elements gracefully
+            // Close active configuration dropdown window boxes gracefully upon option selection
             if (themeDropdownMenu) {
                 themeDropdownMenu.classList.remove("show");
                 themeDropdownMenu.style.setProperty("display", "none", "important");
             }
-            document.querySelector('.menu-item[data-route="Theme"], .menu-item[data-route="theme"]')?.classList.remove("overlay-active");
+            if (themeDropdownBtn) {
+                themeDropdownBtn.classList.remove("overlay-active");
+            }
         });
     });
 
     // ==========================================================================
     // E. INTERACTIVE OUTSIDE CLICK SURFACE PANEL DISMISSAL CLOSURES
     // ==========================================================================
-    document.addEventListener("click", () => {
+    document.addEventListener("click", (event) => {
+        // Stop global click closures if user clicks on options inside the dropdown containers
+        if (themeDropdownMenu && themeDropdownMenu.contains(event.target)) return;
+        if (langDropdownMenu && langDropdownMenu.contains(event.target)) return;
+
         if (themeDropdownMenu) {
             themeDropdownMenu.classList.remove("show");
             themeDropdownMenu.style.setProperty("display", "none", "important");
@@ -222,5 +225,5 @@ document.addEventListener("DOMContentLoaded", () => {
             langParent.style.setProperty("display", "none", "important");
         }
         menuItems.forEach(i => i.classList.remove("overlay-active"));
-});
+    });
 });

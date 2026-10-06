@@ -24,9 +24,9 @@
         linear-gradient(
             145deg,
             #cc9170,
+            #1c069b,
             #8FB4E3,
-            #8FB4E3,
-            #c49f8a,
+            #8a3f14,
             #8FB4E3,
             #f7a500af
         );
@@ -226,9 +226,9 @@ body.dark-theme {
     --subheader-background:
         linear-gradient(
             135deg,
-            #07152b,
-            #0a2442,
-            #07172f
+            #c49d31,
+            #b0176b,
+            #d89c81
         );
 
     --main-text-color: #e4e8ef;

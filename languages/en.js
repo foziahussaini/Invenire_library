@@ -165,5 +165,12 @@ const en = {
         "Purchase Date",
 
     "© 2026, Made by Invenire Team.":
-        "© 2026, Made by Invenire Team."
+        "© 2026, Made by Invenire Team.",
+        warmGreetings: [
+        "Your next great adventure is waiting between the pages.",
+        "Hello book friend! Ready to get lost in another world today?",
+        "Step inside, escape the noise, and find your next story.",
+        "Every book is a quiet friend waiting to talk to you.",
+        "Welcome back to your happy place. Let’s find a story to warm your heart today."
+    ]
 };

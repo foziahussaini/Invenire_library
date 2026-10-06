@@ -38,6 +38,8 @@ function getBookInputs(bookForm) {
         coverImage: bookForm.querySelector("#cover-image"),
         coverPreview: bookForm.querySelector("#cover-preview"),
         price: bookForm.querySelector("input[placeholder='e.g $36']"),
+        language: bookForm.querySelector("input[placeholder='language']"),
+        pages: bookForm.querySelector("input[placeholder='430']"),
         formWrapper: bookForm
     };
 }
@@ -383,6 +385,8 @@ async function saveBookToFirestore(bookData) {
         audio_url: bookData.audio_url,
         price: bookData.price,
         cover_image: bookData.cover_image,
+        language: bookData.language,
+        pages: bookData.pages,
         createdAt: serverTimestamp()
     };
 
@@ -406,6 +410,8 @@ async function updateExistingBookInFirestore(bookId, bookData) {
         audio_url: bookData.audio_url,
         price: bookData.price,
         cover_image: bookData.cover_image,
+        language: bookData.language,
+        pages: bookData.pages,
         updatedAt: serverTimestamp()
     };
 
@@ -575,6 +581,8 @@ async function loadBookIntoForm(bookId) {
         if (bookInputs.pdfUrl) bookInputs.pdfUrl.value = data.pdf_url || "";
         if (bookInputs.audioUrl) bookInputs.audioUrl.value = data.audio_url || "";
         if (bookInputs.price) bookInputs.price.value = data.price || "";
+        if (bookInputs.language) bookInputs.language.value = data.language || "";
+        if (bookInputs.pages) bookInputs.pages.value = data.pages || "";
         if (bookInputs.coverImage) bookInputs.coverImage.value = data.cover_image || "";
 
         if (bookInputs.coverPreview) {
