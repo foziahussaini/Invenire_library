@@ -116,7 +116,7 @@ async function loadRecentBooks() {
                     "",
 
                 genre:
-                    data.genre ||
+                    data.edition ||
                     "",
 
                 published:
