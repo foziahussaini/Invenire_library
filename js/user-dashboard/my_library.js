@@ -258,7 +258,7 @@ function renderLibraryBooks(books, container) {
       if (readBtn.disabled) return;
       e.stopPropagation();
       try { sessionStorage.setItem("library-open", JSON.stringify({ type: "pdf", url: book.pdf_url, bookId: book.id })); } catch (e) {}
-      window.location.href = "/pages/library.html";
+      window.location.href = "/pages/home.html";
     });
 
     // Listen
@@ -266,7 +266,7 @@ function renderLibraryBooks(books, container) {
       if (listenBtn.disabled) return;
       e.stopPropagation();
       try { sessionStorage.setItem("library-open", JSON.stringify({ type: "audio", url: book.audio_url, bookId: book.id })); } catch (e) {}
-      window.location.href = "/pages/library.html";
+      window.location.href = "/pages/home.html";
     });
 
     // Download

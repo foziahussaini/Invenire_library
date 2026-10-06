@@ -217,7 +217,6 @@ function renderDownloadBooks(books, container) {
     const readBtn = article.querySelector(".read-btn");
     const deleteBtn = article.querySelector(".delete-download-btn");
 
-    // Read: redirect to library.html and set sessionStorage similarly to your library logic
     readBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       if (!book.pdf_url) {
@@ -227,7 +226,7 @@ function renderDownloadBooks(books, container) {
       try {
         sessionStorage.setItem("library-open", JSON.stringify({ type: "pdf", url: book.pdf_url, bookId: book.id }));
       } catch (err) {}
-      window.location.href = "/pages/library.html";
+      window.location.href = "/pages/home.html";
     });
 
     // Delete: remove doc from members/{memberId}/downloads (doc id assumed to be book id)

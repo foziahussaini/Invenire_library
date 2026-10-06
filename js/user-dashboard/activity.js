@@ -147,7 +147,7 @@ function renderMiniCards(items, container, defaultMeta, showDeleteBtn = false, d
         detailsBtn.addEventListener("click", () => {
           const bookId = detailsBtn.getAttribute("data-book-id");
           if (!bookId) return;
-          window.location.href = `library.html?id=${encodeURIComponent(bookId)}`;
+          window.location.href = `home.html?id=${encodeURIComponent(bookId)}`;
         });
       }
     }
