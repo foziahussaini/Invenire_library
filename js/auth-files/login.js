@@ -1,6 +1,6 @@
-import { auth, db } from "../../src/firebase-config.js"; 
-import { signInWithEmailAndPassword } from "https://gstatic.com";
-import { doc, getDoc, collection, query, where, getDocs } from "https://gstatic.com";
+import { auth, db } from "../../src/firebase-config,js"; 
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const loginForm = document.getElementById("login-form");
 const emailInput = document.getElementById("login-email");

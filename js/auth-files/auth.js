@@ -2,12 +2,10 @@ import { auth, db } from "../../src/firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-// Helper to redirect pages safely
 function redirectTo(path) {
   window.location.href = path;
 }
 
-// Display error messages dynamically to the user
 function showError(errorId, message) {
   const el = document.getElementById(errorId);
   if (el) {
@@ -16,14 +14,19 @@ function showError(errorId, message) {
   }
 }
 
+// Helper to determine the current page filename without extension hooks
+function getCurrentPageName() {
+  const baseName = window.location.pathname.split("/").pop() || "";
+  return baseName.replace(".html", ""); // Wipes extension to maintain structural parity across configurations
+}
+
 export async function handleUserRouting(user) {
   if (!user) return;
-
   const uid = user.uid;
   const email = user.email ? user.email.toLowerCase().trim() : "";
 
   try {
-    // 1. Fetch the exact hardcoded admin document from your config collection
+    // 1. SCAN FOR ADMIN SPECIFIC IDENTIFIER
     const adminDocRef = doc(db, "config", "adminheader123");
     const adminSnap = await getDoc(adminDocRef);
 
@@ -31,7 +34,6 @@ export async function handleUserRouting(user) {
       const adminData = adminSnap.data();
       const adminEmailInDb = adminData.admin_email ? adminData.admin_email.toLowerCase().trim() : "";
       
-      // Check if the current logging-in user's email matches the admin email field
       if (email === adminEmailInDb && email !== "") {
         localStorage.setItem("invenireLoggedIn", "true");
         localStorage.setItem("isAdmin", "true"); 
@@ -40,7 +42,7 @@ export async function handleUserRouting(user) {
       }
     }
 
-    // 2. If it's not the admin email, check if the user is an existing Member
+    // 2. SCAN FOR EXISTING PROFILE NODE RECORDS
     const memberDocRef = doc(db, "members", uid);
     const memberSnap = await getDoc(memberDocRef);
 
@@ -53,7 +55,7 @@ export async function handleUserRouting(user) {
       return;
     }
 
-    // 3. If they are not an admin and not in members, create their member profile
+    // 3. CREATE PROFILE NODE FALLBACK INITIALIZATION
     const minimal = {
       user_id: uid,
       full_name: user.displayName || "New Library Member",
@@ -62,7 +64,7 @@ export async function handleUserRouting(user) {
       gender: "",
       "profile-Img": user.photoURL || "defaultProfile.png",
       isLoggedIn: true,
-      "last-login": new Date().toISOString(),
+      "last-login": serverTimestamp(), // Adjusted to use secure server metrics asynchronously
       theme_preference: "light",
       language_preference: "en",
       totalLoginsCount: 1,
@@ -72,12 +74,11 @@ export async function handleUserRouting(user) {
     };
 
     await setDoc(doc(db, "members", uid), minimal);
-
     localStorage.setItem("invenireUser", JSON.stringify(minimal));
     localStorage.setItem("invenireLoggedIn", "true");
     localStorage.removeItem("isAdmin");
-
     redirectTo("/pages/user_dashboard.html");
+
   } catch (err) {
     console.error("Routing failed:", err?.code, err?.message, err);
     showError("loginError", "System routing failed. Please try logging in again.");
@@ -85,78 +86,57 @@ export async function handleUserRouting(user) {
   }
 }
 
-/**
- * Global Firebase Authentication State Observer
- */
+// Global Authentication State Observer
 onAuthStateChanged(auth, async (user) => {
-  const page = window.location.pathname.split("/").pop();
+  const page = getCurrentPageName(); // Pulling clean formatting names directly
 
-  // RULE 1: Unauthenticated Guest Route Protection
+  // RULE 1: Guest Access Security Barrier
   if (!user) {
-    if (["user_dashboard.html", "admin_dashboard.html"].includes(page)) {
+    if (["user_dashboard", "admin_dashboard"].includes(page)) {
       localStorage.clear(); 
       redirectTo("/pages/login.html");
     }
     return;
   }
 
-  // Bind critical data elements to global state
   window.userUid = user.uid;
   window.currentUserEmail = user.email ? user.email.toLowerCase().trim() : "";
 
-  // RULE 2: Protect dashboards using local flags to avoid repetitive Firestore reads
-  if (["user_dashboard.html", "admin_dashboard.html"].includes(page)) {
+  // RULE 2: Session Flag Validation Routing Guards
+  if (["user_dashboard", "admin_dashboard"].includes(page)) {
     const isAdmin = localStorage.getItem("isAdmin") === "true";
     const isLoggedIn = localStorage.getItem("invenireLoggedIn") === "true";
 
-    // If session tracking flags are completely missing, force a quick re-route check
     if (!isLoggedIn) {
       await handleUserRouting(user);
       return;
     }
 
-    // Enforce dashboard security boundaries based on active auth states
-    if (page === "admin_dashboard.html" && !isAdmin) {
+    if (page === "admin_dashboard" && !isAdmin) {
       redirectTo("/pages/user_dashboard.html");
-    } else if (page === "user_dashboard.html" && isAdmin) {
+    } else if (page === "user_dashboard" && isAdmin) {
       redirectTo("/pages/admin_dashboard.html");
     }
-    return; // Safely stop execution here for active dashboard pages
+    return;
   }
 
-  // RULE 3: Execute full Firestore routing check only when on gateway pages
-  if (["login.html", "signup.html", "auth.html", "index.html", ""].includes(page)) {
+  // RULE 3: Entry Gateway Routing Trigger Logic
+  if (["login", "signup", "auth", "index", ""].includes(page)) {
     await handleUserRouting(user);
   }
 });
 
-/**
- * Form Submission Auth Error Mapper
- * Call this inside your manual signup/login submission catch blocks
- */
 export function handleAuthError(error, contextType = "login") {
   const errorId = contextType === "signup" ? "signupError" : "loginError";
   let readableMessage = "An unexpected authentication error occurred.";
-
   switch (error.code) {
-    case "auth/email-already-in-use":
-      readableMessage = "This email address is already registered.";
-      break;
-    case "auth/invalid-email":
-      readableMessage = "Please enter a valid email address.";
-      break;
-    case "auth/weak-password":
-      readableMessage = "Password is too weak. Must be at least 6 characters.";
-      break;
+    case "auth/email-already-in-use": readableMessage = "This email address is already registered."; break;
+    case "auth/invalid-email": readableMessage = "Please enter a valid email address."; break;
+    case "auth/weak-password": readableMessage = "Password is too weak. Must be at least 6 characters."; break;
     case "auth/user-not-found":
     case "auth/wrong-password":
-    case "auth/invalid-credential":
-      readableMessage = "Invalid email or password combination.";
-      break;
-    case "auth/too-many-requests":
-      readableMessage = "Access temporarily blocked due to too many failed attempts. Try later.";
-      break;
+    case "auth/invalid-credential": readableMessage = "Invalid email or password combination."; break;
+    case "auth/too-many-requests": readableMessage = "Access temporarily blocked due to too many failed attempts. Try later."; break;
   }
-  
   showError(errorId, readableMessage);
 }
