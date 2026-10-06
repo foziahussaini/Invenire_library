@@ -170,7 +170,7 @@ header {
     position: relative;
     width: min(420px, 90%);
     padding: 2rem;
-    background: var(--card-background-color);
+    background: var(--footer-background-color);
     color: var(--main-text-color);
     border-radius: var(--main-border-radius);
     box-shadow: var(--default-box-shadow);
@@ -1800,7 +1800,7 @@ header {
 
 
 body.dark-theme .dashboard-modal-content {
-    background: #0a172b;
+    background: var(--footer-background-color);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 

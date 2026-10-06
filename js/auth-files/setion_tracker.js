@@ -6,7 +6,7 @@ const currentFileName = window.location.pathname.split("/").pop().toLowerCase();
 
 // === SHIELD 1: Stop tracking entirely on auth gateway pages ===
 if (["login.html", "signup.html", "auth.html"].includes(currentFileName)) {
-    console.log("🛑 Background session tracking bypassed on authentication views.");
+    console.log("Background session tracking bypassed on authentication views.");
 } else {
     const sessionStartTime = Date.now();
 
