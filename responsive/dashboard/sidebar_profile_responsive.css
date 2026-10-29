@@ -1,154 +1,239 @@
-/* ======================================xLARGE SIZE 1200PX============================== */
-@media (max-width: 1200px) {
-    .admin-header .calender {
-        margin-right:-3rem;
-    }
-}
-
-/* ======================================LARGE SIZE 1130PX============================== */
-@media (max-width: 1130px) {
-    /* side bar menu */
+@media (max-width: 1400px) {
     .book-sidebar,
-    .sidebar /*sidebar is same for all subpages*/{
+    .sidebar {
        position: fixed;
-       width: 1760px;
-       max-width: 160px;
+       width: 200px; 
     }
+    
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 200px;
+        height: 140px;
+    }
+    
     .book-sidebar .logo,
-    .sidebar .logo{
-        height: 85px;
-        img{
-            width: 160px;
-            height: 140px;
-        }
+    .sidebar .logo {
+        height: 90px;
     }
     
     .book-sidebar .sidebar-menu,
-    .sidebar .sidebar-menu{
+    .sidebar .sidebar-menu {
         padding: 1.2rem 1.2rem;
     }
+    
     .book-sidebar .sidebar-menu .menu-item,
-    .sidebar .sidebar-menu .menu-item{
+    .sidebar .sidebar-menu .menu-item {
         gap: 0.6rem;
-        font-size: var(--min-font-size);
+        font-size: 1.4rem;
+        font-weight: 600;
     }
 
-    .sidebar-menu .logout{
-    width: 120px;
-    height: 40px;
-    font-size: var(--main-font-size);
+    .sidebar-menu .logout {
+        width: 150px;
+        height: 40px;
+        font-size: var(--main-font-size);
     }
+    
     /* main body container */
     .book-main-content,
     .theme-main-content,
     .report-main-content,
     .member-main-content,
-    .setting-main-content,
-    .etting-main-content,
-    .main-content{
+    .setting-main-content, 
+    .main-content {
+       margin-left: 200px;
+       width: calc(100% - 200px);
+    }
+    
+}
+
+/* ======================================xLARGE SIZE 1200PX============================== */
+@media (max-width: 1280px) {
+    
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item {
+        gap: 0.6rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .admin-header{
+        gap: 0;
+    }
+
+    .admin-header .search-bar {
+    max-width: 650px;
+    height: 40px;
+    }
+    .admin-header .search-bar > input {
+        font-size: var(--main-font-size);
+    }
+
+    .admin-header .search-bar .fa-search ,
+    .admin-header .search-bar .close-icon {
+        font-size: 1.2rem;
+    }
+
+    .admin-header .search-bar .searchResult {
+        top: 2.5rem;
+    }
+
+    .search-item {
+        font-size: var(--min-font-size);
+    }
+    .admin-header .calender {
+        margin-right: -3rem;
+        font-size: var(--main-font-size);
+    }
+
+    .admin-header .profile-container {
+        width: 60px;
+        height: 60px;
+        margin-right: -1rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .admin-header .calender {
+        margin-right: -0.4rem;
+        font-size: var(--min-font-size);
+    }
+     .admin-header .profile-container {
+        margin-right: -0.2rem;
+    }
+
+}
+/* ======================================LARGE SIZE 1130PX============================== */
+@media (max-width: 1130px) {
+     .admin-header{
+        height: var(--main-header-height);
+    }
+    /* side bar menu */
+    .book-sidebar,
+    .sidebar {
+       position: fixed;
+       width: 160px; 
+    }
+    
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 160px;
+        height: 140px;
+    }
+    
+    .book-sidebar .logo,
+    .sidebar .logo {
+        height: 85px;
+    }
+    
+    .book-sidebar .sidebar-menu,
+    .sidebar .sidebar-menu {
+        padding: 1.2rem 1.2rem;
+    }
+    
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item {
+        gap: 0.6rem;
+        font-weight: 500;
+    }
+
+    .sidebar-menu .logout {
+        width: 120px;
+        height: 40px;
+        font-size: var(--main-font-size);
+    }
+    
+    /* main body container */
+    .book-main-content,
+    .theme-main-content,
+    .report-main-content,
+    .member-main-content,
+    .setting-main-content, 
+    .main-content {
        margin-left: 160px;
        width: calc(100% - 160px);
     }
+    
     /* header part */
     .admin-header .search-bar { 
-    width: 570px;
-    max-width: 570px ;
-    margin-left: 1.8rem;
+        width: 100%;
+        max-width: 570px; 
+        margin-left: 1.8rem;
     }
 
     .admin-header .search-bar .fa-search,
-    .admin-header .search-bar .close-icon  {
-    font-size: 1.06rem;
+    .admin-header .search-bar .close-icon {
+        font-size: 1.06rem;
     }
 
-    /* search result dropdown*/
-    .admin-header .search-bar .searchResult{
-        height: 70vh;
-    }
-
-    .no-match{
+    .no-match {
         margin-top: 4rem;
     }
-    .admin-header .profile-container{
-        width: 45px;
-        height: 45px;
+    
+      .admin-header .profile-container {
+        margin-right: 0.4rem;
     }
-    .admin-header .calender {
-     margin-right:-2rem;
-}
-
-.admin-header .profile-container{
-     margin-right: 1rem;
-}
 }
 
 /* ======================================LARGE SIZE 1024PX============================== */
 @media (max-width: 1024px) {
+    .admin-header{
+        height: var(--main-header-height);
+    }
     /* side bar menu */
     .book-sidebar,
-    .sidebar{
+    .sidebar {
        position: fixed;
        width: 150px;
-       max-width: 150px;
     }
 
     .book-sidebar .sidebar-menu .menu-item,
-    .sidebar .sidebar-menu .menu-item{
+    .sidebar .sidebar-menu .menu-item {
        gap: 0.8rem;
     }
 
-    .sidebar-menu .menu-item .menu-icon{font-size: 1rem;}
+    .sidebar-menu .menu-item .menu-icon {
+        font-size: 1rem;
+    }
+    
     /* main body container */
     .book-main-content,
     .theme-main-content,
     .report-main-content,
     .member-main-content,
     .setting-main-content,
-    .main-content{
+    .main-content {
        margin-left: 150px;
        width: calc(100% - 150px);
     }
 
-    .sidebar-menu .logout{
+    .sidebar-menu .logout {
         margin-top: 5.8rem;
-        width: 100px;
-    height: 40px;
-    font-size: var(--main-font-size);
+        width: 110px;
+        height: 40px;
+        font-size: var(--main-font-size);
     }
-
-    /* header part */
-    .admin-header .profile-container{
-        margin-right: 1rem;
-        width: 42px;
-        height: 42px;
-    }
+    
     .admin-header .calender {
-        margin-right:-1rem;
+        margin-right: -1rem;
         flex-direction: column;
-        gap:0.1rem;
-        align-items: start;
-        font-size: 12px;
-
-        >.divider-line{
-            display: none;
-        }
+        gap: 0.1rem;
+        align-items: flex-start;
+        font-size: 14px;
     }
 
-    /* search result dropdown*/
-    .admin-header .search-bar .searchResult{
-        height: 65vh;
+    .admin-header .calender .divider-line {
+        display: none;
     }
-    .search-item {
-        font-size: 12px;
-
-        > i{
-            font-size: 14px;
-        }
+    
+    .search-item i {
+        font-size: 14px;
     }
 }
+
 /* ======================================LARGE SIZE 1023PX (only for divider line use 1023px size )============================== */
 @media (max-width: 1023px) {
-    .admin-header .calender .divider-line{
+    .admin-header .calender .divider-line {
         display: flex;
     }
 }
@@ -157,43 +242,47 @@
 @media (max-width: 991px) {
     /* side bar menu */
     .book-sidebar,
-    .sidebar{
+    .sidebar {
        position: fixed;
        width: 130px;
        max-width: 130px;
     }
-     .book-sidebar .logo,
-     .sidebar .logo{
-        img{
-            width: 130px;
-            height: 120px;
-        }
+
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 130px;
+        height: 120px;
     }
-    .book-sidebar .sidebar-menu .menu-item,
-    .sidebar .sidebar-menu .menu-item{
-        font-weight: 600;
-        font-size: 15px;
+
+    .sidebar-menu .menu-item .menu-text {
+        gap: 0.8rem;
     }
-    .sidebar-menu .menu-item .menu-text{
-    gap: 0.8rem;
-}
-    .sidebar-menu .menu-item .menu-icon{display: none;}
+
+    .sidebar-menu .menu-item .menu-icon {
+        display: none;
+    }
+
     /* main container */
     .book-main-content,
     .theme-main-content,
     .report-main-content,
     .member-main-content,
     .setting-main-content,
-    .main-content{
+    .main-content {
        margin-left: 130px;
        width: calc(100% - 130px);
     }
 
-    .sidebar-menu .logout{
+    .sidebar-menu .logout {
         margin-top: 6rem;
         width: 90px;
         height: 40px;
         font-size: var(--min-font-size);
+    }
+
+    .book-sidebar .sidebar-menu,
+    .sidebar .sidebar-menu {
+        padding: 1.2rem 0.8rem;
     }
 
     /* header part */
@@ -202,78 +291,84 @@
     .theme-main-content .admin-header,
     .report-main-content .admin-header,
     .member-main-content .admin-header,
-    .setting-main-content .admin-header{
-        gap: 2rem;
+    .setting-main-content .admin-header {
+        gap: 1.8rem;
     }
 
     .admin-header .search-bar .fa-search,
-    .admin-header .search-bar .close-icon  {
-    font-size: 0.9rem;
+    .admin-header .search-bar .close-icon {
+        font-size: 1rem;
     }
-    .admin-header .search-bar > input {
-        font-size: 13px;
-    }
-     /* search result dropdown*/
-    .admin-header .search-bar .searchResult{
-        height: 56vh;
-    }
-    .search-item {
-        font-size: 12px;
-        gap: 0.5rem;
 
-        > i{
-            font-size: 14px;
-        }
+    .admin-header .search-bar > input {
+        font-size: 14px;
     }
-    .no-match{
+
+    .search-item {
+        font-size: 14px;
+        gap: 0.5rem;
+    }
+
+    .no-match {
         font-size: var(--main-font-size);
         gap: 0.6rem;
     }
-    .sad-sticker{
+
+    .sad-sticker {
         width: 70px;
         height: 70px;
     }
-    .admin-header .profile-container{
+
+    .admin-header .profile-container {
         margin-right: 1rem;
-        width: 40px;
-        height: 40px;
+        width: 54px;
+        height: 54px;
     }
 
     .admin-header .calender {
         flex-direction: column;
-        gap:0.1rem;
-        align-items: start;
-        font-size: 10px;
-}
+        gap: 0.1rem;
+        align-items: flex-start;
+        font-size: 12px;
+    }
 }
 
 /* ====================================== SIZE 768PX============================== */
 @media (max-width: 768px) {
     /* side bar menu */
     .book-sidebar .logo,
-    .sidebar .logo{
+    .sidebar .logo {
         height: 75px;
-        img{
-            width: 120px;
-            height: 90px;
-        }
     }
+
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 110px;
+        height: 90px;
+    }
+
     .book-sidebar,
-    .sidebar{
+    .sidebar {
        position: fixed;
        width: 110px;
        max-width: 110px;
     }
 
-    .book-sidebar .sidebar-menu .menu-item,
-    .sidebar .sidebar-menu .menu-item{
-        font-weight: 600;
-        font-size: 13px;
+     
+    .book-sidebar .sidebar-menu,
+    .sidebar .sidebar-menu {
+        padding: 1.2rem 0.8rem;
     }
 
-    .sidebar-menu .logout{
+    .book-sidebar .sidebar-menu .menu-item,
+    .sidebar .sidebar-menu .menu-item {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .sidebar-menu .logout {
         margin-top: 7rem;
-        width: 75px;
+        width: 80px;
         height: 40px;
         font-size: 10px;
     }
@@ -284,46 +379,50 @@
     .report-main-content,
     .member-main-content,
     .setting-main-content,
-    .main-content{
+    .main-content {
        margin-left: 110px;
        width: calc(100% - 110px);
     }
+
     /* header part */
     .book-main-content .admin-header,
     .main-content .admin-header,
     .theme-main-content .admin-header,
     .report-main-content .admin-header,
     .member-main-content .admin-header,
-    .setting-main-content .admin-header{
+    .setting-main-content .admin-header {
         height: 75px;
         gap: 1.6rem;
     }
 
     .admin-header .search-bar { 
-    width: 500px;
-    max-width: 500px ;
-    height: 34px;
-    margin-left: 1.8rem;
+        width: 100%; 
+        max-width: 500px;
+        height: 34px;
+        margin-left: 1.8rem;
     }
-     /* search result dropdown*/
-    .admin-header .search-bar .searchResult{
-        top: 36px;
-        height: 50vh;
-    }
-    .search-item {
-        font-size: 10px;
-        gap: 0.3rem;
 
-        > i{
-            font-size: 11px;
-        }
+    /* search result dropdown*/
+    .admin-header .search-bar .searchResult {
+        top: 36px;
     }
-    .no-match{
-        font-size: var(--min-font-size);
+
+    .search-item {
+        font-size: 12px;
+        gap: 0.3rem;
+    }
+
+    .search-item > i {
+        font-size: 12px;
+    }
+
+    .no-match {
+        font-size: var(--main-font-size);
         margin-top: 2rem;
         gap: 0.6rem;
     }
-    .sad-sticker{
+
+    .sad-sticker {
         margin-bottom: 1.6rem;
         width: 70px;
         height: 70px;
@@ -342,16 +441,16 @@
         }
     }
 
-    .admin-header .profile-container{
+    .admin-header .profile-container {
         margin-right: 1rem;
-        width: 38px;
-        height: 38px;
+        width: 45px;
+        height: 45px;
     }
 
     .admin-header .calender {
         flex-direction: column;
-        gap:0.1rem;
-        align-items: start;
+        gap: 0.1rem;
+        align-items: flex-start;
         font-size: 8px;
     }
 }
@@ -360,42 +459,44 @@
 @media (max-width: 640px) {
     /* side bar menu */
     .book-sidebar,
-    .sidebar{
+    .sidebar {
        position: fixed;
        width: 65px;
        max-width: 65px;
     }
 
     .book-sidebar .logo,
-    .sidebar .logo{
+    .sidebar .logo {
         height: 70px;
-        img{
-            width: 65px;
-            height: 60px;
-        }
     }
 
-    .sidebar-menu .menu-item .menu-text{
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 65px;
+        height: 60px;
+    }
+
+    .sidebar-menu .menu-item .menu-text {
         display: none;
     }
 
-    .sidebar-menu .menu-item .menu-icon{
+    .sidebar-menu .menu-item .menu-icon {
         display: flex;
         padding-left: 0.2rem;
         padding-bottom: 1rem;
         font-size: 1.5rem;
     }
 
-    .sidebar-menu .logout{
+    .sidebar-menu .logout {
         margin-top: 1.4rem;
         width: 45px;
         height: 25px;
         font-size: 8px;
         align-self: center;
+    }
 
-        >i {
-            display: none;
-        }
+    .sidebar-menu .logout > i {
+        display: none;
     }
 
     /* main body container */
@@ -404,9 +505,9 @@
     .report-main-content,
     .member-main-content,
     .setting-main-content,
-    .main-content{
-    margin-left: 65px;
-    width: calc(100% - 65px);
+    .main-content {
+        margin-left: 65px;
+        width: calc(100% - 65px);
     }
 
     /* header part */
@@ -415,151 +516,154 @@
     .theme-main-content .admin-header,
     .report-main-content .admin-header,
     .member-main-content .admin-header,
-    .setting-main-content .admin-header{
+    .setting-main-content .admin-header {
         height: 70px;
     }
+    
     .admin-header .search-bar { 
-    width: 450px;
-    max-width: 450px ;
-    height: 29px;
-    margin-left: 1.8rem;
+        width: 100%; 
+        max-width: 450px;
+        height: 29px;
+        margin-left: 1.8rem;
     }
 
     .admin-header .search-bar > input {
-        font-size: 12px;
+        font-size: 13px;
         padding-left: 2.4rem;
     }
 
-     /* search result dropdown*/
-    .admin-header .search-bar .searchResult{
+    /* search result dropdown*/
+    .admin-header .search-bar .searchResult {
         margin-top: -5px;
-        height: 45vh;
-    }
-    .search-item {
-        font-size: 9px;
-        gap: 0.1rem;
-
-        > i{
-            font-size: 10px;
-        }
     }
     
-    .admin-header .search-bar .fa-search{
-    font-size: 0.7rem;
-    margin-left: 0.1rem;
+    .search-item {
+        font-size: 11px;
+        gap: 0.1rem;
     }
 
-    .admin-header .search-bar .close-icon{
-        font-size: 0.7rem;
+    /* Fixed: Flattened nesting */
+    .search-item > i {
+        font-size: 11px;
+    }
+    
+    .admin-header .search-bar .fa-search {
+        font-size: 12px;
+        margin-left: 0.1rem;
+    }
+
+    .admin-header .search-bar .close-icon {
+        font-size: 11px;
         margin-right: 0.1rem;
     } 
 
-    .no-match{
+    .no-match {
         font-size: var(--min-font-size);
         margin-top: 1.8rem;
         gap: 0.4rem;
     }
-    .sad-sticker{
+    
+    .sad-sticker {
         margin-bottom: 1.9rem;
-        width: 55px;
-        height: 55px;
+        width: 58px;
+        height: 58px;
     }
 
-    .sad-sticker .eyes{
+    .sad-sticker .eyes {
         gap: 1rem;
         margin-bottom: 4px;
     }
+    
     .sad-sticker .eyes::before,
     .sad-sticker .eyes::after {
         width: 6px;
         height: 6px;
-   }
+    }
 
-   .admin-header .calender .divider-line{
-    display: none;
-   }
-
+    .admin-header .calender .divider-line {
+        display: none;
+    }
 }
 
 /* ====================================== SIZE 580PX============================== */
 @media (max-width: 580px) {
     /* sidebar menu */
     .book-sidebar .logo,
-    .sidebar .logo{
+    .sidebar .logo {
         height: 55px;
-        img{
-            width: 55px;
-            height: 52px;
-        }
     }
-    .sidebar-menu .menu-item .menu-icon{
+
+    /* Fixed: Flattened SCSS nesting */
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 55px;
+        height: 52px;
+    }
+
+    .sidebar-menu .menu-item .menu-icon {
         display: flex;
         padding-left: 0.2rem;
         padding-bottom: 1rem;
         font-size: 1.2rem;
     }
+
     /* search result dropdown*/
     .book-main-content .admin-header,
     .main-content .admin-header,
     .theme-main-content .admin-header,
     .report-main-content .admin-header,
     .member-main-content .admin-header,
-    .setting-main-content .admin-header{
+    .setting-main-content .admin-header {
         height: 58px;
     }
 
-    .admin-header .search-bar .searchResult{
-        height: 38vh;
-    }
-
-    .no-match{
-        font-size: var(--min-font-size);
+    .no-match {
         margin-top: 1.6rem;
         font-size: 8px;
         padding: 1rem;
         gap: 0.2rem;
     }
-    .sad-sticker{
+
+    .sad-sticker {
         margin-bottom: 1.6rem;
         width: 45px;
         height: 45px;
     }
 
-    .sad-sticker .eyes{
+    .sad-sticker .eyes {
         gap: 0.5rem;
         margin-bottom: 3px;
     }
+
     .sad-sticker .eyes::before,
     .sad-sticker .eyes::after {
         width: 4px;
         height: 4px;
-   }
-   .sad-sticker .mouth {
-    width: 20px;
-    height: 8px;
-   }
-}
-/* ====================================== SIZE 458PX============================== */
-
-
-@media (max-width: 458px) {
-    /* sidebar menu */
-   .book-sidebar .logo,
-   .sidebar .logo{
-        height: 50px;
-        img{
-            width: 50px;
-            height: 45px;
-        }
     }
+
+    .sad-sticker .mouth {
+        width: 20px;
+        height: 8px;
+    }
+}
+
+/* ====================================== SIZE 458PX ============================== */
+@media (max-width: 458px) {
+    /* Fixed: Flattened SCSS nesting */
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 55px;
+        height: 45px;
+    }
+
     .book-sidebar,
-    .sidebar{
+    .sidebar {
        position: fixed;
        width: 55px;
        max-width: 55px;
     }
 
-    .sidebar-menu .menu-item .menu-icon{
+    .sidebar-menu .menu-item .menu-icon {
         display: flex;
         padding-left: 0;
         padding-bottom: 0.8rem;
@@ -572,22 +676,22 @@
     .report-main-content,
     .member-main-content,
     .setting-main-content,
-    .main-content{
+    .main-content {
        margin-left: 55px;
        width: calc(100% - 55px);
     }
 
-    .sidebar-menu .logout{
+    .sidebar-menu .logout {
         margin-top: 1.8rem;
         width: 40px;
         height: 20px;
         font-size: 7px;
         align-self: center;
         border-radius: 0.3rem;
+    }
 
-        >i {
-            display: none;
-        }
+    .sidebar-menu .logout > i {
+        display: none;
     }
 
     /* header part */
@@ -596,134 +700,118 @@
     .theme-main-content .admin-header,
     .report-main-content .admin-header,
     .member-main-content .admin-header,
-    .setting-main-content .admin-header{
+    .setting-main-content .admin-header {
         height: 55px;
+        gap: 1rem;
     }
+
     .admin-header .search-bar { 
-    width: 380px;
-    max-width: 380px ;
-    height: 24px;
-    margin-left: 1.4rem;
+        width: 100%; 
+        max-width: 380px;
+        height: 24px;
+        margin-left: 1.4rem;
     }
 
-    .admin-header .search-bar > input {
-        font-size: 10px;
-        padding-left: 1.8rem;
-    }
-    
-    .admin-header .search-bar .fa-search{
-    font-size: 0.5rem;
-    margin-left: -0.4;
-    }
-
-    .admin-header .search-bar .close-icon{
-        font-size: 0.5rem;
-        margin-right: -0.4rem;
-    } 
-
-     .search-item {
-        font-size: 7.2px;
+    .search-item {
+        font-size: 9px;
         gap: 0;
-
-        > i{
-            font-size: 7px;
-        }
     }
 
-    .admin-header .search-bar .searchResult{
-        height: 28vh;
+    .admin-header .search-bar .searchResult {
         margin-top: -11px;
     }
 
-     .no-match{
-        font-size: 10px;
+    .no-match {
         margin-top: 1.4rem;
         font-size: 6px;
         padding: 0.7rem;
         gap: 0.1rem;
     }
-    .sad-sticker{
+
+    .sad-sticker {
         margin-bottom: 1.4rem;
         width: 38px;
         height: 38px;
     }
 
-    .sad-sticker .eyes{
+    .sad-sticker .eyes {
         gap: 0.4rem;
         margin-bottom: 1px;
     }
+
     .sad-sticker .eyes::before,
     .sad-sticker .eyes::after {
         width: 3px;
         height: 3px;
-   }
-   .sad-sticker .mouth {
-    width: 17px;
-    height: 6px;
-    border: 1px solid;
-   }
+    }
 
-    .book-main-content .admin-header,
-    .theme-main-content .admin-header,
-    .report-main-content .admin-header,
-    .member-main-content .admin-header,
-    .setting-main-content .admin-header,
-    .main-content .admin-header{
-        gap: 1rem;
+    .sad-sticker .mouth {
+        width: 17px;
+        height: 6px;
+        border: 1px solid;
     }
-    .admin-header .profile-container{
+
+    .admin-header .profile-container {
         margin-right: 1.8rem;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
     }
-    .admin-header .calender{
+
+    .admin-header .calender {
         font-size: 8px;
         font-weight: 500;
         margin-right: -0.4rem;
     }
-    .admin-header .calender .divider-line{
+
+    .admin-header .calender .divider-line {
         display: none;
     }
 }
+
 
 /* ====================================== SIZE 380PX============================== */
 @media (max-width: 380px) {
     /* side bar menu */
     .book-sidebar,
-    .sidebar{
+    .sidebar {
        position: fixed;
        width: 40px;
        max-width: 40px;
     }
+
     .book-sidebar .logo,
-    .sidebar .logo{
+    .sidebar .logo {
         height: 36px;
-        img{
-            width: 50px;
-            height: 35px;
-        }
-    }
-    .book-sidebar .sidebar-menu,
-    .sidebar .sidebar-menu{
-        padding: 0.7rem;
-    }
-    .sidebar-menu .menu-item .menu-icon{
-        display: flex;
-        padding-bottom: 0.5rem;
-        font-size: 0.8rem;
     }
 
-    .sidebar-menu .logout{
+    .book-sidebar .logo img,
+    .sidebar .logo img {
+        width: 50px;
+        height: 35px;
+    }
+
+    .book-sidebar .sidebar-menu,
+    .sidebar .sidebar-menu {
+        padding: 0.6rem;
+    }
+
+    .sidebar-menu .menu-item .menu-icon {
+        display: flex;
+        padding-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .sidebar-menu .logout {
         margin-top: 2rem;
         width: 28px;
         height: 14px;
         font-size: 5px;
         align-self: center;
         border-radius: 0.4rem;
+    }
 
-        >i {
-            display: none;
-        }
+    .sidebar-menu .logout > i {
+        display: none;
     }
 
     /* main body container */
@@ -732,70 +820,70 @@
     .report-main-content,
     .member-main-content,
     .setting-main-content,
-    .main-content{
+    .main-content {
        margin-left: 40px;
        width: calc(100% - 40px);
     }
+
     /* header part */
     .book-main-content .admin-header,
     .main-content .admin-header,
     .report-main-content .admin-header,
     .theme-main-content .admin-header,
     .member-main-content .admin-header,
-    .setting-main-content .admin-header{
+    .setting-main-content .admin-header {
         height: 36px;
+        gap: 0.4rem;
     }
+
     .admin-header .search-bar { 
-    width: 300px;
-    max-width: 300px ;
-    height: 20px;
-    margin-left: 1rem;
+        width: 100%; 
+        max-width: 300px;
+        height: 26px;
+        margin-left: 1rem;
     }
 
     .admin-header .search-bar > input {
-        font-size: 7px;
-        padding-left: 1.4rem;
-    }
-    .admin-header .search-bar .fa-search{
-    font-size: 0.4rem;
-    margin-left: -0.2rem;
+        font-size: 10px;
+        padding-left: 1.7rem;
     }
 
-    .admin-header .search-bar .close-icon{
-        font-size: 0.4rem;
+    .admin-header .search-bar .fa-search {
+        font-size: 0.8rem;
+        margin-left: -0.2rem;
+    }
+
+    .admin-header .search-bar .close-icon {
+        font-size: 0.6rem;
         margin-right: -0.2rem;
     } 
 
-    .admin-header .search-bar .searchResult{
-        height: 26vh;
-        margin-top: -1rem;
+    .admin-header .search-bar .searchResult {
+        margin-top: -0.6rem;
     }
 
-    .search-item{
-        font-size: 6px;
+    .search-item {
+        font-size: 8px;
+        gap: 0;
+        padding: 0.5rem 0.2rem;
+    }
 
-        >i{
-            font-size: 6px;
-        }
+    .search-item > i {
+        font-size: 9px;
     }
-    .book-main-content .admin-header,
-    .main-content .admin-header,
-    .theme-main-content .admin-header,
-    .report-main-content .admin-header,
-    .member-main-content .admin-header,
-    .setting-main-content .admin-header{
-        gap: 0.4rem;
+
+    .admin-header .profile-container {
+        margin-right: 1rem;
+        width: 28px;
+        height: 28px;
     }
-    .admin-header .profile-container{
-        margin-right: 1.8rem;
-        width: 26px;
-        height: 26px;
-    }
-    .admin-header .calender{
-        font-size: 5px;
+
+    .admin-header .calender {
+        font-size: 8px;
         margin-right: 0;
     }
-    .admin-header .calender .divider-line{
+
+    .admin-header .calender .divider-line {
         display: none;
     }
 }

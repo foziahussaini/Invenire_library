@@ -189,7 +189,7 @@
 
 
     /* ==================== SIZE VARIABLES ==================== */
-
+    --header-height: 90px;
     --main-header-height: 85px;
 
     --main-font-size: 16px;

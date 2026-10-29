@@ -1,0 +1,43 @@
+@media (max-width: 1400px) {
+
+}
+
+/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
+@media (max-width: 1024px) {
+    .card7, .card8 {
+        grid-column: span 8;
+    }
+}
+
+@media (max-width: 640px) {
+    .book-row-item, .member-row-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--card-head-smooth-background-color);
+    }
+    .progress-and-details, .progress-details, .popular-book-details, .member-details {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+}
+
+/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
+@media (max-width: 1024px) {
+    .card5, .card6 {
+        grid-column: span 8;
+    }
+}
+
+@media (max-width: 480px) {
+    .traffic-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .traffic-toggle-tabs {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}

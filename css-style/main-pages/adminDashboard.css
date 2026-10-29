@@ -21,8 +21,8 @@ body{
 /* sidebar layout */
 .sidebar{
     position: fixed;
-    width: 160px;
-    max-width: 160px;
+    width: 200px;
+    max-width: 200px;
     height: 100vh;
     background: var(--header-background-color);
     display: block;
@@ -36,13 +36,13 @@ body{
 
 .sidebar .logo{
     width: 100%;
-    height: var(--main-header-height);
+    height: var(--header-height);
     justify-content: center;
     display: flex;
     align-items: center;
     
     >img{
-        width: 180px;
+        width: 200px;
         height: 150px;
     }
 }
@@ -92,8 +92,8 @@ body{
 }
 
 .logout{
-    margin-top: 2.8rem;
-    width: 120px;
+    margin-top: 3rem;
+    width: 150px;
     height: 40px;
     background: var(--btn-background-color);
     color: var(--btn-text-color);
@@ -113,8 +113,8 @@ body{
 
 /* ==================================MAIN CONTENT LAYOUT====================================== */
 .main-content {
-    margin-left: 160px;
-    width: calc(100% - 160px);
+    margin-left: 200px;
+    width: calc(100% - 200px);
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -126,21 +126,22 @@ body{
 /* ==================================HEADER====================================== */
 .admin-header{
     width: 100%;
-    height: var(--main-header-height);
+    height: var(--header-height);
     background: var(--header-background-color);
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: space-around;
+    gap: 1rem;
     font-size: var(--header-font-size);
     color: var(--main-text-color);
 }
 /* ===============================SEARCH BAR PART========================================= */
 .admin-header .search-bar { /* its the searchbar container */
     position: relative;
-    width: 640px;
-    max-width: 640px;
-    height: 40px;
+    width: 100%;
+    max-width: 720px;
+    height: 50px;
     border-radius: var(--input-border-radius);
     display: inline-flex;
     align-items: center;
@@ -155,7 +156,7 @@ body{
     border-radius: var(--input-border-radius);
     background-color: transparent;
     color: var(--input-text-color);
-    font-size: var(--main-font-size);
+    font-size: var(--btn-font-size);
     transition: border-color 0.2s ease;
 }
 
@@ -171,6 +172,7 @@ body{
     transform: translateY(-50%);
     color: var(--btn-background-color);
     z-index: 20;
+    font-size: 1.6rem;
     pointer-events: none; 
 }
 
@@ -183,7 +185,7 @@ body{
     cursor: pointer;
     color: var(--btn-background-color);
     z-index: 20;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     transition: color 0.15s ease;
 }
 
@@ -195,17 +197,16 @@ body{
 .admin-header .search-bar .searchResult {
     position: absolute;
     flex-direction: column;
-    top: 42px; 
+    top: 3.1rem; 
     left: 0;
     width: 100%;
-    height: 80vh;
+    height: auto;
     background: var(--footer-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
     box-shadow: var(--default-box-shadow);
     z-index: 20; 
-    max-height: 80vh;
     overflow: none;
     box-sizing: border-box;
     display: none;
@@ -217,7 +218,7 @@ body{
     align-items: center;
     gap: 0.9rem;
     cursor: pointer;
-    font-size: var(--min-font-size);
+    font-size: var(--main-font-size);
     color: var(--main-text-color);
     border-bottom: var(--default-border);
     transition: background-color 0.15s ease;
@@ -327,7 +328,7 @@ body{
     align-items: flex-start;
     gap: 0.8rem;
     padding: var(--text-padding);
-    font-size: var(--min-font-size);
+    font-size: var(--btn-font-size);
     font-weight: bold;
     margin-right: -5rem;
     flex-shrink: 0;
@@ -342,8 +343,8 @@ body{
     align-items: center;
 }
 .admin-header .profile-container {
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     margin-right: -2rem;
     overflow: hidden;
@@ -444,7 +445,8 @@ body{
 }
 
 .checkout-btn{
-    width: 180px;
+    width: 100%;
+    max-width: 180px;
     height: 40px;
     background: var(--btn-background-color);
     color: var(--btn-text-color);
@@ -470,6 +472,7 @@ body{
     gap: 0.8rem;
     width: 100%;
     padding: var(--card-padding);
+    box-sizing: border-box;
 }
 
 .card{
@@ -477,22 +480,23 @@ body{
     border-radius: var(--main-border-radius);
     box-shadow: var(--card-box-shadow);
     padding: var(--card-padding);
-    width: 250px;
-    height: 190px;
+    width: 100%;
+    min-height: 190px;
+    height: auto;
     perspective: 1000px;
     transition: background 0.3s ease; 
+    box-sizing: border-box;
 }
 
 .card:hover{
     background: var(--card-hover-background-color);
     animation: microVibrate 1s linear;
-
 }
 
 @keyframes microVibrate {
     0% { transform: translate(0, 0); }
-    50% { transform: translate(-2px); }
-    100% { transform: translate(1px); }
+    50% { transform: translate(-2px, 0); }
+    100% { transform: translate(1px, 0); }
 }
 
 .card:nth-child(-n+4){
@@ -508,9 +512,11 @@ body{
     overflow: hidden;
     color: var(--main-text-color);
     gap: 0.5rem;
+    width: 100%;
+    height: 100%;
 }
 
-.head-icons{display: flex; justify-content: space-between; align-items: center;}
+.head-icons{display: flex; justify-content: space-between; align-items: center; width: 100%;}
 .head-icons .percentage{
     font-size: 12px; 
     font-weight: 600;
@@ -531,19 +537,20 @@ body{
     height: 30px;
     margin-top: 0.4rem;
     border-radius: 50%;
-    background: transparent;
     background-color: var(--icon-background-color);
-    padding: 2px;
     box-shadow: var(--icon-box-shadow);
+}
     
-    > i{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 28px;
-        height: 28px;
-        color: var(--premium-icon-color);
-    }
+.card1 .head-icons .icon > i,
+.card2 .head-icons .icon > i,
+.card3 .head-icons .icon > i,
+.card4 .head-icons .icon > i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    color: var(--premium-icon-color);
 }
 
 .card1 p, .card2 p, .card3 p, .card4 p{
@@ -558,11 +565,14 @@ body{
     width: 100%;
     display: flex;
     height: 55px;
+}
 
-    > i{
-        width: auto;
-        font-size: 2rem;
-    }
+.card1 .analysis-line > i,
+.card2 .analysis-line > i,
+.card3 .analysis-line > i,
+.card4 .analysis-line > i{
+    width: auto;
+    font-size: 2rem;
 }
 
 /* ======================CONTROL THE CHART LINE COLOR =============== */
@@ -604,43 +614,58 @@ body{
     box-shadow: var(--card-box-shadow);
 }
 
+/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
+@media (max-width: 1024px) {
+    .form-group {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .form-group {
+        grid-template-columns: 1fr;
+    }
+    .card:nth-child(-n+4) {
+       grid-column: span 1;
+    }
+}
+
 
 /* =============================CHART BAR CARD5 PART=========================================  */
 .card5 {
     grid-column: span 4;
     grid-row: span 2;
-    width: 520px;
-    height: 300px;
+    width: 100%;
+    min-height: 300px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    max-width: 520px;
 }
 
 .traffic-card-header {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
     margin-top: 0.4rem;
     gap: 0.6rem;
+    width: 100%;
 }
 
-/* Title Label Text */
 .title-main {
     font-size: var(--min-font-size);
     font-weight: 600;
     color: var(--main-text-color);
 }
 
-/* Peak Highlight Indicator Badge */
 .latestTime-peak {
-    width: 70px;
-    max-width: 70px;
+    width: auto;
+    min-width: 70px;
     font-size: 10px; 
     font-weight: 600;
-    align-items: center;
     text-align: center;
     border-radius: var(--btn-border-radius);
-    padding: 4px;
+    padding: 4px 8px;
     background-color: var(--card-head-smooth-background-color);
 }
 
@@ -650,15 +675,12 @@ body{
     box-shadow: var(--card-box-shadow);
 }
 
-/* Toggle Tabs Button Row */
 .traffic-toggle-tabs {
     display: flex;
     gap: 0.3rem;
     border-radius: var(--btn-border-radius);
-    align-self: center;
 }
 
-/* Individual Interactive Filter Buttons */
 .traffic-toggle-tabs .tab-btn {
     padding: var(--text-padding);
     background: transparent;
@@ -674,7 +696,6 @@ body{
     border: 0.9px solid var(--hover-text-color);
 }
 
-/* Active Selected Tab Interaction Color Override */
 .traffic-toggle-tabs .tab-btn.active {
     background: var(--btn-background-color);
     color: var(--btn-text-color);
@@ -682,26 +703,23 @@ body{
     font-weight: 600;
 }
 
-/* Details Subtitle Text */
 .details {
-    grid-column: 1;
     font-size: 11px;
     color: var(--input-text-color);
-    margin-top: -0.7rem;
+    margin-top: 0.2rem;
+    width: 100%;
 }
 
-/* Core Chart Visualizer Grid Wrapper */
 .traffic-chart {
     display: flex;
     align-items: flex-end;
     gap: 0.4rem;
     height: 210px; 
     width: 100%;
-    margin-top: 0.5rem;
-    padding-top: 0;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
-/* Individual Vertical Visual Columns */
 .chart-column {
     display: flex;
     flex-direction: column;
@@ -711,7 +729,6 @@ body{
     justify-content: flex-end;
 }
 
-/* Background tracks holding individual bars */
 .bar-wrapper {
     height: 85%;
     width: 100%;
@@ -721,23 +738,22 @@ body{
     border-radius: var(--btn-border-radius);
 }
 
-/* Default Active Data Bar Pillars */
 .chartBar {
-    width: 50%;
+    width: 100%;
+    max-width: 30px;
     background: var(--normal-chart-background-color);
-    border-radius:var(--card-border-radius);
+    border-radius: var(--card-border-radius);
     transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
 }
 
-/* Special Class Assigned Autonomously to Peak Element Metric Items */
 .chartBar.highestBar {
     background: var(--highest-chart-background-color);
 }
 
 .chartBar.lowestBar{
-    background:var(--lowest-chart-background-color) ;
+    background: var(--lowest-chart-background-color);
 }
-/* Bottom Chart Baseline Labeling Strings */
+
 .bar-label {
     font-size: 9px;
     font-weight: 500;
@@ -749,9 +765,9 @@ body{
 
 /* =======================================CARD6 LAYOUT================================= */
 .card6 {
-    width: 520px;
-    max-width: 520px;
-    height: 300px;
+    width: 100%;
+    min-height: 300px;
+    height: auto;
     grid-column: span 4;
     grid-row: span 2;
     display: flex;
@@ -763,6 +779,7 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
 }
 
 .title-group {
@@ -781,13 +798,10 @@ body{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background: transparent;
     background-color: var(--icon-background-color);
-    padding: 4px;
     box-shadow: var(--icon-box-shadow);
     width: 28px;
     height: 28px;
-    
 }
 
 .card-title {
@@ -799,14 +813,12 @@ body{
 .card-subtitle {
     font-size: 11px;
     color: var(--input-text-color);
-    margin-left: 2.1rem;
+    margin-top: 0.2rem;
 }
 
-/* Growth Badge Component */
 .growth-badge {
     font-size: 12px; 
     font-weight: 600;
-    margin-top: 0.3rem;
     border-radius: var(--btn-border-radius);
     padding: 4px 6px;
     background-color: var(--card-head-smooth-background-color);
@@ -823,10 +835,12 @@ body{
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  width: 100%;
 }
 
 .donut-chart {
-  width: 145px;
+  width: 100%;
+  max-width: 145px;
   height: 145px;
   border-radius: 50%;
   background: conic-gradient(
@@ -835,19 +849,20 @@ body{
     #0ea5e9 85% 98%, 
     #e2e8f0 98% 100%
   );
-  
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
 
-/* Inner Cutout Mask to turn the circle into a hollow donut */
 .donut-chart::after {
   content: "";
   position: absolute;
-  width: 132px;
-  height: 132px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 13px);
+  height: calc(100% - 13px);
   background: var(--card-background-color);
   border-radius: 50%;
   z-index: 1;
@@ -882,6 +897,8 @@ body{
   font-weight: 600;
   border-top: 1px dashed var(--input-text-color);
   padding-top: 12px;
+  width: 100%;
+  margin-top: auto;
 }
 
 .card:hover .purchased-book-size{
@@ -892,9 +909,9 @@ body{
 .card7 {
     grid-column: span 5;
     grid-row: span 2;
-    width: 645px;
-    height:auto;
-    min-height: 420px auto;
+    width: 100%;
+    height: auto;
+    min-height: 200px auto;
     display: flex;
     flex-direction: column;
 }
@@ -905,15 +922,16 @@ body{
     justify-content: space-between;
     align-items: center;
     color: var(--main-text-color);
+    width: 100%;
+}
 
-    > .view-all-link {
-        font-size: 12px; 
-        font-weight: 600;
-        margin-top: 0.3rem;
-        border-radius: var(--btn-border-radius);
-        padding: 6px;
-        background-color: var(--card-head-smooth-background-color);
-    }
+.popular-card-header .view-all-link {
+    font-size: 12px; 
+    font-weight: 600;
+    margin-top: 0.3rem;
+    border-radius: var(--btn-border-radius);
+    padding: 6px;
+    background-color: var(--card-head-smooth-background-color);
 }
 
 .card:hover .view-all-link,
@@ -932,19 +950,21 @@ body{
 }
 
 .books-list-container {
-    width: 600px;
+    width: 100%;
     padding: 4px;
     margin-top: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
 }
 
 .book-row-item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: row;
-    gap: 1.4rem;
-    width: 580px;
-    max-width: 580px;
+    gap: 1rem;
+    width: 100%;
 }
 
 .book-row-item:last-child {
@@ -955,13 +975,12 @@ body{
     font-size: 10px;
     font-weight: 600;
     color: var(--main-text-color);
+    flex-shrink: 0;
 }
 
 .book-icon {
     width: 30px ;   
     height: 30px;  
-    max-width: 30px !important;
-    max-height: 30px !important;
     border-radius: 50%;
     box-shadow: var(--icon-box-shadow);
     position: relative;
@@ -970,15 +989,15 @@ body{
     align-items: center;
     justify-content: center;
     background-color: var(--icon-background-color);
+    flex-shrink: 0;
+}
 
-    >.icon {
-    max-width: 30px !important;
+.book-icon .icon {
     width: 30px !important;
     height: 30px !important;
     display: flex;
     align-items: center;
     justify-content: center;
-}
 }
 
 .popular-book-details{
@@ -986,8 +1005,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    width: 230px;
-    max-width: 230px;
+    flex: 1;
+    min-width: 0;
     padding: 0 0.4rem;
 }
 
@@ -996,31 +1015,33 @@ body{
     font-weight: 700;
     color: var(--main-text-color);
     white-space: nowrap;
-    /* overflow: hidden; */
+    overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }
 
 .popular-book-author {
     font-size: 11px;
     color: var(--input-text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .progress-and-details {
-    width: 220px;
-    max-width: 220px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    gap: 2px;
-    margin-right: 1rem;
+    flex: 1.5;
+    min-width: 0;
+    gap: 4px;
 }
 
 .progress-container {
     background: var(--normal-chart-background-color);
     height: 4px;
     border-radius: 10px;
-    width: 220px;
-    max-width: 220px;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -1042,9 +1063,9 @@ body{
 .card8{
     grid-column: span 3;
     grid-row: span 2;
-    width: 385px;
+    width: 100%;
     height: auto;
-    min-height: 300px auto;
+    min-height: 200px auto;
     display: flex;
     flex-direction: column;
 }
@@ -1055,14 +1076,15 @@ body{
     justify-content: space-between;
     align-items: center;
     color: var(--main-text-color);
+    width: 100%;
+}
 
-    > .active-badge {
-        font-size: 10px; 
-        font-weight: 600;
-        border-radius: var(--btn-border-radius);
-        padding: 6px;
-        background-color: var(--card-head-smooth-background-color);
-    }
+.card8 .member-card-header .active-badge {
+    font-size: 10px; 
+    font-weight: 600;
+    border-radius: var(--btn-border-radius);
+    padding: 6px;
+    background-color: var(--card-head-smooth-background-color);
 }
 
 .member-title {
@@ -1074,74 +1096,83 @@ body{
     color: var(--input-text-color); 
     font-size: 10px;
 }
+
 .member-list-container{
-    width: 340px;
-    max-width: 340px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    /* background-color: #0056b3; */
     padding: 0.8rem 0;
+    gap: 0.8rem;
 }
+
 .member-row-item{
-    max-width: 330px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .member-icon{
     width: 30px;
     height: 30px;
+    flex-shrink: 0;
+}
 
-    >.i{
-        width: 28px;
-        height: 28px;
-    }
+.member-icon .i{
+    width: 28px;
+    height: 28px;
 }
 
 .member-details{
-    width: 130px;
-    max-width: 130px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    padding: 0.4rem;
+    flex: 1;
+    min-width: 0;
+    padding: 0 0.4rem;
 }
 
 .member-name{
     font-weight: 600;
     color: var(--main-text-color);
     font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .location{
     font-size: 8px;
     color: var(--input-text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .progress-details{
-    width: 165px;
-    max-width: 165px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    flex: 1.2;
+    min-width: 0;
+    gap: 4px;
 }
 
 .progress-bar{
     background: var(--normal-chart-background-color);
     height: 4px;
     border-radius: 10px;
-    width: 165px;
-    max-width: 165px;
+    width: 100%;
     overflow: hidden;
+}
 
-    >.progress-line{
-        background: var(--highest-chart-background-color);
-        height: 100%;
-        border-radius: 10px;
-        width: 0%;
-        transition: width 0.6s ease-in-out;
-    }
+.progress-bar .progress-line{
+    background: var(--highest-chart-background-color);
+    height: 100%;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.6s ease-in-out;
 }
 
 .login-details{
@@ -1150,10 +1181,6 @@ body{
     color: var(--input-text-color);
 }
 
-/* =============================SECTION3 A BANNER PART=========================================  */
-.section3{
-
-}
 /* =============================FOOTER PART=========================================  */
 .dashboard-footer{
     width: 100%;
