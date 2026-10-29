@@ -1,43 +1,310 @@
-@media (max-width: 1400px) {
+/* ============================ RESPONSIVE MEDIA QUERIES (dashboard item page) ================================== */
+@media (max-width: 1130px) {
+    .books-table th:first-child{width: 200px !important;}
+.books-table td:first-child {
+    width: 200px !important;
+}
+.table-row {
+font-size: 0.6rem;
+}
+.book-title {
+    font-size: 12px;
+}
+.book-date, .book-edition {
+    font-size: 10px;
+    font-weight: normal;
+}
+}
+/* ==================================== RESPONSIVE FLIPPED COLUMN LAYOUT ==================================== */
+@media (max-width: 1024px) {
+    .books-table th:first-child,
+    .books-table td:first-child {
+        width: 100% !important;
+    }
 
+    .books-table {
+        display: flex;
+        flex-direction: row; 
+        border-collapse: separate;
+        padding: 0 !important;     
+        overflow-x: auto;          
+        box-sizing: border-box;
+    }
+
+    .books-table thead {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        position: sticky;          
+        left: 0;
+        z-index: 10;
+        box-shadow: 4px 0 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .books-table thead tr {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 130px !important;
+    }
+
+    .table-header th {
+        display: flex;
+        align-items: center;
+        height: 55px;
+        padding: 0.8rem !important;
+        font-size: 11px;
+        font-weight: 700;
+        box-sizing: border-box;
+    }
+
+    .table-header th:nth-child(8) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .books-table-body {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+    }
+
+    .table-row {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        width: 160px !important; 
+        border-right: 1px solid #cfcfd0;
+        border-bottom: none;
+    }
+
+    .table-row td {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 55px; 
+        padding: 0.5rem 0.8rem !important;
+        border-bottom: 1px solid #cfcfd0;
+        width: 100% !important;
+        background-color: var(--card-background-color) !important; 
+        box-sizing: border-box;
+    }
+
+    .table-row td input[type="checkbox"] {
+        margin: 0 auto !important;
+        display: block;
+        width: 16px !important;
+        height: 16px !important;
+        flex-shrink: 0;
+    }
+
+    .table-row td button {
+        margin-top: 0.8rem;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .table-row td:last-child {
+        justify-content: center !important; 
+        align-items: center !important;
+        border-bottom: none;
+        margin-top: 0 !important; 
+    }
+
+    .books-table {
+        height: auto;
+    }
+
+    tfoot {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 40px !important;
+        height: 400px !important;
+        margin: 1rem;             
+        float: inline-start;       
+    }
+
+    .delete-all-btn {
+        width: 100px !important;
+        height: 40px !important;
+        transform: rotate(90deg);
+        transform-origin: center center;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    /* book adding card */
+    .add-book-form{
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    .form-grid{
+        padding: 1.2rem;
+    }
 }
 
-/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
-@media (max-width: 1024px) {
+@media (max-width: 991px) {
+    .card:nth-child(-n+4){
+        grid-column: span 4;
+    }
+    .card5, .card6,
     .card7, .card8 {
         grid-column: span 8;
     }
 }
 
-@media (max-width: 640px) {
-    .book-row-item, .member-row-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.4rem;
-        padding-bottom: 0.6rem;
-        border-bottom: 1px solid var(--card-head-smooth-background-color);
+/* ========870px========= */
+@media (max-width: 870px) {
+    /* book adding card */
+    .add-book-form {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem;
     }
-    .progress-and-details, .progress-details, .popular-book-details, .member-details {
+    
+    .form-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 1rem;
+    }
+
+    .form-group {
         width: 100%;
-        max-width: 100%;
-        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.6rem;
+        font-size: 12px;
+    }
+    .btns {
+        margin-top: -1rem;
     }
 }
 
-/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
-@media (max-width: 1024px) {
-    .card5, .card6 {
-        grid-column: span 8;
+
+@media (max-width: 678px) {
+    .headline{
+        font-size: var(--main-font-size);
+    }
+
+    .checkout-btn{
+    max-width: 150px;
     }
 }
+
+@media (max-width: 580px) {
+       .headline{
+        font-size: var(--min-font-size);
+    }
+
+    .checkout-btn{
+    max-width: 100px;
+     font-size: var(--min-font-size);
+    }
+
+    .card1 .analysis-line > i,
+.card2 .analysis-line > i,
+.card3 .analysis-line > i,
+.card4 .analysis-line > i{
+    width: auto;
+    font-size: 1rem;
+}
+     .card:nth-child(-n+4){
+        grid-column: span 8;
+    }
+
+    .popular-card-header .view-all-link {
+        font-size: 10px; 
+    font-weight: 500;
+    padding: 5px;
+    }
+
+    .popular-sub-title {
+    font-size: 9px;
+}
+
+.books-list-container {
+    gap: 0.5rem;
+     padding: 4px 2px;
+}
+
+.book-row-item {
+    gap: 0.6rem;
+}
+.book-icon {
+    display: none;
+}
+
+.popular-book-title {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.popular-book-author {
+    font-size: 10px;
+ 
+}
+
+.member-row-item{
+    gap: 0.6rem;
+}
+
+}
+/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
 
 @media (max-width: 480px) {
     .traffic-card-header {
-        flex-direction: column;
         align-items: flex-start;
+        gap: 0.3rem;
     }
+    .traffic-toggle-tabs .tab-btn {
+    padding: 0.4rem;
+    }
+   
     .traffic-toggle-tabs {
         width: 100%;
         justify-content: flex-start;
     }
+    .chartBar {
+    max-width: 20px;
+    }
+
+    
+    .popular-sub-title {
+      display: none;
+    }
+   
+
 }
+
+@media (max-width: 380px) {
+    .member-name{
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .location{
+        font-size: 8px;
+    }
+}
+
+/* ============================ RESPONSIVE MEDIA QUERIES (book item page)================================== */

@@ -1,25 +1,31 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    overflow-x: none;
-    width: 100% auto;
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
     background-color: var(--main-background-color);
     color: var(--main-text-color);
     font-size: var(--main-font-size);
 }
 
-.dashboard-container{
+.dashboard-container {
     width: 100%;
-    height: 100% auto;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    height: auto;
 }
 
 /* sidebar layout */
-.sidebar{
+.sidebar {
     position: fixed;
     width: 200px;
     max-width: 200px;
@@ -34,20 +40,20 @@ body{
     z-index: 1000;
 }
 
-.sidebar .logo{
+.sidebar .logo {
     width: 100%;
     height: var(--header-height);
     justify-content: center;
     display: flex;
     align-items: center;
-    
-    >img{
-        width: 200px;
-        height: 150px;
-    }
 }
 
-.sidebar-menu{
+.sidebar .logo img {
+    width: 200px;
+    height: 150px;
+}
+
+.sidebar-menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,42 +62,42 @@ body{
     gap: 1rem;
 }
 
-.sidebar-menu .menu-item{
+.sidebar-menu .menu-item {
     width: 100%;
     color: var(--main-text-color);
     gap: 0.8rem;
     display: flex;
-    cursor : pointer;
+    cursor: pointer;
     font-size: var(--main-font-size);
 }
 
-.sidebar-menu .menu-item .menu-text{
+.sidebar-menu .menu-item .menu-text {
     text-decoration: none;
     display: flex;
     gap: 1rem;
 }
 
-.sidebar-menu .menu-item .menu-icon{
-        font-size: 1.2rem;
+.sidebar-menu .menu-item .menu-icon {
+    font-size: 1.2rem;
 }
 
-.menu-item:hover{
+.menu-item:hover {
     color: var(--hover-text-color);
 }
 
-.menu-item.active{
+.menu-item.active {
     color: var(--hover-text-color);
     font-weight: bold;
     border-bottom: 1px solid var(--hover-text-color);
 }
 
 .menu-item.active .menu-icon,
-.menu-item.active .menu-text{
+.menu-item.active .menu-text {
     color: var(--hover-text-color);
     font-weight: bold;
 }
 
-.logout{
+.logout {
     margin-top: 3rem;
     width: 150px;
     height: 40px;
@@ -106,7 +112,7 @@ body{
     font-size: var(--btn-font-size);
 }
 
-.logout:hover{
+.logout:hover {
     background: var(--btn-hover-background-color);
     color: var(--btn-text-hover-color);
 }
@@ -120,7 +126,7 @@ body{
     flex-direction: column;
     box-sizing: border-box;
     background-color: var(--main-background-color);
-    min-height: 100vh;
+    height: auto;
 }
 
 /* ==================================HEADER====================================== */
@@ -197,16 +203,17 @@ body{
 .admin-header .search-bar .searchResult {
     position: absolute;
     flex-direction: column;
-    top: 3.1rem; 
+    top: 42px; 
     left: 0;
     width: 100%;
-    height: auto;
+    height: 80vh;
     background: var(--footer-background-color);
     border: var(--default-border);
     border-top: none;
     border-radius: var(--main-border-radius);
     box-shadow: var(--default-box-shadow);
-    z-index: 20; 
+    z-index: 1000; 
+    max-height: 80vh;
     overflow: none;
     box-sizing: border-box;
     display: none;
@@ -322,15 +329,16 @@ body{
 
 /* ===============================CALENDER========================================= */
 .admin-header .calender {
+    width: 180px auto;
+    max-width: 180px auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.8rem;
     padding: var(--text-padding);
-    font-size: var(--btn-font-size);
+    font-size: var(--min-font-size);
     font-weight: bold;
-    margin-right: -5rem;
     flex-shrink: 0;
 }
 
@@ -507,13 +515,11 @@ body{
 .card1, .card2, .card3, .card4{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    color: var(--main-text-color);
-    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: stretch; 
     width: 100%;
-    height: 100%;
+    min-height: 180px;    
+    height: auto;
 }
 
 .head-icons{display: flex; justify-content: space-between; align-items: center; width: 100%;}
@@ -565,6 +571,8 @@ body{
     width: 100%;
     display: flex;
     height: 55px;
+    padding-bottom: 1rem;
+    align-items: center;
 }
 
 .card1 .analysis-line > i,
@@ -613,23 +621,6 @@ body{
     background-color: transparent;
     box-shadow: var(--card-box-shadow);
 }
-
-/* ============================ RESPONSIVE MEDIA QUERIES ================================== */
-@media (max-width: 1024px) {
-    .form-group {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 640px) {
-    .form-group {
-        grid-template-columns: 1fr;
-    }
-    .card:nth-child(-n+4) {
-       grid-column: span 1;
-    }
-}
-
 
 /* =============================CHART BAR CARD5 PART=========================================  */
 .card5 {
@@ -709,15 +700,16 @@ body{
     margin-top: 0.2rem;
     width: 100%;
 }
-
 .traffic-chart {
     display: flex;
     align-items: flex-end;
-    gap: 0.4rem;
-    height: 210px; 
+    gap: 0.15rem;           
+    height: 180px; 
     width: 100%;
     margin-top: auto;
     padding-top: 1rem;
+    overflow-x: auto;       
+    white-space: nowrap;
 }
 
 .chart-column {
@@ -725,12 +717,13 @@ body{
     flex-direction: column;
     align-items: center;
     flex: 1;
+    min-width: 16px;        
     height: 100%;
     justify-content: flex-end;
 }
 
 .bar-wrapper {
-    height: 85%;
+    height: 80%;
     width: 100%;
     display: flex;
     align-items: flex-end;
@@ -740,24 +733,19 @@ body{
 
 .chartBar {
     width: 100%;
-    max-width: 30px;
+    max-width: 10px;       
     background: var(--normal-chart-background-color);
     border-radius: var(--card-border-radius);
     transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
 }
 
-.chartBar.highestBar {
-    background: var(--highest-chart-background-color);
-}
-
-.chartBar.lowestBar{
-    background: var(--lowest-chart-background-color);
-}
+.chartBar.highestBar { background: var(--highest-chart-background-color); }
+.chartBar.lowestBar { background: var(--lowest-chart-background-color); }
 
 .bar-label {
-    font-size: 9px;
+    font-size: 7px;         
     font-weight: 500;
-    margin-top: 8px;
+    margin-top: 4px;
     color: var(--input-text-color);
     text-align: center;
     white-space: nowrap;
@@ -1133,9 +1121,9 @@ body{
 }
 
 .member-name{
-    font-weight: 600;
+    font-weight: 700;
     color: var(--main-text-color);
-    font-size: 11px;
+    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1143,7 +1131,7 @@ body{
 }
 
 .location{
-    font-size: 8px;
+    font-size: 11px;
     color: var(--input-text-color);
     white-space: nowrap;
     overflow: hidden;

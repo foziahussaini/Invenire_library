@@ -57,6 +57,7 @@
         font-weight: 600;
     }
 
+    .book-main-content .admin-header,
     .admin-header{
         gap: 0;
     }
@@ -105,6 +106,7 @@
 }
 /* ======================================LARGE SIZE 1130PX============================== */
 @media (max-width: 1130px) {
+    .book-main-content .admin-header,
      .admin-header{
         height: var(--main-header-height);
     }
@@ -177,6 +179,7 @@
 
 /* ======================================LARGE SIZE 1024PX============================== */
 @media (max-width: 1024px) {
+    .book-main-content .admin-header,
     .admin-header{
         height: var(--main-header-height);
     }
@@ -240,6 +243,10 @@
 
 /* ====================================== SIZE 991PX====================================== */
 @media (max-width: 991px) {
+    .book-main-content .admin-header,
+    .admin-header{
+        height: var(--main-header-height);
+    }
     /* side bar menu */
     .book-sidebar,
     .sidebar {
