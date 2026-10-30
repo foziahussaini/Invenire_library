@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../css-style/sub-pages/admin_theme_setting.css">
     <!-- ===========responsive layout -->
     <link rel="stylesheet" href="../../responsive/dashboard/sidebar_profile_responsive.css">
+    <link rel="stylesheet" href="../../responsive/dashboard/admin_responsive.css">
     <!-- ==========search bar js link-->
     <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
@@ -113,160 +114,166 @@
                 </div>
             </header>
             <!-- Your main page content goes here -->
-            <div class="theme manage-size" id="manage-size">
-                    <div class="theme-head">
-                        <h2>Personalization</h2>
-                    </div>
-                    <div class="card-option-group">
-                        <h3>Text Font <hr></h3>
-                        <div class="cards-grid" id="sizeCardsContainer">
-                            <div class="visual-option-card" data-type="size" data-value="small">
-                                <div class="card-mini-preview size-preview-small">
-                                    <div class="mini-header">Header</div>
-                                    <div class="mini-text">Normal text
-                                        <div class="mini-btn">Button</div>
-                                    </div>
+            <div class="theme-manage-size" id="manage-size">
+                <div class="theme-head">
+                    <h2>Personalization</h2>
+                </div>
+                <div class="card-option-group">
+                    <h3>Text Font
+                        <hr>
+                    </h3>
+                    <div class="cards-grid" id="sizeCardsContainer">
+                        <div class="visual-option-card" data-type="size" data-value="small">
+                            <div class="card-mini-preview size-preview-small">
+                                <div class="mini-header">Header</div>
+                                <div class="mini-text">Normal text
+                                    <div class="mini-btn">Button</div>
                                 </div>
-                                <span class="option-label">Compact</span>
                             </div>
+                            <span class="option-label">Compact</span>
+                        </div>
 
-                            <div class="visual-option-card active" data-type="size" data-value="medium">
-                                <div class="card-mini-preview size-preview-medium">
-                                    <div class="mini-header">Header</div>
-                                    <div class="mini-text">Normal text
-                                        <div class="mini-btn">Button</div>
-                                    </div>
+                        <div class="visual-option-card active" data-type="size" data-value="medium">
+                            <div class="card-mini-preview size-preview-medium">
+                                <div class="mini-header">Header</div>
+                                <div class="mini-text">Normal text
+                                    <div class="mini-btn">Button</div>
                                 </div>
-                                <span class="option-label">Standard</span>
                             </div>
+                            <span class="option-label">Standard</span>
+                        </div>
 
-                            <div class="visual-option-card" data-type="size" data-value="large">
-                                <div class="card-mini-preview size-preview-large">
-                                    <div class="mini-header">Header</div>
-                                    <div class="mini-text">Normal text
-                                        <div class="mini-btn">Button</div>
-                                    </div>
+                        <div class="visual-option-card" data-type="size" data-value="large">
+                            <div class="card-mini-preview size-preview-large">
+                                <div class="mini-header">Header</div>
+                                <div class="mini-text">Normal text
+                                    <div class="mini-btn">Button</div>
                                 </div>
-                                <span class="option-label">Expanded</span>
                             </div>
+                            <span class="option-label">Expanded</span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card-option-group">
-                        <h3>Theme Style <hr></h3>
-                        <div class="cards-grid" id="styleCardsContainer">
-                            <div class="visual-option-card active" data-type="style" data-value="modern">
-                                <div class="card-mini-preview font-preview-modern">
-                                    <div class="mini-header">Modern</div>
-                                    <div class="mini-text">Clean
-                                        <div class="mini-btn">Action</div>
-                                    </div>
+                <div class="card-option-group">
+                    <h3>Text Style
+                        <hr>
+                    </h3>
+                    <div class="cards-grid" id="styleCardsContainer">
+                        <div class="visual-option-card active" data-type="style" data-value="modern">
+                            <div class="card-mini-preview font-preview-modern">
+                                <div class="mini-header">Modern</div>
+                                <div class="mini-text">Clean
+                                    <div class="mini-btn">Action</div>
                                 </div>
-                                <span class="option-label">Modern Clean</span>
                             </div>
+                            <span class="option-label">Modern Clean</span>
+                        </div>
 
-                            <div class="visual-option-card" data-type="style" data-value="cursive">
-                                <div class="card-mini-preview font-preview-cursive">
-                                    <div class="mini-header">Header</div>
-                                    <div class="mini-text">Cursive Style
-                                        <div class="mini-btn">Action</div>
-                                    </div>
+                        <div class="visual-option-card" data-type="style" data-value="cursive">
+                            <div class="card-mini-preview font-preview-cursive">
+                                <div class="mini-header">Header</div>
+                                <div class="mini-text">Cursive Style
+                                    <div class="mini-btn">Action</div>
                                 </div>
-                                <span class="option-label">Elegant Cursive</span>
                             </div>
+                            <span class="option-label">Elegant Cursive</span>
+                        </div>
 
-                            <div class="visual-option-card" data-type="style" data-value="tall">
-                                <div class="card-mini-preview font-preview-tall">
-                                    <div class="mini-header">HEADER</div>
-                                    <div class="mini-text">TALL STYLE
-                                        <div class="mini-btn">ACTION</div>
-                                    </div>
+                        <div class="visual-option-card" data-type="style" data-value="tall">
+                            <div class="card-mini-preview font-preview-tall">
+                                <div class="mini-header">HEADER</div>
+                                <div class="mini-text">TALL STYLE
+                                    <div class="mini-btn">ACTION</div>
                                 </div>
-                                <span class="option-label">Creative Tall</span>
                             </div>
+                            <span class="option-label">Creative Tall</span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="card-option-group">
-    <h3>Theme Color<hr></h3>
-    <div class="cards-grid" id="colorCardsContainer">
-        <div class="visual-option-card active" data-type="color" data-value="classic">
-            <div class="card-mini-preview theme-preview-classic">
-                <div class="mini-header">Classic</div>
-                <div class="mini-text">Gold Accents</div>
-                <div class="mini-palette">
-                    <span style="background: #704214;"></span>
-                    <span style="background: #b8860b;"></span>
+                <div class="card-option-group">
+                    <h3>Custome Color
+                        <hr>
+                    </h3>
+                    <div class="cards-grid" id="colorCardsContainer">
+                        <div class="visual-option-card active" data-type="color" data-value="classic">
+                            <div class="card-mini-preview theme-preview-classic">
+                                <div class="mini-header">Classic</div>
+                                <div class="mini-text">Gold Accents</div>
+                                <div class="mini-palette">
+                                    <span style="background: #704214;"></span>
+                                    <span style="background: #b8860b;"></span>
+                                </div>
+                                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
+                            </div>
+                            <span class="option-label">Classic Theme</span>
+                        </div>
+                        <div class="visual-option-card" data-type="color" data-value="dark">
+                            <div class="card-mini-preview theme-preview-dark">
+                                <div class="mini-header">Midnight</div>
+                                <div class="mini-text">Dark Mode</div>
+                                <div class="mini-palette">
+                                    <span style="background: #0f172a;"></span>
+                                    <span style="background: #38bdf8;"></span>
+                                </div>
+                                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
+                            </div>
+                            <span class="option-label">Dark Theme</span>
+                        </div>
+                        <div class="visual-option-card" data-type="color" data-value="light">
+                            <div class="card-mini-preview theme-preview-light">
+                                <div class="mini-header">Daylight</div>
+                                <div class="mini-text">Clean Light</div>
+                                <div class="mini-palette">
+                                    <span style="background: #ffffff; border: 1px solid #cbd5e1;"></span>
+                                    <span style="background: #2563eb;"></span>
+                                </div>
+                                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
+                            </div>
+                            <span class="option-label">Light Theme</span>
+                        </div>
+                        <div class="visual-option-card" data-type="color" data-value="neon">
+                            <div class="card-mini-preview theme-preview-neon">
+                                <div class="mini-header">Cyberpunk</div>
+                                <div class="mini-text">Glow Effect</div>
+                                <div class="mini-palette">
+                                    <span style="background: #00f2fe;"></span>
+                                    <span style="background: #f43f5e;"></span>
+                                </div>
+                                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
+                            </div>
+                            <span class="option-label">Neon Theme</span>
+                        </div>
+                        <div class="visual-option-card" data-type="color" data-value="chroma">
+                            <div class="card-mini-preview theme-preview-chroma">
+                                <div class="mini-header">Vibrant</div>
+                                <div class="mini-text">High Chroma</div>
+                                <div class="mini-palette">
+                                    <span style="background: #ff0844;"></span>
+                                    <span style="background: #ffb199;"></span>
+                                </div>
+                                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
+                            </div>
+                            <span class="option-label">Chroma Theme</span>
+                        </div>
+                        <div class="visual-option-card" data-type="color" data-value="pastel">
+                            <div class="card-mini-preview theme-preview-pastel">
+                                <div class="mini-header">Soothing</div>
+                                <div class="mini-text">Soft Pastel</div>
+                                <div class="mini-palette">
+                                    <span style="background: #e0c3fc;"></span>
+                                    <span style="background: #8ec5fc;"></span>
+                                </div>
+                                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
+                            </div>
+                            <span class="option-label">Pastel Theme</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
-            </div>
-            <span class="option-label">Classic Theme</span>
-        </div>
-        <div class="visual-option-card" data-type="color" data-value="dark">
-            <div class="card-mini-preview theme-preview-dark">
-                <div class="mini-header">Midnight</div>
-                <div class="mini-text">Dark Mode</div>
-                <div class="mini-palette">
-                    <span style="background: #0f172a;"></span>
-                    <span style="background: #38bdf8;"></span>
-                </div>
-                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
-            </div>
-            <span class="option-label">Dark Theme</span>
-        </div>
-        <div class="visual-option-card" data-type="color" data-value="light">
-            <div class="card-mini-preview theme-preview-light">
-                <div class="mini-header">Daylight</div>
-                <div class="mini-text">Clean Light</div>
-                <div class="mini-palette">
-                    <span style="background: #ffffff; border: 1px solid #cbd5e1;"></span>
-                    <span style="background: #2563eb;"></span>
-                </div>
-                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
-            </div>
-            <span class="option-label">Light Theme</span>
-        </div>
-        <div class="visual-option-card" data-type="color" data-value="neon">
-            <div class="card-mini-preview theme-preview-neon">
-                <div class="mini-header">Cyberpunk</div>
-                <div class="mini-text">Glow Effect</div>
-                <div class="mini-palette">
-                    <span style="background: #00f2fe;"></span>
-                    <span style="background: #f43f5e;"></span>
-                </div>
-                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
-            </div>
-            <span class="option-label">Neon Theme</span>
-        </div>
-        <div class="visual-option-card" data-type="color" data-value="chroma">
-            <div class="card-mini-preview theme-preview-chroma">
-                <div class="mini-header">Vibrant</div>
-                <div class="mini-text">High Chroma</div>
-                <div class="mini-palette">
-                    <span style="background: #ff0844;"></span>
-                    <span style="background: #ffb199;"></span>
-                </div>
-                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
-            </div>
-            <span class="option-label">Chroma Theme</span>
-        </div>
-        <div class="visual-option-card" data-type="color" data-value="pastel">
-            <div class="card-mini-preview theme-preview-pastel">
-                <div class="mini-header">Soothing</div>
-                <div class="mini-text">Soft Pastel</div>
-                <div class="mini-palette">
-                    <span style="background: #e0c3fc;"></span>
-                    <span style="background: #8ec5fc;"></span>
-                </div>
-                <div class="mini-btn" style="padding: 0.8rem; border-radius: 8px;">button</div>
-            </div>
-            <span class="option-label">Pastel Theme</span>
-        </div>
-    </div>
-</div>
 
 
-                    <button type="button" id="commitGlobalDashboardStylesBtn">Apply Changes</button>
+                <button type="button" id="commitGlobalDashboardStylesBtn">Apply Changes</button>
             </div>
 
             <!-- footer -->

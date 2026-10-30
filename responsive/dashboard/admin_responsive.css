@@ -3,6 +3,9 @@
         max-width: 1100px; 
     }
 
+    /* .theme-manage-size{
+        max-width: 1000px;
+    } */
 }
 
 @media screen and (max-width: 1280px) {
@@ -188,7 +191,7 @@ font-size: 0.6rem;
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
-        width: 160px !important; 
+        width: 190px !important; 
         border-right: 1px solid #cfcfd0;
         border-bottom: none;
     }
@@ -262,7 +265,26 @@ font-size: 0.6rem;
     }
 }
 
+/* ==================991px====== */
 @media (max-width: 991px) {
+    /* theme part */
+    .theme-manage-size .theme-head{
+    height: 50px;
+}
+
+.theme-manage-size h2 {
+    font-size: 1.8rem;
+}
+
+.visual-option-card {
+    flex-basis: calc((100% - 2rem)/2);
+}
+
+.card-mini-preview {
+    height: 160px;
+}
+
+/* cards pard */
     .card:nth-child(-n+4){
         grid-column: span 4;
     }
@@ -349,14 +371,97 @@ font-size: 0.6rem;
 
 
 @media (max-width: 678px) {
-     .books-table thead tr {
-        width: 100px !important;
-     }
+      /* theme part */
+    .theme-manage-size .theme-head{
+    height: 35px;
+}
 
-      .table-header th {
-        font-size: 10px;
-        font-weight: bold;
-      }
+.theme-manage-size h2 {
+    font-size: 1.4rem;
+}
+     .books-table thead tr {
+        width: 90px !important; 
+    }
+
+    .table-header th {
+        height: 38px !important;       
+        padding: 0.3rem 0.5rem !important; 
+        font-size: 9px !important;     
+    }
+
+    .book-title {
+         padding-top: 0.4rem;
+    font-weight: bold;
+}
+
+.book-author-sub{
+    font-size: 8px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+    .table-row td {
+        height: 38px !important;       
+        padding: 0rem 0.5rem !important; 
+        font-size: 10px !important;    /
+    }
+
+    .table-row td input[type="checkbox"] {
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+     .table-row td button {
+        margin-top: 0 !important;
+        padding: 0.2rem 0.4rem !important;
+        font-size: 0.8rem !important;
+    }
+
+     tfoot {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 30px !important;
+        height: 100px !important;
+        margin: 1rem;             
+        float: inline-start;       
+    }
+
+    .delete-all-btn {
+        font-size: 12px;
+        width: 100px !important;
+        height: 30px !important;
+        transform: rotate(90deg);
+        transform-origin: center center;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .book-form-card{
+        margin: 0.3rem 1.2rem;
+    }
+
+    .add-book-form{
+        margin: 0;
+    }
+
+    .form-grid{
+    padding: 0.6rem;}
+
+    .form-group .preview-image-row #cover-preview,
+.preview-image-row .second-img{
+    display: block;
+    max-width: 170px; 
+    width: 190px; 
+    max-height: 300px;
+    height: 180px; 
+    min-width: 90px; 
+    margin-top: 10px;
+    border-radius: var(--btn-border-radius);
+}
     
     .headline{
         font-size: var(--main-font-size);
@@ -428,6 +533,24 @@ font-size: 0.6rem;
 }
 
 @media (max-width: 580px) {
+       /* theme part */
+    .theme-manage-size .theme-head{
+    height: 30px;
+}
+
+.theme-manage-size h2 {
+    font-size: 1rem;
+}
+
+.card-mini-preview {
+    height: 140px;
+}
+
+.visual-option-card {
+    flex-basis: 100%;
+}
+
+/* cards */
        .headline{
         font-size: var(--min-font-size);
     }
@@ -502,14 +625,15 @@ thead .list-header th {
     }
 
     .member-row td:last-child > .details-btn {
-        width: 100% !important;
+        width: 70% !important;
         height: 26px !important;       
         font-size: 10px !important;
         padding: 0 !important;
     }
  .list-header {
         font-size: 10px;
-        width: 110px !important;
+        font-weight: normal;
+        width: 95px !important;
     }
 
     .member-detail-row4 p {

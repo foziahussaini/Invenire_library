@@ -347,6 +347,10 @@
         align-items: flex-start;
         font-size: 12px;
     }
+
+     .user-name { font-size: var(--min-font-size); font-weight: bold;}
+.user-email {  font-size: 10px }
+.user-id{display: none;}
 }
 
 /* ====================================== SIZE 768PX============================== */
@@ -661,6 +665,9 @@
         width: 20px;
         height: 8px;
     }
+.profile-dropDown {
+    width: 60%;    
+}
 }
 
 /* ====================================== SIZE 458PX ============================== */

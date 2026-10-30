@@ -376,7 +376,9 @@ body{
     position: fixed;
     top: 0;
     right: 0;
-    width: 350px; 
+    width: 35%;               
+    min-width: 200px;         
+    max-width: 100%;         
     height: 100vh;
     background: var(--footer-background-color);
     box-shadow: var(--default-box-shadow);
@@ -386,6 +388,7 @@ body{
     gap: 1.4rem;
     z-index: 2000; 
     overflow-y: auto; 
+    box-sizing: border-box;  
 }
 
 .close-btn {
@@ -810,20 +813,6 @@ label{
     background-color: var(--main-background-color) !important;
     border: 1px solid var(--fav-icon-color) !important;
     box-shadow: var(--card-box-shadow);
-}
-
-
-/* =================footer=================== */
-.book-footer {
-    width: 100%;
-    height: var(--main-header-height);
-    background: var(--footer-background-color);
-}
-.book-footer  .footer-text{
-    margin-top: 1rem;
-    font-weight: 500;
-    font-size: var(--header-font-size);
-    color: var(--footer-text-color);
 }
 
 /* =============================FOOTER PART=========================================  */

@@ -376,7 +376,9 @@ body{
     position: fixed;
     top: 0;
     right: 0;
-    width: 350px; 
+    width: 35%;               
+    min-width: 200px;         
+    max-width: 100%;         
     height: 100vh;
     background: var(--footer-background-color);
     box-shadow: var(--default-box-shadow);
@@ -386,6 +388,7 @@ body{
     gap: 1.4rem;
     z-index: 2000; 
     overflow-y: auto; 
+    box-sizing: border-box;  
 }
 
 .close-btn {
@@ -573,23 +576,25 @@ thead .list-header th {
 
     }
 }
+
 .feedback-cards {
     display: flex;
     flex-wrap: wrap; 
     gap: 1.5rem;     
-    margin: 0.8rem 3rem 0.2rem 3rem;
+    width: 100%;
+    max-width: calc(100% - 2.6rem); 
+    margin: 1rem auto;   
     padding: 0;
     box-sizing: border-box;
-    width: 900px auto;
-    max-width: 900px auto; 
 }
+
 
 /* each feedback card layout */
 .feedback-cards .feedback {
     display: flex;
     flex-direction: column; 
     justify-content: center;
-    flex: 1 1 calc(50% - 0.85rem); 
+    flex: 1 1 calc(50% - 0.95rem); 
     min-width: 300px;
     background-color: var(--card-background-color);
     color: var(--main-text-color);
@@ -671,10 +676,10 @@ thead .list-header th {
 }
 
 .member-details-container {
-    width: 900px auto;
-    max-width: 900px auto;
+    width: 100%;
+    max-width: calc(100% - 3rem);
     height: auto;
-    margin: 2rem 2rem 0 2rem;
+    margin: 2rem auto;
     padding: 1.5rem;
     display: flex;
     gap: 0.6rem;
