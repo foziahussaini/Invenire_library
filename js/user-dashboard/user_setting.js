@@ -1,45 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const menuItems = document.querySelectorAll(".menu-item");
-    const currentFile = window.location.pathname.split("/").pop();
-
-    menuItems.forEach(item => {
-        const link = item.querySelector("a");
-        if (!link) return;
-
-        const targetHref = link.getAttribute("href");
-
-        if (targetHref.includes(currentFile) && currentFile !== "") {
-            item.classList.add("active");
-        } else {
-            item.classList.remove("active");
-        }
-    });
-
-    
-const time = document.querySelector(".time");
-const date = document.querySelector(".date");
-
-function calender(){
-    const now = new Date();
-    
-time.textContent = now.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-});
-
-date.textContent = now.toLocaleDateString('en-US', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-});
-}
-
-calender();
-setInterval(calender, 1000);
-});
 import { db, auth } from "../../src/firebase-config.js";
-import { doc, updateDoc, deleteDoc } from "https://gstatic.com";
+import { doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import { updateEmail, updatePassword, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://gstatic.com";
 
 // Parse session attributes from local device storage cache
@@ -229,3 +189,44 @@ function clearSettingsErrors() {
 
 // Fire runtime configuration loops immediately on document tracking instantiation
 loadCurrentSettingsData();
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuItems = document.querySelectorAll(".menu-item");
+    const currentFile = window.location.pathname.split("/").pop();
+
+    menuItems.forEach(item => {
+        const link = item.querySelector("a");
+        if (!link) return;
+
+        const targetHref = link.getAttribute("href");
+
+        if (targetHref.includes(currentFile) && currentFile !== "") {
+            item.classList.add("active");
+        } else {
+            item.classList.remove("active");
+        }
+    });
+
+    
+const time = document.querySelector(".time");
+const date = document.querySelector(".date");
+
+function calender(){
+    const now = new Date();
+    
+time.textContent = now.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+});
+
+date.textContent = now.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+});
+}
+
+calender();
+setInterval(calender, 1000);
+});

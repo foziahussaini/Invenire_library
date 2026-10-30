@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../../css-style/sub-pages/admin-settings.css">
     <!-- ===========responsive layout -->
     <link rel="stylesheet" href="../../responsive/dashboard/sidebar_profile_responsive.css">
+    <link rel="stylesheet" href="../../responsive/dashboard/admin_responsive.css">
     <!-- ==========search bar js link-->
     <script type="module" src="../../js/dashboard/search_bar/search.js" defer></script>
     <script type="module" src="../../js/dashboard/search_bar/books_search.js" defer></script>
@@ -67,10 +68,10 @@
                         <span class="menu-text">Members</span></a>
                 </div>
                 <div class="menu-item" active data-route="Settings">
-                    <a class="menu-icon" href="settings.html">
+                    <a class="menu-icon" href="admin_setting.html">
                         <i class="fa-solid fa-cog "></i>
                     </a>
-                    <a href="settings.html">
+                    <a href="admin_setting.html">
                         <span class="menu-text">Settings</span></a>
                 </div>
                 <hr class="w-full h-px bg-gray-400 border-0">
@@ -127,8 +128,7 @@
                     <!-- Profile Image Blending Panel -->
                     <div class="settings-avatar-group">
                         <div class="avatar-preview-wrapper">
-                            <img id="settingsAvatarPreview" src="../../images/profile/female.jpg"
-                                alt="Profile Avatar" style="width:100px; height:100px; border-radius:50%;">
+                            <img id="settingsAvatarPreview" src="../../images/profile/female.jpg" alt="Profile Avatar">
                         </div>
                     </div>
                     <!-- Full Name Info Input -->
@@ -138,20 +138,20 @@
                         <span id="settingsFullNameError" class="error-message" style="display:none; color:red;"></span>
                     </div>
                     <div class="input-group">
-    <label for="genderDropdownBtn">Gender</label>
-    <div class="gender-dropdown">
-        <button type="button" class="dropdown-header form-input-dropdown" id="genderDropdownBtn">
-            <span id="selected-gender">Select your gender</span>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-        </button>
-        <input type="hidden" name="gender" id="genderHiddenInput" value="">
-        <ul class="dropdown-menu form-dropdown-menu" id="genderDropdownMenu">
-            <li data-value="male">Male</li>
-            <li data-value="female">Female</li>
-            <li data-value="other">Other</li>
-        </ul>
-    </div>
-</div>
+                        <label for="genderDropdownBtn">Gender</label>
+                        <div class="gender-dropdown">
+                            <button type="button" class="dropdown-header form-input-dropdown" id="genderDropdownBtn">
+                                <span id="selected-gender">Select your gender</span>
+                                <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                            </button>
+                            <input type="hidden" name="gender" id="genderHiddenInput" value="">
+                            <ul class="dropdown-menu form-dropdown-menu" id="genderDropdownMenu">
+                                <li data-value="male">Male</li>
+                                <li data-value="female">Female</li>
+                                <li data-value="other">Other</li>
+                            </ul>
+                        </div>
+                    </div>
 
                     <!-- Account Email String -->
                     <div class="input-group">
@@ -160,14 +160,34 @@
                         <span id="settingsEmailError" class="error-message" style="display:none; color:red;"></span>
                     </div>
 
-                    <!-- Security Password Reset Blocks -->
+                    <!-- Previous Password Input Block with Eye Toggle -->
                     <div class="input-group">
-                        <label>New Password (Leave blank to keep unchanged)</label>
-                        <input type="password" id="settingsNewPassword" placeholder="Minimum 8 characters">
+                        <label>Previous Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="settingsPrevPassword" placeholder="Enter current password">
+                            <button type="button" class="password-toggle-btn"
+                                onclick="togglePasswordVisibility('settingsPrevPassword', this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <span id="settingsPrevPasswordError" class="error-message"
+                            style="display:none; color:red;"></span>
+                    </div>
+                    <!-- New Password Reset Blocks with Eye Toggle -->
+                    <div class="input-group">
+                        <label>Add New Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="settingsNewPassword" placeholder="Minimum 8 characters">
+                            <button type="button" class="password-toggle-btn"
+                                onclick="togglePasswordVisibility('settingsNewPassword', this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
                         <span id="settingsPasswordError" class="error-message" style="display:none; color:red;"></span>
                     </div>
 
                     <button type="submit" class="save-settings-btn">Save Changes</button>
+
                 </form>
 
                 <hr>
@@ -178,7 +198,7 @@
                     <p>Once you delete your account, your profile records and tracking metrics will be wiped out from
                         the platform database completely. This action cannot be reversed.</p>
                     <button id="deleteAccountBtn" class="delete-account-btn"
-                        style="background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer;">Delete
+                        style="background-color: #dc3545; color: white; border: none; cursor: pointer;">Delete
                         Account</button>
                 </div>
             </div>

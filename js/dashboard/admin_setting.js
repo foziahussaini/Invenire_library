@@ -21,3 +21,21 @@ genderMenu?.querySelectorAll("li").forEach((item) => {
 document.addEventListener("click", () => {
     genderDropdown?.classList.remove("active");
 });
+
+// password visiblity
+window.togglePasswordVisibility = function (inputId, btnElement) {
+    const passwordInput = document.getElementById(inputId);
+    const icon = btnElement.querySelector('i');
+    
+    if (passwordInput && icon) {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+};

@@ -1,3 +1,116 @@
+@media screen and (max-width: 1400px) {
+    .settings-contain {
+        max-width: 1100px; 
+    }
+
+}
+
+@media screen and (max-width: 1280px) {
+    .settings-contain {
+        max-width: 1000px; 
+        
+        width: calc(100% - 3rem)
+    }
+}
+
+@media screen and (max-width: 1200px) {
+      .settings-contain {
+        max-width: 950px; 
+        width: calc(100% - 3rem)
+    }
+
+    .member-list-table {
+        display: flex !important;
+        flex-direction: row !important;
+        border-collapse: separate !important;
+        padding: 0 !important;
+        overflow-x: auto !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        table-layout: auto !important; 
+    }
+
+    thead {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-shrink: 0 !important;
+        position: sticky !important;
+        left: 0;
+        z-index: 10;
+        box-shadow: 4px 0 8px rgba(0, 0, 0, 0.08);
+        background: var(--highest-chart-background-color) !important;
+    }
+
+    .list-header {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        width: 140px !important;
+        border-bottom: none !important;
+    }
+
+    thead .list-header th {
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        height: 55px !important; 
+        padding: 0.8rem !important;
+        box-sizing: border-box !important;
+        border-bottom: 1px solid var(--btn-hover-background-color) !important;
+        border-right: 1px solid var(--btn-hover-background-color) !important;
+    }
+
+    .member-list-table th:nth-child(2) {
+        width: 100% !important; 
+    }
+
+    .member-table-body {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-grow: 1 !important;
+        background: transparent !important;
+    }
+
+    .member-row {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-shrink: 0 !important;
+        width: 200px !important; 
+        border-right: 1px solid var(--input-text-color) !important;
+        border-bottom: none !important;
+        height: auto !important;
+    }
+
+    .member-row td {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        height: 55px !important;
+        padding: 0.5rem 0.8rem !important;
+        border-bottom: 1px solid var(--input-text-color) !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        background-color: var(--card-background-color) !important;
+    }
+
+    .member-row td:first-child {
+        width: 100% !important;
+        font-weight: 600;
+    }
+    .member-row td:last-child {
+        justify-content: center !important;
+        align-items: center !important;
+        border-bottom: 1px solid var(--input-text-color) !important;
+    }
+
+    .member-row td:last-child > .details-btn {
+        width: 100% !important;
+        height: 34px !important;
+        margin: 0 !important;
+    }
+}
+
+
 /* ============================ RESPONSIVE MEDIA QUERIES (dashboard item page) ================================== */
 @media (max-width: 1130px) {
     .books-table th:first-child{width: 200px !important;}
@@ -157,10 +270,44 @@ font-size: 0.6rem;
     .card7, .card8 {
         grid-column: span 8;
     }
+
+       .settings-contain h2 {
+    font-size: 1.4rem;
+     margin-bottom: 0.4rem;
+    padding: 0.5rem 0.5rem 0.3rem 1rem;
+}
+    .dropdown-header.form-input-dropdown,
+.password-wrapper input ,
+.input-group input {
+     padding: 0.6rem 1.2rem;
+  
+}
 }
 
 /* ========870px========= */
 @media (max-width: 870px) {
+    /* setting part */
+    .settings-contain h2 {
+    font-size: 1.2rem;
+     margin-bottom: 0.4rem;
+    padding: 0.5rem 0.5rem 0.3rem 1rem;
+}
+
+.avatar-preview-wrapper {
+    width: 140px;
+    height: 140px;
+}
+
+.dropdown-header.form-input-dropdown,
+.password-wrapper input ,
+.input-group input {
+     padding: 0.4rem 1.2rem;
+     font-size: 12px;
+}
+
+.input-group input::placeholder {
+    font-size: 12px;
+}
     /* book adding card */
     .add-book-form {
         display: flex !important;
@@ -202,6 +349,15 @@ font-size: 0.6rem;
 
 
 @media (max-width: 678px) {
+     .books-table thead tr {
+        width: 100px !important;
+     }
+
+      .table-header th {
+        font-size: 10px;
+        font-weight: bold;
+      }
+    
     .headline{
         font-size: var(--main-font-size);
     }
@@ -209,6 +365,66 @@ font-size: 0.6rem;
     .checkout-btn{
     max-width: 150px;
     }
+       /* setting part */
+    .settings-contain h2 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+}
+.settings-avatar-group {
+    padding: 0.7rem 2rem;
+}
+
+.avatar-preview-wrapper {
+    width: 110px;
+    height: 110px;}
+
+    .input-group {
+    display: flex;
+    flex-direction: column;
+     gap: 0.4rem;
+    align-items: flex-start;
+    
+}
+.input-group input,
+.dropdown-header.form-input-dropdown span {
+     text-align: start; 
+}
+
+#settingsForm {
+    gap: 0.8rem;
+}
+.input-group label {
+     font-size: 10px;
+    font-weight: bold;
+}
+.input-group input::placeholder {
+    font-size: 10px;
+}
+.dropdown-header.form-input-dropdown,
+.password-wrapper input ,
+.input-group input {
+     padding: 0.5rem 1rem;
+     font-size: 10px;
+}
+
+    .save-settings-btn {
+         max-width: 380px;
+         font-size: 12px;
+    }
+
+    .delete-account-btn {
+        max-width: 180px;
+       font-weight: 600;
+    }
+
+    .danger-zone {
+    width: 100%;
+    max-width: calc(100% - 2rem); 
+    margin: 1.2rem auto; 
+    padding: 14px;
+}
+
 }
 
 @media (max-width: 580px) {
@@ -268,6 +484,61 @@ font-size: 0.6rem;
     gap: 0.6rem;
 }
 
+.member-list-table {
+    padding: 0.4rem;
+}
+
+thead .list-header th {
+        height: 38px !important;      
+        padding: 0.3rem 0.5rem !important; 
+}
+ .member-row td {
+        height: 38px !important;       
+        padding: 0.3rem 0.5rem !important; 
+        font-size: 11px !important;
+    }
+    .member-row td:last-child {
+        padding: 0.2rem 0.4rem !important;
+    }
+
+    .member-row td:last-child > .details-btn {
+        width: 100% !important;
+        height: 26px !important;       
+        font-size: 10px !important;
+        padding: 0 !important;
+    }
+ .list-header {
+        font-size: 10px;
+        width: 110px !important;
+    }
+
+    .member-detail-row4 p {
+        font-size: 0.5rem;
+    }
+
+    /* setting part */
+    .save-settings-btn {
+         max-width: 300px;
+         font-size: 12px;
+    }
+
+     .delete-account-btn {
+        max-width: 150px;
+       font-weight: 400;
+       padding: 6px 10px;
+    }
+.settings-avatar-group {
+    padding: 0.5rem 2rem;
+}
+
+.input-group {
+    padding: 0 0.8rem;
+}
+
+.avatar-preview-wrapper {
+    width: 100px;
+    height: 100px;}
+
 }
 /* ============================ RESPONSIVE MEDIA QUERIES ================================== */
 
@@ -292,8 +563,26 @@ font-size: 0.6rem;
     .popular-sub-title {
       display: none;
     }
-   
 
+    
+.danger-zone h3 {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.danger-zone p {
+    font-size: 10px;
+}
+
+ .save-settings-btn {
+         max-width: 300px;
+         font-size: 12px;
+    }
+
+    .delete-account-btn {
+        max-width: 130px;
+       font-size: 10px;
+    }
 }
 
 @media (max-width: 380px) {
@@ -305,6 +594,24 @@ font-size: 0.6rem;
     .location{
         font-size: 8px;
     }
+
+.danger-zone p {
+    font-size: 8px;
 }
 
-/* ============================ RESPONSIVE MEDIA QUERIES (book item page)================================== */
+ .save-settings-btn {
+         max-width: 200px;
+    }
+
+    .delete-account-btn {
+        max-width: 100px;
+    }
+
+    .settings-avatar-group {
+    padding: 0.3rem 1.5rem;
+}
+
+.avatar-preview-wrapper {
+    width: 80px;
+    height: 80px;}
+}

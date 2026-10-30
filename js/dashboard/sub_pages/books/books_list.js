@@ -328,9 +328,7 @@ function booksRowContent(booksArray) {
   setupTableActionListeners();
 }
 
-// =====================================================
-// ACTION LISTENERS
-// =====================================================
+// =====================================ACTION LISTENERS=============================================
 
 function setupTableActionListeners() {
   // EDIT ACTION HANDLER (unchanged)
